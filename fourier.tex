@@ -1,0 +1,782 @@
+% Copyright 2022 Kieran W Harvie. All rights reserved.
+\documentclass[12pt]{report}
+
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{amssymb}
+ 
+\usepackage[OT2,T1]{fontenc}
+
+\title{Fourier Notes}
+\date{Copyright \textcopyright  \today. All Rights Reserved.}
+\author{Kieran Harvie}
+
+\DeclareSymbolFont{cyrletters}{OT2}{wncyr}{m}{n}
+
+\DeclareMathOperator{\sinc}{sinc}
+\DeclareMathOperator{\Ai}{Ai}
+\DeclareMathSymbol{\Sha}{\mathalpha}{cyrletters}{"58}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\chapter{Fundamental}
+\section{Introduction}
+We want to understand Fourier, the basis of this understanding is a representation of the delta function.
+With a representation of the delta function so many transforms, like the trimetric functions, become trivial and theorems, like convulsion, inverse, shifting, become obvious.
+We expect the delta function to behave something like:
+\[\delta(x) = \int_{-\infty}^{\infty}a\exp(-bixt)\,dt\]
+Since when $x\neq 0$ over an infinite range all the phases sound cancel out.
+But when $x=0$ the integrand is constant meaning the integral infinite.
+
+To get values for $a,b$ we need to be more precise about what we mean by `infinite' and rigorous with our method.
+
+\section{Representation of the delta function}
+We may characterize the delta function by two of its properties
+\begin{enumerate}
+\item Zero at non-zero values, $x\neq 0 \rightarrow \delta(x) = 0$.
+\item Normalized on the real line, $\int_{-\infty}^{\infty}\delta(x) = 1$.
+\end{enumerate}
+Hence we approximate the delta function as the limit of normalized Gaussian as the standard deviation approaches $0$:
+\[\delta(x) = \lim_{t\rightarrow\infty}\frac{1}{\sqrt{2\pi}\sigma}\exp\left(-\frac{1}{2}\left(\frac{x}{\sigma}\right)^2\right)\]
+To this approximation consider the following integral:
+\begin{equation*}
+\begin{aligned}
+	&\int_{-\infty}^{\infty}\exp(-\alpha t^2) \exp(-ixt)\,dt \\
+	=&\int_{-\infty}^{\infty}\exp\left(-\alpha\left(t+\frac{ix}{2\alpha}\right)^2-\frac{x^2}{4\alpha}\right)\,dt\\
+	=& \sqrt{\frac{\pi}{\alpha}}\exp\left(-\frac{x^2}{4\alpha}\right)
+\end{aligned}
+\end{equation*}
+The outside integral looks close to a Gaussian.
+First we make the Gaussian outside the integral a standard form, start with $\alpha = \sigma^2/2$:
+\[\frac{1}{\sigma}\sqrt{2\pi}\exp\left(-\frac{1}{2}\left(\frac{x}{\sigma}\right)^2\right) = \int_{-\infty}^{\infty}\exp\left(-\frac{\sigma^2t^2}{2}\right)\exp(-ixt)\,dt\]
+Normalize the outside Gaussian by multiplying by $(2\pi)^{-1}$:
+\[\frac{1}{\sigma\sqrt{2\pi}}\exp\left(-\frac{1}{2}\left(\frac{x}{\sigma}\right)^2\right) = \int_{-\infty}^{\infty}\frac{1}{2\pi }\exp\left(-\frac{\sigma^2t^2}{2}\right)\exp(-ixt)\,dt\]
+Taking the limit $\sigma \rightarrow 0$ and the integrand becomes:
+\[\lim_{\sigma \rightarrow 0}\frac{1}{2\pi }\exp\left(-\frac{\sigma^2t^2}{2}\right)  = \frac{1}{2\pi} \]
+Hence we obtain:
+\[\delta(x) = \frac{1}{2\pi} \int_{-\infty}^{\infty}\exp(-ixt)\,dt\]
+And trivially:
+\[\delta(x) = \frac{1}{2\pi} \int_{-\infty}^{\infty}\exp(ixt)\,dt\]
+
+\section{Sampling}
+Assume $f$ is continuous.
+\begin{equation*}
+\begin{aligned}
+&\left|\int_{-\delta}^{\delta}f(x)\delta(x)\,dx-f(0)\right| \\
+=&\left|\int_{-\delta}^{\delta}f(x)\delta(x)\,dx-\int_{-\delta}^{\delta}f(0)\delta(x)\,dx\right| \\
+=&\left|\int_{-\delta}^{\delta}(f(x)-f(0))\delta(x)\,dx\right| \\
+\leq&\int_{-\delta}^{\delta}|f(x)-f(0)|\delta(x)\,dx \\
+\leq&\int_{-\delta}^{\delta}\epsilon\delta(x)\,dx \\
+=&\epsilon \\
+\end{aligned}
+\end{equation*}
+
+\section{Inverse Transform}
+place holder
+
+\section{Dirac Comb}
+Let:
+\[\Sha_T(x) = \sum_{n=-\infty}^{\infty}\delta(x-nT) = \frac{1}{T}\sum_{n=-\infty}^{\infty}\exp\left(2\pi i n \frac{x}{T}\right)\]
+Deal with proving that later using the partial sum.
+
+Consider:
+\[f(x) = \sum_{n=-\infty}^{\infty}\exp(2\pi n x)\]
+
+When $\exp(2\pi x) \neq 1$
+\begin{equation*}
+\begin{aligned}
+f(x) =& \sum_{n=-\infty}^{\infty}\exp(2\pi n x) \\
+=& \left(\sum_{n=-\infty}^{-1}+\sum_{n=0}^{0}+\sum_{n=1}^{\infty}\right)\exp(2\pi n x) \\
+=& \frac{\exp(-2\pi n x)}{1-\exp(-2\pi n x)} + 1 + \frac{\exp(2\pi n x)}{1-\exp(2\pi n x)} \\
+=& \frac{-1}{1-\exp(2\pi n x)} + 1 + \frac{\exp(2\pi n x)}{1-\exp(2\pi n x)} \\
+=& 1-1\\
+=& 0\\
+\end{aligned}
+\end{equation*}
+
+As for normalization:
+\begin{equation*}
+\begin{aligned}
+\int_{x}^{x+1}f(t)\,dt =& \int_{x}^{x+1}\sum_{n=-\infty}^{\infty}\exp(2\pi n t)\,dt\\
+=& 1+\int_{x}^{x+1}\sum_{\stackrel{n=-\infty}{n\neq 0}}^{\infty}\exp(2\pi n t)\,dt\\
+=& 1+\sum_{\stackrel{n=-\infty}{n\neq 0}}^{\infty}\int_{x}^{x+1}\exp(2\pi n t)\,dt\\
+=& 1+\sum_{\stackrel{n=-\infty}{n\neq 0}}^{\infty}\left[\frac{1}{2\pi n}\exp(2\pi n t)\right]_{x}^{x+1}\\
+=& 1+\sum_{\stackrel{n=-\infty}{n\neq 0}}^{\infty}\frac{\exp(2\pi x n)}{2\pi n}(\exp(2\pi n)-1)\\
+=& 1\\
+\end{aligned}
+\end{equation*}
+
+This is useful for the Fourier series.
+Let $f(x)$ be periodic wit period $P$.
+Define $f_k = \int_{0}^{P}f(x)\exp(-ikx)\,dx$ and consider:
+\begin{equation*}
+\begin{aligned}
+\hat{f}(k) =& \int_{-\infty}^{\infty}f(x)\exp(-ixk)\,dx \\
+=& \sum_{n=-\infty}^{\infty}\int_{nP}^{(n+1)P}f(x)\exp(-ixk)\,dx \\
+=& \sum_{n=-\infty}^{\infty}\int_{0}^{P}f(x)\exp(-ik(x+nP))\,dx \\
+=& f_k\sum_{n=-\infty}^{\infty}\exp(-iknP) \\
+=& f_k\frac{2\pi}{P}\sum_{n=-\infty}^{\infty}\delta\left(k-n\frac{2\pi}{P}\right) \\
+\end{aligned}
+\end{equation*}
+
+\chapter{Properties}
+\section{Basic Properties}
+I'm simply not interested in filling out this section of the text.
+Nothing in here is exotic to me or interesting to write.
+\subsection{Linear}
+It's almost so trivial as not need to be said, but the Fourier transform is linear,
+Let:
+\[h(x)=af(x)+bg(x)\]
+Then:
+\begin{equation*}
+\begin{aligned}
+\hat{h}(k) =& \int_{-\infty}^{\infty}h(x)\exp(-ikx)\,dx \\
+=& \int_{-\infty}^{\infty}(af(x)+bg(x))\exp(-ikx)\,dx \\
+=& a\int_{-\infty}^{\infty}f(x)\exp(-ikx)\,dx +b\int_{-\infty}^{\infty}g(x)\exp(-ikx)\,dx \\
+=& a\hat{f}(k)+b\hat{g}(k) \\
+\end{aligned}
+\end{equation*}
+
+\subsection{Duality}
+Although other properties are more useful and obvious but learning about the duality first lets us double all coming properties.
+Let:
+\[g(x) = \hat{f}(x)\]
+Then:
+\begin{equation*}
+\begin{aligned}
+\hat{g}(k) =&\int_{-\infty}^{\infty}g(x)\exp(-ikx)\,dx \\
+=&\int_{-\infty}^{\infty}\hat{f}(x)\exp(-ikx)\,dx \\
+=& \int_{-\infty}^{\infty}\left(\int_{-\infty}^{\infty}f(t)\exp(-itx)\right)\,dt\exp(-ikx)\,dx \\
+=& 2\pi\int_{-\infty}^{\infty} f(t) \left(\frac{1}{2\pi} \int_{-\infty}^{\infty} \exp(-ix(t+k))\,dx\right)\,dt \\
+=& 2\pi\int_{-\infty}^{\infty} f(t) \delta(t+k)\,dt \\
+=& 2\pi f(-k)
+\end{aligned}
+\end{equation*}
+You can also show this by change of variable $x\mapsto -x$ and then apply the definition of inverse transform.
+I don't like this because I fear getting the order of operations right in a partial/total derivative way.
+
+\subsection{Translation}
+A simple but useful property that we get immediately from definitions.
+Let:
+\[g(x) = f(x+x_0)\]
+Then:
+\begin{equation*}
+\begin{aligned}
+\hat{g}(k) =& \int_{-\infty}^{\infty}g(x)\exp(-ikx)\,dx\\
+=& \int_{-\infty}^{\infty}f(x+x_0)\exp(-ikx)\,dx\\
+=&\exp(ikx_0) \int_{-\infty}^{\infty}f(x+x_0)\exp(-ik(x+x_0))\,dx\\
+=&\exp(ikx_0) \hat{f}(k)\\
+\end{aligned}
+\end{equation*}
+
+\subsection{Conjugation}
+\subsection{Scaling}
+\subsection{Deriving} 
+
+\section{Basic Theorems}
+\subsection{Convolution Theorem}
+An immediate application of the Shifting Property is the Convolution Theorem.
+Let:
+\[h(x) = \int_{-\infty}^{\infty}f(t)g(x-t)\,dt\]
+Then:
+\begin{equation*}
+\begin{aligned}
+\hat{h}(k) =& \int_{-\infty}^{\infty}h(x)\exp(-ikx)\,dx\\
+=& \int_{-\infty}^{\infty}\left(\int_{-\infty}^{\infty}f(t)g(x-t)\,dt\right)\exp(-ikx)\,dx\\
+=& \int_{-\infty}^{\infty}f(t)\left(\int_{-\infty}^{\infty}g(x-t)\exp(-ikx)\,dx\right)\,dt\\
+=& \int_{-\infty}^{\infty}f(t)\exp(-itk)\hat{g}(k)\,dt\\
+=& \hat{g}(k)\int_{-\infty}^{\infty}f(t)\exp(-itk)\,dt\\
+=& \hat{g}(k)\hat{f}(k)\\
+\end{aligned}
+\end{equation*}
+\subsection{Real and Imaginary Components}
+\subsection{Poisson Summation Formula}
+
+\subsection{Radial Symmetry}
+Start with our standard 2-D Fourier integral:
+\[F(k_x,k_y) = \int_{-\infty}^{\infty}\int_{-\infty}^{\infty}f(x,y)\exp(-i(k_x x + k_y y))\,dx\,dy\]
+Assume we have radial symmetry such that:
+\[f(r\cos(\theta),r\sin(\theta)) = g(r)\]
+Make the following substitutions:
+\begin{equation*}
+\begin{aligned}
+	x = r\cos(\theta),\quad k_x = k_r\cos(\phi) \\
+	y = r\sin(\theta),\quad k_y = k_r\sin(\phi)\\
+\end{aligned}
+\end{equation*}
+We get:
+\begin{equation*}
+\begin{aligned}
+	&F(k_r\cos(\phi),k_r\sin(\phi)  \\
+	=& \int_0^\infty\int_0^{2\pi}f(r\cos(\theta),r\sin(\theta))\exp(-ik_r r(\cos(\theta)\cos(\phi)+\sin(\theta)\sin(\phi)))r\,d\theta\,dr\\
+	=& \int_0^\infty g(r)r\int_0^{2\pi}\exp(-ik_r r\cos(\theta-\phi))\,d\theta\,dr \\
+\end{aligned}
+\end{equation*}
+Note that the inner integrand is a period function of $\theta$ with period $2\pi$ which is the same as the integral bounds hence we can pick any $\phi$ in particular:
+\[-\cos(\theta +\pi/2) = \sin(\theta)\]
+Hence the total function has no dependence on $\phi$ giving:
+\[F(k_r) = \int_0^\infty g(r)rJ_0(k_r r)\,dr\]
+
+\section{Fourier Series}
+Let $f(x)$ be periodic with a period of unity.
+Then for all integer $n$ and real $x$:
+\begin{equation*}
+\begin{aligned}
+	0 =& f(x+n)-f(x)\\
+	=& \frac{1}{2\pi}\int_{-\infty}^{\infty}\hat{f}(k)\left(\exp(ik(x+n))-\exp(ikx)\right)\,dk\\
+	=& \frac{1}{2\pi}\int_{-\infty}^{\infty}\hat{f}(k)\exp(ikx)\left(\exp(ikn)-1\right)\,dk\\
+\end{aligned}
+\end{equation*}
+For this to be true for all $x$ we require:
+\[\hat{f}(k)(\exp(ikn)-1) = 0\]
+For this to be true for all $n$ we require:
+\[\frac{k}{2\pi} \in \mathbb{Z}\]
+Hence when $kn \neq 2\pi m$ we require $\hat{f}(k) = 0$.
+Hence $kn = 2\pi m$ are the only points that can contriver, but since they are always isolated points they don't contribute if they are finite.
+Hence:
+\[\hat{f}(k) = \sum_{n=-\infty}^\infty a_n \delta\left(k-2\pi n\right)\]
+
+\begin{equation*}
+\begin{aligned}
+f(x) =& \frac{1}{2\pi}\int_{-\infty}^{\infty}\exp(ixk)\sum_{n=-\infty}^\infty a_n \delta\left(k-2\pi n\right)\,dk \\
+=& \frac{1}{2\pi}\sum_{n=-\infty}^\infty a_n\int_{-\infty}^{\infty}\exp(ixk) \delta\left(k-2\pi n\right)\,dk \\
+\end{aligned}
+\end{equation*}
+
+Add the integral to easily get the coefficients.
+
+\chapter{Applications}
+
+\section{Function Spaces}
+Function spaces are sets of function between two fixed sets with with some additional structure, often naturally inherited from the fixed sets.
+For our purposes the most important are $L^p(X)$ spaces which is the set of functions on the measurable space $X$ to $\mathbb{C}$ such that:
+\[\|f\|_p = \left(\int_{X}|f|^p\right)^\frac{1}{p} < \infty\]
+With addition and scalar multiplication defined naturally as:
+\begin{equation*}
+\begin{aligned}
+(f+g)(x) =& f(x)+g(x) \\
+(\lambda f)(x) =& \lambda f(x)
+\end{aligned}
+\end{equation*}
+
+Fourier analysis can be used to study $L^1(\mathbb{R})$ and $L^2(\mathbb{R})$, and these spaces can be used to study the Fourier transform.
+An overview is that $L^1(\mathbb{R})$ is a yell behaved space where step functions are dense and integration works how you would expect.
+While $L^2(\mathbb{R})$ is a less well-behaved but Hilbert space the Fourier transform can be extended to.
+
+\subsection{Plancherel Theorem}
+Consider the following deviation:
+\begin{equation*}
+\begin{aligned}
+&\int_{-\infty}^{\infty}\hat{f}(k)\overline{\hat{g}(k)}\,dk \\
+=&\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}f(x)\overline{g(y)}\exp(-ik(x-y))\,dxdy\,dk \\
+=&\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}f(x)\overline{g(y)}\int_{-\infty}^{\infty}\exp(-ik(x-y))\,dk\,dxdy \\
+=&2\pi\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}f(x)\overline{g(y)}\delta(x-y)\,dxdy \\
+=&2\pi\int_{-\infty}^{\infty}f(x)\overline{g(x)}\,dx \\
+\end{aligned}
+\end{equation*}
+
+The special case where $f = g$ is called the Plancherel theorem:
+\begin{equation*}
+\begin{aligned}
+\int_{-\infty}^{\infty}|f(x)|^2\,dx = \frac{1}{2\pi}\int_{-\infty}^{\infty}|\hat{f}(k)|^2\,dk \\
+\end{aligned}
+\end{equation*}
+
+At first glance this theorem seems only useful in showing that the square of the Fourier transform is the power spectrum of a signal and nothing more.
+But this unassuming theorem is actually very important to the formal analysis of the Fourier transform.
+Unlike in this text where we have been, and will continue to be, very handwavey when it comes to matters of changing the order of integration, delta functions, moving limits inside of integrals, etcetera. 
+
+The Plancherel theorem can be formally proved for all members of $L^1(\mathbb{R})\cap L^2(\mathbb{R})$ and something called Plancherel transform can be defined which uniquely can extends the theorem to all of $L^2(\mathbb{R})$.
+From the Plancherel theorem we can see the Plancherel transform, down to a scale factor, is an isometry of $L^2(\mathbb{R})$, a super useful property, and agrees with the Fourier transform when the function is also a member of $L^1(\mathbb{R})$.
+From this extension we can casually speak of the Fourier transform of $L^2(\mathbb{R})$ function while formally talking about the Plancherel transform of the function while.
+
+Don't feel to bad for Plancherel for doing all his formal work being seemingly attributed to Fourier.
+This "Plancherel method" of understanding a transform by defining a similar isometry on a well behaved subset and then extending it to the wider space.
+Is also used in understanding spherical functions and extending Fourier analysis to topological groups which aren't commutative where Plancherel name is much more common.
+\\
+
+As a final note, the Plancherel transform can be proved to be unitary in $L^2(\mathbb{R})$.
+For historical reasons this unitary property is sometimes called the Plancherel theorem and can be seen as a more general then the isometric property defined as Plancherel theorem in this text. 
+The unitary property essentially being the original deviation used at the start of this section while isometric property begin the $f=g$ special case.
+
+\subsection{Riemann-Lebesgue Lemma}
+The Riemann-Lebesgue lemma states that for all functions in $L^1(\mathbb{R})$ we have:
+\[\lim_{|k|\rightarrow \infty}|\hat{f}(k)|= 0  \]
+
+Start by proving the lemma for the subset of $L^1(\mathbb{R})$ call the step function. 
+Step functions are defined as linear combinations of indicator functions on open intervals:
+\[g(x) = \sum_{n}c_n\chi_{(\mu_n-\delta_n,\mu_n+\delta_n)}(x)\]
+By definition have:
+\begin{equation*}
+\begin{aligned}
+\hat{g}(k) =& \sum_nc_n\hat{\chi}_{(\mu_n-\delta_n,\mu_n+\delta_n)}(k)\\
+=& \sum_nc_n2k^{-1}\sin\left(k\delta_n\right)\exp(-i\mu_n k) \\
+=& 2k^{-1}\sum_nc_n\sin\left(k\delta_n\right)\exp(-i\mu_n k)
+\end{aligned}
+\end{equation*}
+
+By the triangle inequality we have:
+\begin{equation*}
+\begin{aligned}
+\lim_{|k|\rightarrow \infty}|\hat{g}(k)| =& 2\lim_{|k|\rightarrow \infty}|k^{-1}|\lim_{|k|\rightarrow \infty}\left|\sum_nc_n\sin\left(k\delta_n\right)\exp(-i\mu_n k)\right| \\
+\leq& 2\lim_{|k|\rightarrow \infty}|k^{-1}|\sum_n\lim_{|k|\rightarrow \infty}\left|c_n\sin\left(k\delta_n\right)\exp(-i\mu_n k)\right| \\
+=& 2\lim_{|k|\rightarrow \infty}|k^{-1}|\sum_n|c_n|\lim_{|k|\rightarrow \infty}\left|\sin\left(k\delta_n\right)\right| \\
+\leq&2\lim_{|k|\rightarrow \infty}|k^{-1}|\sum_n|c_n| \\
+=& 0\\
+\end{aligned}
+\end{equation*}
+
+To prove the lemma for the general case we approximate an arbitrary function in $L^1(\mathbb{R})$ with a step function.
+This works because step functions are dense in $L^1(\mathbb{R})$, meaning for all $f$ and $\epsilon > 0$ there exists a step function $g$ such that:
+\[\|f-g\| < \epsilon\]
+This inequality rewritten in terms of the Fourier transforms:
+\begin{equation*}
+\begin{aligned}
+|\hat{f}(k)-\hat{g}(k)| =&\left|\int_{-\infty}^{\infty}(f(x)-g(x))\exp(-ikx)\,dx\right| \\
+\leq& \int_{-\infty}^{\infty}|(f(x)-g(x))\exp(-ikx)|\,dx  \\
+=&\int_{-\infty}^{\infty}|f(x)-g(x)|\,dx  \\
+=&\|f-g\|\\
+<& \epsilon \\
+\end{aligned}
+\end{equation*}
+
+Combining both these inequalities with the triangle inequality gives:
+\[\lim_{|k|\rightarrow \infty}|\hat{f}(k)| \leq \lim_{|k|\rightarrow \infty}|\hat{f}(k)-\hat{g}(k)| + \lim_{|k|\rightarrow \infty}|\hat{g}(k)| < \epsilon\]
+
+Since $\epsilon$ can be arbitrary small we have:
+\[\lim_{|k|\rightarrow \infty}|\hat{f}(k)| = 0\]
+
+I like this proof because it shows how well behaved $L^1(\mathbb{R})$ is and in particular how the step functions being dense means integration works how you would expect it to work.
+
+It can be used in formal proofs of the Stationary phase approximation and Method of steepest descent, which seem interesting.
+
+\section{Probability}
+\subsection{Characteristic Function}
+
+Assume that the function $f(x)$ satisfies the conditions to be a probability density function.
+Statisticians define the characteristic function of this distribution as:
+\[\phi_X(k) = \mathbb{E}[\exp(ikX)]\]
+Applying the law of the unconscious statistician we find that:
+\begin{equation*}
+\begin{aligned}
+\mathbb{E}[\exp(ikX)] =& \int_{-\infty}^{\infty}f(x)\exp(ikx)\,dx\\
+=& \hat{f}(-k)\\
+\end{aligned}
+\end{equation*}
+
+The characteristic function is just the Fourier transform in disguise!
+But to we why this expression might be useful consider the following expansion:
+\begin{equation*}
+\begin{aligned}
+\hat{f}(k) =& \mathbb{E}[\exp(-ikX)]\\
+=& \mathbb{E}\left[\sum_{n=0}^\infty\frac{(-ik)^n}{n!}X^n\right]\\
+=& \sum_{n=0}^\infty\frac{(-ik)^n}{n!}\mathbb{E}\left[X^n\right]\\
+=&1-ik\mu-\frac{k^2}{2}\big(\sigma^2+\mu^2\big) + O(k^3)\\
+\end{aligned}
+\end{equation*}
+
+The characteristic function is like a generating function for statistical moments.
+While this expansion is useful for pedagogical reasons we can find a form better for analytical work:
+\begin{equation*}
+\begin{aligned}
+\hat{f}(k) =& \mathbb{E}[\exp(-ikX)]\\
+=& \mathbb{E}\left[\exp\left(-ik(X-\mu)-ik\mu\right)\right]\\
+=& \exp\left(-ik\mu\right)\mathbb{E}\left[\exp\left(-ik(X-\mu)\right)\right]\\
+=& \exp\left(-ik\mu\right)\left(1-\frac{1}{2}k^2\sigma^2+O(k^3)\right)\\
+=& \exp\left(-ik\mu-\frac{1}{2}k^2\sigma^2\right)\left(1+O(k^3)\right)\\
+\end{aligned}
+\end{equation*}
+
+Although the choice was feels arbitrary the elegance of the resulting form and the fact that the choice effects higher orders of k feels it should be optimal.
+Following is a promising identity to trying to prove optimality. 
+\begin{equation*}
+\begin{aligned}
+\hat{f}(k)=& \exp\left(-ik\mu-\frac{1}{2}k^2\sigma^2\right)\mathbb{E}\left[\exp\left(-ik(X-\mu)+\frac{1}{2}k^2\sigma^2\right)\right]\\
+=& \exp\left(-ik\mu-\frac{1}{2}k^2\sigma^2\right)\mathbb{E}\left[\exp\left(-\frac{1}{2\sigma^2}\left((X-\mu+ik\sigma^2)^2-(X-\mu)^2\right)\right)\right]\\
+\end{aligned}
+\end{equation*}
+The first bit is the mean and standard deviation and the second bit depends only on the standardized centralised moments.
+It feels like the first bit deals with location and scale so the second bit can focus on more important issues.
+
+\subsection{Gaussian Distribution}
+This also lets us intuit the transform of a Gaussian, if we know that the transform of a Gaussian is another Gaussian.
+Let:
+\[f(x) = \frac{1}{\sqrt{2\pi}\sigma}\exp\left(-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2\right)\]
+We observe that:
+\begin{equation*}
+\begin{aligned}
+\exp(-ik\mu)\exp\left(-k^2\frac{\sigma^2}{2}\right) =& \left(1-ik\mu -k^2\frac{\mu^2}{2} + O(k^3)\right)\left(1-k^2\frac{\sigma^2}{2}+O(k^3)\right)\\
+	=&1-ik\mu-\frac{k^2}{2}\big(\sigma^2+\mu^2\big) + O(k^3)\\
+\end{aligned}
+\end{equation*}
+
+\subsection{Uniform Distribution}
+The variance of a uniform distribution on $(a,b)$ is given by:
+\[\sigma^2 = \frac{(a-b)^2}{12}\]
+It can be a bit difficult to remember the exact denominator, but what if we remembered the Fourier transform of the indicator function?
+
+The uniform distribution can be obtained from scaling the indicator function:
+\[f(x) = \frac{1}{2\delta}\chi_{(\mu-\delta,\mu+\delta)}(x)\]
+Which has a transform of:
+\begin{equation*}
+\begin{aligned}
+\hat{f}(k) =& \exp(-ik\mu)\frac{\sin(k\delta)}{k\delta}\\ 
+=& \exp(-ik\mu)\left(1-\frac{k^2}{6}\delta^2+ O(k^4)\right)\\ 
+\end{aligned}
+\end{equation*}
+Hence we obtain:
+\[\sigma^2 =\frac{\delta^2}{3} = \frac{(a-b)^2}{12}\]
+As expected.
+
+\subsection{Central Limit Theorem}
+Let there be an enumerated family of functions:
+\[\hat{f_n}(k) = \exp\left(-ik\mu_n-\frac{1}{2}k^2\sigma^2_n\right)(1+R_n(k))\]
+Define:
+\[M_N = \frac{1}{N}\sum_{k=1}^{N}\mu_N,\quad S_N^2 = \frac{1}{N^2}\sum_{k=1}^{N}\sigma^2_k\]
+
+\begin{equation*}
+\begin{aligned}
+\prod_{n=1}^N\hat{f}_n\left(\frac{k}{N}\right) =&\exp\left(-ikM_N-\frac{1}{2}k^2S^2_N\right)\prod_{n=1}^{N}\left(1+R_n\left(\frac{k}{N}\right)\right) \\
+\end{aligned}
+\end{equation*}
+
+%This can be useful to prove the central limit theorem through the convolution theorem.
+%For some general case where we have the same $\mu_n=0$ but varying variances:
+%\begin{equation*}
+%\begin{aligned}
+%	\prod_{n=1}^{N}\left(1-\frac{k^2}{2}\sigma_n^2\right) \\
+%\end{aligned}
+%\end{equation*}
+%To make sense of this let:
+%\[\sigma_n^2 = \sigma^2 + \epsilon_n,\,k=\frac{t}{\sigma\sqrt{N}}\]
+%Additionally let $e_n$ be the \hyperref[appendix:ESP]{elementary symmetric polynomial} of the $\epsilon_n$
+%\begin{equation*}
+%\begin{aligned}
+%	&\prod_{n=1}^{N}\left(1-\frac{k^2}{2}\sigma_n^2\right) \\
+%	=&\prod_{n=1}^{N}\left(1-\frac{t^2}{2}\frac{\sigma^2+\epsilon_n}{N\sigma^2}\right) \\
+%	=&\prod_{n=1}^{N}\left(1-\frac{t^2}{2N}-\frac{t^2\epsilon_n}{2N\sigma^2}\right) \\
+%	=&\sum_{n=0}^{N}\left(1-\frac{t^2}{2N}\right)^{N-n}\left(\frac{t^2}{2N\sigma^2}\right)^ne_n \\
+%\end{aligned}
+%\end{equation*}
+%Assume that for $N > 0$ we have the limit $\frac{e_n}{N^n} \rightarrow 0$ for some choice of $\sigma$.
+%\begin{equation*}
+%\begin{aligned}
+%	&\sum_{n=0}^{N}\left(1-\frac{t^2}{2N}\right)^{N-n}\left(\frac{t^2}{2N\sigma^2}\right)^ne_n \\
+%	&\exp\left(1-\frac{t^2}{2}\right)+\sum_{n=1}^{N}\exp\left(1-\frac{t^2}{2}\right)\left(\frac{t^2}{2\sigma^2}\right)^n\cdot0 \\
+%\end{aligned}
+%\end{equation*}
+
+\subsection{Cauchy Distribution}
+Consider the following function:
+\[f(x;x_0,\gamma) = \frac{1}{\pi}\left[\frac{\gamma^2}{(x-x_0)^2+\gamma^2}\right]\]
+This is known to most as the Cauchy distribution, to physicists as the Lorentz distribution, and to 17$^{\text{th}}$ century mathematicians as the ``Witch of Agnesi".
+Other then being a cool name witch may be appropriate because it's a common pathological function as despite meeting all the requirements to be a distribution it has no mean or variance. 
+
+Dispute these problems we do have clear position, $x_0$, and scale, $\gamma$, parameters that we would like to understand better.
+This distribution has a well defined Fourier transform, from the transform lookup table, we have:
+\[\hat{f}(k;x_0,\gamma) = \exp(-ix_0k-\gamma|k|)\]
+And looks remarkable similar to the transform of a Gaussian.
+Despite not being the mean $x_0$ does act exactly as the mean would.
+And $|k|$ is not unlike $k^2$, which makes $\gamma$ like the variance.
+
+This demonstration how the characteristic function can be useful as it can extend our understanding away from functions with a defined mean and variance to a functions which have a characteristic functions.
+The Cauchy distribution lacking a defined mean and variance isn't just an academic concern as the distribution arises from:
+\begin{enumerate}
+\item[Spectroscopy] The shape of many types pf spectral lines is the Cauchy distribution.
+\item[Hydrology] Extreme events like maximum one-day rainfalls and river discharges are modeled with the Cauchy distribution.
+\item[Finance] When modeling extrema risk the Cauchy heaver tails makes a better model then a Gaussian.
+\item[Statistics] The ration of two independent, normally distributed, zero mean, variables is the Cauchy distributed.
+\item[Electronics] The imaginary component of electrical permittivity is the Cauchy distribution.
+\end{enumerate}
+
+Note how a lot of these application have to do with modeling extrema values, this is because the Cauchy distribution has heavy tails, this is also why the moments don't exist.
+
+\section{Hermite Polynomials}
+% From them being eigenfunctions there is an easy relationship between the Hermite expansion of a function and its transform.
+% Can be used to calculate operations on the coefficients Hermite polynomials.
+% Nice discrete system?
+% Use probabilists' for the eigenfunction properties
+\subsection{Definitions}
+Due to their wide use there are many definitions of the Hermite polynomials.
+In my view there are two definitions which capture most of their properties.
+
+The first is through a recursive relation which allow for efficient calculation and show their polynomial nature:
+\[H_0(x) = 1,\, H_{n+1}(x) = 2xH_n(x)-H'_n(x)\]
+
+The second definition is their exponential generating function which shows their relationship to the Gaussian function:
+\[\exp(2xt-t^2) = \sum_{n=0}^{\infty}H_n(x)\frac{t^n}{n!}\]
+
+To get a sketch of why these definitions are equivalent observe the following:
+\[\frac{\partial}{\partial t}\exp(2xt-t^2) = 2x\exp(2xt-t^2)-\frac{\partial}{\partial x}\exp(2xt-t^2) \]
+
+Recalling that taking the derivative of an exponential generating function down shifts the constants we obtain:
+\begin{equation*}
+\begin{aligned}
+\sum_{n=0}^\infty H_{n+1}(x)\frac{t^n}{n!} =& 2x\sum_{n=0}^{\infty}H_n(x)\frac{t^n}{n!}-\frac{\partial}{\partial x}\sum_{n=0}^\infty H_n(x)\frac{t^n}{n!}\\
+=& \sum_{n=0}^\infty\bigg(2xH_n(x)-H'_n(x)\bigg)\frac{t^n}{n!}
+\end{aligned}
+\end{equation*}
+
+Along with the two main definitions there's also an interesting Rodrigues' formula:
+\[H_n(x) = (-1)^n\exp(x^2)\frac{d^n}{d x^n}\exp(-x^2)\]
+
+And a rescaling used in probability called the probabilists' Hermite polynomials:
+\[He_n(x) = 2^{-\frac{n}{2}}H_n\left(\frac{x}{\sqrt{2}}\right)\]
+\subsection{Orthogonality} 
+To see the Hermite polynomial orthogonality we wish to evaluate integrals of the following form:
+\[\int_{-\infty}^{\infty}H_n(x)H_m(x)\exp(-x^2)\,dx\]
+
+This can be easily done by using a double exponential generating function and the Hermite polynomials exponential generating function:
+\begin{equation*}
+\begin{aligned}
+&\sum_{n=0}^{\infty}\sum_{m=0}^{\infty}\int_{-\infty}^{\infty}H_m(x)H_n(x)\exp(-x^2)\,dx\frac{t_0^n}{n!}\frac{t_1^m}{m!}\\
+=&\int_{-\infty}^{\infty}\exp(-x^2)\sum_{n=0}^{\infty}H_n(x)\frac{t_0^n}{n!}\sum_{m=0}^{\infty}H_m(x)\frac{t_1^m}{m!}\,dx \\
+=&\int_{-\infty}^{\infty}\exp(-x^2)\exp(2xt_0-t_0^2)\exp(2xt_1-t_1^2)\,dx \\
+=&\exp(2t_0t_1)\int_{-\infty}^{\infty}\exp(-(x-t_0-t_1)^2)\,dx\\
+=&\exp(2t_0t_1)\sqrt{\pi}\\
+=&\sum_{n=0}^{\infty}2^n\sqrt{\pi}\frac{t_0^nt_1^n}{n!} \\
+=&\sum_{n=0}^{\infty}\sum_{m=0}^{\infty}2^n\sqrt{\pi}n!\delta_{nm}\frac{t_0^nt_1^m}{n!m!} \\
+\end{aligned}
+\end{equation*}
+By equating coefficients of $t_0,\,t_1$ we get the relation:
+\[\int_{-\infty}^\infty H_n(x)H_m(x)\exp(-x^2)\,dx = \sqrt{\pi}2^nn!\delta_{nm}\]
+
+\subsection{Fourier Transform}
+Hermite polynomials are important for us because of their involvement in the eigenfunction of the Fourier transform.
+To see how Hermite polynomials are involved in the Fourier transform consider the following function:
+\[f(x) = \exp\left(-\frac{1}{2}x^2+2xt-t^2\right) = \sum_{n=0}^\infty\exp\left(-\frac{x^2}{2}\right)H_n(x)\frac{t^n}{n!}\]
+This function can be refactored into a form where the Fourier transform of $x$ can be seen:
+\[f(x) = \exp\left(-\frac{1}{2}(x-2t)^2\right)\exp(t^2)\]
+Hence the transform of $f$ is simply:
+\[\hat{f}(k) = \sqrt{2\pi}\exp(-2ikt)\exp\left(-\frac{k^2}{2}\right)\exp(t^2)\]
+Expanding the two non $k^2$ exponentials using the exponential generating function definition on the Hermite polynomials gives:
+\[\hat{f}(k) = \sum_{n=0}^{\infty}\sqrt{2\pi}(-i)^n\exp\left(-\frac{k^2}{2}\right)H_n(k)\frac{t^n}{n!} \]
+Since the Fourier transform is linear we can equate the $t^n$ terms to get:
+\[\exp\left(-\frac{x^2}{2}\right)H_n(x) \rightarrow \sqrt{2\pi}(-i)^nH_n(k)\exp\left(-\frac{k^2}{2}\right)\]
+
+\subsection{Expansions}
+Let:
+\begin{equation*}
+\begin{aligned}
+	f(x) =& \exp(-(\sqrt{a+1}x-t)^2)\exp(-at^2) \\
+	=& \exp(-(a+1)x^2+2\sqrt{a+1}xt-(a+1)t^2)\\
+	=& \exp(-ax^2)\exp(-x^2+2\sqrt{a+1}xt-(a+1)t^2)\\
+	=& \sum_{n=0}^{\infty}H_n(x)\exp(-ax^2)\exp(-x^2)\frac{(\sqrt{a+1}t)^n}{n!}
+\end{aligned}
+\end{equation*}
+
+\[\exp(-ax^2) = \sum_{n=0,2,4...}^\infty H_n(x)\frac{\sqrt{2}}{n!}\left(\frac{-a}{2\sqrt{a^2+1}}\right)^n\]
+
+\subsection{Eigenfunction}
+Since the given eigenfunctions are all the same bar a phase we should be able to break a function up into 4 functions where each gets a quarter phase by transform.
+Consider again that \[f(x,t) = \exp(2xt-t^2) = \sum_{n=0}^\infty H_n(x)\frac{t^n}{n!}\]
+
+\begin{equation*}
+\begin{aligned}
+A_N(x,t) =& \frac{1}{4}\big(f(x,t)+(-1)^Nf(x,-t)+i^Nf(x,it)+(-i)^Nf(x,-it)\big)\\
+=& \sum_{n=0}^\infty H_n(x)\frac{t^n+(-1)^N(-t)^n+i^N(it)^n+(-i)^N(-it)^n}{n!} \\
+\end{aligned}
+\end{equation*}
+
+\section{Chebyshev Polynomials}
+Like Hermite Polynomials the Chebyshev Polynomials are orthogonal polynomials that have multiple definitions.
+
+The two main ones are trigonometric substitution:
+\[T_n(\cos(\theta)) = \cos(n\theta)\]
+
+A recursive definition:
+\begin{equation*}
+\begin{aligned}
+	T_0(x) =& 1 \\
+	T_1(x) =& x \\
+	T_{n+1}(x) =& 2xT_n(x) - T_{n-1}(x)\\
+\end{aligned}
+\end{equation*}
+
+One important application is Chebyshev-Gaussian Quadrature where a function $f$ is approximated through through series expansion in Chebyshev polynomials then integrated.
+Chebyshev-Gaussian Quadrature is an open topic of research where an open question being it's unreasonable effectiveness.
+That is to say this expansion give a more accurate approximation of the integral than one might expect.
+
+The obvious idea explanation is that this form of approximation takes all the low frequency term and that high frequency terms are likely to cancel.
+Lets explore this with out new Fourier tools.
+
+\subsection{Basics}
+Let $f$ be a function with Fourier transformation $\hat{f}$.
+Lets approximate $f$ by:
+
+\begin{equation*}
+\begin{aligned}
+\bar{f}(x) =& \frac{1}{2\pi}  \int_{-a}^{a}\hat{f}(k)\exp(ikx)\,dk\\
+=& \frac{1}{2\pi}  \int_{-\infty}^{\infty}\hat{f}(k)\chi_{(-a,a)}(k)\exp(ikx)\,dk\\
+\end{aligned}
+\end{equation*}
+
+Recall that $\chi_{(-a,a)}(k)$ is the Fourier Transform of $(x\pi)^{-1}\sin(ax)$.
+So by the convolution theorem we have, up to countably infinite points:
+\[ \bar{f}(x) = \pi^{-1}\int_{-\infty}^{\infty}f(x-t)t^{-1}\sin(at)\,dt\]
+
+Now let:
+\[f(x) = \sum_{n=-\infty}^{\infty}f_n\exp(ixn)\]
+(Close enough to a Chebyshev Expansion, just scale and change signs)
+We have:
+\[\bar{f}(x) = \sum_{-a \leq n \leq a}f_n\exp(ixn)\]
+
+
+\begin{equation*}
+\begin{aligned}
+\bar{f}(x) =& \pi^{-1}\int_{-\infty}^{\infty}t^{-1}\sin(at)\sum_{n=-\infty}^{\infty}f_n\exp(in(x-t))\,dt \\
+=& \pi^{-1}\sum_{n=-\infty}^{\infty}f_n\exp(inx)\int_{-\infty}^{\infty}t^{-1}\sin(at)\exp(-int)\,dt \\
+\end{aligned}
+\end{equation*}
+\section{Airy Function}
+This is a short and sweet application, proving a closed form satisfies a differential equation.
+One definition of the Airy function is:
+\[\Ai(x) = \frac{1}{\pi}\int_{0}^{\infty}\cos\left(\frac{t^3}{3}+xt\right)\,dt\]
+Let us change the definition to see how Fourier transform is present:
+\begin{equation*}
+\begin{aligned}
+	\Ai(x) =& \frac{1}{\pi}\int_{0}^{\infty}\cos\left(\frac{t^3}{3}+xt\right)\,dt\\
+	=&\frac{1}{2\pi}\int_{0}^{\infty}\left(\exp\left(i\left(\frac{t^3}{3}+xt\right)\right)+\exp\left(-i\left(\frac{t^3}{3}+xt\right)\right)\right)\,dt\\
+	=&\frac{1}{2\pi}\int_{-\infty}^{\infty}\exp\left(i\left(\frac{t^3}{3}+xt\right)\right)\,dt\\
+\end{aligned}
+\end{equation*}
+Observe that this is the definition of the Fourier transform, hence:
+\[\hat{\Ai}(k) = \exp\left(\frac{i}{3}k^3\right)\]
+
+For the next step we apply both the derivative law and it's dual, so clarity is key.
+First we transform the Airy function \underline{after} deriving:
+\begin{equation*}
+\begin{aligned}
+\widehat{\Ai''}(k) =& (ik)^2\hat\Ai(k) \\
+=&-k^2\exp\left(\frac{i}{3}k^3\right)\\
+\end{aligned}
+\end{equation*}
+
+Next we times the Airy function by $x$ \underline{before} transforming.
+By the dual of the derivative rule derive \underline{after} transforming:
+\begin{equation*}
+\begin{aligned}
+\widehat{x\Ai}(k) =& i\frac{d}{d\,k}\hat\Ai(k) \\
+=&-k^2\exp\left(\frac{i}{3}k^3\right)\\
+\end{aligned}
+\end{equation*}
+
+%\[\int_{-\infty}^{\infty}\Ai(x)\exp(-ixt)\,dx = \exp\left(i\frac{t^3}{3}\right)\]
+%From the derivative law we have:
+%\[\int_{-\infty}^{\infty}\Ai''(x)\exp(-ixt)\,dx = (it)^2\exp\left(i\frac{t^3}{3}\right)\]
+%From simply deriving the Fourier definition gives:
+%\[\int_{-\infty}^{\infty}\Ai(x)(-ix)\exp(-ixt)\,dx = it^2\exp\left(i\frac{t^3}{3}\right)\]
+
+Hence both $\Ai''(x)$ and $x\Ai(x)$ share $-t^2\exp\left(i\frac{t^3}{3}\right)$ as a Fourier transform.
+Making them the same meaning $\Ai$ satisfy.
+\[\Ai''(x) = x\Ai(x)\]
+The simplest non linear second order differential equation imaginable, from which lots of applications follow.
+\\
+
+\begin{equation*}
+\begin{aligned}
+\int_{-\infty}^{\infty}f(t+x)f(t)\,dt =&\int_{-\infty}^{\infty}f(t+x)\overline{f(t)}\,dt \\
+=&\frac{1}{2\pi}\int_{-\infty}^{\infty}\exp(ikx)\hat{f}(k)\overline{\hat{f}(k)}\,dk \\
+=&M\delta(x) \\
+\end{aligned}
+\end{equation*}
+
+Prove orthogonality by Plancherel 
+And the fact that magnitude of the Fourier transform never changes
+\\
+
+We can use this method to solve the general:
+\[y'' = xy+ay\]
+\[(ik)^2f = if'+af\]
+\section{Uncertainty Principle}
+Measure is preserved
+\section{Sampling theorem}
+Comb and low pass filter
+
+\appendix	
+\chapter{Appendix}
+\section{Table}
+To be explicit 
+non-unitary, angular frequency
+\[\hat{f}(k) = \int_{-\infty}^{\infty}f(x)\exp(-ikx)\,dx\]
+\[f(x) =\frac{1}{2\pi} \int_{-\infty}^{\infty}\hat{f}(x)\exp(ikx)\,dk\]
+The $\sinc$ function is normalized.
+\\
+
+\begin{tabular}{c|c}
+	Time domain & Frequency domain \\ \hline
+	$\delta(x)$  & $1$ \\
+	$1$ & $2\pi\delta(k)$ \\
+	$\chi_{(\mu-\delta,\mu+\delta)}(x)$ & $2k^{-1}\sin\left(k\delta\right)\exp(-i\mu k)$ \\
+	$f(x) = \begin{cases} 1-2|x|& |x| <\frac{1}{2}\\ 0& \text{else}\end{cases}$ & $2\sinc\left(\frac{k}{4}\right)^2$ \\
+	$\sum_{n=-N}^N\delta(x-na)$ & $\frac{\sin\left(\left(N+\frac{1}{2}\right)ka\right)}{\sin\left(\frac{ka}{2}\right)}$\\
+	$\sum_{n=-\infty}^\infty\delta(x-na) $ & $\frac{2\pi}{|a|}\sum_{n=-\infty}^\infty\delta\left(k-\frac{2\pi n}{a}\right)$  \\
+	$\exp(ixk_0)$ & $ 2\pi\delta(k-k_0)$ \\
+	$\sin(k_0x)$ & $\pi i (\delta(k+k_0)-\delta(k-k_0))$\\
+	$\cos(k_0x)$ & $\pi  (\delta(k+k_0)+\delta(k-k_0))$\\
+	$\exp(-ax^2)$&$ \sqrt{\frac{\pi}{a}}\exp\left(-\frac{-k^2}{4a}\right)$ \\
+\end{tabular}
+
+\section{Important integrals}
+
+\subsection{Gaussian Functions}
+A reminder that for $a,b \in \mathbb{R}$ such that $a > 0$ we have:
+\[\int_{-\infty}^{\infty}\exp(-a(x-b)^2)\,dx = \sqrt{\frac{\pi}{a}}\]
+We will need to expand the domain of $b$ to $\mathbb{{C}}$.
+To this end observe that $\exp(-z^2)$ is finite for all values of $z$ as:
+\begin{equation*}
+\begin{aligned}
+	|\exp(-(x+iy)^2)| =& |\exp(-x^2+y^2)\exp(-2ixy)|\\
+	=& |\exp(-x^2+y^2)| \\
+\end{aligned}
+\end{equation*}
+Now consider $\mathcal{C}$ be the contour $(-t,0)-(t,0)-(t,\Im[b])-(-t,\Im[b])-(-t,0)$.
+By the finitude of $\exp(-z^2)$ we have:
+\[0 = \int_\mathcal{C}\exp(-z^2)\,dz \]
+By the ML bound the magnitude of the left/right sides of the contour are bound by:
+\begin{equation*}
+\begin{aligned}
+	&\left|\int_{0}^{|\Im[b]|}\exp(-(t\pm i\tau)^2)\,d\tau\right|\\
+	\leq&|\Im[b]|\max\left\{|\exp(-(t\pm i\tau)^2)|\,\bigg|\,\tau \in (0,|\Im[b]|)\right\}\\
+	=&|\Im[b]|\max\left\{|\exp(-t^2 +\tau^2)|\,\bigg|\,\tau \in (0,|\Im[b]|)\right\}\\
+	=&|\Im[b]|\exp(-t^2 +|\Im[b]|^2)\\
+\end{aligned}
+\end{equation*}
+And vanish in the limit $t\rightarrow \infty$.
+Meaning in the limit we have:
+\begin{equation*}
+\begin{aligned}
+	0 =& \int_\mathcal{C}\exp(-z^2)\,dz \\
+	=& \int_{-t}^{t}\exp(-z^2)\,dz + \int_{t}^{-t}\exp(-(z-i\Im[b])^2)\,dz \\
+	&\int_{-\infty}^{\infty}\exp(-z^2)\,dz = \int_{-\infty}^{\infty}\exp(-(z-i\Im[b])^2)\,dz \\
+\end{aligned}
+\end{equation*}
+Meaning the integral is unaffected by imaginary translations.
+Since we already have that the integral is unaffected by real translations combining the two we have:
+\[\int_{-\infty}^{\infty}\exp(-a(x-b)^2)\,dx = \sqrt{\frac{\pi}{a}}\]
+For $a \in \mathbb{R}$, $b \in \mathbb{C}$ and $a > 0$.
+\\
+
+And in particular:
+\[ \frac{1}{\sqrt{2\pi}\sigma} \exp\left(-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2\right) = \frac{1}{2\pi}\int_{-\infty}^{\infty}\exp\left(-\frac{1}{2}\sigma^2k^2+ik(x-\mu)\right) \,dx \] 
+\subsection{Signed Exponential}
+\begin{equation*}
+\begin{aligned}
+&\int_{-\infty}^{\infty}\exp(-|x|)\exp(-ikx)\,dx \\
+=& \int_{0}^{\infty}\exp(-x)\exp(-ikx)\,dx+\int_{-\infty}^{0}\exp(x)\exp(-ikx)\,dx\\
+=& \int_{0}^{\infty}\exp(-x)\exp(-ikx)\,dx+\int^{\infty}_{0}\exp(-x)\exp(ikx)\,dx\\
+=& 2\int_{0}^{\infty}\exp(-x)\cos(kx)\,dx\\
+=& \frac{2}{1+k^2}\\
+\end{aligned}
+\end{equation*}
+\subsection{Cauchy Exploration}
+The convolution of a Cauchy with a Gaussian is easily solvable by double deriving by $x$.
+\begin{equation*}
+\begin{aligned}
+I(x) =&\frac{\gamma}{\pi\sqrt{2\pi\sigma}}\int_{-\infty}^{\infty}\frac{1}{\gamma^2+t^2}\exp\left(-\frac{1}{2\sigma^2}(x-t)^2\right)\,dt\\
+\end{aligned}
+\end{equation*}
+
+\end{document}
