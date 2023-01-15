@@ -1,0 +1,72 @@
+% Copyright 2023 Kieran W Harvie. All rights reserved.
+
+\section{Mean and Variance, and the arbitrariness thereof}
+For some time I have wondered about the arbitrariness around the mean and variance.
+For example why the arithmetic mean instead of the geometric or root-mean-squared?
+And why square root the variance to give the standard deviation?
+
+Well the strictness of Markov's and Chebyshev's might provide a reason.
+Both rely of the conditional expected value, so just to reiterate:
+\[E[X | X \geq a] \geq a \]
+Since everything $X$ can be is greater then $a$ it's expected value must be greater than $a$. 
+Notice the strictness of the inequality, this will be used to make the following inequalities much stricter.
+
+\subsection*{Markov}
+\begin{equation*}
+\begin{aligned}
+	\mu =& E[X]\\
+	=& P(X \leq a)E[X|X \leq a] + P(X \geq a)E[X|X \geq a] \\ 
+	\geq& 0\cdot E[X|X \leq a] + P(X \geq a)a \\ 
+	\frac{\mu}{a}\geq& P(X \geq a) \\
+\end{aligned}
+\end{equation*}
+% What if we move zero around?
+% try Y = m X+c and see what happens.
+
+\subsection*{Chebyshev}
+\begin{equation*}
+\begin{aligned}
+	& E[(X-a)^2] \\
+	=&P(|X-a| \leq b)E[(X-a)^2 | |X-a| \leq b] + P(|X-a| > b)E[(X-a)^2 | |X-a| > b]\\
+\end{aligned}
+\end{equation*}
+
+\subsection*{A General Relation}
+Assume:
+\[f(S') \geq 0,\quad g(S) \geq 0\]
+Then through:
+\begin{equation*}
+\begin{aligned}
+	E[f(X)] =& P(X \in S)E[f(X) | X \in S] + P(X \in S' )E[f(X) | X \in S']\\
+\end{aligned}
+\end{equation*}
+We have:
+\begin{equation*}
+\begin{aligned}
+	1 - \frac{E[g(X)]}{E[g(X) | X \in S']} \leq P[X \in S] \leq \frac{E[f(X)]}{E[f(X) | X \in S]}\\
+\end{aligned}
+\end{equation*}
+With dual equality if:
+\[f = 1_S,\quad g = 1_{S'}\]
+
+\subsection*{Covariance}
+Lets try to find the lest squares regression between $X$ and $Y$ such that:
+\[E[X] = E[Y] = 0, E[X^2] = E[Y^2] = 1\]
+Since the expected values are both zero the line is through the origin
+\begin{equation*}
+\begin{aligned}
+	\sum_{n}(mx_n+c-y_n)^2 =& nE[(mX+c-Y)^2] \\
+	=& n \bigg(E[m^2X^2]+E[c^2]+E[Y^2]+E[2cmX]+E[-2mXY]+E[-2cY]\bigg)\\
+	=& n(m^2+c^2+1-2mE[XY])\\
+\end{aligned}
+\end{equation*}
+Trying to minimize this value by our selection of trivially gets:
+\[c = 0,\quad m = E[XY]\]
+Just expanding the definitions gives:
+\[COV[X,Y] = E[(X-E[X])(Y-E[Y])] = E[XY] = m\]
+Hence the covariance can `naturally' be interpreted and the first order function between the valuables.
+
+\[E[f(X)] \approx E[f_0 + f_1X + f_2X^2/2] = f_0 + \mu f_1 + \sigma^2f_2/2\]
+\[E[f(X)] \approx E[f(\mu) + (X-\mu)f'(\mu) + (X-\mu)^2/2f''(\mu)] = f(\mu) + \frac{f''(\mu)}{2}\sigma^2\]
+
+% Consider a mention of Bessel's correction and the sum((x-(mu+a)^2) = sigma^2+a^2, general relation (square through AM-GM inequality)
