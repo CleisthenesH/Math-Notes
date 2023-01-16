@@ -1,0 +1,40 @@
+% Copyright 2023 Kieran W Harvie. All rights reserved.
+
+\section{Discontinuities in a Non-decreasing Function}
+
+Let $f$ be a non-decreasing function.
+
+Define the jump function $J$ as:
+\[ J(x) = \inf\{f(t) | t > x\} - \sup\{f(t) | t < x\}\]
+
+This function is well defined since the sets are appropriately bound by $f(x)$. And it is clear that $J(d) \neq 0$ iff $d$  is a discontinuity and that $J$ is non-negative.
+\\
+
+Let $U = (x_0,x_1)$. For $d_n \in U$ with $n < m \Rightarrow d_n < d_m$ we have:
+\[f(x_1)-f(x_0) \geq \sum_{k}J(d_k)\]
+
+Proof:
+\begin{equation*}
+\begin{aligned}
+	&\sum_{k}J(d_k) \\
+	=& \inf\{f(t) | t > d_n\} - \sup\{f(t) | t < d_0\} + \sum_k\big[\inf\{f(t) | t > d_{k-1}\} - \sup\{f(t) | t < d_k\}\big] \\
+	\leq & f(d_n)-f(d_0) + \sum_k\big[f(d_{k-1})-f(d_k)\big] \\
+	\leq & f(d_n)-f(d_0)\\
+	\leq & f(x_n)-f(x_0)\\
+\end{aligned}
+\end{equation*}
+
+Let $ S_n = \{d \in U | J(d) > \frac{1}{n}(f(x_1)-f(x_0)) \}$
+From the previous inequality there are at most $n$ elements in $S_n$.
+Hence:
+\[\{d\in U | J(d) > 0\} = \bigcup_{n}\left\{d \in U | J(d) > \frac{1}{n}(f(x_1)-f(x_0))\right\}\]
+Is countable, hence the number of discontinuities of $f$ on $U$ is countable.
+\\
+
+By corollary the discontinuities of a non-decreasing function on $\mathbb{R}$ are countable:
+
+Let $f$ be a non-decreasing function on $\mathbb{R}$.
+Let $X_n = (n-1,n+1)$, clearly $\mathbb{R} = \bigcup_{n}X_n$\footnote{Having them overlap simplify the proof by avoiding literal edge-cases.}.
+Assume $f$ has an uncountable number of discontinuities then at least one $X_n$ contains uncountable discontinuities.
+Otherwise there would be a countable set of countable sets of discontinuities, making them countable.
+But $f$ being non-decreasing function and having an uncountable number of discontinuities in $X_n$ is a contradiction.
