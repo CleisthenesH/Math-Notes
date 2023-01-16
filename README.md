@@ -28,7 +28,7 @@ The editing, incorporation, or deletion or the following lose .tex files into th
 - ~~MTG~~ (Not Math)
 - NewtonGenerator
 - NewtonSqrt
-- Non-decreasing
+- ~~Non-decreasing~~ (Duplicate)
 - Pentagonal
 - Quintic
 - Rational_Tangent
@@ -40,5 +40,5 @@ The editing, incorporation, or deletion or the following lose .tex files into th
 
 And add new notes directly too this repository:
 - GF(2^8) in encryption and hashing
-- Discontinuities of a monotonic function.
+- ~~Discontinuities of a monotonic function.~~
 - ~~Interest~~
