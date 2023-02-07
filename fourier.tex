@@ -22,25 +22,31 @@
 \maketitle
 \tableofcontents
 
-\chapter{Fundamental}
-\section{Introduction}
-We want to understand Fourier, the basis of this understanding is a representation of the delta function.
-With a representation of the delta function so many transforms, like the trimetric functions, become trivial and theorems, like convulsion, inverse, shifting, become obvious.
-We expect the delta function to behave something like:
-\[\delta(x) = \int_{-\infty}^{\infty}a\exp(-bixt)\,dt\]
-Since when $x\neq 0$ over an infinite range all the phases sound cancel out.
-But when $x=0$ the integrand is constant meaning the integral infinite.
+\chapter{Introduction}
+In the simplest terms the Fourier Transform is a method of representing a function as a weighted integral of complex exponentials.
+A good basis for the theory of this transform is the representation of a single function as a weighted integral of complex exponentials, the delta function.
 
-To get values for $a,b$ we need to be more precise about what we mean by `infinite' and rigorous with our method.
+With this representation of the delta function so many of the transforms properties, like convulsion, inverse, and shifting, will become obvious.
+The hope is that this obviousness will help the transforms' wielder not only apply the Fourier transform but avoid large technical errors by making them stand out more when they are only small.
 
-\section{Representation of the delta function}
+\section{The Delta Function}
 We may characterize the delta function by two of its properties
 \begin{enumerate}
 \item Zero at non-zero values, $x\neq 0 \rightarrow \delta(x) = 0$.
 \item Normalized on the real line, $\int_{-\infty}^{\infty}\delta(x) = 1$.
 \end{enumerate}
-Hence we approximate the delta function as the limit of normalized Gaussian as the standard deviation approaches $0$:
-\[\delta(x) = \lim_{t\rightarrow\infty}\frac{1}{\sqrt{2\pi}\sigma}\exp\left(-\frac{1}{2}\left(\frac{x}{\sigma}\right)^2\right)\]
+
+We wish to represent such a function as an integral of weighted complex exponentials and we might expect something like this:
+
+\[\delta(x) = \int_{-\infty}^{\infty}a\exp(-bixt)\,dt\]
+
+Since when $x\neq 0$ over an infinite range all the phases cancel themselves out.
+But when $x=0$ the integrand is constant meaning the integral infinite, enabling the non-zero normalization.
+But to get values for $a,b$ we need to be more precise about what we mean by `infinite' and rigorous with our method.
+\\
+
+To this end we will approximate the delta function as the limit of normalized Gaussian as the standard deviation approaches $0$:
+\[\delta(x) = \lim_{\sigma\rightarrow\infty}\frac{1}{\sqrt{2\pi}\sigma}\exp\left(-\frac{1}{2}\left(\frac{x}{\sigma}\right)^2\right)\]
 To this approximation consider the following integral:
 \begin{equation*}
 \begin{aligned}
@@ -61,72 +67,60 @@ Hence we obtain:
 And trivially:
 \[\delta(x) = \frac{1}{2\pi} \int_{-\infty}^{\infty}\exp(ixt)\,dt\]
 
-\section{Sampling}
-Assume $f$ is continuous.
+\section{The Sampling Property}
+The two defining properties of the delta function combine to the following important result.
+If $f$ is continuous at $0$ then:
+\[\int_{-\infty}^{\infty}f(x)\delta(x)\,dx = f(0)\]
+
+Since $f$ is continuous at $0$ for all $\epsilon > 0$ we can find $\delta > 0$ such that:
+\[x \in (-\delta,\delta) \Rightarrow |f(x)-f(0)| < \epsilon\]
+Then:
 \begin{equation*}
 \begin{aligned}
-&\left|\int_{-\delta}^{\delta}f(x)\delta(x)\,dx-f(0)\right| \\
-=&\left|\int_{-\delta}^{\delta}f(x)\delta(x)\,dx-\int_{-\delta}^{\delta}f(0)\delta(x)\,dx\right| \\
-=&\left|\int_{-\delta}^{\delta}(f(x)-f(0))\delta(x)\,dx\right| \\
-\leq&\int_{-\delta}^{\delta}|f(x)-f(0)|\delta(x)\,dx \\
-\leq&\int_{-\delta}^{\delta}\epsilon\delta(x)\,dx \\
-=&\epsilon \\
+	&\left|\int_{-\infty}^{\infty}f(x)\delta(x)\,dx-f(0)\right| \\
+	=&\left|\int_{-\delta}^{\delta}f(x)\delta(x)\,dx-f(0)\right| \\
+	=&\left|\int_{-\delta}^{\delta}f(x)\delta(x)\,dx-\int_{-\delta}^{\delta}f(0)\delta(x)\,dx\right| \\
+	=&\left|\int_{-\delta}^{\delta}(f(x)-f(0))\delta(x)\,dx\right| \\
+	\leq&\int_{-\delta}^{\delta}|f(x)-f(0)|\delta(x)\,dx \\
+	\leq&\int_{-\delta}^{\delta}\epsilon\delta(x)\,dx \\
+	=&\epsilon \\
+\end{aligned}
+\end{equation*}
+This being true for all $\epsilon>0$ requires:
+	\[\int_{-\infty}^{\infty}f(x)\delta(x)\,dx = f(0)\]
+Completing the proof.
+\\
+
+As you likely guessed this property is called "sampling" since the integral samples the value $f(0)$ from $f$.
+This sampling property will act as the final steps of multiple proofs where we get a value from an integral by creating a delta function within it.
+
+\section{The Fourier Transform and it's Inverse}
+With the sampling property in hand we will now finish the introduction by defining the Fourier Transform and it's Inverse.
+Consider a given function $f$ define it's Fourier transform $\hat{f}$ as:
+\[\hat{f}(k) = \int_{-\infty}^{\infty}f(x)\exp(-ikx)\,dx\]
+\\
+
+What is remarkable about $\hat{f}$ is that $f$ can be recovered from it:
+\label{sec:inv-trans}
+\begin{equation*}
+\begin{aligned}
+	\frac{1}{2\pi}\int_{-\infty}^{\infty}\hat{f}(k)\exp(ixk)\,dk 
+	=& \frac{1}{2\pi}\int_{-\infty}^{\infty}\left(\int_{-\infty}^{\infty}f(t)\exp(-itk)\,dt\right)\exp(ixk)\,dk \\
+	=& \int_{-\infty}^{\infty}f(t)\left(\frac{1}{2\pi}\int_{-\infty}^{\infty}\exp(ik(x-t))\,dk\right)\,dt \\
+	=& \int_{-\infty}^{\infty}f(t)\delta(x-t),dt \\
+	=& f(x) \\
 \end{aligned}
 \end{equation*}
 
-\section{Inverse Transform}
-place holder
+And looking at the final equality by itself:
+\[f(x) = \frac{1}{2\pi}\int_{-\infty}^{\infty}\hat{f}(k)\exp(ikx)\,dk\]
+We see that $\hat{f}$ gives a representation of $f$ in terms of a weighted integral of complex exponentials, as desired.
 
-\section{Dirac Comb}
-Let:
-\[\Sha_T(x) = \sum_{n=-\infty}^{\infty}\delta(x-nT) = \frac{1}{T}\sum_{n=-\infty}^{\infty}\exp\left(2\pi i n \frac{x}{T}\right)\]
-Deal with proving that later using the partial sum.
-
-Consider:
-\[f(x) = \sum_{n=-\infty}^{\infty}\exp(2\pi n x)\]
-
-When $\exp(2\pi x) \neq 1$
-\begin{equation*}
-\begin{aligned}
-f(x) =& \sum_{n=-\infty}^{\infty}\exp(2\pi n x) \\
-=& \left(\sum_{n=-\infty}^{-1}+\sum_{n=0}^{0}+\sum_{n=1}^{\infty}\right)\exp(2\pi n x) \\
-=& \frac{\exp(-2\pi n x)}{1-\exp(-2\pi n x)} + 1 + \frac{\exp(2\pi n x)}{1-\exp(2\pi n x)} \\
-=& \frac{-1}{1-\exp(2\pi n x)} + 1 + \frac{\exp(2\pi n x)}{1-\exp(2\pi n x)} \\
-=& 1-1\\
-=& 0\\
-\end{aligned}
-\end{equation*}
-
-As for normalization:
-\begin{equation*}
-\begin{aligned}
-\int_{x}^{x+1}f(t)\,dt =& \int_{x}^{x+1}\sum_{n=-\infty}^{\infty}\exp(2\pi n t)\,dt\\
-=& 1+\int_{x}^{x+1}\sum_{\stackrel{n=-\infty}{n\neq 0}}^{\infty}\exp(2\pi n t)\,dt\\
-=& 1+\sum_{\stackrel{n=-\infty}{n\neq 0}}^{\infty}\int_{x}^{x+1}\exp(2\pi n t)\,dt\\
-=& 1+\sum_{\stackrel{n=-\infty}{n\neq 0}}^{\infty}\left[\frac{1}{2\pi n}\exp(2\pi n t)\right]_{x}^{x+1}\\
-=& 1+\sum_{\stackrel{n=-\infty}{n\neq 0}}^{\infty}\frac{\exp(2\pi x n)}{2\pi n}(\exp(2\pi n)-1)\\
-=& 1\\
-\end{aligned}
-\end{equation*}
-
-This is useful for the Fourier series.
-Let $f(x)$ be periodic wit period $P$.
-Define $f_k = \int_{0}^{P}f(x)\exp(-ikx)\,dx$ and consider:
-\begin{equation*}
-\begin{aligned}
-\hat{f}(k) =& \int_{-\infty}^{\infty}f(x)\exp(-ixk)\,dx \\
-=& \sum_{n=-\infty}^{\infty}\int_{nP}^{(n+1)P}f(x)\exp(-ixk)\,dx \\
-=& \sum_{n=-\infty}^{\infty}\int_{0}^{P}f(x)\exp(-ik(x+nP))\,dx \\
-=& f_k\sum_{n=-\infty}^{\infty}\exp(-iknP) \\
-=& f_k\frac{2\pi}{P}\sum_{n=-\infty}^{\infty}\delta\left(k-n\frac{2\pi}{P}\right) \\
-\end{aligned}
-\end{equation*}
-
-\chapter{Properties}
+\chapter{Fundamentals}
+Before moving towards applications of the Fourier transform it will be useful to collect some basic properties, theorems and symmetries.
+As advertised in the introduction most of these will follow from the Fourier transform of the delta function.
 \section{Basic Properties}
-I'm simply not interested in filling out this section of the text.
-Nothing in here is exotic to me or interesting to write.
-\subsection{Linear}
+\subsection{Linearity}
 It's almost so trivial as not need to be said, but the Fourier transform is linear,
 Let:
 \[h(x)=af(x)+bg(x)\]
@@ -172,18 +166,6 @@ Then:
 \end{aligned}
 \end{equation*}
 
-\subsection{Conjugation}
-Let:
-\[g(x) = \overline{f(x)}\]
-Then:
-\begin{equation*}
-\begin{aligned}
-	\hat{g}(k) =& \int_{-\infty}^{\infty}\overline{f(x)}\exp(-ikx)\,dx\\
-	=& \overline{\int_{-\infty}^{\infty}f(x)\exp(-i(-k)x)\,dx}\\
-	=& \overline{\hat{f}(-k)} \\
-\end{aligned}
-\end{equation*}
-
 \subsection{Scaling}
 Let:
 \[g(x) = f(ax) \]
@@ -195,6 +177,8 @@ Then:
 	=& \frac{1}{|a|}\hat{f}\left(\frac{k}{a}\right) \\
 \end{aligned}
 \end{equation*}
+
+Note how the special case of $a=-1$ means the transform commutative with changing the sign of the argument.
 
 \subsection{Differentiation} 
 Let:
@@ -209,9 +193,21 @@ Then:
 \end{aligned}
 \end{equation*}
 
-Vanishing term on the second line will be explained in full by duality and the Riemann-Lebesgue lemma.
+The vanishing term on the second line will be explained in full by duality and the Riemann-Lebesgue lemma.
 
-\section{Basic Theorems}
+\subsection{Conjugation}
+Let:
+\[g(x) = \overline{f(x)}\]
+Then:
+\begin{equation*}
+\begin{aligned}
+	\hat{g}(k) =& \int_{-\infty}^{\infty}\overline{f(x)}\exp(-ikx)\,dx\\
+	=& \overline{\int_{-\infty}^{\infty}f(x)\exp(-i(-k)x)\,dx}\\
+	=& \overline{\hat{f}(-k)} \\
+\end{aligned}
+\end{equation*}
+
+\section{Theorems}
 \subsection{Convolution Theorem}
 An immediate application of the Shifting Property is the Convolution Theorem.
 Let:
@@ -227,8 +223,76 @@ Then:
 =& \hat{g}(k)\hat{f}(k)\\
 \end{aligned}
 \end{equation*}
-\subsection{Real and Imaginary Components}
+
 \subsection{Poisson Summation Formula}
+There is an interesting summation formula that follows from the \hyperref[appx:dirac-comb]{Dirac Comb}:
+\begin{equation*}
+\begin{aligned}
+	\sum_{n=-\infty}^{\infty}\hat{f}(Dn) = & \int_{-\infty}^{\infty}\hat{f}(k)\Sha_D(k)\,dk \\
+	= &\frac{1}{D} \int_{-\infty}^{\infty}\hat{f}(k)\left(\sum_{n=-\infty}^{\infty}\exp\left(ik \frac{2\pi n}{D}\right)\right)\,dk\\
+	= &\frac{1}{D} \sum_{n=-\infty}^{\infty}\int_{-\infty}^{\infty}\hat{f}(k)\exp\left(ik \frac{2\pi n}{D}\right)\,dk\\
+	= &\frac{1}{D} \sum_{n=-\infty}^{\infty}f\left(\frac{2\pi n}{D}\right)\\
+\end{aligned}
+\end{equation*}
+
+\subsection{Real, Imaginary, Odd, and Even Components}
+Consider a function $f$ that is both \hyperref[sec:conjugation-sym]{purely real} and \hyperref[sec:parity-sym]{odd}.
+Then by combining results from the symmetry section $\hat{f}$ is odd and purely imaginary.
+\\
+
+Similar arguments for the other combinations gives the following table:
+
+\begin{center}
+\begin{tabular}{c|c}
+	$f$ & $\hat{f}$ \\ \hline
+	Real and Even & Real and Even \\
+	Real and Odd & Imaginary and Odd \\
+	Imaginary and Even & Imaginary and Even \\
+	Imaginary and Odd & Real and Odd \\
+\end{tabular}
+\end{center}
+
+Interestingly these four groups are one-to-one.
+Combining this table with the unique \hyperref[appx:real-img-odd-even]{representation of $f$} we know that the real and odd components of $\hat{f}$ depends solely on the Imaginary and odd components of $f$.
+
+Basically splitting the Fourier transforms from one complex function on $\mathbb{R}$ to four real functions on $\mathbb{R}_+$.
+
+\section{Symmetries}
+\subsection{Parity Symmetry}
+\label{sec:parity-sym}
+Let $f$ be an \hyperref[appx:real-img-odd-even]{even or odd} function then $\hat{f}$ is the same:
+\[f(x)\pm f(-x) = 0 \Rightarrow \hat{f}(x)\pm\hat{f}(-x) = 0\]
+
+\subsection{Conjugation Symmetry}
+\label{sec:conjugation-sym}
+Let $f$ be a \hyperref[appx:real-img-odd-even]{purely real} function then $\hat{f}$ is the Hermitian:
+\[f(x) - \overline{f(x)} = 0 \Rightarrow \hat{f}(x)+\overline{\hat{f}(-x)} = 0\]
+
+To my knowledge there is no name for the \hyperref[appx:real-img-odd-even]{purely imaginary} but a similar relation applies:
+\[f(x) + \overline{f(x)} = 0 \Rightarrow \hat{f}(x)-\overline{\hat{f}(-x)} = 0\]
+
+\subsection{Translation Symmetry}
+Let $f(x)$ be periodic with period $P$.
+Define $f_k = \int_{0}^{P}f(x)\exp(-ikx)\,dx$ and consider:
+\begin{equation*}
+\begin{aligned}
+	\hat{f}(k) =& \int_{-\infty}^{\infty}f(x)\exp(-ixk)\,dx \\
+	=& \sum_{n=-\infty}^{\infty}\int_{nP}^{(n+1)P}f(x)\exp(-ixk)\,dx \\
+	=& \sum_{n=-\infty}^{\infty}\int_{0}^{P}f(x)\exp(-ik(x+nP))\,dx \\
+	=& \left(\int_{0}^{P}f(x)\exp(-ikx)\,dx\right)\sum_{n=-\infty}^{\infty}\exp(-iknP) \\
+	=& \frac{2\pi}{P}\left(\int_{0}^{P}f(x)\exp(-ikx)\,dx\right)\sum_{n=-\infty}^{\infty}\delta\left(k-n\frac{2\pi}{P}\right)\\
+\end{aligned}
+\end{equation*}
+
+This is an interesting result by itself, that when $f$ is periodic $\hat{f}$ is mostly zero except for where $k$ is a multiple of $\frac{2\pi}{P}$.
+But if we substitute this expressing into the inverse transform we get a long but interesting result:
+\begin{equation*}
+\begin{aligned}
+	f(x) =& \frac{1}{2\pi}\int_{-\infty}^{\infty}\left(\frac{2\pi}{P}\left(\int_{0}^{P}f(t)\exp(-ikt)\,dt\right)\sum_{n=-\infty}^{\infty}\delta\left(k-n\frac{2\pi}{P}\right)\right)\exp(ixk)\,dk\\
+	      =&\frac{1}{P}\sum_{n=-\infty}^{\infty}\int_{-\infty}^{\infty}\delta\left(k-n\frac{2\pi}{P}\right)\left(\int_{0}^{P}f(t)\exp(-ikt)\,dt\right)\exp(ixk)\,dk \\
+	      =&\frac{1}{P}\sum_{n=-\infty}^{\infty}\left(\int_{0}^{P}f(t)\exp(-itn\frac{2\pi}{P})\,dt\right)\exp\left(ixn\frac{2\pi}{P}\right)\,dk
+\end{aligned}
+\end{equation*}
 
 \subsection{Radial Symmetry}
 Start with our standard 2-D Fourier integral:
@@ -250,40 +314,13 @@ We get:
 	=& \int_0^\infty g(r)r\int_0^{2\pi}\exp(-ik_r r\cos(\theta-\phi))\,d\theta\,dr \\
 \end{aligned}
 \end{equation*}
-Note that the inner integrand is a period function of $\theta$ with period $2\pi$ which is the same as the integral bounds hence we can pick any $\phi$ in particular:
+Note that the inner integrand is a function of $\theta$ with period $2\pi$ which is the same as the integral bounds hence we can pick any $\phi$ in particular:
 \[-\cos(\theta +\pi/2) = \sin(\theta)\]
 Hence the total function has no dependence on $\phi$ giving:
 \[F(k_r) = \int_0^\infty g(r)rJ_0(k_r r)\,dr\]
 
-\section{Fourier Series}
-Let $f(x)$ be periodic with a period of unity.
-Then for all integer $n$ and real $x$:
-\begin{equation*}
-\begin{aligned}
-	0 =& f(x+n)-f(x)\\
-	=& \frac{1}{2\pi}\int_{-\infty}^{\infty}\hat{f}(k)\left(\exp(ik(x+n))-\exp(ikx)\right)\,dk\\
-	=& \frac{1}{2\pi}\int_{-\infty}^{\infty}\hat{f}(k)\exp(ikx)\left(\exp(ikn)-1\right)\,dk\\
-\end{aligned}
-\end{equation*}
-For this to be true for all $x$ we require:
-\[\hat{f}(k)(\exp(ikn)-1) = 0\]
-For this to be true for all $n$ we require:
-\[\frac{k}{2\pi} \in \mathbb{Z}\]
-Hence when $kn \neq 2\pi m$ we require $\hat{f}(k) = 0$.
-Hence $kn = 2\pi m$ are the only points that can contriver, but since they are always isolated points they don't contribute if they are finite.
-Hence:
-\[\hat{f}(k) = \sum_{n=-\infty}^\infty a_n \delta\left(k-2\pi n\right)\]
-
-\begin{equation*}
-\begin{aligned}
-f(x) =& \frac{1}{2\pi}\int_{-\infty}^{\infty}\exp(ixk)\sum_{n=-\infty}^\infty a_n \delta\left(k-2\pi n\right)\,dk \\
-=& \frac{1}{2\pi}\sum_{n=-\infty}^\infty a_n\int_{-\infty}^{\infty}\exp(ixk) \delta\left(k-2\pi n\right)\,dk \\
-\end{aligned}
-\end{equation*}
-
-Add the integral to easily get the coefficients.
-
 \chapter{Applications}
+
 
 \section{Function Spaces}
 Function spaces are sets of function between two fixed sets with with some additional structure, often naturally inherited from the fixed sets.
@@ -302,6 +339,7 @@ An overview is that $L^1(\mathbb{R})$ is a yell behaved space where step functio
 While $L^2(\mathbb{R})$ is a less well-behaved but Hilbert space the Fourier transform can be extended to.
 
 \subsection{Plancherel Theorem}
+\label{sec:plancherel}
 Consider the following deviation:
 \begin{equation*}
 \begin{aligned}
@@ -740,6 +778,7 @@ Then there is a canonical isomorphism between $G$ and $\hat{\hat{G}}$.
 Note that locally compact groups come with an interesting measure called the "Haar measure" which interacts well with this transform.
 
 \section{Discrete Fourier transform over a ring}
+\label{sec:ring}
 Observe that many of the properties of used in the definition of the Discrete Fourier require only that the underlying set be a ring with a special element $\alpha$ such that $\alpha^n = 1$ and $\sum_{k=0}^{n-1}\alpha^{kj} = n\delta_{j,n}$.
 This lets us expand discussion of the Discrete Fourier transform to any ring with this element.
 And also explains why some prefer the non-unitary definition as a square root is a significant jump from a ring.
@@ -785,14 +824,46 @@ It's further worth noting that all fields are integral domains.
 
 \appendix	
 \chapter{Appendix}
-\section{Table}
-To be explicit 
-non-unitary, angular frequency
+
+\section{Convention}
+In this text the definition of Fourier and inverse Fourier transform are given by:
 \[\hat{f}(k) = \int_{-\infty}^{\infty}f(x)\exp(-ikx)\,dx\]
 \[f(x) =\frac{1}{2\pi} \int_{-\infty}^{\infty}\hat{f}(x)\exp(ikx)\,dk\]
-The $\sinc$ function is normalized.
+
+This is called the "non-unitary, angular frequency" convention and it's clear there is some arbitrariness around the certain coefficients as can see by defining a new similar transform:
+\[F(k) = \frac{1}{a}\int_{-\infty}^{\infty}f(x)\exp(-ibxk)\,dx\]
+
+We can go between different choices of $a$ and $b$ by mere scaling, which the basic properties section shows isn't a big deal:
+\[\frac{a}{A}F\left(\frac{B}{b}k\right) = \frac{1}{A}\int_{-\infty}^{\infty}f(x)\exp(-iBxk)\,dx\]
+
+Since the choice is ours to make it's natural to ask what the most convent choice is.
+An immediate concern is if the problem attempting to be solved using the Fourier transform has a natural choice.
+In some physical applications choosing $b= 1,\pi,2\pi$ is natural.
+
+Following any natural application the next concern is to make sure the inverse transform works.
+Using the same argument as in the \hyperref[sec:inv-trans]{inverse function section} we get the following relation:
+\[\frac{1}{c}\int_{-\infty}^{\infty}F(k)\exp(-idxk)\,dk = \frac{2\pi}{ac}f\left(\frac{d}{b}x\right)\]
+
+So if we choose $d=b$ and $ac = 2\pi$ the inverse works and we are still free to choose $a$ and $b$ as we please.
 \\
 
+From the \hyperref[sec:plancherel]{Plancherel's Theorem} we see that the transform being unitary would be convent and that this can be achieved with:
+\[a = c = \sqrt{2\pi}\]
+But this is presents a problem, since the use of square roots and $\pi$ make this choice in a large jump up from only using \hyperref[sec:ring]{ring operations}.
+
+This creates a clear branching point between what would be convenient algebraically versus analytically.
+With algebra preferring us to stay as simple as possible with $a=1$ and analysis preferring $a=\sqrt{2\pi}$.
+\\
+
+I have chosen $a=b=1$ because of how it simplify the definition of the transform but you are free to chose whatever convention you like, provided you keep conversion in mind while looking at tables of transforms.
+\\
+
+As ending remarks it is worth noting that in probability theory the characteristic function is equal to the Fourier transform with $a=1,\,b=-1$. 
+And that the Pontryagin Duality makes all the arbitrariness disappear by focusing on the more abstract isomorphism between locally compact abelian groups (But even Pontryagin Duality isn't the undisputed "best" viewpoint since it introduces topology but ignores ring operations, which may be more important in certain applications).
+
+\section{Table of Transforms}
+
+\begin{center}
 \begin{tabular}{c|c}
 	Time domain & Frequency domain \\ \hline
 	$\delta(x)$  & $1$ \\
@@ -806,6 +877,9 @@ The $\sinc$ function is normalized.
 	$\cos(k_0x)$ & $\pi  (\delta(k+k_0)+\delta(k-k_0))$\\
 	$\exp(-ax^2)$&$ \sqrt{\frac{\pi}{a}}\exp\left(-\frac{-k^2}{4a}\right)$ \\
 \end{tabular}
+\end{center}
+
+The $\sinc$ function is normalized.
 
 \section{Important integrals}
 
@@ -866,5 +940,64 @@ The convolution of a Cauchy with a Gaussian is easily solvable by double derivin
 I(x) =&\frac{\gamma}{\pi\sqrt{2\pi\sigma}}\int_{-\infty}^{\infty}\frac{1}{\gamma^2+t^2}\exp\left(-\frac{1}{2\sigma^2}(x-t)^2\right)\,dt\\
 \end{aligned}
 \end{equation*}
+
+\section{Dirac Comb}
+\label{appx:dirac-comb}
+The Dirac Comb of period $P$ is defined as
+\[\Sha_P(x) = \sum_{n=-\infty}^{\infty}\delta(x-nP) \] 
+
+An important property of $\Sha_P$ is that:
+\[\Sha_P(x) = \frac{1}{P}\sum_{n=-\infty}^{\infty}\exp\left(2\pi i n \frac{x}{P}\right)\]
+This can easily be proven as a Fourier transform but it can also be proven in a more direct and interesting way, consider:
+\[f(x) = \sum_{n=-\infty}^{\infty}\exp(2\pi n x)\]
+
+When $\exp(2\pi x) \neq 1$
+\begin{equation*}
+\begin{aligned}
+f(x) =& \sum_{n=-\infty}^{\infty}\exp(2\pi n x) \\
+=& \left(\sum_{n=-\infty}^{-1}+\sum_{n=0}^{0}+\sum_{n=1}^{\infty}\right)\exp(2\pi n x) \\
+=& \frac{\exp(-2\pi n x)}{1-\exp(-2\pi n x)} + 1 + \frac{\exp(2\pi n x)}{1-\exp(2\pi n x)} \\
+=& \frac{-1}{1-\exp(2\pi n x)} + 1 + \frac{\exp(2\pi n x)}{1-\exp(2\pi n x)} \\
+=& 1-1\\
+=& 0\\
+\end{aligned}
+\end{equation*}
+
+As for normalization:
+\begin{equation*}
+\begin{aligned}
+\int_{x}^{x+1}f(t)\,dt =& \int_{x}^{x+1}\sum_{n=-\infty}^{\infty}\exp(2\pi n t)\,dt\\
+=& 1+\int_{x}^{x+1}\sum_{\stackrel{n=-\infty}{n\neq 0}}^{\infty}\exp(2\pi n t)\,dt\\
+=& 1+\sum_{\stackrel{n=-\infty}{n\neq 0}}^{\infty}\int_{x}^{x+1}\exp(2\pi n t)\,dt\\
+=& 1+\sum_{\stackrel{n=-\infty}{n\neq 0}}^{\infty}\left[\frac{1}{2\pi n}\exp(2\pi n t)\right]_{x}^{x+1}\\
+=& 1+\sum_{\stackrel{n=-\infty}{n\neq 0}}^{\infty}\frac{\exp(2\pi x n)}{2\pi n}(\exp(2\pi n)-1)\\
+=& 1\\
+\end{aligned}
+\end{equation*}
+
+\section{The Parity Operator and Odd, Even, Real, and Imaginary Components}
+\label{appx:real-img-odd-even}
+The Parity operator takes a function multiplies it's argument by $-1$:
+\[\mathcal{P}[f](x) = f(-x)\]
+That functions that are symmetric in regards to this operator are called even and ones that are anti-symmetric are called odd.
+
+A function can be uniquely split into  sum of even and odd functions through the following identity:
+\[ f(x) = \overbrace{\frac{f(x)+f(-x)}{2}}^\text{Even}+\overbrace{\frac{f(x)-f(-x)}{2}}^\text{Odd}\]
+
+A purely real number is symmetric in regards to the conjugation operator and a purely imaginary number is anti-symmetric.
+A function whose output are purely real numbers is called purely real and similarly for imaginary.
+
+A function can be uniquely split into a sum of purely real and imaginary functions through the following identity:
+\[ f(x) = \overbrace{\frac{f(x)+\overline{f(x)}}{2}}^\text{Real}+\overbrace{\frac{f(x)-\overline{f(x)}}{2}}^\text{Imaginary}\]
+
+These unique sums combine to uniquely split an arbitrary function into four parts:
+\begin{equation*}
+\begin{aligned}
+	 f(x) =& \overbrace{\frac{f(x)+\overline{f(x)}+f(-x) + \overline{f(-x)}}{4}}^\text{Real and Even}+\overbrace{\frac{f(x)-\overline{f(x)}+f(-x)-\overline{f(-x)}}{4}}^\text{Imaginary and Even} \\
+	 &+ \overbrace{\frac{f(x)+\overline{f(x)}-f(-x) - \overline{f(-x)}}{4}}^\text{Real and Odd}+\overbrace{\frac{f(x)-\overline{f(x)}-f(-x)+\overline{f(-x)}}{4}}^\text{Imaginary and Odd}\\
+\end{aligned}
+\end{equation*}
+
+The formula for adding a third operator and making an eight way sum of terms can be deduced by observation.
 
 \end{document}
