@@ -235,6 +235,8 @@ There is an interesting summation formula that follows from the \hyperref[appx:d
 \end{aligned}
 \end{equation*}
 
+Can apparently be proved through Pontryagin Duality, which sounds cool. 
+
 \subsection{Real, Imaginary, Odd, and Even Components}
 Consider a function $f$ that is both \hyperref[sec:conjugation-sym]{purely real} and \hyperref[sec:parity-sym]{odd}.
 Then by combining results from the symmetry section $\hat{f}$ is odd and purely imaginary.
@@ -765,7 +767,18 @@ We can use this method to solve the general:
 \[y'' = xy+ay\]
 \[(ik)^2f = if'+af\]
 \section{Uncertainty Principle}
-Measure is preserved
+I don't remember how to prove this exactly but I have all the pieces and want to come back to it without looking it up.
+\[\int_{-\infty}^{\infty}x^2|f(x)|^2\,dx\int_{-\infty}^{\infty}x^2|\hat{f}(x)|^2\,dx = \langle xf(x),xf(x) \rangle \langle x\hat{f}(x), x\hat{f}(x) \rangle\]
+Cauchy-Schwarz inequality:
+\[\langle g,g \rangle\langle h,h\rangle = |\langle g,h \rangle|^2\]
+Plancherel:
+\[\langle g,h \rangle = \frac{1}{2\pi}\langle \hat{g},\hat{h}\rangle\]
+In particular:
+\[\langle xg(x),xh(x) \rangle = \frac{1}{2\pi}\langle \hat{g}'(x),\hat{h}'(x)\rangle\]
+Taking only the imaginary component:
+\[|\langle g,h \rangle|^2 \geq \frac{1}{4}(\langle h,g \rangle - \langle g,h \rangle)^2\]
+
+These all go together somehow.
 \section{Sampling theorem}
 Comb and low pass filter
 
