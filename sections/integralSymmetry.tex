@@ -1,0 +1,55 @@
+% Copyright 2023 Kieran W Harvie. All rights reserved.
+
+\section{Integrals and symmetry}
+Start with change of variables:
+\[\int_{\phi(U)}f(\mathbf{v})\,d\mathbf{v} = \int_Uf(\phi(\mathbf{u}))|\det\phi'(\mathbf{u})|\,d\mathbf{u}\]
+Assume the function has the following properties:
+\begin{equation*}
+\begin{aligned}
+	\phi(U) &= U \\
+	|\det\phi'(\mathbf{u})| &= c \\
+\end{aligned}
+\end{equation*}
+Basically a linear automorphism, a symmetry, on $U$.
+
+We have:
+\[\int_{U}f(\mathbf{v})\,d\mathbf{v} = c\int_Uf(\phi(\mathbf{u}))\,d\mathbf{u}\]
+Hence:
+\[0=\int_{U}\big(f(\mathbf{u})-cf(\phi(\mathbf{u}))\big)\,d\mathbf{u}\]
+Which is interesting when we:
+\begin{equation*}
+\begin{aligned}
+f(\mathbf{u}) = \frac{1}{2}\big(f(\mathbf{u})+cf(\phi(\mathbf{u}))+\frac{1}{2}\big(f(\mathbf{u})-cf(\phi(\mathbf{u}))\big) \\
+\int_Uf(\mathbf{u})\,d\mathbf{u} = \frac{1}{2}\int_U\big(f(\mathbf{u})+cf(\phi(\mathbf{u}))\,\mathbf{u}+\frac{1}{2}\int_U\big(f(\mathbf{u})-cf(\phi(\mathbf{u}))\big)\,\mathbf{u} \\
+= \frac{1}{2}\int_U\big(f(\mathbf{u})+cf(\phi(\mathbf{u}))\,\mathbf{u}\\
+\end{aligned}
+\end{equation*}
+
+Part of the integral vanishes.
+
+For example take:
+\[\phi(x) = -x \]
+\[U = [-1,1]\]
+
+We get the familiar:
+\[\int_{-1}^{1}f(x)\,dx = \frac{1}{2}\int_{-1}^{1}\big(f(x)+f(-x)\big)\,dx\]
+
+The utility can be seen by applying this relation to the basis of a class of function.
+Let $V = \langle 1,x,x^2 \rangle$ parabolas.
+Notice that $x$ base element vanishes, simplify evaluating integrals.
+
+====================================================
+
+Odiously the symmetries act like a group and with functions being a vector space we can use group representations.
+I don't remember much about representations atm though.
+
+=======================================================
+
+Recall that for two dimensional change of variables:
+\[ (x,y) = \phi(u,v) \]
+We have:
+\[|\det\phi'(\mathbf{v})| = \frac{\partial x}{\partial u}\frac{\partial y}{\partial v} - \frac{\partial x}{\partial v}\frac{\partial y}{\partial u} \]
+
+Rotation for the triangle is:
+\[(x,y) = \frac{1}{2}(-u-\sqrt{3}v,\sqrt{3}u-v)\]
+\end{document}

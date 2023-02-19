@@ -20,7 +20,7 @@ The editing, incorporation, or deletion or the following lose .tex files into th
 - Geometry
 - Goldenratio
 - GreatSword
-- GroupTheoryIntegral
+- ~~GroupTheoryIntegral~~
 - Harmonic
 - Hermite
 - Lattice
