@@ -569,6 +569,31 @@ The Cauchy distribution lacking a defined mean and variance isn't just an academ
 
 Note how a lot of these application have to do with modeling extrema values, this is because the Cauchy distribution has heavy tails, this is also why the moments don't exist.
 
+\subsection{Mean}
+Using the innerproduct from the Plancherel section we have:
+\[\int_{-\infty}^{\infty}x|f(x)|^2\,dx = \frac{i}{2\pi}\int_{-\infty}^{\infty}\overline{\hat{f}(x)}\hat{f}'(x)\,dx\]
+
+Which is already promising since the integral is primed for change of varitable.
+But lets consder the case when $f$ is purely real.
+\[\int_{-\infty}^{\infty}xf(x)^2\,dx = -\frac{1}{2\pi}\int_{-\infty}^{\infty}\Im[\overline{\hat{f}(x)}\hat{f}'(x)]\,dx\]
+
+Since $f$ is real we can easily get the \hyperref[appx:real-img-odd-even]{real and imaginary components} of $\hat{f}$ and $\hat{f}'$:
+\begin{equation*}
+\begin{aligned}
+	\hat{f}(x) = & \frac{1}{2}(\hat{f}(x)+\hat{f}(-x))+i\frac{1}{2}(\hat{f}(x)-\hat{f}(-x)) \\
+	\hat{f}'(x) = & \frac{1}{2}(\hat{f}'(x)-\hat{f}'(x))+i\frac{1}{2}(\hat{f}'(x)+\hat{f}'(-x)) \\
+\end{aligned}
+\end{equation*}
+
+Hence:
+\begin{equation*}
+\begin{aligned}
+	-\frac{1}{2\pi}\int_{-\infty}^{\infty}\Im[\overline{\hat{f}(x)}\hat{f}'(x)]\,dx =& 
+	-\frac{1}{2\pi}\int_{-\infty}^{\infty}\left(\frac{1}{2}(\hat{f}(x)+\hat{f}(-x))-i\frac{1}{2}(\hat{f}(x)-\hat{f}(-x))\right)\left(\frac{1}{2}(\hat{f}'(x)-\hat{f}'(-x))+i\frac{1}{2}(\hat{f}'(x)+\hat{f}'(-x))\right)\,dx \\
+\end{aligned}
+\end{equation*}
+
+
 \section{Hermite Polynomials}
 % From them being eigenfunctions there is an easy relationship between the Hermite expansion of a function and its transform.
 % Can be used to calculate operations on the coefficients Hermite polynomials.
@@ -770,7 +795,7 @@ We can use this method to solve the general:
 I don't remember how to prove this exactly but I have all the pieces and want to come back to it without looking it up.
 \[\int_{-\infty}^{\infty}x^2|f(x)|^2\,dx\int_{-\infty}^{\infty}x^2|\hat{f}(x)|^2\,dx = \langle xf(x),xf(x) \rangle \langle x\hat{f}(x), x\hat{f}(x) \rangle\]
 Cauchy-Schwarz inequality:
-\[\langle g,g \rangle\langle h,h\rangle = |\langle g,h \rangle|^2\]
+\[\langle g,g \rangle\langle h,h\rangle \geq |\langle g,h \rangle|^2\]
 Plancherel:
 \[\langle g,h \rangle = \frac{1}{2\pi}\langle \hat{g},\hat{h}\rangle\]
 In particular:
@@ -779,8 +804,52 @@ Taking only the imaginary component:
 \[|\langle g,h \rangle|^2 \geq \frac{1}{4}(\langle h,g \rangle - \langle g,h \rangle)^2\]
 
 These all go together somehow.
-\section{Sampling theorem}
-Comb and low pass filter
+
+Also note that:
+\[\int_{-\infty}^{\infty}x^2|f(x)|^2\,dx = \int_{-\infty}^{\infty}|\hat{f}'(x)|^2\,dx\]
+These are both measures of dispersion.
+To see this look at the right hand side with a standard Gaussian:
+\[f(x) = \frac{1}{\sqrt{2\pi}\sigma}\exp\left(-\frac{1}{2}\left(\frac{x}{\sigma}\right)^2 \right)\]
+We get:
+\[\int_{-\infty}^{\infty}|f'(x)|^2\,dx = \frac{1}{4\sqrt{\pi}\sigma^3} \]
+
+\section{Nyquist–Shannon Sampling Theorem}
+Consider the convolution of a function with a Dirac comb (of step size $B$):
+\[g(x) = \int_{-\infty}^{\infty}f(x-t)\sum_{n=-\infty}^{\infty}\delta(t-nB)\,dt = \sum_{n=-\infty}^{\infty}f(x-nB)\]
+Then $g$ is the sum of infinite copies of $f$ spaced $B$ apart, if such a sum exists.
+Hence $g$ is periodic with a period of $B$. 
+Proof of this can be seen by seeing that translation by $NB$ shifts the index $n$ of the sum across by $N$ but keeps all the term the same:
+\[g(x+NB) = \sum_{n=-\infty}^{\infty}f(x+NB-nB) = \sum_{n=-\infty}^{\infty}f(x-(n-N)B) \]
+\\
+
+In particular if $f$ is zero outside of $(-B,B)$ then the copies can't overlap, making them perfect copies.
+Meaning if we multiply the convolution by the indicator function of $(-B,B)$ we recover $f$!
+\[f(x) = \chi_{(-B,B)}(x)\int_{-\infty}^{\infty}f(x-t)\Sha_B(t)\,dt\]
+\\
+
+Since we do all this work only to get $f$ back it may seem like a waste of time.
+But consider a function $f$ such that $\hat{f}$ is zero outside of $(-B,B)$.
+Then we have:
+\[\hat{f}(k) = \chi_{(-B,B)}(k)\int_{-\infty}^{\infty}\hat{f}(k-t)\Sha_B(t)\,dt\]
+The RHS is a combination of operations and functions we know the inverse Fourier transform of meaning we get a new expression for $f$:
+\[f(x) = \int_{-\infty}^{\infty}\left(2\frac{\sin(D(x-t))}{x-t}\right)\left(f(t)\frac{2\pi}{|B|}\Sha_{\frac{2\pi}{B}}(t)\right)\,dt \]
+Letting $T = \frac{2\pi}{|B|}$ we get:
+\[ f(x) = 2T\sum_{n=-\infty}^{\infty}f(Tn)\frac{\sin(D(x-nT))}{x-nT} \]
+(TODO: check that all the coefficients are correct).
+\\
+
+We have reconstructed a continuous function $f$ as an discrete sum of it's samples $f$.
+This is called Nyquist–Shannon Sampling Theorem and along with being cool is a very useful for any application that tries to reconstruct a signal from samples.
+
+\subsection{Strictness of $B$}
+Note that $\hat{f}$ can only be non-zero on $(-B,B)$ this strictly includes $\hat{f}(\pm B) = 0$ for the reconstruction of $f$ to be unique.
+
+Consider the class of functions $f(x) = a\sin\left(\frac{2\pi}{T}x\right)$.
+Their transform's are all deltas at $\pm B$ but when sampled all $f(nT) = 0$ hence they can't be distinguished.
+\\
+
+This is a particular pathological examples because $\hat{f}$ aren't just non-zero, but infinite. 
+But it demonstrates the principles of the strictness of $B$.
 
 \chapter{Generalizations}
 \section{Pontryagin Duality}
