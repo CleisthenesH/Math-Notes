@@ -1,0 +1,35 @@
+% Copyright 2023 Kieran W Harvie. All rights reserved.
+
+\section{Lagrange Multiplier}
+Recall that local extrema $x$ of the function $f :\mathbb{R}^n \rightarrow \mathbb{R}$ subject to contrasts $g_i$ satisfy:
+\[\nabla f(x) = \sum_i \lambda_i \nabla g_i(x)\]
+
+The core observation is that if $\nabla f$ has a component outside the span of ${\nabla g_i}$ then you can move in that direction while keeping $g_i$'s constant, contradicting the point being an extrema.
+\\
+
+But the actual constants $\lambda_i$ have a useful interpretation as the rate the extrema changes as the constant changes.
+To see this pick a particular $g_j$ and construct a $d$ such that:
+\[d\cdot \nabla g_i = D\delta_{i,j}\]
+You can achieve this by induction with:
+\[d_0 = \nabla g_0,\, d_{n+1} = d_n -d_n\cdot\nabla g_n\]
+
+Now scale $d$ down such that functions around the extrema can be approximated through targets.
+We have:
+\[g_i(x+d) = g_i(x)+d\cdot\nabla g_i(x) = g_i(x) + D\delta_{i,j}\]
+That all the constants are the same, except for $j$
+\\
+
+\begin{equation*}
+	\begin{aligned}
+		f(x+d) =& f(x)+d\cdot\nabla f(x) \\
+		=& f(x) + \sum_i \lambda_i d \cdot g_i(x) \\ 
+		=& f(x) + D\lambda_j
+	\end{aligned}
+\end{equation*}
+Hence the rate of change of the constant to the extrema is:
+\[(D\lambda_i)/D = \lambda_i\]
+\\
+
+The only loose end is to show $\nabla f(x+d)$ is in the span of ${\nabla g_i }$.
+This follows from the previous equation.
+
