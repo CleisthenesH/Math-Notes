@@ -38,7 +38,10 @@ The editing, incorporation, or deletion or the following lose .tex files into th
 - WaveEq
 - Winquist
 
-And add new notes directly too this repository:
+And add new notes directly too this repository, subject to change:
+- Isosets
+- Uniqueness of finite fields.
 - GF(2^8) in encryption and hashing
 - ~~Discontinuities of a monotonic function.~~
 - ~~Interest~~
+- ~~Lagragian Multiplier~~
