@@ -1,0 +1,75 @@
+% Copyright 2023 Kieran W Harvie. All rights reserved.
+
+\section{Isosets}
+Consider the function $f: \mathbb{R}^n \rightarrow \mathbb{R}$ let the isosets\footnote{Not the proper name, but I can't recall the proper name right now.} be sets $S$ in the domain of $f$ such that $f(S)$ is constant.
+\\
+
+Given some isoset $S$ and point $x \in \mathbb{R}^n$ of $f$ we want some kind of function that returns some type of measure $d \in \mathbb{R}$ of the distance of $x$ to $S$.
+This function will be used in fragment shader rendering, which is why the mission statement is so vague.
+We only need some general measure since it's better to efficiently get that measure and tweak coefficients then to get something perfectly accurate.
+\\
+
+A particular application is the $n=2$ case where we are looking to find the distance for the contour line.
+
+\subsection{Naïve Solution}
+The first idea is to compare the distance of $f(x)$ to $f(S)$ to $d$:
+\[ d = |f(x)-f(S)|  \]
+The problem with this solution is that the measure changes as a function of $|\nabla f(x)|$.
+That is to say that the faster $f$ changes at $x$ the closer $x$ has to be to $S$ to get the same value of $d$.
+\\
+
+This method might work for some shader effects but not others.
+For example it won't work to draw a constant width contour as the width would be inversely proportional to $|\nabla f(x) |$
+
+\subsection{Better Solution}
+If the underestimation is proportional to $|\nabla f(x)|$ the obvious solution is to divide by $|\nabla f(x)|$:
+\[ d = \frac{|f(x)-f(S)|}{|\nabla f(x)|}\]
+This is the solution currently used but deserves more analysis.
+\\
+
+For starters consider the case that $x$ is near the point $s \in S$.
+Then $\nabla f(s)$ points away from $S$, that is that if a tangent to $S$ exists at $s$ then $\nabla f(s)$ is at orthogonal to the tangent, by definition of $S$ being a set such that $f$ is constant.
+The combination of orthogonality and closeness lets us recover the original expression by use of the tangent surface:
+\begin{equation*}
+\begin{aligned}
+	f(x) =& f(s)+(x-s)\cdot \nabla f(s) \\
+	|f(x)-f(s)| =& |(x-s) \cdot \nabla f(s) |\\
+	=& |x-s||\nabla f(s)| \\
+	\frac{|f(x)-f(s)|}{|\nabla f(s) |} =& |x-s| \\
+\end{aligned}
+\end{equation*}
+\\
+
+Now consider the case where $x$ is not close to $S$ and the use case of drawing a constant width contour line.
+Under what conditions do we avoid a false positive?
+(That is the function thinks $x$ is closer than it is.)
+Well we need some constraints on the rate at which $\nabla f(x)$ can grow.
+To see this consider a point far away from $S$ but whose rate of change is very slow between most of $x$ and $s$, so that $|f(x) - f(s)|$ is small, but suddenly increases at $x$, such that $|\nabla f(x)|$ is large.
+This causes their ratio to be small despite $|x-s|$ being large, false saying $x$ should be colored as part of the contour line.
+If we reverse the set up, rate of change is large at first then slow, we will get a false negative.
+(That the point is further than we think it is) 
+\\
+
+To see how a constraint would be useful, consider the following one: 
+\[ |\nabla f(x+d)| \leq k|d||\nabla f(x)|\]
+\begin{equation*}
+\begin{aligned}
+	|f(x)-f(s)| =& \left|\int_{0}^{1}\nabla f(x + (s-x)t) \cdot (s-x) \,dt\right| \\
+	=& \left|(s-x)\cdot\int_{0}^{1}\nabla f(x + (s-x)t) \,dt\right| \\
+	\leq& |(s-x)|\left|\int_{0}^{1}\nabla f(x + (s-x)t) \,dt\right| \\
+	&\text{Cauchy-Schwartz} \\
+	\leq& |(s-x)|\int_{0}^{1}\left|\nabla f(x + (s-x)t) \right|\,dt \\
+	&\text{ML Bound} \\
+	\leq& |(s-x)|\int_{0}^{1}k|(s-x)t||\nabla f(x)|\,dt \\
+	\frac{|f(x)-f(s)|}{|\nabla f(x)|} \leq& \frac{k}{2}|s-x|^2 \\
+\end{aligned}
+\end{equation*}
+
+This avoids a false negative as $x$ must be at least $ \sqrt{\frac{2d}{k}}$ away.
+
+To-do: we need a inequities like $d \geq p(|x-s|)$ to get a bound on false positives.
+\\
+The condition:
+\[ |\nabla f(x+d)| \leq k|d|+|\nabla f(x)|\]
+Gives:
+\[d \leq |x-s|\left(1+\frac{|x-s|}{|\nabla f(x)|}\right)\]
