@@ -40,6 +40,7 @@ The editing, incorporation, or deletion or the following lose .tex files into th
 
 And add new notes directly too this repository, subject to change:
 - ~~Isosets~~
+- ~~Padé~~
 - Uniqueness of finite fields.
 - GF(2^8) in encryption and hashing
 - ~~Discontinuities of a monotonic function.~~

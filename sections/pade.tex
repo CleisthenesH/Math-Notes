@@ -1,0 +1,46 @@
+% Copyright 2023 Kieran W Harvie. All rights reserved.
+
+\section{Padé Approximant}
+We wish to approximate a function $f$ by creating a rational function that agrees with $f$'s first $N$ derivatives at zero.
+
+Let $T_N$ be the $N$th degree Maclaurin series of $f$.
+Consider the steps of finding the polynomial greatest common division by the extended Euclid algorithm of $T_N$ with $x^{N+1}$ where we prematurely stop:
+\begin{equation*}
+\begin{aligned}
+	x^{N+1} =& 1\cdot x^{N+1} +& 0\cdot T_N(x) \\
+	T_N(x) =& 0\cdot x^{N+1} +& 1\cdot T_N(x) \\
+	r_1(x) =& 1\cdot x^{N+1} + & -q_1(x)\cdot T_N(x) \\
+	& \vdots &\\
+	P(x) =& K(x)x^{N+1} + & Q(x) T_N(x) \\
+\end{aligned}
+\end{equation*}
+
+By inspection we get the useful relation:
+\[P(x)/Q(x) \equiv T_N(x) \mod x^{N+1}\]
+
+Hence satisfying the original objective.
+Note that we can chose decrease the degree of $P$ by simply continuing the algorithm.
+
+\subsection{The Reverse}
+Say I want to do the reverse, that I have $f = g/h$ where I have the power series for $g$ and $h$ but want to effectively find $f$
+We have:
+
+\begin{equation*}
+\begin{aligned}
+	x^{N+1} =& 0\cdot f(x) + &1\cdot x^{N+1}\\
+	g(x) =& h(x)\cdot f(x) +& 0\cdot x^{N+1} \\
+\end{aligned}
+\end{equation*}
+
+You can remove some higher term of $f$ into a residue function $K$ on $x^{N+1}$, since we don't really care about it.
+
+\subsection{Differential}
+What if $g$ and $h$ are related buy a differential equation?
+We can use it like how we used the quotient-remainder equation.
+The derivative is linear after all.
+
+
+
+\subsection{Chinese Remainder Theorem}
+Since I have modulo relations can I combine them with the Chinese Remainder Theorem?
+The moduli will have to be pairwise coprime $(x-a_i)^n$ stand out.
