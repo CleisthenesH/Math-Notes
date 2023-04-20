@@ -230,8 +230,8 @@ There is an interesting summation formula that follows from the \hyperref[appx:d
 \begin{aligned}
 	\sum_{n=-\infty}^{\infty}\hat{f}(Dn) = & \int_{-\infty}^{\infty}\hat{f}(k)\Sha_D(k)\,dk \\
 	= &\frac{1}{D} \int_{-\infty}^{\infty}\hat{f}(k)\left(\sum_{n=-\infty}^{\infty}\exp\left(ik \frac{2\pi n}{D}\right)\right)\,dk\\
-	= &\frac{1}{D} \sum_{n=-\infty}^{\infty}\int_{-\infty}^{\infty}\hat{f}(k)\exp\left(ik \frac{2\pi n}{D}\right)\,dk\\
-	= &\frac{1}{D} \sum_{n=-\infty}^{\infty}f\left(\frac{2\pi n}{D}\right)\\
+	= &\frac{2\pi}{D} \sum_{n=-\infty}^{\infty}\frac{1}{2\pi}\int_{-\infty}^{\infty}\hat{f}(k)\exp\left(ik \frac{2\pi n}{D}\right)\,dk\\
+	= &\frac{2\pi}{D} \sum_{n=-\infty}^{\infty}f\left(\frac{2\pi n}{D}\right)\\
 \end{aligned}
 \end{equation*}
 
@@ -322,7 +322,6 @@ Hence the total function has no dependence on $\phi$ giving:
 \[F(k_r) = \int_0^\infty g(r)rJ_0(k_r r)\,dr\]
 
 \chapter{Applications}
-
 
 \section{Function Spaces}
 Function spaces are sets of function between two fixed sets with with some additional structure, often naturally inherited from the fixed sets.
@@ -850,6 +849,39 @@ Their transform's are all deltas at $\pm B$ but when sampled all $f(nT) = 0$ hen
 
 This is a particular pathological examples because $\hat{f}$ aren't just non-zero, but infinite. 
 But it demonstrates the principles of the strictness of $B$.
+
+\section{Generating Function}
+The standard generating function for a sequence $f_n$ is given by:
+\[F(x) = \sum_{n = 0}^{\infty}f_nx^n\]
+
+This is similar to the following relation:
+
+\[\sum_n f(n)g(n) = \frac{1}{2\pi}\sum_n (\hat{f} \ast \hat{g})(2\pi n)\]
+
+\[\phi_a(x) = \frac{1}{\pi}\frac{a}{a^2+x^2}\]
+\[x = \exp(-a) \]
+
+Consider the product of $f$ with a signed exponential:
+\begin{equation*}
+\begin{aligned}
+	\sum_{n = -\infty}^{\infty} f(n)x^{|n|} =& \sum_{n = -\infty}^{\infty} f(n)\exp(-a|n|) \\
+	= & \sum_{-\infty}^{\infty} (\hat{f}\ast\phi_a)(2\pi n) \\
+\end{aligned}
+\end{equation*}
+
+Hence the generating function can be though of taking a more or lest refined sampling of $\hat{f}$ with Cauchy distributions. 
+
+Interestingly a similar relation hold with Gaussian and quadratic generating function:
+\[N_a(x) = \frac{1}{a\sqrt{2\pi}}\exp\left(-\frac{1}{2}\frac{x^2}{a^2}\right)\]
+and
+\[x = \exp\left(-\frac{a^2}{2}\right)\]
+
+\begin{equation*}
+\begin{aligned}
+	\sum_n f(n) x^{n^2} =& \sum_n (\hat{f} \ast N_a)(2\pi n) \\
+\end{aligned}
+\end{equation*}
+
 
 \chapter{Generalizations}
 \section{Pontryagin Duality}
