@@ -871,17 +871,29 @@ Consider the product of $f$ with a signed exponential:
 
 Hence the generating function can be though of taking a more or lest refined sampling of $\hat{f}$ with Cauchy distributions. 
 
+\subsection{Rough Observations}
 Interestingly a similar relation hold with Gaussian and quadratic generating function:
 \[N_a(x) = \frac{1}{a\sqrt{2\pi}}\exp\left(-\frac{1}{2}\frac{x^2}{a^2}\right)\]
 and
 \[x = \exp\left(-\frac{a^2}{2}\right)\]
-
 \begin{equation*}
 \begin{aligned}
 	\sum_n f(n) x^{n^2} =& \sum_n (\hat{f} \ast N_a)(2\pi n) \\
 \end{aligned}
 \end{equation*}
+\\
 
+Using the unitary and ordinary frequency Fourier transform convention to get a nicer summation we have:
+\[\int_{-\infty}^{\infty}f(t)\exp(-a|t|)\sum_{n\in\mathbb{Z}}\phi_b(t-n) = \sum_{n\in\mathbb{Z}}[\hat{f}\ast\phi_a](n)\exp(-b|n|)\]
+This is a relation between two different ordinary generating functions.
+The right hand side is an ordinary generating function that approximates the LHS generating function as a probability distribution around integers, instead of a clean sum. Cool!
+\\
+
+For $s \in (-1,0)$ the transform of $|x|^s$  is $\frac{-2\sin(\frac{\pi s}{2})\Gamma(s+1)}{|k|^{1+s}}$.
+Which will produce a Dirichlet generating function, and outputs something like a Dirichlet generating function.
+\\
+
+Also using Hermite functions as a basis might also be interesting.
 
 \chapter{Generalizations}
 \section{Pontryagin Duality}
