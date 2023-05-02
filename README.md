@@ -46,6 +46,6 @@ And add new notes directly too this repository, subject to change:
 - ~~Discontinuities of a monotonic function.~~
 - ~~Interest~~
 - ~~Lagragian Multiplier~~
-- ~~ Two cool p-adic number proofs ~~
+- ~~Two cool p-adic number proofs~~
 - Helmholtz decomposition (Incl. Fourier)
 - Fouier Series from Nyquist style argument. (Maybe include the last two in fourier)
