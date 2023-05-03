@@ -32,7 +32,7 @@ The editing, incorporation, or deletion or the following lose .tex files into th
 - Pentagonal
 - Quintic
 - Rational_Tangent
-- SpecialRelativity
+- SpecialRelativity(Added the geometry component, the rest is kind of cringe)
 - Unit Fraction
 - Variance
 - WaveEq
