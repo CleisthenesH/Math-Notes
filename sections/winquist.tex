@@ -1,0 +1,18 @@
+\section{Winquist's identity}
+The following form of the Winquist's identity was on an old hard drive:
+\begin{equation*}
+\begin{aligned}
+	\prod_{n \geq 1}&(1-ax^{n-1})(1-a^{-1}x^n)(1-bx^{n-1})(1-b^{-1}x^{n}) \\
+	&\times(1-ab^{-1}x^{n-1})(1-abx^{n-1})(1-a^{-1}b^{-1}x^{n})(1-x^n)^2 \\
+	=& \sum_{i \in \mathbb{N}_{\geq 0}}\sum_{j\in\mathbb{Z}} (-1)^{i+j}(b^{-3j}-b^{3j+1})(a^{-3i}-a^{3i+3}) \\
+	&\times(b^{-3i+2}-b^{3i-1})(a^{-3j+1}-a^{3j+2})x^{\frac{j(3j+1)}{2}+\frac{3i(i+1)}{2}} \\
+\end{aligned}
+\end{equation*}
+
+A quick Google make the identity verifies that the identity looks right.
+With the exception of the ranges of the RHS summation, maybe $i$ and $j$ should be switched.
+\\
+
+Either way this is a cool identity and captures something interesting.
+And that would definitely be helpful in generating functions.
+In particular reciprocating the relation and multiplying by the RHS give a weighted partition that has a relatively sparse recursive relation.

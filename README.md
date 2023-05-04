@@ -36,7 +36,7 @@ The editing, incorporation, or deletion or the following lose .tex files into th
 - ~~Unit Fraction~~
 - ~~Variance~~
 - ~~WaveEq~~
-- Winquist
+- ~~Winquist~~
 
 And add new notes directly too this repository, subject to change:
 - ~~Isosets~~
