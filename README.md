@@ -35,7 +35,7 @@ The editing, incorporation, or deletion or the following lose .tex files into th
 - SpecialRelativity(Added the geometry component, the rest is kind of cringe)
 - Unit Fraction
 - Variance
-- WaveEq
+- ~~WaveEq~~
 - Winquist
 
 And add new notes directly too this repository, subject to change:

@@ -1,0 +1,56 @@
+%\documentclass[12pt]{article}
+%\usepackage{amsmath}
+%\usepackage{amssymb}
+
+\section{Wave Equation}
+\subsection{Symmetry}
+Given some function $u(\vec{x},t)$ on space and time we want to understand it's dynamics under the following assumptions:
+\begin{enumerate}
+	\item {\textbf{Reversible}}, the dynamics should be symmetric in respect to reversing time.
+	\item {\textbf{Isotropic}}, the function should be symmetric in respect to all directions.
+	\item {\textbf{Relative}}, the absolute value doesn't matter, only changes.
+	\item {\textbf{Perturbation}}, the changes should be small.
+\end{enumerate}
+
+The wave equation is a natural conclusion from from these constraints:
+\[\frac{\partial^2}{\partial t^2}u = c\sum_i \frac{\partial^2}{\partial x_i^2} u\]
+
+Because the change change is small we start by considering a Taylor expansion and try to get the lowest order terms.
+Because it's relative we ignore the $0^\text{th}$ order terms.
+Because it's reversible we ignore the $1^\text{st}$ order terms
+Giving:
+\[\frac{\partial^2}{\partial t^2}u = \sum_{i,j} w_{i,j}\frac{\partial^2}{\partial x_i \partial x_j} u\]
+Because it's isotropic all the $\frac{\partial^2}{\partial x_i^2}$ coefficient need to be equal.
+And without loss of generality we can assume a basis where the cross terms vanish, giving:
+\[\frac{\partial^2}{\partial t^2}u = \sum_i cu\frac{\partial^2}{\partial x_i^2} = c\sum_i \frac{\partial^2}{\partial x_i^2} u\quad \square\]
+
+\subsection{Old Symmetry Attempt}
+(Not sure what I was doing here, lol. Seems like I went on the wrong path by not including $t$)
+Lets start with with a function of space $u(\vec{x})$.
+Lets assume it is continuous such that:
+\[u(\vec{x} +\vec{r}) = u(\vec{x}) + \sum_{i}r_i\frac{\partial}{\partial x_i}u(\vec{x})+\frac{1}{2}\sum_{i,j}r_ir_j\frac{\partial^2}{\partial x_i\partial x_j}u(\vec{x}) \]
+Lets remove all terms that aren't reversible:
+\[u(\vec{x} +\vec{r}) = u(\vec{x}) + \frac{1}{2}\sum_{i}r_i^2\frac{\partial^2}{\partial x_i^2}u(\vec{x}) \]
+Lets impose localization:
+\[c^2r_0^2 = \sum_{i>0}r_i^2\]
+Not sure exactly how this part works but we get the sign we need one example is to only keep terms that have $c^2r_0^2 = r_i^2$
+
+\subsection{1-D}
+I need to remind myself how to solve the 1-D case as a stepping stone for something else.
+Reminder that the 1-D form, with unitary speed, is:
+\[ \frac{\partial^2}{\partial t^2} u = \frac{\partial^2}{\partial x^2}u\]
+Observe that plane waves where angular frequency and wave number have the same magnitude solve this:
+\[ \exp(ik(x\pm t))\]
+This suggests the use of Fourier transform, where the $\pm$ is used to fit the solution to initial value and derivative:
+\[ u = \frac{1}{\sqrt{2\pi}}\int_\mathbb{R}(a_+(k)e^{ikt}+a_-(k)-e^{-ikt})e^{ikx}\,dk\]
+Assume $f(x) = u(x,0)$ and $h(x) = \left[\frac{\partial}{\partial t}u\right](x,0)$.
+Equating Fourier transforms gives:
+\begin{equation*}
+\begin{aligned}
+	\hat{f}(k) =& a_+(k)+a_-(k) \\
+	\hat{h}(k) =& ik(a_+(k)-a_-(k)) \\
+\end{aligned}
+\end{equation*}
+Hence:
+\[ u = \frac{1}{\sqrt{2\pi}}\int_\mathbb{R}(\hat{f}(k)\cos(kt)+\hat{h}(k)k^{-1}\sin(kt))e^{ikx}\,dk\]
+
