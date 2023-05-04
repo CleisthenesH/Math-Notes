@@ -1,0 +1,41 @@
+\section{Unit Fraction}
+\textbf{Theorem:}
+Consider a function $f:X \rightarrow \mathbb{R}$ where $\cl(\im(f))$ is bounded and countable.
+Then for any $n\in\mathbb{N}$ and interval $U\subset \mathbb{R}$ we have $n\im(f) \not\supseteq\mathbb{Q} \cup U$.
+\\
+
+\textbf{Proof:}
+If we assume that $n\im(f) \supseteq \mathbb{Q} \cap U$ we get:
+\[|\cl(n\im(f))| \geq |\cl(\mathbb{Q} \cap U)| = |U| = \aleph_1 \]
+However by the compactness of $\cl(\im(f))$:
+\[\cl(n\im(f))= n\cl(\im(f))\]
+Hence by the countability of $\cl(\im(f))$:
+\[|\cl(n\im(f))| = |n \cl(\im(f))| \leq |\cl(\im(f))|^n = \aleph_0^n = \aleph_0\]
+This contradicts $|\cl(n\im(f))| \geq \aleph_1$ and hence $n\im(f) \not\supseteq\mathbb{Q} \cap U$.
+\\
+
+\textbf{Corollary:}
+The function $f:\mathbb{N}_{>0} \rightarrow \mathbb{R}$ where $f(x) = 1/x$ meets the function requirements.
+Hence for every interval there is a rational number that can't be represented with $n$ unit fractions.
+\\
+
+I want to try a more aesthetically pleasing formulation by separating out the set theory from the topology from the $\mathbb{Q}$ specifics. 
+\\
+
+\textbf{Theorem:} Let $X$ and $Y$ be sets. 
+Then $|Y| > |X|^n$ implies $nX \not\supseteq Y$.
+
+\textbf{Proof:} By contradiction on set size.
+\\
+
+\textbf{Theorem:} If $X$ is countable and $Y$ is non-countable then $nX \not\supseteq Y$ for all $n\in\mathbb{N}_{>0}$.
+
+\textbf{Proof:} The previous theorem using $\aleph_1 > \aleph_0^n$ for all $n\in\mathbb{N}_{>0}$
+\\
+
+\textbf{Theorem:} If $X$ is compact, $\cl(X)$ countable, and $Y$ non-countable then $\cl(nX) \not\supseteq Y$ for all $n\in\mathbb{N}_{>0}$.
+
+\textbf{Proof:} The previous theorem using $\cl(nX) = n\cl(X)$ from compactness.
+\\
+
+Now just rework the corollary a bit for it to fit here. 
