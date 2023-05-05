@@ -53,4 +53,19 @@ Equating Fourier transforms gives:
 \end{equation*}
 Hence:
 \[ u = \frac{1}{\sqrt{2\pi}}\int_\mathbb{R}(\hat{f}(k)\cos(kt)+\hat{h}(k)k^{-1}\sin(kt))e^{ikx}\,dk\]
+\\
 
+This can be processed further through the convolutions theorem.
+(Because of the table of transforms I have it will be easier $\sin$ is turned into normalized $\sinc$ first):
+\[ u = \frac{1}{\sqrt{2\pi}}\int_\mathbb{R}\left(\hat{f}(k)\cos(kt)+\hat{h}(k)t\sinc\left(\frac{kt}{\pi}\right)\right)e^{ikx}\,dk\]
+
+\begin{equation*}
+\begin{aligned}
+	u =& \left[f(\tau)\ast\frac{1}{2}(\delta(\tau-t)+\delta(\tau+t))\right](x) + \frac{|t|}{2}\left[h(\tau)\ast\rect\left(\frac{\tau}{2t}\right)\right](x)\\
+	 =&  \frac{1}{2}(f(x-t)+f(x+t)) + \frac{|t|}{2}\left[h(\tau)\ast\rect\left(\frac{\tau}{2t}\right)\right](x)\\
+\end{aligned}
+\end{equation*}
+
+Which is such a cool equation!
+It shows the reversibility and isotropic nature of the solution but the evenness of $x$ and $t$.
+It shows the limit on how fast information travels by the convolution with $\rect$.
