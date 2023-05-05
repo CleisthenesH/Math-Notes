@@ -63,6 +63,7 @@ This can be processed further through the convolutions theorem.
 \begin{aligned}
 	u =& \left[f(\tau)\ast\frac{1}{2}(\delta(\tau-t)+\delta(\tau+t))\right](x) + \frac{|t|}{2}\left[h(\tau)\ast\rect\left(\frac{\tau}{2t}\right)\right](x)\\
 	 =&  \frac{1}{2}(f(x-t)+f(x+t)) + \frac{|t|}{2}\left[h(\tau)\ast\rect\left(\frac{\tau}{2t}\right)\right](x)\\
+	 =&  \frac{1}{2}(f(x-t)+f(x+t)) + \frac{|t|}{2}\int_{x-t}^{x+t}h(\tau)\,d\tau\\
 \end{aligned}
 \end{equation*}
 
