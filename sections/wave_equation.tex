@@ -42,7 +42,7 @@ Reminder that the 1-D form, with unitary speed, is:
 Observe that plane waves where angular frequency and wave number have the same magnitude solve this:
 \[ \exp(ik(x\pm t))\]
 This suggests the use of Fourier transform, where the $\pm$ is used to fit the solution to initial value and derivative:
-\[ u = \frac{1}{\sqrt{2\pi}}\int_\mathbb{R}(a_+(k)e^{ikt}+a_-(k)-e^{-ikt})e^{ikx}\,dk\]
+\[ u = \frac{1}{\sqrt{2\pi}}\int_\mathbb{R}(a_+(k)e^{ikt}+a_-(k)e^{-ikt})e^{ikx}\,dk\]
 Assume $f(x) = u(x,0)$ and $h(x) = \left[\frac{\partial}{\partial t}u\right](x,0)$.
 Equating Fourier transforms gives:
 \begin{equation*}
@@ -56,17 +56,32 @@ Hence:
 \\
 
 This can be processed further through the convolutions theorem.
-(Because of the table of transforms I have it will be easier $\sin$ is turned into normalized $\sinc$ first):
+(Because of the table of transforms I have it will be easier $\sin$ is turned into normalized $\sinc$ and $\rect$ cuts off at $\frac{1}{2}$):
 \[ u = \frac{1}{\sqrt{2\pi}}\int_\mathbb{R}\left(\hat{f}(k)\cos(kt)+\hat{h}(k)t\sinc\left(\frac{kt}{\pi}\right)\right)e^{ikx}\,dk\]
 
 \begin{equation*}
 \begin{aligned}
-	u =& \left[f(\tau)\ast\frac{1}{2}(\delta(\tau-t)+\delta(\tau+t))\right](x) + \frac{|t|}{2}\left[h(\tau)\ast\rect\left(\frac{\tau}{2t}\right)\right](x)\\
-	 =&  \frac{1}{2}(f(x-t)+f(x+t)) + \frac{|t|}{2}\left[h(\tau)\ast\rect\left(\frac{\tau}{2t}\right)\right](x)\\
-	 =&  \frac{1}{2}(f(x-t)+f(x+t)) + \frac{|t|}{2}\int_{x-t}^{x+t}h(\tau)\,d\tau\\
+	u =& \left[f(\tau)\ast\frac{1}{2}(\delta(\tau-t)+\delta(\tau+t))\right](x) + \frac{\sgn(t)}{2}\left[h(\tau)\ast\rect\left(\frac{\tau}{2t}\right)\right](x)\\
+	 =&  \frac{1}{2}(f(x-t)+f(x+t)) + \frac{\sgn(t)}{2}\left[h(\tau)\ast\rect\left(\frac{\tau}{2t}\right)\right](x)\\
+	 =&  \frac{1}{2}(f(x-t)+f(x+t)) + \frac{\sgn(t)}{2}\int_{x-t}^{x+t}h(\tau)\,d\tau\\
 \end{aligned}
 \end{equation*}
 
 Which is such a cool equation!
 It shows the reversibility and isotropic nature of the solution but the evenness of $x$ and $t$.
 It shows the limit on how fast information travels by the convolution with $\rect$.
+
+I don't really like the $\sgn$ function there and I'm not convinced it isn't some kind of error. 
+So ignoring it for the following bit (it's mostly $\pm 1$ anyway),
+see how we can recover the conditions on $f$ and $h$:
+\begin{equation*}
+\begin{aligned}
+	u(x,0) =&  \frac{1}{2}(f(x-0)+f(x+0)) + \frac{1}{2}\int_{x-0}^{x+0}h(\tau)\,d\tau \\
+	=& f(x) \\
+	\left[\frac{\partial}{\partial t}u\right](x,t) =&  \frac{1}{2}-(f(x-t)+f(x+t)) + \frac{1}{2}(h(x-t)+h(x+t)) \\
+	\left[\frac{\partial}{\partial t}u\right](x,0) =&  h(x) \\
+\end{aligned}
+\end{equation*}
+It almost seems obvious! 
+Like I should have gone straight to this and not bothered with the Fourier stuff.
+At least I learn something, I guess.
