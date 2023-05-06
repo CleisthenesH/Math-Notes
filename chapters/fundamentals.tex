@@ -1,0 +1,205 @@
+\chapter{Fundamentals}
+Before moving towards applications of the Fourier transform it will be useful to collect some basic properties, theorems and symmetries.
+As advertised in the introduction most of these will follow from the Fourier transform of the delta function.
+\section{Basic Properties}
+\subsection{Linearity}
+It's almost so trivial as not need to be said, but the Fourier transform is linear,
+Let:
+\[h(x)=af(x)+bg(x)\]
+Then:
+\begin{equation*}
+\begin{aligned}
+\hat{h}(k) =& \int_{-\infty}^{\infty}h(x)\exp(-ikx)\,dx \\
+=& \int_{-\infty}^{\infty}(af(x)+bg(x))\exp(-ikx)\,dx \\
+=& a\int_{-\infty}^{\infty}f(x)\exp(-ikx)\,dx +b\int_{-\infty}^{\infty}g(x)\exp(-ikx)\,dx \\
+=& a\hat{f}(k)+b\hat{g}(k) \\
+\end{aligned}
+\end{equation*}
+
+\subsection{Duality}
+Although other properties are more useful and obvious but learning about the duality first lets us double all coming properties.
+Let:
+\[g(x) = \hat{f}(x)\]
+Then:
+\begin{equation*}
+\begin{aligned}
+\hat{g}(k) =&\int_{-\infty}^{\infty}g(x)\exp(-ikx)\,dx \\
+=&\int_{-\infty}^{\infty}\hat{f}(x)\exp(-ikx)\,dx \\
+=& \int_{-\infty}^{\infty}\left(\int_{-\infty}^{\infty}f(t)\exp(-itx)\right)\,dt\exp(-ikx)\,dx \\
+=& 2\pi\int_{-\infty}^{\infty} f(t) \left(\frac{1}{2\pi} \int_{-\infty}^{\infty} \exp(-ix(t+k))\,dx\right)\,dt \\
+=& 2\pi\int_{-\infty}^{\infty} f(t) \delta(t+k)\,dt \\
+=& 2\pi f(-k)
+\end{aligned}
+\end{equation*}
+You can also show this by change of variable $x\mapsto -x$ and then apply the definition of inverse transform.
+I don't like this because I fear getting the order of operations right in a partial/total derivative way.
+
+\subsection{Translation}
+A simple but useful property that we get immediately from definitions.
+Let:
+\[g(x) = f(x+x_0)\]
+Then:
+\begin{equation*}
+\begin{aligned}
+\hat{g}(k) =& \int_{-\infty}^{\infty}g(x)\exp(-ikx)\,dx\\
+=& \int_{-\infty}^{\infty}f(x+x_0)\exp(-ikx)\,dx\\
+=&\exp(ikx_0) \int_{-\infty}^{\infty}f(x+x_0)\exp(-ik(x+x_0))\,dx\\
+=&\exp(ikx_0) \hat{f}(k)\\
+\end{aligned}
+\end{equation*}
+
+\subsection{Scaling}
+Let:
+\[g(x) = f(ax) \]
+Then:
+\begin{equation*}
+\begin{aligned}
+	\hat{g}(k) =& \int_{-\infty}^{\infty}f(ax)\exp(-ixk)\,dx\\
+	=& \int_{-\infty}^{\infty}f(x)\exp\left(-ix\left(\frac{k}{a}\right)\right)\,\frac{dx}{|a|}\\
+	=& \frac{1}{|a|}\hat{f}\left(\frac{k}{a}\right) \\
+\end{aligned}
+\end{equation*}
+
+Note how the special case of $a=-1$ means the transform commutative with changing the sign of the argument.
+
+\subsection{Differentiation} 
+Let:
+\[g(x) = f'(x)\]
+Then:
+\begin{equation*}
+\begin{aligned}
+	\hat{g}(k) =& \int_{-\infty}^{\infty}f'(x)\exp(-ixk)\,dx\\
+	=& \left[f(x)\exp(-ixk)\right]_{-\infty}^{\infty}-\int_{-\infty}^{\infty}f(x)(-ik)\exp(-ixk)\,dx\\
+	=&ik\int_{-\infty}^{\infty}f(x)\exp(-ixk)\,dx\\
+	=& ik\hat{f}(k) \\
+\end{aligned}
+\end{equation*}
+
+The vanishing term on the second line will be explained in full by duality and the Riemann-Lebesgue lemma.
+
+\subsection{Conjugation}
+Let:
+\[g(x) = \overline{f(x)}\]
+Then:
+\begin{equation*}
+\begin{aligned}
+	\hat{g}(k) =& \int_{-\infty}^{\infty}\overline{f(x)}\exp(-ikx)\,dx\\
+	=& \overline{\int_{-\infty}^{\infty}f(x)\exp(-i(-k)x)\,dx}\\
+	=& \overline{\hat{f}(-k)} \\
+\end{aligned}
+\end{equation*}
+
+\section{Theorems}
+\subsection{Convolution Theorem}
+An immediate application of the Shifting Property is the Convolution Theorem.
+Let:
+\[h(x) = \int_{-\infty}^{\infty}f(t)g(x-t)\,dt\]
+Then:
+\begin{equation*}
+\begin{aligned}
+\hat{h}(k) =& \int_{-\infty}^{\infty}h(x)\exp(-ikx)\,dx\\
+=& \int_{-\infty}^{\infty}\left(\int_{-\infty}^{\infty}f(t)g(x-t)\,dt\right)\exp(-ikx)\,dx\\
+=& \int_{-\infty}^{\infty}f(t)\left(\int_{-\infty}^{\infty}g(x-t)\exp(-ikx)\,dx\right)\,dt\\
+=& \int_{-\infty}^{\infty}f(t)\exp(-itk)\hat{g}(k)\,dt\\
+=& \hat{g}(k)\int_{-\infty}^{\infty}f(t)\exp(-itk)\,dt\\
+=& \hat{g}(k)\hat{f}(k)\\
+\end{aligned}
+\end{equation*}
+
+\subsection{Poisson Summation Formula}
+There is an interesting summation formula that follows from the \hyperref[appx:dirac-comb]{Dirac Comb}:
+\begin{equation*}
+\begin{aligned}
+	\sum_{n=-\infty}^{\infty}\hat{f}(Dn) = & \int_{-\infty}^{\infty}\hat{f}(k)\Sha_D(k)\,dk \\
+	= &\frac{1}{D} \int_{-\infty}^{\infty}\hat{f}(k)\left(\sum_{n=-\infty}^{\infty}\exp\left(ik \frac{2\pi n}{D}\right)\right)\,dk\\
+	= &\frac{2\pi}{D} \sum_{n=-\infty}^{\infty}\frac{1}{2\pi}\int_{-\infty}^{\infty}\hat{f}(k)\exp\left(ik \frac{2\pi n}{D}\right)\,dk\\
+	= &\frac{2\pi}{D} \sum_{n=-\infty}^{\infty}f\left(\frac{2\pi n}{D}\right)\\
+\end{aligned}
+\end{equation*}
+
+Can apparently be proved through Pontryagin Duality, which sounds cool. 
+
+\subsection{Real, Imaginary, Odd, and Even Components}
+Consider a function $f$ that is both \hyperref[sec:conjugation-sym]{purely real} and \hyperref[sec:parity-sym]{odd}.
+Then by combining results from the symmetry section $\hat{f}$ is odd and purely imaginary.
+\\
+
+Similar arguments for the other combinations gives the following table:
+
+\begin{center}
+\begin{tabular}{c|c}
+	$f$ & $\hat{f}$ \\ \hline
+	Real and Even & Real and Even \\
+	Real and Odd & Imaginary and Odd \\
+	Imaginary and Even & Imaginary and Even \\
+	Imaginary and Odd & Real and Odd \\
+\end{tabular}
+\end{center}
+
+Interestingly these four groups are one-to-one.
+Combining this table with the unique \hyperref[appx:real-img-odd-even]{representation of $f$} we know that the real and odd components of $\hat{f}$ depends solely on the Imaginary and odd components of $f$.
+
+Basically splitting the Fourier transforms from one complex function on $\mathbb{R}$ to four real functions on $\mathbb{R}_+$.
+
+\section{Symmetries}
+\subsection{Parity Symmetry}
+\label{sec:parity-sym}
+Let $f$ be an \hyperref[appx:real-img-odd-even]{even or odd} function then $\hat{f}$ is the same:
+\[f(x)\pm f(-x) = 0 \Rightarrow \hat{f}(x)\pm\hat{f}(-x) = 0\]
+
+\subsection{Conjugation Symmetry}
+\label{sec:conjugation-sym}
+Let $f$ be a \hyperref[appx:real-img-odd-even]{purely real} function then $\hat{f}$ is the Hermitian:
+\[f(x) - \overline{f(x)} = 0 \Rightarrow \hat{f}(x)+\overline{\hat{f}(-x)} = 0\]
+
+To my knowledge there is no name for the \hyperref[appx:real-img-odd-even]{purely imaginary} but a similar relation applies:
+\[f(x) + \overline{f(x)} = 0 \Rightarrow \hat{f}(x)-\overline{\hat{f}(-x)} = 0\]
+
+\subsection{Translation Symmetry}
+Let $f(x)$ be periodic with period $P$.
+Define $f_k = \int_{0}^{P}f(x)\exp(-ikx)\,dx$ and consider:
+\begin{equation*}
+\begin{aligned}
+	\hat{f}(k) =& \int_{-\infty}^{\infty}f(x)\exp(-ixk)\,dx \\
+	=& \sum_{n=-\infty}^{\infty}\int_{nP}^{(n+1)P}f(x)\exp(-ixk)\,dx \\
+	=& \sum_{n=-\infty}^{\infty}\int_{0}^{P}f(x)\exp(-ik(x+nP))\,dx \\
+	=& \left(\int_{0}^{P}f(x)\exp(-ikx)\,dx\right)\sum_{n=-\infty}^{\infty}\exp(-iknP) \\
+	=& \frac{2\pi}{P}\left(\int_{0}^{P}f(x)\exp(-ikx)\,dx\right)\sum_{n=-\infty}^{\infty}\delta\left(k-n\frac{2\pi}{P}\right)\\
+\end{aligned}
+\end{equation*}
+
+This is an interesting result by itself, that when $f$ is periodic $\hat{f}$ is mostly zero except for where $k$ is a multiple of $\frac{2\pi}{P}$.
+But if we substitute this expressing into the inverse transform we get a long but interesting result:
+\begin{equation*}
+\begin{aligned}
+	f(x) =& \frac{1}{2\pi}\int_{-\infty}^{\infty}\left(\frac{2\pi}{P}\left(\int_{0}^{P}f(t)\exp(-ikt)\,dt\right)\sum_{n=-\infty}^{\infty}\delta\left(k-n\frac{2\pi}{P}\right)\right)\exp(ixk)\,dk\\
+	      =&\frac{1}{P}\sum_{n=-\infty}^{\infty}\int_{-\infty}^{\infty}\delta\left(k-n\frac{2\pi}{P}\right)\left(\int_{0}^{P}f(t)\exp(-ikt)\,dt\right)\exp(ixk)\,dk \\
+	      =&\frac{1}{P}\sum_{n=-\infty}^{\infty}\left(\int_{0}^{P}f(t)\exp(-itn\frac{2\pi}{P})\,dt\right)\exp\left(ixn\frac{2\pi}{P}\right)\,dk
+\end{aligned}
+\end{equation*}
+
+\subsection{Radial Symmetry}
+Start with our standard 2-D Fourier integral:
+\[F(k_x,k_y) = \int_{-\infty}^{\infty}\int_{-\infty}^{\infty}f(x,y)\exp(-i(k_x x + k_y y))\,dx\,dy\]
+Assume we have radial symmetry such that:
+\[f(r\cos(\theta),r\sin(\theta)) = g(r)\]
+Make the following substitutions:
+\begin{equation*}
+\begin{aligned}
+	x = r\cos(\theta),\quad k_x = k_r\cos(\phi) \\
+	y = r\sin(\theta),\quad k_y = k_r\sin(\phi)\\
+\end{aligned}
+\end{equation*}
+We get:
+\begin{equation*}
+\begin{aligned}
+	&F(k_r\cos(\phi),k_r\sin(\phi)  \\
+	=& \int_0^\infty\int_0^{2\pi}f(r\cos(\theta),r\sin(\theta))\exp(-ik_r r(\cos(\theta)\cos(\phi)+\sin(\theta)\sin(\phi)))r\,d\theta\,dr\\
+	=& \int_0^\infty g(r)r\int_0^{2\pi}\exp(-ik_r r\cos(\theta-\phi))\,d\theta\,dr \\
+\end{aligned}
+\end{equation*}
+Note that the inner integrand is a function of $\theta$ with period $2\pi$ which is the same as the integral bounds hence we can pick any $\phi$ in particular:
+\[-\cos(\theta +\pi/2) = \sin(\theta)\]
+Hence the total function has no dependence on $\phi$ giving:
+\[F(k_r) = \int_0^\infty g(r)rJ_0(k_r r)\,dr\]
+

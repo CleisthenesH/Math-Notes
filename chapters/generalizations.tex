@@ -1,0 +1,53 @@
+\chapter{Generalizations}
+\section{Pontryagin Duality}
+Let $G$ be a locally compact group and let $\hat{G}$ be the group of continuous group homomorphism from $G$ to the circle group $\Hom(G,T)$. Where $\hat{G}$ is endowed with the compact-open topology.
+
+Then there is a canonical isomorphism between $G$ and $\hat{\hat{G}}$.
+
+Note that locally compact groups come with an interesting measure called the "Haar measure" which interacts well with this transform.
+
+\section{Discrete Fourier transform over a ring}
+\label{sec:ring}
+Observe that many of the properties of used in the definition of the Discrete Fourier require only that the underlying set be a ring with a special element $\alpha$ such that $\alpha^n = 1$ and $\sum_{k=0}^{n-1}\alpha^{kj} = n\delta_{j,n}$.
+This lets us expand discussion of the Discrete Fourier transform to any ring with this element.
+And also explains why some prefer the non-unitary definition as a square root is a significant jump from a ring.
+
+\subsection{Definition}
+Let $a_k$ be a n-tuple of ring elements, $\alpha$ be an element of that ring with the above properties. 
+For convenience let $n$ have a multiplicative inverse, and define a new tuple as:
+\[A_k = \sum_{j=0}^{n-1}a_j\alpha^{jk}\]
+
+Then we have:
+\begin{equation*}
+\begin{aligned}
+	\frac{1}{n}\sum_{i=0}^{n-1}A_i\alpha^{-ik} =& 
+	\frac{1}{n}\sum_{i=0}^{n-1}\left(\sum_{j=0}^{n-1}a_j\alpha^{ji}\right)\alpha^{-ik} \\ 
+	=&\frac{1}{n}\sum_{j=0}^{n-1}a_j\sum_{i=0}^{n-1}\alpha^{i(j-k)} \\ 
+	=&\frac{1}{n}\sum_{j=0}^{n-1}a_jn\delta_{j,k} \\ 
+	=&a_k \\ 
+\end{aligned}
+\end{equation*}
+
+\subsection{Basic Properties}
+Other then the obvious linearity there are two other easy and useful properties of the ring transform.
+Uniqueness is a corollary of linearity:
+\[A_n=B_n \Rightarrow a_n-b_n = \frac{1}{n}\sum_k\alpha^{-kn}(A_k-B_k) = 0\]
+
+A version of Plancherel's Theorem is also easy:
+\begin{equation*}
+\begin{aligned}
+	\sum_k a_kb_k =& \sum_k \left(\frac{1}{n}\sum_iA_i\alpha^{-ki}\right) \left(\frac{1}{n}\sum_jB_j\alpha^{-kj}\right) \\
+	=&  \frac{1}{n^2}\sum_i\sum_jA_iB_j \sum_k\alpha^{-k(i+j)}  \\
+	=&  \frac{1}{n^2}\sum_i\sum_jA_iB_j \sum_k\alpha^{k((n-i)-j)}  \\
+	=&  \frac{1}{n}\sum_iA_iB_{n-i}  \\
+\end{aligned}
+\end{equation*}
+
+I'm sure similar results for convolution also follow.
+
+\subsection{Integral Domains}
+It's worth noting that in integral domains the requirements for $\alpha$ are simplified as:
+\[(\alpha^k-1)\sum_{i=0}^{n-1}\alpha^{ik} = \alpha^{nk}-1 = 0\]
+Means it is sufficient for $\alpha$ to be a primitive nth root of unity.
+It's further worth noting that all fields are integral domains.
+
