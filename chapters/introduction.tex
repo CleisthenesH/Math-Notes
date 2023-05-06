@@ -1,0 +1,94 @@
+\chapter{Introduction}
+In the simplest terms the Fourier Transform is a method of representing a function as a weighted integral of complex exponentials.
+A good basis for the theory of this transform is the representation of a single function as a weighted integral of complex exponentials, the delta function.
+
+With this representation of the delta function so many of the transforms properties, like convulsion, inverse, and shifting, will become obvious.
+The hope is that this obviousness will help the transforms' wielder not only apply the Fourier transform but avoid large technical errors by making them stand out more when they are only small.
+
+\section{The Delta Function}
+We may characterize the delta function by two of its properties
+\begin{enumerate}
+\item Zero at non-zero values, $x\neq 0 \rightarrow \delta(x) = 0$.
+\item Normalized on the real line, $\int_{-\infty}^{\infty}\delta(x) = 1$.
+\end{enumerate}
+
+We wish to represent such a function as an integral of weighted complex exponentials and we might expect something like this:
+
+\[\delta(x) = \int_{-\infty}^{\infty}a\exp(-bixt)\,dt\]
+
+Since when $x\neq 0$ over an infinite range all the phases cancel themselves out.
+But when $x=0$ the integrand is constant meaning the integral infinite, enabling the non-zero normalization.
+But to get values for $a,b$ we need to be more precise about what we mean by `infinite' and rigorous with our method.
+\\
+
+To this end we will approximate the delta function as the limit of normalized Gaussian as the standard deviation approaches $0$:
+\[\delta(x) = \lim_{\sigma\rightarrow\infty}\frac{1}{\sqrt{2\pi}\sigma}\exp\left(-\frac{1}{2}\left(\frac{x}{\sigma}\right)^2\right)\]
+To this approximation consider the following integral:
+\begin{equation*}
+\begin{aligned}
+	&\int_{-\infty}^{\infty}\exp(-\alpha t^2) \exp(-ixt)\,dt \\
+	=&\int_{-\infty}^{\infty}\exp\left(-\alpha\left(t+\frac{ix}{2\alpha}\right)^2-\frac{x^2}{4\alpha}\right)\,dt\\
+	=& \sqrt{\frac{\pi}{\alpha}}\exp\left(-\frac{x^2}{4\alpha}\right)
+\end{aligned}
+\end{equation*}
+The outside integral looks close to a Gaussian.
+First we make the Gaussian outside the integral a standard form, start with $\alpha = \sigma^2/2$:
+\[\frac{1}{\sigma}\sqrt{2\pi}\exp\left(-\frac{1}{2}\left(\frac{x}{\sigma}\right)^2\right) = \int_{-\infty}^{\infty}\exp\left(-\frac{\sigma^2t^2}{2}\right)\exp(-ixt)\,dt\]
+Normalize the outside Gaussian by multiplying by $(2\pi)^{-1}$:
+\[\frac{1}{\sigma\sqrt{2\pi}}\exp\left(-\frac{1}{2}\left(\frac{x}{\sigma}\right)^2\right) = \int_{-\infty}^{\infty}\frac{1}{2\pi }\exp\left(-\frac{\sigma^2t^2}{2}\right)\exp(-ixt)\,dt\]
+Taking the limit $\sigma \rightarrow 0$ and the integrand becomes:
+\[\lim_{\sigma \rightarrow 0}\frac{1}{2\pi }\exp\left(-\frac{\sigma^2t^2}{2}\right)  = \frac{1}{2\pi} \]
+Hence we obtain:
+\[\delta(x) = \frac{1}{2\pi} \int_{-\infty}^{\infty}\exp(-ixt)\,dt\]
+And trivially:
+\[\delta(x) = \frac{1}{2\pi} \int_{-\infty}^{\infty}\exp(ixt)\,dt\]
+
+\section{The Sampling Property}
+The two defining properties of the delta function combine to the following important result.
+If $f$ is continuous at $0$ then:
+\[\int_{-\infty}^{\infty}f(x)\delta(x)\,dx = f(0)\]
+
+Since $f$ is continuous at $0$ for all $\epsilon > 0$ we can find $\delta > 0$ such that:
+\[x \in (-\delta,\delta) \Rightarrow |f(x)-f(0)| < \epsilon\]
+Then:
+\begin{equation*}
+\begin{aligned}
+	&\left|\int_{-\infty}^{\infty}f(x)\delta(x)\,dx-f(0)\right| \\
+	=&\left|\int_{-\delta}^{\delta}f(x)\delta(x)\,dx-f(0)\right| \\
+	=&\left|\int_{-\delta}^{\delta}f(x)\delta(x)\,dx-\int_{-\delta}^{\delta}f(0)\delta(x)\,dx\right| \\
+	=&\left|\int_{-\delta}^{\delta}(f(x)-f(0))\delta(x)\,dx\right| \\
+	\leq&\int_{-\delta}^{\delta}|f(x)-f(0)|\delta(x)\,dx \\
+	\leq&\int_{-\delta}^{\delta}\epsilon\delta(x)\,dx \\
+	=&\epsilon \\
+\end{aligned}
+\end{equation*}
+This being true for all $\epsilon>0$ requires:
+	\[\int_{-\infty}^{\infty}f(x)\delta(x)\,dx = f(0)\]
+Completing the proof.
+\\
+
+As you likely guessed this property is called "sampling" since the integral samples the value $f(0)$ from $f$.
+This sampling property will act as the final steps of multiple proofs where we get a value from an integral by creating a delta function within it.
+
+\section{The Fourier Transform and it's Inverse}
+With the sampling property in hand we will now finish the introduction by defining the Fourier Transform and it's Inverse.
+Consider a given function $f$ define it's Fourier transform $\hat{f}$ as:
+\[\hat{f}(k) = \int_{-\infty}^{\infty}f(x)\exp(-ikx)\,dx\]
+\\
+
+What is remarkable about $\hat{f}$ is that $f$ can be recovered from it:
+\label{sec:inv-trans}
+\begin{equation*}
+\begin{aligned}
+	\frac{1}{2\pi}\int_{-\infty}^{\infty}\hat{f}(k)\exp(ixk)\,dk 
+	=& \frac{1}{2\pi}\int_{-\infty}^{\infty}\left(\int_{-\infty}^{\infty}f(t)\exp(-itk)\,dt\right)\exp(ixk)\,dk \\
+	=& \int_{-\infty}^{\infty}f(t)\left(\frac{1}{2\pi}\int_{-\infty}^{\infty}\exp(ik(x-t))\,dk\right)\,dt \\
+	=& \int_{-\infty}^{\infty}f(t)\delta(x-t),dt \\
+	=& f(x) \\
+\end{aligned}
+\end{equation*}
+
+And looking at the final equality by itself:
+\[f(x) = \frac{1}{2\pi}\int_{-\infty}^{\infty}\hat{f}(k)\exp(ikx)\,dk\]
+We see that $\hat{f}$ gives a representation of $f$ in terms of a weighted integral of complex exponentials, as desired.
+
