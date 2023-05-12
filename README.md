@@ -48,5 +48,6 @@ And add new notes directly too this repository, subject to change:
 - ~~Lagragian Multiplier~~
 - ~~Two cool p-adic number proofs~~
 - ~~Quick Summary of Spaces~~
+- ~~XOR hash~~
 - Helmholtz decomposition (Incl. Fourier)
 - Fouier Series from Nyquist style argument. (Maybe include the last two in fourier)
