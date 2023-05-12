@@ -1,0 +1,34 @@
+% Copyright 2023 Kieran W Harvie. All rights reserved.
+
+\section{XOR hash}
+Today I was presented with the following problem:
+\\
+
+Given an array with all integers $[1,100]$ with a single integer removed.
+Assuming memory is limited, how do you efficiently determine the missing integer?
+\\
+
+The solution is to XOR all the elements of the array together.
+Then XOR this with the known value for ALL the numbers between $[1,100]$.
+The result will be the missing number.
+\\
+
+This problem seemed like a good introduction to hashes, like Zobrist, that XOR a bunch of info together.
+The benefit of this approach is that the components can be added/removed by a XOR:
+\[h(\{a_0,a_1\}) = h(\{a_0\})\text{ XOR }h(\{a_1\})\]
+
+\subsection{Determining the constant}
+It turns out its easy to calculate the constant for the original question by hand.
+First define $T$ as:
+\[T(n) = n \text{ XOR } T(n-1),\quad T(1) = 1\]
+Then:
+\[T(n) = \begin{cases}n&n \mod 4 = 0 \\1& n\mod 4 = 1\\ n+1 &n\mod 4 = 2\\ 0& n\mod 4 = 3\end{cases}\]
+This can easily be proved by induction and remembering that for even $n$ we have:
+\[n\text{ XOR } 1 = n+1\]
+
+Because of the modularity you would expect there to be an expression for $T$ involving powers of the fourth root of unity ($i$): 
+\[T(n) = \frac{1}{2} +\frac{1}{2}(1+(-1)^n)+\frac{1}{4}((i-1)(-i)^n-(i+1)i^n)\]
+(Done on scrap paper, not double checked, close enough to see the form).
+\\
+
+While the hybrid function is probably a more useful form the last one involves complex numbers in a way I didn't expect.
