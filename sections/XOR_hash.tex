@@ -15,16 +15,16 @@ The result will be the missing number.
 
 This problem seemed like a good introduction to hashes, like Zobrist, that XOR a bunch of info together.
 The benefit of this approach is that the components can be added/removed by a XOR:
-\[h(\{a_0,a_1\}) = h(\{a_0\})\text{ XOR }h(\{a_1\})\]
+\[h(\{a_0,a_1\}) = h(\{a_0\})\XOR h(\{a_1\})\]
 
 \subsection{Determining the constant}
 It turns out its easy to calculate the constant for the original question by hand.
 First define $T$ as:
-\[T(n) = n \text{ XOR } T(n-1),\quad T(1) = 1\]
+\[T(n) = n \XOR T(n-1),\quad T(1) = 1\]
 Then:
 \[T(n) = \begin{cases}n&n \mod 4 = 0 \\1& n\mod 4 = 1\\ n+1 &n\mod 4 = 2\\ 0& n\mod 4 = 3\end{cases}\]
 This can easily be proved by induction and remembering that for even $n$ we have:
-\[n\text{ XOR } 1 = n+1\]
+\[n\XOR 1 = n+1\]
 
 Because of the modularity you would expect there to be an expression for $T$ involving powers of the fourth root of unity ($i$): 
 \[T(n) = \frac{1}{2} +\frac{1}{2}(1+(-1)^n)+\frac{1}{4}((i-1)(-i)^n-(i+1)i^n)\]
@@ -32,3 +32,30 @@ Because of the modularity you would expect there to be an expression for $T$ inv
 \\
 
 While the hybrid function is probably a more useful form the last one involves complex numbers in a way I didn't expect.
+
+\subsection{Homomorphic Hashing}
+Those with mathematic training will notice that the property that make this approach work:
+\[h(\{a_0,a_1\}) = h(\{a_0\})\XOR h(\{a_1\})\]
+Has the same form as a homomorphism\footnote{"same form" as a "homomorphism", math pun intended} and would investigate homomorphic hash functions. 
+
+Well the most influential definition of such a function happened in 2004 Krohn, Freedman and Mazieres proposed a definition of homomorphic hash function as function $H: V\rightarrow G$ such that:
+\begin{itemize}
+\item $H$ is collision resistant. Meaning we are unlikely to find $x$ and $y$ such that $H(x) = H(y)$.
+\item $H$ is a homomorphism. Meaning $H(x+y) = H(x)+H(y)$ for all $x$ and $y$.
+\end{itemize}
+
+The main problem is defining $V$ that is compatible with the regiments on $H$.
+Since we want to use the set union operator then the natural choice is $V = 2^S$ for some set $S$.
+But our hash only has the same form as a homomorphism\footnote{haha} when the input sets are mutually exclusive.
+In general we have:
+\[H(S_0 \cup S_1) = H(S_0)\XOR H(S_1) \XOR H(S_0 \cap S_1)\]
+
+We can make a collision resistant hash though.
+Make $H$ uniformly distributed on $\mathbb{F}_2^{\log_2|S|}$ for $S$.
+Then by induction and $x \XOR y = 0$ iff $x=y$ you can show that it stays uniform for $2^S$.
+Meaning the chance of a collision is $\frac{1}{|S|}$
+
+(This is actually a bound for when $|S|$ is a power of $2$, but you can figure out the rest)
+\\
+
+Homomorphic functions are still useful in cryptography though.
