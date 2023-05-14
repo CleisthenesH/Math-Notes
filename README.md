@@ -31,7 +31,7 @@ The editing, incorporation, or deletion or the following lose .tex files into th
 - ~~Non-decreasing~~ (Duplicate)
 - Pentagonal
 - Quintic
-- Rational_Tangent
+- ~~Rational_Tangent~~
 - SpecialRelativity(Added the geometry component, the rest is kind of cringe)
 - ~~Unit Fraction~~
 - ~~Variance~~

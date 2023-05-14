@@ -1,0 +1,50 @@
+% Copyright 2023 Kieran W Harvie. All rights reserved.
+\section{Rational Tangent}
+Consider the following relation:
+\begin{equation*}
+\begin{aligned}
+	\cos(n\phi)+i\sin(n\phi) =& (\cos(\phi)+i\sin(\phi))^{n} \\
+	=&(\cos(\phi)(1+i\tan(\phi)))^n\\
+	=&\cos(\phi)^n(1+i\tan(\phi))^n\\			
+\end{aligned}
+\end{equation*}
+The product of two complex numbers with rational real and imaginary part is a complex number with rational real and imaginary part.
+
+To see this observe that we only use multiplication, addition, and subtraction to get the real and imaginary components of the product from the component of the factors and that these operations between from rational numbers produce rational numbers.
+
+Hence, if $\tan(\phi)$ is rational the there exists some rational numbers $p,q$ such that:
+\[(1+i\tan(\phi))^n = p+qi\]
+Substituting this into the original formula:
+\[\cos(n\phi)+i\sin(n\phi) = \cos(\phi)^n(p+qi)\]
+And equating real and imaginary components gives:
+\[\tan(n\phi) = \frac{\sin(n\phi)}{\cos(n\phi)} = \frac{\cos(\phi)^np}{\cos(\phi)^nq} = \frac{p}{q}\]
+
+Hence $\tan(\phi)$ being rational implies $\tan(n\phi)$ is as well.
+\\
+
+I think this result was meant to be part of a larger argument,
+but I have forgotten what the larger one is.
+One point that I think will be relevant is using similar arguments with:
+\[\frac{1}{\cos(\phi)+i\sin(\phi)}= \cos(\phi)-i\sin(\phi)\]
+
+\subsection{Brute Force}
+Another proof of the same result, 
+done by brute force,
+was in the same notes on my hard-drive.
+Presumably done as a sanity check before figuring out the better method:
+\\
+
+$\tan(\phi)$ being rational is the same as saying that $r\sin(\phi) = \cos(\phi)$ for some rational number $r$.
+\begin{equation*}
+\begin{aligned}
+	\sin(n\phi)+i\cos(n\phi) =& \exp(in\phi)\\
+	=& \exp(i\phi)^n \\
+	=& (\sin(\phi)+i\cos(\phi))^n\\
+	=& \sum_{k=0}^{n}\binom{n}{k}i^k\cos(\phi)^k\sin(\phi)^{n-k}\\
+	=& \sum_{k=0}^{n}\binom{n}{k}i^kr^k\sin(\phi)^n\\
+	=&\sin(\phi)^n\left(\sum_{k=0}^{2k \leq n}\binom{n}{2k}(-1)^kr^{2k}+i\sum_{k=0}^{2k+1 \leq n}\binom{n}{2m+1}(-1)^kr^{2k+1}\right)\\
+\end{aligned}
+\end{equation*}
+Hence:
+\[\tan(n\phi) = \frac{\sum_{k=0}^{2k \leq n}\binom{n}{2k}(-1)^kr^{2k}}{\sum_{k=0}^{2k+1 \leq n}\binom{n}{2k+1}(-1)^kr^{2k+1}}\]
+
