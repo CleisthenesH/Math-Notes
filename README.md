@@ -39,6 +39,7 @@ The editing, incorporation, or deletion or the following lose .tex files into th
 - ~~Winquist~~
 
 And add new notes directly too this repository, subject to change:
+- ~~Jensen's Inequality~~
 - ~~Isosets~~
 - ~~Padé~~
 - Uniqueness of finite fields.
