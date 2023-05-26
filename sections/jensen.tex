@@ -1,0 +1,56 @@
+% Copyright 2023 Kieran W Harvie. All rights reserved.
+
+\section{Jensen's Inequality}
+A convex function $\phi$ on a set $X$ is one such that for $a_n\in X$ and $w_0+w_1 =1$ we have:
+\[\phi(w_0a_0+w_1a_1) \leq w_0\phi(a_0)+w_1\phi(a_1)\]
+Jensen's Inequality states that expected value of the function is less then the function of the expected value:
+\[\phi(\E(X)) \leq \E(\phi(X))\]
+
+By multiplying the function by $-1$, we get the intuitive corollary that the inequality is reversed for concave functions.
+
+\subsection{Generalization}
+A more general form of convexity can be easily proved by induction.
+\\
+
+Assume that for some $n$ we have that for all $\sum_{i=1}^nw_i'=1$:
+\[\phi\left(\sum_{i=1}^nw_i'a_i\right) \leq \sum_{i=1}^nw_i'\phi(a_i)\]
+
+Let $\sum_{i=1}^{n+1}w_i=1$ and $W = \sum_{i=1}^nw_i$ we have $w_{n+1}+W = 1$ and :
+\begin{equation*}
+\begin{aligned}
+\phi\left(\sum_{i=1}^{n+1}w_ia_i\right) =&\phi\left(w_{n+1}a_{n+1}+W\sum_{i=1}^{n}\frac{w_i}{W}a_i\right) \\
+\leq& w_{n+1}\phi(a_{n+1})+W\phi\left(\sum_{i=1}^{n}\frac{w_i}{W}a_i\right) \\
+\leq& w_{n+1}\phi(a_{n+1})+W\sum_{i=1}^n\frac{w_i}{W}\phi(a_i) \\
+\leq& \sum_{i=1}^{n+1}w_i\phi(a_i) \\
+\end{aligned}
+\end{equation*}
+
+Viewing the weights as probabilities this form can directly be in interpreted as a discrete form of Jensen's Inequality.
+
+
+
+\subsection{Mean Inequalities}
+This can be directly applied to various mean inequalities.
+\begin{equation*}
+\begin{aligned}
+	AM =& \frac{1}{n}\sum_{i=1}^{n}a_i \\
+	RMS =& \sqrt{\frac{1}{n}\sum_{i=1}^na_i^2} \\
+	GM =& \sqrt[n]{\prod_{i=1}^na_i}\\
+\end{aligned}
+\end{equation*}
+Using $\phi(x)=x^2$,$w_i = \frac{1}{n}$ we directly get:
+\[AM^2 \leq RMS^2\]
+Using $\phi(x)=\log(x)$,$w_i = \frac{1}{n}$ we get:
+\footnote{Remember that the inequality is reversed since $\log$ is concave}
+\[\log(AM) \geq \log(GM)\]
+
+Since both these functions are also monotonic the clean relations follow.
+
+\subsection{Decision Theory} 
+Interpret $\phi$ as a utility function then the convexity tells us whether we take the fixed $\E(X)$ or risk $X$.
+Well if $\phi# is convex then:
+\[\phi(\E(X)) \leq \E(\phi(X))\]
+And we should take the risk,
+there is more expected utility taking the risk then the utility of $\E(X)$.
+
+If $\phi$ is concave then we should not take the risk.
