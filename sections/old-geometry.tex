@@ -1,0 +1,150 @@
+% Copyright 2023 Kieran W Harvie. All rights reserved.
+\section{Old Geometry}
+Bellow are are collection of proofs from high school that I saved under "geometry".
+It includes triangle groups and two (half complete) geodesics.
+\subsection{Triangle Groups}
+Are a way of understanding the rotations of platonic solids.
+Fill in latter
+\subsubsection{Subgroup chain}
+Let:
+\[\iota^2 = \lambda^4 = \kappa^3 = 1\]
+With and those be the lowest powers that do so.
+Additionally have:
+\[\lambda = \iota\kappa\]
+This is a cube, $\iota$ rotates around a edge, $\kappa$ rotates around a vertex, $\lambda$ rotates around a face.
+
+Let:
+\[i = \lambda^2,\,k=\lambda\iota,\,k=\kappa^2\]
+We have:
+\begin{equation*}
+\begin{aligned}
+i^2 =& \lambda^4\\
+	=& 1 \\
+k^3 =& \kappa^6\\
+	=&1\\
+l^3 =& (\lambda\iota)^3\\
+	=&(\iota\kappa\iota)^3\\
+	=&\iota\kappa^3\iota\\
+	=&1\\
+\end{aligned}
+\end{equation*}
+These are the lowest powers to do so.
+Minimality is trivial for $i$ and $k$ by the minimality of $\kappa$ and $\iota$.
+For $l$ assume $l^2 = 1$ then:
+\begin{equation*}
+\begin{aligned}
+l^2 =& 1\\
+\lambda\iota\lambda\iota =& 1\\
+\iota\lambda\iota =& \lambda^3\\
+\kappa\iota =& \lambda^3\\
+\kappa\iota\lambda =& \lambda^4\\
+=&1\\
+\kappa^2 =& 1\\
+\end{aligned}
+\end{equation*}
+We have the relation:
+\begin{equation*}
+\begin{aligned}
+ik =& \lambda^3\iota\\
+	=&\lambda^3\iota\kappa^3\\
+	=&\lambda^3\lambda\kappa^2\\
+	=&\kappa^2\\
+\end{aligned}
+\end{equation*}
+Hence the rotations of a regular tetrahedron are a subgroup of the rotations of a cube.
+\subsection{Torus}
+Let a torus be parametrized by:
+\begin{equation*}
+\begin{aligned}
+	r =&\,(x,y,z) \\
+	x =&\, (R+r\cos(\theta))\cos(\phi)\\
+	y =&\, (R+r\cos(\theta))\sin(\phi)\\
+	z =&\, r\sin(\theta) \\
+\end{aligned}
+\end{equation*}
+The partials of r are given by:
+\begin{equation*}
+\begin{aligned}
+	\frac{\partial r}{\partial \phi} =&\, (-(R+r\cos(\theta))\sin(\phi),(R+r\cos(\theta))\cos(\phi),0) \\
+	\frac{\partial r}{\partial \theta} =&\, (-r\sin(\theta)\cos(\phi),-r\sin(\theta)\sin(\phi),r\cos(\theta)) \\
+	\frac{\partial r}{\partial \phi}\cdot\frac{\partial r}{\partial \phi} =&\, (R+r\cos(\theta))^2 \\
+	\frac{\partial r}{\partial \theta}\cdot\frac{\partial r}{\partial \theta} =&\, r^2 \\
+	\frac{\partial r}{\partial \theta}\cdot\frac{\partial r}{\partial \phi} =&\, 0 \\
+\end{aligned}
+\end{equation*}
+Use the partial to get the line element:
+\begin{equation*}
+\begin{aligned}
+	\dot{r}^2 =&\, \left(\frac{\partial r}{\partial \phi}\dot{\phi} + \frac{\partial r}{\partial \theta}\dot{\theta}\right)^2 \\
+	=&\, \frac{\partial r}{\partial \phi}\cdot\frac{\partial r}{\partial \phi}\dot{\phi}^2+ \frac{\partial r}{\partial \theta}\cdot\frac{\partial r}{\partial \theta}\dot{\theta}^2+2\frac{\partial r}{\partial \theta}\cdot\frac{\partial r}{\partial \phi} \dot{\phi}\dot{\theta} \\
+	=&\, (R+r\cos(\theta))^2\dot{\phi}^2+ r^2\dot{\theta}^2\\
+\end{aligned}
+\end{equation*}
+Treating the line element as the integrand in Lagrangian integral:
+\[ L = \frac{1}{2}\dot{r}^2\]
+\begin{equation*}
+\begin{aligned}
+	\frac{\partial L}{\partial \phi} =& \frac{d}{d t}\frac{\partial L}{\partial \dot{\phi}}\\	
+	0 =& \frac{d}{d t}(R+r\cos(\theta))^2\dot{\phi} \\
+	=& \left[\dot{\theta}\frac{\partial}{\partial \theta} + \ddot{\phi}\frac{\partial}{\partial \dot{\phi}}\right](R+r\cos(\theta))^2\dot{\phi} \\
+	=& (R+r\cos(\theta))^2\ddot{\phi}-2r\sin(\theta)(R+r\cos(\theta))\dot{\phi}\dot{\theta} \\
+	\ddot{\phi} =& \frac{2r\sin(\theta)}{R+r\cos(\theta)}\dot{\phi}\dot{\theta} \\
+\end{aligned}
+\end{equation*}
+And again:
+\begin{equation*}
+\begin{aligned}
+	\frac{\partial L}{\partial \theta} =& \frac{d}{d t}\frac{\partial L}{\partial \dot{\theta}}\\	
+	-r\sin(\theta)(R+r\cos(\theta))\ddot{\phi}^2 =& r^2\frac{d}{dt}\dot{\theta} \\
+	-r\sin(\theta)(R+r\cos(\theta))\ddot{\phi}^2 =& r^2\ddot{\theta} \\
+\end{aligned}
+\end{equation*}
+\subsection{Sphere}
+Let a sphere be parametrized by:
+\begin{equation*}
+\begin{aligned}
+	r =&\,(x,y,z) \\
+	x =&\, \cos(\theta)\cos(\phi)\\
+	y =&\, \cos(\theta)\sin(\phi)\\
+	z =&\, \sin(\theta) \\
+\end{aligned}
+\end{equation*}
+The partials of r are given by:
+\begin{equation*}
+\begin{aligned}
+	\frac{\partial r}{\partial \phi} =&\,(-\cos(\theta)\sin(\phi),\cos(\theta)\cos(\phi),0)\\
+	\frac{\partial r}{\partial \theta} =&\, (-\sin(\theta)\cos(\phi),-\sin(\theta)\sin(\phi),\cos(\theta)) \\
+	\frac{\partial r}{\partial \phi}\cdot\frac{\partial r}{\partial \phi} =&\, \cos(\theta)^2 \\
+	\frac{\partial r}{\partial \theta}\cdot\frac{\partial r}{\partial \theta} =&\, 1 \\
+	\frac{\partial r}{\partial \theta}\cdot\frac{\partial r}{\partial \phi} =&\, 0 \\
+\end{aligned}
+\end{equation*}
+Use the partial to get the line element:
+\begin{equation*}
+\begin{aligned}
+	\dot{r}^2 =&\, \left(\frac{\partial r}{\partial \phi}\dot{\phi} + \frac{\partial r}{\partial \theta}\dot{\theta}\right)^2 \\
+	=&\, \frac{\partial r}{\partial \phi}\cdot\frac{\partial r}{\partial \phi}\dot{\phi}^2+ \frac{\partial r}{\partial \theta}\cdot\frac{\partial r}{\partial \theta}\dot{\theta}^2+2\frac{\partial r}{\partial \theta}\cdot\frac{\partial r}{\partial \phi} \dot{\phi}\dot{\theta} \\
+	=&\, \cos(\theta)^2\dot{\phi}^2+ \dot{\theta}^2\\
+\end{aligned}
+\end{equation*}
+Geodesic Equations:
+\begin{equation*}
+\begin{aligned}
+	\ddot{\theta} =& -\sin(\theta)\cos(\theta)\dot{\phi}^2\\
+	0 =& \frac{d}{dt}\cos(\theta)^2\dot{\phi} \\
+	=& \cos(\theta)^2\ddot{\phi}-2\cos(\theta)\sin(\theta)\dot{\phi}\dot{\theta} \\
+\end{aligned}
+\end{equation*}
+Consider the function:
+\begin{equation*}
+\begin{aligned}
+	f(t) =& z + \alpha x + \beta y \\
+	f(t) =& \sin(\theta) + \alpha\cos(\theta)\cos(\phi) + \beta\cos(\theta)\sin(\phi) \\
+	\dot{f}(t) =& \dot{\theta}\cos(\theta)+\alpha(-\dot{\theta}\sin(\theta)\cos(\phi)-\dot{\phi}\cos(\theta)\sin(\phi)) + \beta(-\dot{\theta}\sin(\theta)\sin(\phi)+\dot{\phi}\cos(\theta)\cos(\phi))\\
+\end{aligned}
+\end{equation*}
+
+\begin{equation*}
+\begin{aligned}
+\end{aligned}
+\end{equation*}
