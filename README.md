@@ -17,7 +17,7 @@ The editing, incorporation, or deletion or the following lose .tex files into th
 - Elementary Symmetric Polynomial
 - Euler
 - ~~Fourier~~ (Large and in a separate repository)
-- Geometry
+- ~~Geometry~~
 - Goldenratio
 - GreatSword
 - ~~GroupTheoryIntegral~~
@@ -39,6 +39,7 @@ The editing, incorporation, or deletion or the following lose .tex files into th
 - ~~Winquist~~
 
 And add new notes directly too this repository, subject to change:
+- ~~Convex Cords~~
 - ~~Jensen's Inequality~~
 - ~~Isosets~~
 - ~~Padé~~
