@@ -1,0 +1,54 @@
+% Copyright 2023 Kieran W Harvie. All rights reserved.
+
+\section{Generated Subfield of Finite Fields}
+Let the finite field $F$ have a set of elements $S$.
+The set $\langle S \rangle$ whose elements are the sums of the products of powers of $S$:
+\[\langle S \rangle = \left\{\sum_n\prod_i s_i^{p_{i,n}}\,|\,s_i\in S \text{ and } p_{i,n}\in \mathbb{Z}\right\}\cup\{0\}\]
+For example if $S = \{s_0,s_1,s_2\}$ all of the following are elements of $\langle S \rangle$:
+\[s_0+s_1+s_2,\quad s_0s_1s_2s_3,\quad 1+s_0+s_1s_2^7+s_0s_1s_2^2\]
+(I use the $\langle \cdot \rangle$ notation because this is like generation,
+one of the most irregular and abused words in algebra).
+\\
+
+The set inherits it's operations from $F$ and is clearly closed under addition and multiplication.
+It also contains $1$ and its repeated sum, labeled $n$, by using $p_{i,n} = 0$:
+\[n = \overbrace{(s_0s_1s_2)^0+(s_0s_1s_2)^0+\dots s(s_0s_1s_2)^0}^{n \text{ times}}\]
+
+Given $q\in \langle S \rangle$ because there are a finite number of options for $nq$ the pigeonhole principle means there will eventually be $n > m+1$ such that:
+\begin{equation*}
+\begin{aligned}
+nq =& mq\\
+(n-m)q =& 0\\
+q+(n-m-1)q=& 0\\
+\end{aligned}
+\end{equation*}
+$(n-m-1)q$ which is the additive inverse of $q$.
+Because $n-m-1 > 0$ it is an element of $\langle S \rangle$ and since $q$ is also an element by closure so is the inverse.
+\\
+
+Likewise for the multiplicative inverse:
+\begin{equation*}
+\begin{aligned}
+q^n=&q^m\\
+q\cdot q^{n-m-1}=&1
+\end{aligned}
+\end{equation*}
+Hence $\langle S \rangle$ is a, not necessarily proper, subfield of $F$.
+
+\subsection{$S=\{1\}$}
+An important example is when $S=\{1\}$.
+Let $n$ be the "lowest"\footnote{Yes I know I haven't defined that properly, but just figure it out.} where the pigeonhole principle whole applies:
+\[n + (n-m) = 0\]
+By the minimality\footnote{See previous footnote.} of $n$ $n-m$ is non-zero making $n$ zero.
+Hence $S\cong\mathbb{F}_{n}$.
+
+\subsection{Wedderburn's Little Theorem}
+This is similar to Wedderburn's little theorem, 
+that all finite domains are fields.
+Wedderburn generalizes the subject to domains instead of field and thus has to use $q-q^n = 0$ and some polynomial analysis (Headache).
+But reduces the results,
+it doesn't discuss closure.
+\\
+
+Cool result,
+I suggest looking it up.
