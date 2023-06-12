@@ -1,0 +1,49 @@
+% Copyright 2023 Kieran W Harvie. All rights reserved.
+
+\section{Dominated Convergence Theorem}
+Consider the following sequences of integrals:
+\[I_n = \int_0^1\log(t)^2(1-t)^n\,dt\]
+It's related to the Harmonic numbers,
+which is why it peaked my interest,
+but it was presented in context where we wished to understand its asymptotics.
+\\
+
+The book answer of expressing it in terms of hypergeometric functions will be skipped,
+because it's boring.
+
+\subsection{Cauchy-Schwartz}
+\begin{equation*}
+\begin{aligned}
+\int_0^1\log(t)^2(1-t)^n\,dt \leq& \sqrt{\int_0^1\log^4(t)\,dt\int_0^1(1-t)^{2n}\,dt}\\
+=&\sqrt{4! \frac{1}{2n+1}} \rightarrow 0
+\end{aligned}
+\end{equation*}
+Which by the noticing the sign of $I_n$ and application of the sandwich theorem shows that $I_n \rightarrow 0$.
+
+\subsection{Dominated Convergence Theorem}
+As suggested by the section name, this is the result I really want to take notes about.
+If a sequence of functions $f_n$ pointwise converge to $f$ and are dominated by some integrable function $g$ such that:
+\[|f_n(t)| < g(t)\]
+We have:
+\[\int_S f_n\,d\mu \rightarrow \int_S f\,d\mu\]
+Well rewrite the integral as:
+\begin{equation*}
+\begin{aligned}
+\frac{n}{\log(n)^2}\int_0^1\log(t)^2(1-t)^n\,dt 
+=& \int_0^1\left(\frac{(\log(nt)-\log(n)}{\log(n)}\right)^2\left(1-\frac{nt}{n}\right)^n\,d\,nt \\
+=&\int_0^n\left(\frac{\log(t)}{\log(n)}-1\right)^2\left(1-\frac{t}{n}\right)^n\,dt \\
+=& \int_0^\infty\chi_{[0,n]}(t)\left(1-\frac{\log(t)}{\log(n)}\right)^2\left(1-\frac{t}{n}\right)^n\,dt\\
+\end{aligned}
+\end{equation*}
+
+Set:
+\[f_n(t) = \overbrace{\chi_{[0,n]}(t)\left(1-\frac{\log(t)}{\log(n)}\right)^2}^{g_n(x)}\overbrace{\left(1-\frac{t}{n}\right)^n}^{h_n(t)}\]
+We have (pointwise):
+\[f_n(t) \rightarrow \exp(-t)\]
+We also have $h_n(t) \leq \exp(-t)$ and $g_n(t) \leq (1-\log(t))^2$,
+meaning:
+\[|f_n(t)| \leq (1-\log(t))^2\exp(-t)\]
+Giving the desired result
+(Assuming we can show the RHS converges, 
+which I'm pretty sure we can since near $0$ we have $\int (1-\log(t))^2\,dt = t(\log(t)^2-4\log(t)+5)$ and far away we have $\exp(-t)$).
+\[\frac{n}{\log(n)^2}\int_0^\infty\log(t)^2(1-t)^n\,dt \rightarrow \int_0^\infty\exp(-t)\,dt = 1\]
