@@ -52,6 +52,53 @@ Hence $S\cong\mathbb{F}_{n}$.
 
 (This is sloppy even for quick notes)
 
+\subsection{Dreams of a more rigor}
+Let $R$ be a ring and let $\phi$ be a function from $\mathbb{Z}$ to $R$ such that:
+\[\phi(1)=1_R,\quad \phi(n\pm 1) = \phi(n)\pm \phi(1_R)= \phi(n)\pm 1_R\]
+$\phi$ is well-defined as you can find the value for any $n\in\mathbb{Z}$ by induction.
+And the function only has one value at each $n$ since you can't change the value by "doubling back" on the induction:
+\[\phi((n\pm 1)\mp 1) = \phi(n\pm 1)\mp 1_R = \phi(n)\pm 1_R\mp 1_R = \phi(n)\]
+
+Induction on $n$ shows:
+\begin{equation*}
+\begin{aligned}
+	\phi(n)+\phi(m) =& \phi(n\pm 1)\mp 1 +\phi(m) \\
+	=& \phi(n\pm 1)+\phi(m\mp 1) \\
+	=& \phi(n\pm 1 + m\mp 1) \\
+	=& \phi(n+m) \\
+\end{aligned}
+\end{equation*}
+
+Which can be used to further prove:
+\begin{equation*}
+\begin{aligned}
+	\phi(n)\phi(m) =&(\phi(n\pm 1)\mp 1)\phi(m) \\
+	=&\phi(n\pm 1)\phi(m)\mp\phi(m) \\
+	=&\phi((n\pm 1)m)\mp\phi(m) \\
+	=&\phi((n\pm 1)m\mp m) \\
+	=&\phi(nm)\\
+\end{aligned}
+\end{equation*}
+
+These identities,
+combined $\phi$ being defined with $\phi(1)=1_R$,
+shows that $\phi$ is a homomorphism.
+\\
+
+Which, 
+by the first isomorphisms theorem for rings,
+shows that the $\img\phi$ is a subring of $R$ and is isomorphic to $\mathbb{Z}/\ker \phi$.
+This formalizes the concept of the $n$th sum of $1_R$,
+and lets us manipulate it better.
+\\
+
+\textbf{Corollary:} If $R$ is finite then the additive group of $R$ is also finite.
+Meaning $1_R$ has an order,
+which we label $N$.
+In this case $\ker\phi = N\mathbb{Z}$ giving:
+\[\img\phi = \frac{\mathbb{Z}}{N\mathbb{Z}}\]
+It's really easy to use Bézout's identity on these objects to show which ones are fields.
+
 \subsection{Wedderburn's Little Theorem}
 This is similar to Wedderburn's little theorem, 
 that all finite domains are fields.
