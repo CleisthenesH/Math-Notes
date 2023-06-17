@@ -56,3 +56,4 @@ And add new notes directly too this repository, subject to change:
 - Helmholtz decomposition (Incl. Fourier)
 - Fouier Series from Nyquist style argument. (Maybe include the last two in fourier)
 - Commuting Probability
+- Laplace's Rule of Succession
