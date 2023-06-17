@@ -6,10 +6,18 @@ This can be verified by noting that a remainder of $0$,$2$, or $4$ would make $p
 \\
 
 A cool corollary I saw today was that $p$ is a divisor of $6$ or $24$ is a divisor of $(p+1)(p-1)$.
-This is also verified by cases.
-If the remainder is $1$ then $p-1$ is divisible by $6$ and $p+1$ by $4$.
-And if the remainder is $5$ then $p-1$ is divisible by $4$ and $p+1$ by $6$.
-\\
+This is also verified by cases:
+
+\begin{center}
+\begin{tabular}{|c|cccc|}
+\hline
+	$p\mod 12$&1&5&7&11\\
+\hline
+	$\gcd(p+1,12)$&2&6&4&12\\
+	$\gcd(p-1,12)$&12&4&6&2\\
+\hline
+\end{tabular}
+\end{center}
 
 The converse isn't true.
 Since $24\cdot 3 = 72$,
