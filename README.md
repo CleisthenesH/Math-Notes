@@ -39,6 +39,8 @@ The editing, incorporation, or deletion or the following lose .tex files into th
 - ~~Winquist~~
 
 And add new notes directly too this repository, subject to change:
+
+(This list is no longer being activily added too, now just a wish list of things to look into)
 - ~~Convex Cords~~
 - ~~Jensen's Inequality~~
 - ~~Isosets~~
@@ -53,3 +55,4 @@ And add new notes directly too this repository, subject to change:
 - ~~XOR hash~~
 - Helmholtz decomposition (Incl. Fourier)
 - Fouier Series from Nyquist style argument. (Maybe include the last two in fourier)
+- Commuting Probability
