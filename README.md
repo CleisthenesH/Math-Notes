@@ -1,22 +1,25 @@
-**:warning:Living Document:warning:**
+**:warning:Living Document: All Parts are Subject to Change:warning:**
 # :wave: Introduction
 This repository is a collection of notes on math I have found interesting and have decided to write down for both future reference and to solidify thought.
 
 Please feel free to ask for clarification for anything that interests you.
 Since they are notes first they may assume the reader is familiar with what I'm familiar with and aren't actively edited. 
 
-# :notebooks: PDFs
-## :game_die: Miscellaneous
+# :notebook: PDFs
+1. :game_die: Miscellaneous
+
 The "main" pdf in the repository.
 Lack any kind of inter-sections structure and is collection of notes in the rawest sense.
 In the fullness of time sections may make there way from here to other pdfs.
 
-## :ocean: Fourier 
+2. :ocean: Fourier
+
 An ordered collection of notes to do with the Fourier Transform.
-Made with some about of readability in mind in the sense that earlier parts of the document inform later parts.
+Made with some about of readability in mind.
+In the sense that earlier parts of the document inform later parts.
 
 # :ballot_box_with_check: To-do
-The ongoing construction of this repository will consist of two steps.
+The ongoing construction of this repository will consist of two steps:
 
 ## :deciduous_tree: Incorporation of the Old
 The editing, incorporation, or deletion or the following lose .tex files into this repository:
@@ -50,7 +53,7 @@ The editing, incorporation, or deletion or the following lose .tex files into th
 - ~~WaveEq~~
 - ~~Winquist~~
 
-## :seedling: Creations of the New
+## :seedling: Creating the New
 And add new notes directly too this repository, subject to change:
 
 (This list is no longer being activily added too, now just a wish list of things to look into)
@@ -59,7 +62,7 @@ And add new notes directly too this repository, subject to change:
 - ~~Isosets~~
 - ~~Padé~~
 - Uniqueness of finite fields.
-- GF(2^8) in encryption and hashing
+- ~~GF(2^8) in encryption and hashing~~ (Evolved into its own separate Repo)
 - ~~Discontinuities of a monotonic function.~~
 - ~~Interest~~
 - ~~Lagragian Multiplier~~
