@@ -1,0 +1,178 @@
+% Copyright 2023 Kieran W Harvie. All rights reserved.
+\chapter{Appendix}
+
+\section{Convention}
+In this text the definition of Fourier and inverse Fourier transform are given by:
+\[\hat{f}(k) = \int_{-\infty}^{\infty}f(x)\exp(-ikx)\,dx\]
+\[f(x) =\frac{1}{2\pi} \int_{-\infty}^{\infty}\hat{f}(x)\exp(ikx)\,dk\]
+
+This is called the "non-unitary, angular frequency" convention and it's clear there is some arbitrariness around the certain coefficients as can see by defining a new similar transform:
+\[F(k) = \frac{1}{a}\int_{-\infty}^{\infty}f(x)\exp(-ibxk)\,dx\]
+
+We can go between different choices of $a$ and $b$ by mere scaling, which the basic properties section shows isn't a big deal:
+\[\frac{a}{A}F\left(\frac{B}{b}k\right) = \frac{1}{A}\int_{-\infty}^{\infty}f(x)\exp(-iBxk)\,dx\]
+
+Since the choice is ours to make it's natural to ask what the most convent choice is.
+An immediate concern is if the problem attempting to be solved using the Fourier transform has a natural choice.
+In some physical applications choosing $b= 1,\pi,2\pi$ is natural.
+
+Following any natural application the next concern is to make sure the inverse transform works.
+Using the same argument as in the \hyperref[sec:inv-trans]{inverse function section} we get the following relation:
+\[\frac{1}{c}\int_{-\infty}^{\infty}F(k)\exp(-idxk)\,dk = \frac{2\pi}{ac}f\left(\frac{d}{b}x\right)\]
+
+So if we choose $d=b$ and $ac = 2\pi$ the inverse works and we are still free to choose $a$ and $b$ as we please.
+\\
+
+From the \hyperref[sec:plancherel]{Plancherel's Theorem} we see that the transform being unitary would be convent and that this can be achieved with:
+\[a = c = \sqrt{2\pi}\]
+But this is presents a problem, since the use of square roots and $\pi$ make this choice in a large jump up from only using \hyperref[sec:ring]{ring operations}.
+
+This creates a clear branching point between what would be convenient algebraically versus analytically.
+With algebra preferring us to stay as simple as possible with $a=1$ and analysis preferring $a=\sqrt{2\pi}$.
+\\
+
+I have chosen $a=b=1$ because of how it simplify the definition of the transform but you are free to chose whatever convention you like, provided you keep conversion in mind while looking at tables of transforms.
+\\
+
+As ending remarks it is worth noting that in probability theory the characteristic function is equal to the Fourier transform with $a=1,\,b=-1$. 
+And that the Pontryagin Duality makes all the arbitrariness disappear by focusing on the more abstract isomorphism between locally compact abelian groups (But even Pontryagin Duality isn't the undisputed "best" viewpoint since it introduces topology but ignores ring operations, which may be more important in certain applications).
+
+\section{Table of Transforms}
+
+\begin{center}
+\begin{tabular}{c|c}
+	Time domain & Frequency domain \\ \hline
+	$\delta(x)$  & $1$ \\
+	$1$ & $2\pi\delta(k)$ \\
+	$\chi_{(\mu-\delta,\mu+\delta)}(x)$ & $2k^{-1}\sin\left(k\delta\right)\exp(-i\mu k)$ \\
+	$f(x) = \begin{cases} 1-2|x|& |x| <\frac{1}{2}\\ 0& \text{else}\end{cases}$ & $2\sinc\left(\frac{k}{4}\right)^2$ \\
+	$\sum_{n=-N}^N\delta(x-na)$ & $\frac{\sin\left(\left(N+\frac{1}{2}\right)ka\right)}{\sin\left(\frac{ka}{2}\right)}$\\
+	$\sum_{n=-\infty}^\infty\delta(x-na) $ & $\frac{2\pi}{|a|}\sum_{n=-\infty}^\infty\delta\left(k-\frac{2\pi n}{a}\right)$  \\
+	$\exp(ixk_0)$ & $ 2\pi\delta(k-k_0)$ \\
+	$\sin(k_0x)$ & $\pi i (\delta(k+k_0)-\delta(k-k_0))$\\
+	$\cos(k_0x)$ & $\pi  (\delta(k+k_0)+\delta(k-k_0))$\\
+	$\exp(-ax^2)$&$ \sqrt{\frac{\pi}{a}}\exp\left(-\frac{-k^2}{4a}\right)$ \\
+\end{tabular}
+\end{center}
+
+The $\sinc$ function is normalized.
+
+\section{Important integrals}
+
+\subsection{Gaussian Functions}
+A reminder that for $a,b \in \mathbb{R}$ such that $a > 0$ we have:
+\[\int_{-\infty}^{\infty}\exp(-a(x-b)^2)\,dx = \sqrt{\frac{\pi}{a}}\]
+We will need to expand the domain of $b$ to $\mathbb{{C}}$.
+To this end observe that $\exp(-z^2)$ is finite for all values of $z$ as:
+\begin{equation*}
+\begin{aligned}
+	|\exp(-(x+iy)^2)| =& |\exp(-x^2+y^2)\exp(-2ixy)|\\
+	=& |\exp(-x^2+y^2)| \\
+\end{aligned}
+\end{equation*}
+Now consider $\mathcal{C}$ be the contour $(-t,0)-(t,0)-(t,\Im[b])-(-t,\Im[b])-(-t,0)$.
+By the finitude of $\exp(-z^2)$ we have:
+\[0 = \int_\mathcal{C}\exp(-z^2)\,dz \]
+By the ML bound the magnitude of the left/right sides of the contour are bound by:
+\begin{equation*}
+\begin{aligned}
+	&\left|\int_{0}^{|\Im[b]|}\exp(-(t\pm i\tau)^2)\,d\tau\right|\\
+	\leq&|\Im[b]|\max\left\{|\exp(-(t\pm i\tau)^2)|\,\bigg|\,\tau \in (0,|\Im[b]|)\right\}\\
+	=&|\Im[b]|\max\left\{|\exp(-t^2 +\tau^2)|\,\bigg|\,\tau \in (0,|\Im[b]|)\right\}\\
+	=&|\Im[b]|\exp(-t^2 +|\Im[b]|^2)\\
+\end{aligned}
+\end{equation*}
+And vanish in the limit $t\rightarrow \infty$.
+Meaning in the limit we have:
+\begin{equation*}
+\begin{aligned}
+	0 =& \int_\mathcal{C}\exp(-z^2)\,dz \\
+	=& \int_{-t}^{t}\exp(-z^2)\,dz + \int_{t}^{-t}\exp(-(z-i\Im[b])^2)\,dz \\
+	&\int_{-\infty}^{\infty}\exp(-z^2)\,dz = \int_{-\infty}^{\infty}\exp(-(z-i\Im[b])^2)\,dz \\
+\end{aligned}
+\end{equation*}
+Meaning the integral is unaffected by imaginary translations.
+Since we already have that the integral is unaffected by real translations combining the two we have:
+\[\int_{-\infty}^{\infty}\exp(-a(x-b)^2)\,dx = \sqrt{\frac{\pi}{a}}\]
+For $a \in \mathbb{R}$, $b \in \mathbb{C}$ and $a > 0$.
+\\
+
+And in particular:
+\[ \frac{1}{\sqrt{2\pi}\sigma} \exp\left(-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2\right) = \frac{1}{2\pi}\int_{-\infty}^{\infty}\exp\left(-\frac{1}{2}\sigma^2k^2+ik(x-\mu)\right) \,dx \] 
+\subsection{Signed Exponential}
+\begin{equation*}
+\begin{aligned}
+&\int_{-\infty}^{\infty}\exp(-|x|)\exp(-ikx)\,dx \\
+=& \int_{0}^{\infty}\exp(-x)\exp(-ikx)\,dx+\int_{-\infty}^{0}\exp(x)\exp(-ikx)\,dx\\
+=& \int_{0}^{\infty}\exp(-x)\exp(-ikx)\,dx+\int^{\infty}_{0}\exp(-x)\exp(ikx)\,dx\\
+=& 2\int_{0}^{\infty}\exp(-x)\cos(kx)\,dx\\
+=& \frac{2}{1+k^2}\\
+\end{aligned}
+\end{equation*}
+\subsection{Cauchy Exploration}
+The convolution of a Cauchy with a Gaussian is easily solvable by double deriving by $x$.
+\begin{equation*}
+\begin{aligned}
+I(x) =&\frac{\gamma}{\pi\sqrt{2\pi\sigma}}\int_{-\infty}^{\infty}\frac{1}{\gamma^2+t^2}\exp\left(-\frac{1}{2\sigma^2}(x-t)^2\right)\,dt\\
+\end{aligned}
+\end{equation*}
+
+\section{Dirac Comb}
+\label{appx:dirac-comb}
+The Dirac Comb of period $P$ is defined as
+\[\Sha_P(x) = \sum_{n=-\infty}^{\infty}\delta(x-nP) \] 
+
+An important property of $\Sha_P$ is that:
+\[\Sha_P(x) = \frac{1}{P}\sum_{n=-\infty}^{\infty}\exp\left(2\pi i n \frac{x}{P}\right)\]
+This can easily be proven as a Fourier transform but it can also be proven in a more direct and interesting way, consider:
+\[f(x) = \sum_{n=-\infty}^{\infty}\exp(2\pi n x)\]
+
+When $\exp(2\pi x) \neq 1$
+\begin{equation*}
+\begin{aligned}
+f(x) =& \sum_{n=-\infty}^{\infty}\exp(2\pi n x) \\
+=& \left(\sum_{n=-\infty}^{-1}+\sum_{n=0}^{0}+\sum_{n=1}^{\infty}\right)\exp(2\pi n x) \\
+=& \frac{\exp(-2\pi n x)}{1-\exp(-2\pi n x)} + 1 + \frac{\exp(2\pi n x)}{1-\exp(2\pi n x)} \\
+=& \frac{-1}{1-\exp(2\pi n x)} + 1 + \frac{\exp(2\pi n x)}{1-\exp(2\pi n x)} \\
+=& 1-1\\
+=& 0\\
+\end{aligned}
+\end{equation*}
+
+As for normalization:
+\begin{equation*}
+\begin{aligned}
+\int_{x}^{x+1}f(t)\,dt =& \int_{x}^{x+1}\sum_{n=-\infty}^{\infty}\exp(2\pi n t)\,dt\\
+=& 1+\int_{x}^{x+1}\sum_{\stackrel{n=-\infty}{n\neq 0}}^{\infty}\exp(2\pi n t)\,dt\\
+=& 1+\sum_{\stackrel{n=-\infty}{n\neq 0}}^{\infty}\int_{x}^{x+1}\exp(2\pi n t)\,dt\\
+=& 1+\sum_{\stackrel{n=-\infty}{n\neq 0}}^{\infty}\left[\frac{1}{2\pi n}\exp(2\pi n t)\right]_{x}^{x+1}\\
+=& 1+\sum_{\stackrel{n=-\infty}{n\neq 0}}^{\infty}\frac{\exp(2\pi x n)}{2\pi n}(\exp(2\pi n)-1)\\
+=& 1\\
+\end{aligned}
+\end{equation*}
+
+\section{The Parity Operator and Odd, Even, Real, and Imaginary Components}
+\label{appx:real-img-odd-even}
+The Parity operator takes a function multiplies it's argument by $-1$:
+\[\mathcal{P}[f](x) = f(-x)\]
+That functions that are symmetric in regards to this operator are called even and ones that are anti-symmetric are called odd.
+
+A function can be uniquely split into  sum of even and odd functions through the following identity:
+\[ f(x) = \overbrace{\frac{f(x)+f(-x)}{2}}^\text{Even}+\overbrace{\frac{f(x)-f(-x)}{2}}^\text{Odd}\]
+
+A purely real number is symmetric in regards to the conjugation operator and a purely imaginary number is anti-symmetric.
+A function whose output are purely real numbers is called purely real and similarly for imaginary.
+
+A function can be uniquely split into a sum of purely real and imaginary functions through the following identity:
+\[ f(x) = \overbrace{\frac{f(x)+\overline{f(x)}}{2}}^\text{Real}+\overbrace{\frac{f(x)-\overline{f(x)}}{2}}^\text{Imaginary}\]
+
+These unique sums combine to uniquely split an arbitrary function into four parts:
+\begin{equation*}
+\begin{aligned}
+	 f(x) =& \overbrace{\frac{f(x)+\overline{f(x)}+f(-x) + \overline{f(-x)}}{4}}^\text{Real and Even}+\overbrace{\frac{f(x)-\overline{f(x)}+f(-x)-\overline{f(-x)}}{4}}^\text{Imaginary and Even} \\
+	 &+ \overbrace{\frac{f(x)+\overline{f(x)}-f(-x) - \overline{f(-x)}}{4}}^\text{Real and Odd}+\overbrace{\frac{f(x)-\overline{f(x)}-f(-x)+\overline{f(-x)}}{4}}^\text{Imaginary and Odd}\\
+\end{aligned}
+\end{equation*}
+
+The formula for adding a third operator and making an eight way sum of terms can be deduced by observation.
+

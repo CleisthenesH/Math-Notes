@@ -1,0 +1,39 @@
+% Copyright 2022 Kieran W Harvie. All rights reserved.
+\documentclass[12pt]{report}
+
+\usepackage{amsmath}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\usepackage{amssymb}
+ 
+\usepackage[OT2,T1]{fontenc}
+
+\titleformat{\chapter}[display]
+	{\normalfont\huge\bfseries}{}{0pt}{\Huge}
+\titlespacing*{\chapter}
+	{0pt}{10pt}{40pt}
+
+\title{Fourier Notes}
+\date{Copyright \textcopyright  \today. All Rights Reserved.}
+\author{Kieran Harvie}
+
+\DeclareSymbolFont{cyrletters}{OT2}{wncyr}{m}{n}
+
+\DeclareMathOperator{\sinc}{sinc}
+\DeclareMathOperator{\Ai}{Ai}
+\DeclareMathSymbol{\Sha}{\mathalpha}{cyrletters}{"58}
+\DeclareMathOperator{\Hom}{Hom}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\include{chapters/introduction.tex}
+\include{chapters/fundamentals.tex}
+\include{chapters/applications.tex}
+\include{chapters/generalizations.tex}
+
+\renewcommand{\thechapter}{A}
+\include{chapters/appendix.tex}
+
+\end{document}
