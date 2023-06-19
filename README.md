@@ -1,12 +1,24 @@
-# Introduction
+**:warning:Living Document:warning:**
+# :wave: Introduction
 This repository is a collection of notes on math I have found interesting and have decided to write down for both future reference and to solidify thought.
 
 Please feel free to ask for clarification for anything that interests you.
 Since they are notes first they may assume the reader is familiar with what I'm familiar with and aren't actively edited. 
 
-# Timeline
-The initial construction of this repository will consist of two steps.
+# :notebooks: PDFs
+## :game_die: Miscellaneous
+The "main" pdf in the repository.
+Lack any kind of inter-sections structure and is collection of notes in the rawest sense.
+In the fullness of time sections may make there way from here to other pdfs.
 
+## :ocean: Fourier 
+An ordered collection of notes to do with the Fourier Transform.
+Made with some about of readability in mind in the sense that earlier parts of the document inform later parts.
+
+# :ballot_box_with_check: To-do
+The ongoing construction of this repository will consist of two steps.
+
+## :deciduous_tree: Incorporation of the Old
 The editing, incorporation, or deletion or the following lose .tex files into this repository:
 - ~~Airy~~ (In Fourier)
 - ~~Chinese~~ (Not Math)
@@ -38,6 +50,7 @@ The editing, incorporation, or deletion or the following lose .tex files into th
 - ~~WaveEq~~
 - ~~Winquist~~
 
+## :seedling: Creations of the New
 And add new notes directly too this repository, subject to change:
 
 (This list is no longer being activily added too, now just a wish list of things to look into)
