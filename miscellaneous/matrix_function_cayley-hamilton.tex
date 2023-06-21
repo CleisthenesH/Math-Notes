@@ -1,0 +1,50 @@
+% Copyright 2023 Kieran W Harvie. All rights reserved.
+
+\section{Matrix Function Evaluation using Cayley-Hamilton}
+(This is something I'm 70\% sure I've seen before but I saw it again today).
+(Assume the field is $\mathbb{R}$, don't feel like dealing with others).
+\\
+
+The Cayley-Hamilton theorem states that a matrix is the root of it's own characteristic equation.
+A cool application of this is simplifying the evaluation of (analytic) matrix functions.
+\\
+
+Let $M$ be a matrix with characteristic polynomial $p$,
+and eigenvalues $\lambda_i$ with multiplicity $m_i$.
+Let the analytic function $f$ be given by:
+\[f(x) = \sum_{k=0}^\infty f_kx^k\]
+Define a new function $r$ that is interpolated on $\lambda_i$ such that:
+\[0\leq k< m_i \Rightarrow\left.\frac{d^k f}{d x^k}\right|_{\lambda_i} =\left.\frac{d^k r}{d x^k}\right|_{\lambda_i}\]
+This means that for some analytic function $q$ we have:
+\[f(x) = q(x)p(x)+r(x)\]
+
+Now convert these analytic functions to analytic matrix functions in the natural way.
+From Cayley-Hamilton theorem we have:
+\[f(M) = q(M)p(M)+r(M) = r(M)\]
+
+\subsection{Worked Example}
+Let $M$ be a $2\times 2$ matrix with two distinct eigenvalues.
+Let $f(x) = \exp(tx)$ then:
+\[r(x) = (x-\lambda_0)\frac{\exp(t\lambda_1)}{\lambda_1-\lambda_0}+(x-\lambda_1)\frac{\exp(t\lambda_0)}{\lambda_0-\lambda_1}\]
+Hence:
+\[f(M) = r(M) =(M-\lambda_0)\frac{\exp(t\lambda_1)}{\lambda_1-\lambda_0}+(M-\lambda_1)\frac{\exp(t\lambda_0)}{\lambda_0-\lambda_1} \]
+
+\subsection{Original Application}
+The original problem was to minimize:
+\[f(X) = \sum_{k=0}^n\left|\left|\exp\left(\frac{2\pi}{k}B\right)A-X\right|\right|^2\]
+
+Through some procedure similar to the above reasoning it was obtained:
+\[\exp(\alpha B) = I+ \sin(\alpha)B+(1-\cos(\alpha))B^2\]
+
+Hence:
+\begin{equation*}
+\begin{aligned}
+&\sum_{k=0}^n\left|\left|\exp\left(\frac{2\pi}{k}B\right)A-X\right|\right|^2\\
+=&\sum_{k=0}^n\left|\left|\left(I+\sin\left(\frac{2\pi}{k}\right)B+\left(1-\cos\left(\frac{2\pi}{k}\right)\right)B^2\right)A-X\right|\right|^2\\
+=&\sum_{k=0}^n\left|\left|\bigg((I+B^2)A-X\bigg)+\left(\sin\left(\frac{2\pi}{k}\right)B+\cos\left(\frac{2\pi}{k}\right)B^2\right)A\right|\right|^2\\
+\end{aligned}
+\end{equation*}
+The left term independent of $k$ and the right term is independent of $X$.
+This means each term of the sum is minimized at:
+\[X=(I+B^2)A\]
+And since each term is minimized so is the whole sum.
