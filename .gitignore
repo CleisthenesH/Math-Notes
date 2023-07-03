@@ -2,3 +2,6 @@
 *.out
 *.aux
 *.toc
+
+# My collection of WIP stashes was getting high and making me nervous
+stash_backup/

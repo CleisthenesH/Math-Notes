@@ -27,7 +27,7 @@ Let $M$ be a $2\times 2$ matrix with two distinct eigenvalues.
 Let $f(x) = \exp(tx)$ then:
 \[r(x) = (x-\lambda_0)\frac{\exp(t\lambda_1)}{\lambda_1-\lambda_0}+(x-\lambda_1)\frac{\exp(t\lambda_0)}{\lambda_0-\lambda_1}\]
 Hence:
-\[f(M) = r(M) =(M-\lambda_0)\frac{\exp(t\lambda_1)}{\lambda_1-\lambda_0}+(M-\lambda_1)\frac{\exp(t\lambda_0)}{\lambda_0-\lambda_1} \]
+\[f(M) = r(M) =(M-\lambda_0I)\frac{\exp(t\lambda_1)}{\lambda_1-\lambda_0}+(M-\lambda_1I)\frac{\exp(t\lambda_0)}{\lambda_0-\lambda_1} \]
 
 \subsection{Original Application}
 The original problem was to minimize:
@@ -48,3 +48,51 @@ The left term independent of $k$ and the right term is independent of $X$.
 This means each term of the sum is minimized at:
 \[X=(I+B^2)A\]
 And since each term is minimized so is the whole sum.
+
+\subsection{Generalization of the Worked Example}
+Let $M$ be a matrix with characteristic polynomial $p$, distinct eigenvalues $\lambda_i$, and corresponding eigenvectors $v_i$.
+The Lagrange functions $\ell_i(x)$ on $\{\lambda_i\}$ are given by:
+\[\ell_i(x) = \prod_{j\neq i} \frac{x-\lambda_j}{\lambda_i-\lambda_j}\]
+And have the standard desirable property that:
+\[\ell_i(x) = \begin{cases} 1&x=\lambda_i\\0&x=\lambda_j \text{ where } i\neq j\\\end{cases}\]
+From the distinctness of $\lambda_i$:
+\[p(x) | \ell_i(x)(x-\lambda_i)\]
+(Where we don't necessarily have equality because of the denominators in $\ell_i(x)$).
+From Cayley-Hamilton theorem we have:
+\[\ell_i(M)(M-\lambda_iI) = 0 \Rightarrow \ell_i(M)M=\lambda_i\ell_i(M)\]
+Which is pretty cool by itself,
+since $\ell_i$ is like an eigenmatrix,
+but also gives:
+\begin{equation*}
+\begin{aligned}
+	\ell_i(M)Mv_j =& \lambda_i\ell_i(M)v_j \\
+	\Rightarrow\lambda_j\ell_i(M)v_j =& \lambda_i\ell_i(M)v_j \\
+\end{aligned}
+\end{equation*}
+Hence either $\ell_i(M)v_j =0$ or $\lambda_i=\lambda_j$,
+but the eigenvalues are unique meaning $\ell_i(M)v_j = 0$ or $i=j$.
+\\
+
+This property is useful when we consider the standard remainder function $r$ written as:
+\[r(x) = \sum_if(\lambda_i)\ell_i(x)\]
+Giving:
+\begin{equation*}
+\begin{aligned}
+	f(M) =& \sum_if(\lambda_i)\ell_i(M)\\
+	\Rightarrow f(M)\sum_ju_jv_j =& \sum_ju_jf(M)v_j \\
+	=& \sum_ju_j\sum_if(\lambda_i)\ell_i(M)v_j\\
+	=& \sum_ju_jf(\lambda_j)\ell_j(M)v_j\\
+\end{aligned}
+\end{equation*}
+
+Hence the value of the product,
+over the space spanned by the eigenvalues of $A$,
+is a dot product of a term only dependent on the vector $u$ and a term only dependent on the matrix and function.
+\\
+
+An enlightening example of this is when $f(M)=\exp(tM)$,
+which has a natural interpretation as the continuous application of $M$ for a period of $t$ time,
+and gives an initial term,
+a time-dependent term,
+and a symmetry of $M$ term:
+\[\exp(tA)u = \sum_ju_j\exp(t\lambda_j)\ell_j(M)v_j\]
