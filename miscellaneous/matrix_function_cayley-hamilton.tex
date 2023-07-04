@@ -96,3 +96,50 @@ and gives an initial term,
 a time-dependent term,
 and a symmetry of $M$ term:
 \[\exp(tA)u = \sum_ju_j\exp(t\lambda_j)\ell_j(M)v_j\]
+
+\subsection{Derivatives Generalization:}
+I want to generalize the previous results for eigenvalues with multiplicities.
+(I just want to quickly write this down and come back latter if I feel like it,
+it has not been proof read)
+This will be with easier with a definition and two lemma:.
+
+Let $M$ be a matrix with characteristic polynomial $p$, eigenvalues $\lambda_i$, corresponding eigenvectors $v_i$ and multiplicities $m_i$.
+\subsubsection{Modified Lagrange Function:}
+Define $\ell_i(x)$ as:
+\[\ell_i(x)=\prod_{j\neq i}\left(\frac{x-\lambda_j}{\lambda_i-\lambda_j}\right)^{m_j}\]
+We still have:
+\[\ell_i(x) = \begin{cases} 1&x=\lambda_i\\0&x=\lambda_j \text{ where } i\neq j\\\end{cases}\]
+But also for $n < m_j$ and $i\neq j$:
+\[\ell_i^{(n)}(\lambda_j) = 0\]
+this can be verified from the product rule.
+
+\subsubsection{Lemma:}
+From induction on $n$ we have:
+\[(M-\lambda_iI)^nv_j = (\lambda_i-\lambda_j)^nv_j\]
+Recall that:
+\[p(x) |\ell_i(x)(x-\lambda_i)^{m_i}\]
+Hence:
+\[\ell_i(M)(M-\lambda_iI)^{m_i} = 0\]
+And:
+\[(\lambda_j-\lambda_i)^{m_i}\ell_i(M)v_j = 0\]
+Hence either $\ell_i(M)v_j =0$ or $\lambda_i=\lambda_j$.
+\\
+
+\subsubsection{Lemma: Interpolation}
+Define:
+\[r(x) = \sum_i\ell_i(x)\sum_{k=1}^{m_i}p_n\frac{(x-\lambda_i)^n}{n!}\]
+Where $p_n$ satisfy:
+\[f^{(d)}(\lambda_i) = \sum_{k=0}^{d}p_k\ell_i^{(d-k)}(\lambda_i)\]
+(Note that this is just a system of linear equations and can easily be solved through a linear equation).
+
+\subsubsection{Result:}
+\[f(M) = r(M) = \sum_i\ell_i(M)\sum_{k=1}^{m_i}p_n\frac{(M-\lambda_iI)^n}{n!}\]
+In particular let $u=\sum_ju_jv_j$
+\begin{equation*}
+\begin{aligned}
+	f(M)u =& \sum_i\ell_i(M)\sum_{k=1}^{m_i}p_n\frac{(M-\lambda_iI)^n}{n!}u\\
+	=& \sum_ip_0u_i\ell_i(M)v_i\\
+\end{aligned}
+\end{equation*}
+Since if $n>0$ either $\ell_i(M)v_j=0$ or $(M-\lambda_iI)^nv_j = 0$.
+
