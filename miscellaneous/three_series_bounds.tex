@@ -1,0 +1,77 @@
+% Copyright 2023 Kieran W Harvie. All rights reserved.
+
+\section{Bounds of Three Series}
+Even though I'm sick I found an interesting problem on the internet.
+Given positive $a_1,b_1,c_1>0$ and:
+\begin{equation*}
+\begin{aligned}
+	a_{n+1} =& b_n+\frac{1}{c_n}\\
+	b_{n+1} =& c_n+\frac{1}{a_n}\\
+	c_{n+1} =& a_n+\frac{1}{b_n}\\
+\end{aligned}
+\end{equation*}
+
+Show that at least one of $a_{800},b_{800},c_{800}$ is greater than 40 and that all sequences are unbounded.
+
+\subsection{Lemma: Closed form for $x_{n+1} = x_n+\frac{k}{x_n}$} 
+The closed form is this:
+\[ x_{n+1}^2 = x_1^2+2nk+k^2\sum_{l=1}^n\frac{1}{x_l^2}\]
+This result is nothing special, 
+just a lot of algebra,
+the plan is to first get a result for the product of successive terms,
+then get perform induction on the product,
+and finally cleanup to get the final form.
+
+\begin{equation*}
+\begin{aligned}
+	x_{n+2}x_{n+1} =& \left(x_{n+1}+\frac{k}{x_{n+1}}\right)x_{n+1}\\
+	=& \left(x_n+\frac{k}{x_n}+\frac{k}{x_{n+1}}\right)x_{n+1}\\
+	=& x_{n+1}x_n + k +k\frac{x_{n+1}}{x_n} \\
+	=& x_{n+1}x_n + k +k\frac{1}{x_n}\left(x_n+\frac{k}{x_n}\right) \\
+	=& x_{n+1}x_n + 2k +\frac{k^2}{x_n^2} \\
+\end{aligned}
+\end{equation*}
+
+Induction gives:
+\[ x_{n+2}x_{n+1} = x_2x_1+2nk+k^2\sum_{l=1}^n\frac{1}{x_l^2}\]
+
+Then you clean up by using the initial relation on $x_{n+2}$ and $x_2$.
+
+\subsection{Unbounded:}
+Let $s_n = a_n+b_n+c_n$, 
+from the HM-AM inequality we have:
+\[\frac{1}{a_n}+\frac{1}{b_n}+\frac{1}{c_n} \geq \frac{9}{s_n}\]
+With equality if and only if $a_n=b_n=c_n$.
+\\
+
+From the series definition we have:
+\[s_{n+1} = s_n + \frac{1}{a_n}+\frac{1}{b_n}+\frac{1}{c_n} \geq s_n+\frac{9}{s_n}\]
+
+Since $a_n=b_n=c_n \Rightarrow a_{n+1}=b_{n+1}=c_{n+1}$ we have $s_n$ is bounded by:
+\[ s_{n+1}^2 \geq s_1^2+18n+81\sum_{l=1}^n\frac{1}{s_l^2}\]
+Hence $s_n$ grows at least as much as $3\sqrt{2n}$,
+which is unbounded.
+\\
+
+If the sum is unbounded at least one of the series is unbounded.
+And if at least one series is unbounded the "swapping" nature of the series means that they all are.
+
+\subsection{$800^\text{th}$ terms:}
+Consider the bound sum:
+\[ s_{n+1}^2 \geq s_1^2+18n+81\sum_{l=1}^n\frac{1}{s_l^2}\]
+If $s_n \leq 1$ then $s_{n+1} > 1$ hence at least half of the time $\frac{1}{s_l^2}$ must be greater than one.
+Giving the new bound:
+\[ s_{n+1}^2 > 18n+81\left\lfloor\frac{n}{2}\right\rfloor\]
+(This isn't a particularly good bound, we could consider $s_1$ separately, but if works the result we need)
+Substituting in $n=799$ gives:
+\[s_{800}^2 > 18\times799+81\times398 > 18\times800 = 3^2\times40^2\]
+Hence:
+\[a_{800}+b_{800}+c_{800} = s_{800} > 3\times40\]
+From pigeon holing at least one LHS term is greater than 40.
+
+\subsection{Remarks}
+This is yet another example of this Olympian style problem where I had to be prompted to consider the HM-AM inequality.
+
+Although I was working with inequalities between elementary polynomial sums so wasn't that far away myself,
+and the other advice that was given was just straight up wrong, 
+so I should probably just remember to use the inequality means in the future and let it go.
