@@ -52,12 +52,24 @@ Hence $S\cong\mathbb{F}_{n}$.
 
 (This is sloppy even for quick notes)
 
+\subsection{Wedderburn's Little Theorem}
+This is similar to Wedderburn's little theorem, 
+that all finite domains are fields.
+Wedderburn generalizes the subject to domains instead of field and thus has to use $q-q^n = 0$ and some polynomial analysis (Headache).
+But reduces the results,
+it doesn't discuss closure.
+\\
+
+Cool result,
+I suggest looking it up.
+
 \subsection{Dreams of a more rigor}
 Let $R$ be a ring and let $\phi$ be a function from $\mathbb{Z}$ to $R$ such that:
 \[\phi(1)=1_R,\quad \phi(n\pm 1) = \phi(n)\pm \phi(1_R)= \phi(n)\pm 1_R\]
 $\phi$ is well-defined as you can find the value for any $n\in\mathbb{Z}$ by induction.
 And the function only has one value at each $n$ since you can't change the value by "doubling back" on the induction:
 \[\phi((n\pm 1)\mp 1) = \phi(n\pm 1)\mp 1_R = \phi(n)\pm 1_R\mp 1_R = \phi(n)\]
+(This can be made more rigorous by only allowing induction one way in the definition).
 
 Induction on $n$ shows:
 \begin{equation*}
@@ -99,13 +111,114 @@ In this case $\ker\phi = N\mathbb{Z}$ giving:
 \[\img\phi = \frac{\mathbb{Z}}{N\mathbb{Z}}\]
 It's really easy to use Bézout's identity on these objects to show which ones are fields.
 
-\subsection{Wedderburn's Little Theorem}
-This is similar to Wedderburn's little theorem, 
-that all finite domains are fields.
-Wedderburn generalizes the subject to domains instead of field and thus has to use $q-q^n = 0$ and some polynomial analysis (Headache).
-But reduces the results,
-it doesn't discuss closure.
+\subsection{An Observation on Divisibility}
+\subsubsection{Lemma: $n\in\ker\phi \Rightarrow \ker\phi \supseteq n\mathbb{Z}$}
+A corollary of $\phi$ being a homomorphism is that:
+\begin{equation*}
+\begin{aligned}
+	n\in\ker\phi \Rightarrow& \phi(nk)=\phi(n)\phi(k) = 0\\
+	\Rightarrow& n\mathbb{Z} \subseteq \ker\phi\\
+\end{aligned}
+\end{equation*}
+
+\subsubsection{Lemma: If there is a nonzero $n\in\ker\phi$ then there is nonzero $m\in\ker\phi$ such that nonzero $k\in\ker\phi\Rightarrow|k|\geq|m|$}
+There are finitely many elements with a magnitude less than $|n|$.
+Hence there are finitely number of element with a magnitude less than $|n|$ that are in the $\ker\phi$.
+Hence there is an element that takes the minimal value of $|\cdot|$.
+
+\subsubsection{Lemma: If there exits nonzero $n\in\ker\phi$ such that nonzero $m\in\ker\phi\Rightarrow|m|\geq|n|$ then $\ker\phi \subseteq n\mathbb{Z}$}
+(Going forward remember that either $|n| = n$ or $|n| = -n$).
 \\
 
-Cool result,
-I suggest looking it up.
+Let $m\in\ker\phi$ since $|m| > |n|$ there exits $q,r \in \mathbb{Z}$ with $|r| < |n|$ such that:
+\[|m| = q|n|+r \Rightarrow q|n|+r-|m| = 0\]
+But:
+\begin{equation*}
+\begin{aligned}
+	0&=\phi(q|n|+r-|m|)\\
+	&=\phi(q)\phi(|n|)+\phi(r)-\phi(|m|)\\
+	&=\phi(r) \\
+	&=\phi(|r|) \\
+\end{aligned}
+\end{equation*}
+Meaning we have $r\in\ker\phi$ and $|r| < |n|$.
+This requires $r=0$ otherwise would contradicts the initial assumption, hence:
+\[|m| = q|n| \Rightarrow m \in n\mathbb{Z}\]
+Meaning letting $m\in\ker\phi$ means $m\in n\mathbb{Z}$ making $\ker\phi \subseteq n\mathbb{Z}$, 
+as requires.
+
+\subsubsection{Lemma: If there exists a non-zero $n\in\ker\phi$ then $\ker\phi=d\mathbb{Z}$ where $d$ is the smallest divisor of $n$ in $\ker\phi$}
+(Here the divisors are positive).
+\\
+
+From second previous lemma there exists non-zero $m\in\ker\phi$ such that for nonzero $k\in\ker\phi\Rightarrow|k|\geq|m|$.
+From the next lemma we get $\ker\phi \subseteq m\mathbb{Z}$.
+From the first lemma we get $\ker\phi \supseteq m\mathbb{Z}$,
+combining them we get:
+\[\ker\phi = m\mathbb{Z}\]
+But nonzero $n \in\ker\phi = m\mathbb{Z}$ implies $m|n$.
+\\
+
+But $k\in\ker\phi\Rightarrow|k|\geq|m|$ implies that all other divisors of $n$ that are in $\ker\phi$ are greater than equal to $m$ in magnitude,
+otherwise would cause a contradiction,
+hence $m$ is the smallest divisor of $n$ in $\ker\phi$,
+as required.
+\\
+
+(Note that $d\mathbb{Z}\cong-d\mathbb{Z}$)
+
+\subsubsection{Lemma: If $R$ is finite than there exits nonzero $n\in\ker\phi$}
+From the pidgin hole principle if we have $|R|+1$ elements of $\mathbb{Z}$ than there are at least two distinct elements,
+$m_0$ and $m_1$,
+such that:
+\[\phi(m_0)=\phi(m_1)\]
+Hence:
+\[\phi(m_0-m_1)=0\]
+Since $m_0$ and $m_1$ are distinct $m_0-m_1\neq 0$ and hence $n=m_0-m_1$ works.
+
+\subsubsection{Corollary: If $R$ is finite then $\img\phi\cong\mathbb{Z}/n\mathbb{Z}$ for some nonzero $n$}
+Combine the previous theorem and lemma.
+
+\subsection{An Observation on Order}
+\subsubsection{Lemma: $\img\phi \subseteq \langle 1_R \rangle$:}
+Because $\phi$ was defined by:
+\[\phi(1)=1_R,\quad \phi(n\pm 1) = \phi(n)\pm \phi(1_R)= \phi(n)\pm 1_R\]
+The closure of $\langle 1_R \rangle$ means $\phi(n)\in\langle 1_R \rangle$ implies $\phi(n\pm 1)$ is.
+With the base case of $\phi(1) = 1_R \in \langle 1_R \rangle$ the lemma follows from induction.
+
+\subsubsection{Theorem: Let $\langle 1_R\rangle$ be finite. Then $\img\phi\cong\mathbb{Z}/|\langle 1_R\rangle|\mathbb{Z}\cong\langle 1_R\rangle$}
+By definition $\langle 1_R \rangle$ is the smallest subring of $R$ containing $1_R$,
+hence the smallest subring.
+From the first ring isomorphism theorem $\img\phi$ is a subring of $R$,
+hence:
+\[|\img\phi| \geq |\langle 1_R \rangle|\]
+But from the previous lemma we have:
+\[|\img\phi| \leq |\langle 1_R \rangle|\]
+The desired result follows from $\langle 1_R \rangle$ being cyclic.
+
+\subsubsection{Theorem: There is only one ring homomorphism from $\mathbb{Z}$ to a ring $R$}
+Given two homomorphisms $\phi_0$ and $\phi_1$ define:
+\[d(n) = \phi_1(n)-\phi_0(n)\]
+We have:
+\[d(1) = \phi_1(1)-\phi_0(1) = 1_R-1_R = 0\]
+And:
+\begin{equation*}
+\begin{aligned}
+	d(n\pm1) =& \phi_1(n\pm1) - \phi_0(n\pm1) \\
+	=& \phi_1(n) \pm 1_R - \phi_0(n) \mp 1_R \\
+	=& \phi_1(n) - \phi_0(n) \\
+	=&d(n)\\
+\end{aligned}
+\end{equation*}
+Hence,
+by induction,
+$d(n)=0$ and $\phi_1 = \phi_0$.
+
+\subsubsection{Remark:}
+This observation isn't better or worse than the first observation,
+but it's result was what I wanted from the first,
+and it's more elegant,
+and it's better than the final corollary.
+\\
+
+Either way, because of this uniqueness combined with $\img\phi\cong\langle 1_R \rangle|$ means we can identify $n_R = \phi(n)$ and have that notation work as implied.
