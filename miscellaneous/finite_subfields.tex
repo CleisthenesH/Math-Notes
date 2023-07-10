@@ -196,6 +196,20 @@ But from the previous lemma we have:
 \[|\img\phi| \leq |\langle 1_R \rangle|\]
 The desired result follows from $\langle 1_R \rangle$ being cyclic.
 
+\subsubsection{Remark:}
+We expect $\langle a \rangle$ meaning "The smallest substructure containing $a$" to be well defined in any structure $S$ that has closure.
+By closure I means that for some functions $\phi_n$ for all $U\subseteq S$ we have $\phi_n(U)\in S$.
+And by substructure I means some $R\subseteq S$ where closure still works for $R$.
+\\
+
+Firstly, $a$ is a member of the superstructure so theres is at least one possible set.
+Secondly, assume $A$ and $B$ be two minimal substructures.
+Now the closure of the substructures means $U\subseteq A\cap B$ implies $\phi_n(U) \subseteq A$ and $\phi_n(U) \subseteq B$ and hence $U\subseteq A\cap B \Rightarrow \phi_n(U) \in A\cap B$ making $A\cap B$ a substructure.
+Hence, from the minimality of $A$ and $B$ we have $A = A\cap B = B$.
+\\
+
+I assume this argument can be made better with set/category theory.
+
 \subsubsection{Theorem: There is only one ring homomorphism from $\mathbb{Z}$ to a ring $R$}
 Given two homomorphisms $\phi_0$ and $\phi_1$ define:
 \[d(n) = \phi_1(n)-\phi_0(n)\]
@@ -222,3 +236,42 @@ and it's better than the final corollary.
 \\
 
 Either way, because of this uniqueness combined with $\img\phi\cong\langle 1_R \rangle|$ means we can identify $n_R = \phi(n)$ and have that notation work as implied.
+
+\subsection{Actual Subfield}
+I forgot to write about how the above results actually relates to finite subfields.
+This is just a quick note so I don't forget anything, it's not that rigorous and may include mistakes.
+(Like $R$ has to be commutative for using polynomials to make sense.)
+
+\subsubsection{Theorem: $\langle a \rangle$ from polynomial substitution.}
+Let $R$ be a ring and $s_a: \langle 1_R \rangle[X] \rightarrow R$ where:
+\[s_a\left(\sum_np_nX^n\right) = \sum_np_na^n\]
+From ring isomorphism $\img s_a$ is a subring of $R$.
+Since $s_a(X)=a$ by the minimality of $\langle a \rangle$ we have:
+\[\img s_a \supseteq \langle a \rangle\] 
+By closure of $\langle a \rangle$ and $s_a(X),s_a(1_R)\in R$ implies:
+\[\img s_a \subseteq \langle a \rangle\] 
+Hence $\img s_a\cong\langle a \rangle$.
+
+\subsubsection{Remark:}
+You can naturally iterate on this with $s_{a,b,c}: \langle 1_R \rangle[X,Y,Z] \rightarrow R$ where $s_{a,b,c}[X] = a$,$s_{a,b,c}[Y] = b$, and $s_{a,b,c}[Z] = c$ to give:
+\[\img s_{a,b,c} \cong \langle a,b,c \rangle\]
+
+\subsubsection{Corollary: If $R$ is finite than there is a subset $B$ such that $B$ is a basis for $R$ as a $\langle 1_R \rangle$-module.}
+Since $R$ is finite we can have a $|R|$ variable polynomial which can interrelate the previous result as a $\langle 1_R \rangle$-module.
+Just prune of non-extending elements to get the basis.
+
+\subsubsection{Theorem: If $R$ is a field then so it $\langle 1_R \rangle$.}
+Let $r\in\langle 1_R \rangle$ we have:
+\begin{equation*}
+\begin{aligned}
+	1_R =& r\times\left(\sum_np_nb_n\right)\\
+	1_R =& \sum_nrp_nb_n\\
+\end{aligned}
+\end{equation*}
+Hence $rp_{n>0} = 0$, 
+since all fields are domains ($ab=0\Rightarrow a=0b^{-1}$) hence:
+\[p_{n>0} = 0\]
+Hence $\sum_np_nb_n = p_0 \in \langle 1_R \rangle$ making it a field.
+
+\subsubsection{Corollary: If $R$ is a filed then $|\langle 1_R \rangle|$ is prime.}
+Recall that $\langle 1_R \rangle$ is cyclic and the only cyclic fields are the ones with prime order.
