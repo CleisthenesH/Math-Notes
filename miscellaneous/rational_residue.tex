@@ -1,0 +1,36 @@
+% Copyright 2023 Kieran W Harvie. All rights reserved.
+
+\section{Rational Residue}
+I saw a cool result.
+That if $P$ and $Q$ are polynomials and $Q$ has a first order root at $a$ then the then:
+\[\Res\left(\frac{P}{Q},a\right) = \frac{P(a)}{Q'(a)} \]
+Which can save a lot of time over factorizing, 
+which is what I would have done in the past.
+
+This follows directly from:
+\[Q'(a)=\frac{d}{dz}(z-a)q(z)\bigg|_a = q(a)\]
+and
+\[\oint_\gamma\frac{P(z)}{Q(z)}\,dz = \oint_\gamma \frac{P(z)}{(z-a)q(z)}\,dz = 2\pi i\frac{P(a)}{q(a)}\]
+\\
+
+I thought this might be generalizable since the general Leibniz rule on $Q(z)=(z-a)^2q(z)$ gives:
+\[Q''(a)=2q(a),\quad Q'''(a)=6q'(a)\]
+Hence for a second order root:
+\begin{equation*}
+\begin{aligned}
+\end{aligned}
+\end{equation*}
+\begin{equation*}
+\begin{aligned}
+	\oint_\gamma\frac{P(z)}{Q(z)}\,dz =& \oint_\gamma \frac{P(z)}{(z-a)^2q(z)}\,dz \\
+	=& \pi i\frac{P'(a)q(a)-P(a)q'(a)}{q(a)^2}\\
+	=& 2\pi i\frac{3P'(a)Q''(a)-P(a)Q'''(a)}{3Q'(a)^2}\\
+\end{aligned}
+\end{equation*}
+Giving:
+\[\Res\left(\frac{P}{Q},a\right)= \frac{3P'(a)Q''(a)-P(a)Q'''(a)}{3Q'(a)^2} \]
+
+Which isn't as cool as the first order case,
+and I don't feel like dealing with higher derivatives.
+
+Still cool though.

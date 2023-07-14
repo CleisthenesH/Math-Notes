@@ -1,0 +1,76 @@
+% Copyright 2023 Kieran W Harvie. All rights reserved.
+
+\section{Summation by Parts}
+During a boring meeting I was reminded of a cool trick called "Summation by Parts".
+Given two sequences $a_n$ and $b_n$ define $B_n = \sum_{k=0}^nb_n$.
+Then we have:
+\[\sum_{k=0}^Na_nb_n = a_NB_N-\sum_{n=0}^{N-1}B_n(a_{n+1}-a_n)\]
+The name is clearly in reference to it being the discrete counterpart to integration by parts.
+With integration replaced with summation and derivatives with difference.
+\\
+
+I will not be proving this formula, 
+doing so is simple algebra.
+
+\subsection{Nicomachus's Theorem}
+Nicomachus's Theorem is the name of the following identity:
+\[\sum_{k=1}^nk^3 = \left(\sum_{k=1}^nk\right)^2\]
+It's a common object of recreational math and visual proofs in particular.
+And while I proofs of it have reached the point of annoyance,
+visual ones in particular,
+Summation of Parts provides another proof that motivates the squaring.
+\\
+
+Let $\sigma_n = \sum_{k=0}^nk$ and set $a_n = \sigma_n$ and $b_n=n$.
+Hence $B_n = \sigma_n$ and $a_{n+1}-a_n = n+1$ giving:
+\[\sum_{k=0}^Nn\sigma_n = \sigma_n^2-\sum_{n=0}^{N-1}(n+1)\sigma_n\]
+Since $\sigma_0=0$ we can shift the LHS sum up one to match the RHS's bound:
+\[\sum_{k=0}^Nn\sigma_n = \sigma_n^2-\sum_{n=0}^{N}n\sigma_{n-1}\]
+Giving:
+\[\sum_{k=0}^Nn(\sigma_n+\sigma_{n-1}) = \sigma_n^2\]
+The observation that $\sigma_n+\sigma_{n-1}=n^2$ completes the proof.
+\\
+
+It's worth nothing this proof doesn't require an explicit closed formula for $\sigma_n$.
+Instead only needing $\sigma_{n+1}-\sigma_n = n+1$,$\sigma_{n+1}+\sigma_n =(n+1)^2$ and $\sigma_0 = 0$.
+Yes, a close form follows easily from these properties as:
+\[\sigma_{n+1} = \frac{1}{2}((\sigma_{n+1}+\sigma_n)+(\sigma_{n+1}-\sigma_n))\]
+But it's still a cool proof
+
+\subsection{Continuous Summation by Parts}
+Consider the case here $a_n$ is given by a continuously differential function $a(x)$, 
+that is $a_n = a(n)$.
+Likewise modify $B_n$ into a continuous function,
+$B(x) = B_{\lfloor x \rfloor}$.
+Hence we can write the RHS summation as:
+\begin{equation*}
+\begin{aligned}
+	\sum_{n=0}^{N-1}B_n(a_{n+1}-a_n) =& \sum_{n=0}^{N-1}B(n)(a(n+1)-a(n))\\
+	=& \sum_{n=0}^{N-1}B(n)\int_n^{n+1}a'(t)\,dt\\
+\end{aligned}
+\end{equation*}
+Note that $B(t)$ is constant for $t\in(n,n+1)$ allowing us to move it into the integral:
+\begin{equation*}
+\begin{aligned}
+	\sum_{n=0}^{N-1}B_n(a_{n+1}-a_n) =& \sum_{n=0}^{N-1}\int_n^{n+1}B(t)a'(t)\,dt\\
+	=& \int_0^{n}B(t)a'(t)\,dt\\
+\end{aligned}
+\end{equation*}
+
+Substitution into the original equation gives:
+\[\sum_{k=0}^Na_nb_n = a_NB_N-\int_0^{n}B(t)a'(t)\,dt\]
+If we cancel the fractional parts of the product and integral on the RHS we get the more general:
+\[\sum_{0\leq n\leq x}a_nb_n = a(x)B(x)-\int_0^{x}B(t)a'(t)\,dt\]
+
+This isn't a particularly good formula for relating a sum to an integral,
+see the Euler-Maclaurin formula,
+but it's still good enough for some results:
+
+\subsubsection{Results:}
+Let $a(x)=\ln(x)$ and $b_n=1$ then we have:
+\[\sum_{1\leq n\leq x}\ln(n) = \lfloor x \rfloor \ln(x)-\int_1^xt\,\frac{1}{t}\,dt = x\ln(x) - x +O(\ln(x))\]
+
+Let $a(x)=\frac{1}{x}$ and $b_n =1$
+\[\sum_{1\leq n\leq x}\frac{1}{n} = \frac{\lfloor x \rfloor}{x}-\int_1^xt\,\frac{-1}{t^2}\,dt = \ln(x) +O(1)\]
+
+Both of these bounds are useful for computer science. 
