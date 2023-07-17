@@ -34,3 +34,36 @@ Which isn't as cool as the first order case,
 and I don't feel like dealing with higher derivatives.
 
 Still cool though.
+
+\subsection{Actual closed form}
+There actually is a way to get a closed form without dealing with higher order derivatives of reciprocals.
+The idea is to use the Bézout trick to get a polynomial that acts like a reciprocal at $z=a$.
+\\
+
+Let $Q$ be a polynomial with an $n$ ordered root at $a$.
+Then define $q$ as:
+\[Q(z) = (z-a)^nq(z)\]
+Since $\gcd(q(z),(z-a)^n) = 1$ from the Bézout's identity, there exits polynomials $r$ and $s$ such that:
+\[r(z)(z-a)^n+s(z)q(z)=1\]
+Hence:
+\[\frac{P(z)}{(z-a)^nq(z)}(1-s(z)q(z)) = \frac{P(z)}{q(z)}r(z)\]
+Has no poles at $a$ and vanishes in the contour integral.
+Meaning we can split up its terms to give:
+\[\oint_\gamma\frac{P(z)}{(z-a)^nq(z)}\,dz = \oint_\gamma \frac{P(z)s(z)}{(z-a)^n}\,dz\]
+Resulting in the clean:
+\[\Res\left(\frac{P}{Q},a\right) = n!\frac{d^n}{dz^n}P(z)s(z)\bigg|_{z=a}\]
+
+\subsubsection{Remarks}
+You can use use the standard extended Euclid algorithm to calculate $s$ from $q$, or $q$ from $s$.
+But the relation:
+\[r(z)(z-a)^n+s(z)q(z)=1\]
+Can be derived $n-1$ and set $z=a$ to get a linear system between derivatives of $s$ and $q$.
+So why bother with Bézout at all?
+Well you would need to prove that the coefficients from the system converge to an analytic function,
+Bézout side steps this.
+\\
+
+I'm also wondering when $s^{(n)}(a)=0$, because we loose information about $F$ in the sum when this happens.
+Also working backwards, can we have any $s$.
+Not $s(z) = z-a$ obviously, but we can add another power to keep it? 
+$s(z) = z^2+z-a$?
