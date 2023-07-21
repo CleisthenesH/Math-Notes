@@ -51,7 +51,7 @@ Has no poles at $a$ and vanishes in the contour integral.
 Meaning we can split up its terms to give:
 \[\oint_\gamma\frac{P(z)}{(z-a)^nq(z)}\,dz = \oint_\gamma \frac{P(z)s(z)}{(z-a)^n}\,dz\]
 Resulting in the clean:
-\[\Res\left(\frac{P}{Q},a\right) = n!\frac{d^n}{dz^n}P(z)s(z)\bigg|_{z=a}\]
+\[\Res\left(\frac{P}{Q},a\right) = \frac{1}{(n-1)!}\frac{d^{n-1}}{dz^{n-1}}P(z)s(z)\bigg|_{z=a}\]
 
 \subsubsection{Remarks}
 You can use use the standard extended Euclid algorithm to calculate $s$ from $q$, or $q$ from $s$.
@@ -67,3 +67,18 @@ I'm also wondering when $s^{(n)}(a)=0$, because we loose information about $F$ i
 Also working backwards, can we have any $s$.
 Not $s(z) = z-a$ obviously, but we can add another power to keep it? 
 $s(z) = z^2+z-a$?
+
+\subsection{A Generalization}
+Generate new solutions to the Bézout Identity in the standard way:
+\[[r(z)-h(z)s(z)](z-a)^n+s(z)[q(z)+(z-a)^nh(z)]=1\]
+If we choose $h$ such that $r(z)-h(z)s(z)$ is holomorphic,
+easy since $r$ and $s$ are polynomials, we have, given $\gamma$ is small enough to not add new poles from $h$:
+\[\oint_\gamma\frac{P(z)}{(z-a)^n[q(z)+(z-a)^nh(z)]}\,dz = \oint_\gamma \frac{P(z)s(z)}{(z-a)^n}\,dz= \frac{1}{(n-1)!}\frac{d^{n-1}}{dz^{n-1}}P(z)s(z)\bigg|_{z=a}\]
+
+Observe that all function $q'(z)$ such $(z-a)^n | q(z)-q'(z)$ can be written as $q'(z) = q(z)+(z-a)^nh(z)$ for some holomorphic $h$ giving the pretty cool result that only the fist $n$ derivatives of $q'$ effect the value of the contour integral.
+(Also observe that $r'(z) = r(z)-h(z)s(z)$ means $r'$ agrees  with $r$ on $s$ helping motivate the LHS)
+\\
+
+$q'(z)=1$ gives $s(z)=1-(z-a)^n,\,r'(z)=1$ and hence Cauchy's integral formula and hence generalizes it.
+
+This could also  be used to extract terms from the reciprocal of a generating function.
