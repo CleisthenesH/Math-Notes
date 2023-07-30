@@ -245,7 +245,7 @@ This is just a quick note so I don't forget anything, it's not that rigorous and
 \subsubsection{Theorem: $\langle a \rangle$ from polynomial substitution.}
 Let $R$ be a ring and $s_a: \langle 1_R \rangle[X] \rightarrow R$ where:
 \[s_a\left(\sum_np_nX^n\right) = \sum_np_na^n\]
-From ring isomorphism $\img s_a$ is a subring of $R$.
+From the ring isomorphism theorem $\img s_a$ is a subring of $R$.
 Since $s_a(X)=a$ by the minimality of $\langle a \rangle$ we have:
 \[\img s_a \supseteq \langle a \rangle\] 
 By closure of $\langle a \rangle$ and $s_a(X),s_a(1_R)\in R$ implies:
@@ -258,7 +258,7 @@ You can naturally iterate on this with $s_{a,b,c}: \langle 1_R \rangle[X,Y,Z] \r
 
 \subsubsection{Corollary: If $R$ is finite than there is a subset $B$ such that $B$ is a basis for $R$ as a $\langle 1_R \rangle$-module.}
 Since $R$ is finite we can have a $|R|$ variable polynomial which can interrelate the previous result as a $\langle 1_R \rangle$-module.
-Just prune of non-extending elements to get the basis.
+Just prune off non-extending elements to get the basis.
 
 \subsubsection{Theorem: If $R$ is a field then so it $\langle 1_R \rangle$.}
 Let $r\in\langle 1_R \rangle$ we have:
@@ -273,5 +273,23 @@ since all fields are domains ($ab=0\Rightarrow a=0b^{-1}$) hence:
 \[p_{n>0} = 0\]
 Hence $\sum_np_nb_n = p_0 \in \langle 1_R \rangle$ making it a field.
 
-\subsubsection{Corollary: If $R$ is a filed then $|\langle 1_R \rangle|$ is prime.}
-Recall that $\langle 1_R \rangle$ is cyclic and the only cyclic fields are the ones with prime order.
+\subsubsection{Corollary: If $R$ is a field then $|\langle 1_R \rangle|$ is prime.}
+Recall that $\langle 1_R \rangle$ is cyclic and the only cyclic finite fields are the ones with prime order.
+
+\subsubsection{Notes}
+Just trying to write the previous process more formally, 
+may not flesh out fully.
+
+Let $r_n$ be an enumeration of $R$, 
+consider the functions:
+\begin{equation*}
+\begin{aligned}
+	s_n:\,R_n[X]\longrightarrow&\, R\\
+	\sum_kp_kX^k\mapsto& \sum_kp_kr^k_n \\
+\end{aligned}
+\end{equation*}
+Where $R_0 =\langle 1_R \rangle$ and $R_n = \img s_{n-1}$.
+We have:
+\[R_0 \subseteq R_1 \subseteq R_2 \subseteq \dots \subseteq R_{|R|} \cong R\]
+The chain and set is finite and we can discard $p_n$ where $R_{n} \cong R_{n-1}$ to get a set $B=\{p_{n'}\}$ where $r\in R$ implies $r$ is a linear combination of powers of elements of $B$ with coefficients in $\langle 1_R \rangle$.
+
