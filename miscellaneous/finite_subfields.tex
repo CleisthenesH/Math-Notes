@@ -293,3 +293,30 @@ We have:
 \[R_0 \subseteq R_1 \subseteq R_2 \subseteq \dots \subseteq R_{|R|} \cong R\]
 The chain and set is finite and we can discard $p_n$ where $R_{n} \cong R_{n-1}$ to get a set $B=\{p_{n'}\}$ where $r\in R$ implies $r$ is a linear combination of powers of elements of $B$ with coefficients in $\langle 1_R \rangle$.
 
+\subsection{Ordered Field}
+An ordered field is field with an additional relation $<$ such that for all $x,\,y,\,z\in\mathbb{F}$:
+\begin{itemize}
+	\item Exactly one of $x<y,\,y<x,$ or $x=y$ hold.
+	\item If $x<y$ and $y<z$ implies $x<z$.
+	\item If $x<y$ then  $z+x<z+y$.
+	\item If $0<x$ and $0<y$ then $0<xy$.
+\end{itemize}
+(Other formalizations exist, but I will use these).
+
+Interestingly the smallest subfield in every ordered field is isomorphic to $\mathbb{Q}$.
+This can be seen by defined a function $f:\mathbb{Q}\rightarrow \mathbb{F}$ such that:
+\[f\left(\frac{p}{q}\right) = \phi(p)\phi(q)^{-1}\]
+$\img f$ is the smallest subfield of $f$.
+For the same reasons $\phi$ is for rings,
+but includes reciprocals.
+\\
+
+Now $0<1$ implies that $n<m \Rightarrow \phi(n)<\phi(m)$ by induction.
+Meaning $\img \phi \cong \mathbb{Z}$ since if $\phi(n)=\phi(m)$ we have, WLOG $n<m$, both $\phi(n-1) < \phi(m-1)$ and $\phi(n) = \phi(m)\Rightarrow \phi(n-1) = \phi(m-1)$,
+a contradiction.
+
+But since:
+\[f\left(\frac{1}{n}\right)f(n) = \phi(n)^{-1}\phi(n) = 1\]
+Implies $f$ is a field.
+Hence $\img f \cong \mathbb{Q}$ as required.
+% Might be time to split abstract algebra into a separate pdf.
