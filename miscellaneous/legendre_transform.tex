@@ -1,0 +1,48 @@
+% Copyright 2023 Kieran W Harvie. All rights reserved.
+
+\section{Legendre Transform}
+I've used the Legendre transform a lot and always understood that it transformed between conjugate variables but never understood the motivation of its formal definition. 
+Well I've thought of a good motivated argument.
+\\
+
+Let $f$ be a strictly convex differentiable function in $x$.
+Then $\frac{\partial f}{\partial x}$ is a strictly increasing function.
+This means $\frac{\partial f}{\partial x}$ is injective and we can defined a function $g$ such that:
+\[g\left(\frac{\partial f}{\partial x}\bigg|_{x_0}\right) = x_0\]
+And we can further define a new function $f^*$,
+up to an additive constant,
+such that:
+\[\frac{\partial f^*}{\partial p} = g(p)\]
+This is the Legendre Transform.
+\\
+
+This transforms usefulness comes from looking at the functions differential.
+Let $f(x,y)$ and consider a point $(x_0,y_0)$ where:
+\[\frac{\partial f}{\partial x}\bigg|_{(x_0,y_0)} = p,\quad\frac{\partial f}{\partial y}\bigg|_{(x_0,y_0)} = v \]
+Giving the differential:
+\[df = pdx+vdy\]
+Now consider a $f^*(p,y)$ where $f^*$'s first argument is Legendre transformed from $f$'s, 
+and the second is unchanged.
+This gives:
+\[df^* = xdp+vdy\]
+You can see that the coefficient and differential of the first term has swapped,
+pretty useful.
+\\
+
+This argument seems more motivated to me, 
+but the domain of the transform can be widened to merely require $f$ being convex on $D$ by defining:
+\[f^*(p) = \sup_{x\in D}\big[px-f(x)\big]\]
+To see that this definition extends the strictly convex differentiable case derive the inner function by $x$ and set to zero:
+\[p-f'(x)=0\]
+But $f$ is injective,
+so we can defined $g$ as before and obtain:
+\[f'(g(p)) = p\]
+meaning the maximal value of $x$ is $g(p)$, 
+giving:
+\[f^*(p) = pg(p)-f(g(p))\]
+Deriving by $p$ gives:
+% f^*'(p) doesn't work, don't feel like fixing
+\[\frac{d}{d p}f^*(p) = g(p)+pg'(p)-g'(p)f'(g(p))\]
+Substituting in $f'(g(p)) = p$ gives:
+\[\frac{d}{d p}f^*(p) = g(p)+pg'(p)-g'(p)p = g(p)\]
+As expected.
