@@ -1,0 +1,52 @@
+% Copyright 2023 Kieran W Harvie. All rights reserved.
+% Don't like the order things are presented, but not enough to change it.
+
+\section{Hadamard Matrix}
+I came across this cute set of matrices today:
+\[H_{2^k} = \begin{bmatrix} 1&1\\1&-1\end{bmatrix}\otimes H_{2^{k-1}},\quad H_{2} = \begin{bmatrix} 1&1\\1&-1\end{bmatrix}\]
+They are called the Hadamard matrices and their first interesting property is that their columns are orthogonal.
+\\
+
+To see this consider two matrices $A$ and $B$, we have:
+\[(AB^T)_{i,j} = \sum_{k=1}^nA_{i,k}B_{j,k}\]
+Which is the dot product of the $i^\text{th}$ and $j^\text{th}$ columns of $A$ and $B$.
+Hence $H_n$'s columns being orthogonal is the same as:
+\[(H_nH_n^T)_{i,j} = f(i)\delta_{i,j}\]
+
+For induction assume:
+\[H_{2^{k-1}}H_{2^{k-1}}^T=2^{k-1}I_{2^{k-1}}\]
+Hence:
+\begin{equation*}
+\begin{aligned}
+	H_{2^k}H_{2^k}^T =& \begin{bmatrix} H_{2^{k-1}}&H_{2^{k-1}}\\H_{2^{k-1}}&-H_{2^{k-1}}\end{bmatrix}
+	\begin{bmatrix} H_{2^{k-1}}^T&H_{2^{k-1}}^T\\H_{2^{k-1}}^T&-H_{2^{k-1}}^T\end{bmatrix}\\
+	=&\begin{bmatrix} 2H_{2^{k-1}}H_{2^{k-1}}^T&H_{2^{k-1}}H_{2^{k-1}}^T-H_{2^{k-1}}H_{2^{k-1}}^T\\
+	H_{2^{k-1}}H_{2^{k-1}}^T-H_{2^{k-1}}H_{2^{k-1}}^T&2H_{2^{k-1}}H_{2^{k-1}}^T\\\end{bmatrix}\\
+	=&\begin{bmatrix}2^kI_{2^{k-1}}&0\\0&2^kI_{2^{k-1}}\end{bmatrix} \\
+	=&2^kI_{2^k} \\
+\end{aligned}
+\end{equation*}
+Which shows $H_n$'s columns are orthogonal,
+and also that:
+\[H_n^{-1} = \frac{1}{2^n}H_n^T\]
+
+Taking the determinates of both sides:
+\[\det(H_n)^2=\det(nI_n) = n^n\]
+Hence:
+\[|\det(H_n)|=  n^\frac{n}{2}\]
+And it actually turn out that all other $n\times n$ real matrices with elements of magnitude less then or equal to one have a determinate whose magnitude is less than this, which is pretty cool.
+
+% This method sucked and I abandoned it, even though it's closer to my minds eye.
+%
+% \[\left(H_{2^k}\right)_{i,j} = \begin{cases} 
+% (H_{2^{k-1}})_{i,j} & i\leq 2^{k-1} \text{ and } j\leq 2^{k-1}\\
+% (H_{2^{k-1}})_{i-2^{k-1},j} & i> 2^{k-1} \text{ and } j\leq 2^{k-1}\\
+% (H_{2^{k-1}})_{i,j-2^{k-1}} & i\leq 2^{k-1} \text{ and } j> 2^{k-1}\\
+% -(H_{2^{k-1}})_{i-2^{k-1},j-2^{k-1}} & i> 2^{k-1} \text{ and } j> 2^{k-1}\\
+% \end{cases}\]
+% \begin{equation*}
+% \begin{aligned}
+% (H_{2^k}H_{2^k}^T)_{i,j} =& \sum_{k=1}^{2^k}(H_{2^k})_{i,k}(H_{2^k})_{j,k} \\
+% =& \sum_{k=1}^{2^{k-1}}(H_{2^k})_{i,k}(H_{2^k})_{j,k} + \sum_{k=2^{k-1}+1}^{2^k}(H_{2^k})_{i,k}(H_{2^k})_{j,k} \\
+% \end{aligned}
+% \end{equation*}
