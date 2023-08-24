@@ -1,0 +1,108 @@
+% Copyright 2023 Kieran W Harvie. All rights reserved.
+
+\section{Hermitian Operators}
+This is some quick revision for something else.
+
+For this section let $A$ and $B$ be hermitian operators in some complex vector space.
+If they have them,
+let $a$ be an eigenvector of $A$ with value $\alpha$.
+Likewise for $b$ and $\beta$ for $B$.
+
+\subsection{Immediate Results}
+\subsubsection{Theorem: All eigenvalues are real}
+\begin{equation*}
+\begin{aligned}
+\alpha\langle a,a\rangle =& \langle a,\alpha a\rangle\\
+	=& \langle a, Aa\rangle\\
+	=& \langle Aa, a\rangle\\
+	=& \bar{\alpha}\langle a,a\rangle
+\end{aligned}
+\end{equation*}
+Since eigenvectors can't be zero we require $\alpha=\bar{\alpha}$.
+
+\subsubsection{Theorem: $\ker A = \img A^\perp$}
+Assume $Ax=0$ and let $y$ be any arbitrary vector,
+then:
+\[0 = \langle Ax,y\rangle = \langle x, Ay\rangle \]
+Hence $x\in\img A^\perp$
+
+\subsection{Finite, Nonzero, Complex Vector Space}
+For this section we assume that $A$ and $B$ belong to a finite, nonzero, complex vector space.
+\\
+
+A discussion on all these constraints will likely be included at the end.
+But the reason of the constraints is the following powerful theorem:
+\subsubsection{Theorem: If $A$ is a linear operator on a finite, nonzero, complex vector space then there exits at least one unit eigenvector.}
+By the fundamental theorem of algebra the characteristic polynomial of $A$ has at least one solution and hence $A$ has at least one eigenvector.
+
+Without loss of generality we can rescale the eigenvector to make it a unit vector.
+
+\subsubsection{Remark:}
+This existence theorem is very powerful and but uses all of the conditions.
+Finite to get a polynomial, nonzero so it's not a constant polynomial, complex to make that polynomial have a root.
+
+\subsubsection{Corollary: Let $A$ be the transform of a nonzero invariant subspace $V$, then $V$ includes a unit eigenvector of $A$:}
+$V$ inherits finiteness and complex from its super space,
+we can also treat $A$ as a linear operator on $V$ by invariance,
+and since $V$ is also assumed to be nonzero the previous theorem applies.
+
+\subsubsection{Lemma: Let $E$ be a set of eigenvectors for $A$ then $A$ preserves $\spn(E)^\perp$:}
+If $x\in\spn{E}^\perp$ then for all $c_n$ we have:
+\begin{equation*}
+\begin{aligned}
+	\langle Ax, \sum_n c_na_n\rangle =& \langle x, A\sum_n c_na_n\rangle\\
+	=& \langle x, \sum_n c_n\alpha_na_n\rangle\\
+	=&0 \\
+\end{aligned}
+\end{equation*}
+
+\subsubsection{Theorem: There exits an orthonormal basis of eigenvectors of $A$}
+From the existence theorem there exits a unit eigenvector $a_0$.
+Let $S_0 = \spn({a_0})^\perp$, then by the previous lemma $S_0$ is an invariant subspace.
+Hence by the existence theorem there is a unit eigenvector $a_1\in S_0$.
+Likewise define $S_1 = \spn(\{a_0,a_1\})^\perp$ and so on until we get a basis.
+
+\subsubsection{Theorem: If $A$ and $B$ commute then there exits a mutuality orthogonal eigenvectors basis}
+From the existence theorem there is an eigenvector $a$ of $A$.
+Define the set:
+\[W = \spn(\{B^na\,|\,n\in\mathbb{N}\})\]
+Let $w\in W$, then by definition we have $Bw\in W$ hence by the existence corollary there exits unit eigenvector vector $w$ of $B$ in $W$.
+From commutativity and the definition of $W$ we also have $Aw=aw$.
+Hence $w$ is an eigenvector of both operations.
+We can build up a basis with induction,
+like the previous theorem.
+
+\subsection{All Those Conditions}
+The critical points in the previous proofs was the existence theorem and induction on the eigenvectors.
+But the existence theorem didn't use the fact the operators where Hermitian,
+so surely we can remove some of those conditions!
+
+Well we could weaken Complex to algebraically closed field without hermitian but we can't remove finite and nonzero.
+The nonzero condition isn't much of a concern, 
+the vector field $\{0\}$ isn't interesting but to see why we can't remove finite consider the set of square-integrable functions on $[0,1]$.
+\\
+
+The operator $[Af](t) \mapsto tf(t)$ is clearly Hermitian because the integrating veritable is real:
+\[
+	\langle f,tg\rangle = \int_0^1\overline{g(t)}tf(t)\,dt = \int_0^1\overline{tg(t)}f(t)\,dt = \langle tf,g\rangle
+\]
+But has no eigenvector as:
+\[tf(t)=\alpha f(t)\]
+Means $f(t)$ can only be nonzero at $t=\alpha$,
+which means only $f(\alpha)$ can be nonzero.
+Remembering that the vector space only cares about functions up to the equivalence class of being equal "almost everywhere" this function is the constant $0$ function.
+\\
+
+This operator is clearly important for functional analysis,
+so we can't define a set of nicer functions,
+so what do we do?
+There is one interesting result:
+\\
+
+There exits a number $\lambda$ equal to $||A||$ or $-||A||$ and a sequence of unitary vectors $x_n$ such that:
+\[\lim_{n\rightarrow\infty}\big(Ax_n-\lambda x_n\big) = 0\]
+Which is like $\lambda$ being an eigenvalue in the limit.
+\\
+
+Applying this eigen-limit idea to square integral functions and we get the $\delta(t-\alpha)$ functions,
+which can be approached by many different sequence of limit functions.
