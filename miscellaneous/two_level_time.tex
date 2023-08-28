@@ -1,0 +1,77 @@
+% Copyright 2023 Kieran W Harvie. All rights reserved.
+
+\section{Time Evolution of a Two Dimensional Quantum System}
+I was curious about the evolution of two dimensional quantum systems and decided to do a refresher. 
+\\
+
+Like all time-dependent problems start with the Schrödinger equation:
+\[i\hbar \frac{\partial}{\partial t}\Psi = H\Psi\]
+If $\Psi$ is an eigenvector of $H$ then we have:
+\[i\hbar \frac{\partial}{\partial t}\Psi = E\Psi \Rightarrow \Psi = \exp(-i\hbar E t)\Psi_0\]
+\\
+
+A two-dimensional system where the energy levels are the same has a trivial evolution,
+both gain phase at the same rate resulting in no observable change,
+so assume there are two eigenvalues $\mu\pm\delta$.
+\\
+
+Let use working the orthonormal base of $H$ and define:
+\[Z = \begin{bmatrix} 1&0\\0&-1\end{bmatrix},\quad E = \begin{bmatrix} \mu-\delta&0\\0&\mu+\delta\end{bmatrix}=\mu I -\delta Z\]
+Then we have:
+\[\Psi = \exp(-i\hbar E t)\Psi_0 = \exp(-i\hbar \mu t)\exp(i\hbar \delta Zt)\Psi_0\]
+We will ignore the first factor as it's only relevant if working with a super system.
+
+Consider the function $f(x) = \exp(i\hbar\delta t x)$ and apply the Cayley–Hamilton theorem to obtain:
+\begin{equation*}
+\begin{aligned}
+\Psi =& \left(\exp(-i\hbar\delta t)\frac{Z+I}{2}-\exp(i\hbar\delta t)\frac{Z-I}{2}\right)\Psi_0 \\
+=& \big[\cos(\hbar\delta t)I-i\sin(\hbar\delta t)Z\big]\Psi_0 \\
+\end{aligned}
+\end{equation*}
+Observer that when $\delta t \rightarrow 0$ we have $\Psi \rightarrow \Psi_0$. 
+This has two obvious sanity checks.
+That as we return to the beginning, $t\rightarrow 0$, the state returns to $\Phi_0$ regardless of $\delta$.
+And as the difference of the energy level shrinks, $\delta\rightarrow 0$, the state returns to $\Phi_0$ regardless of $t$.
+\\
+
+Other results include:
+
+That for small $\delta$ we can keep the system in the $\Psi_0$ state for an inversely proportional time
+
+That the system returns to $\Psi_0$ with a period of $\frac{\pi}{\hbar\delta}$.
+Notice that the period is halved from the naïve value, 
+as we only require the $\sin$ term to vanish.
+
+\subsection{Change of Basis}
+Assume the $\Psi_0$ isn't given in the orthonormal base of $H$.
+Then we will need a change of basis matrix $P$ and have:
+\[\Psi = P^{-1}\exp(-i\hbar E t)P\Psi_0\]
+We can just substitute our worked expression for $\exp(-i\hbar Et)$ to give
+\[\Psi = \big[\cos(\hbar\delta t)I-i\sin(\hbar\delta t)P^{-1}ZP\big]\Psi_0 \]
+But lets pretend we didn't have the worked form,
+what would we do?
+\\
+
+Well, interestingly we have:
+\[P^{-1}\exp(-i\hbar E t)P\Psi_0= \exp(-P^{-1}i\hbar E tP)\Psi_0\]
+So things don't change much yet.
+And when it comes to applying the Cayley-Hamilton theorem we need the characteristic polynomials:
+\begin{equation*}
+\begin{aligned}
+p_{P^{-1}MP}(x) =& \det(P^{-1}MP-xI) \\
+=&\det(P^{-1}(M-xI)P) \\
+=&\det(P^{-1})\det(M-xI)\det(P) \\
+=&\det(M-xI) \\
+\end{aligned}
+\end{equation*}
+Meaning the roots, eigenvalues, of one are the roots of another.
+Meaning the result of Cayley-Hamilton is the same but with a different matrix subbed in.
+
+From this point it's just algebra and left to the reader.
+But what's interesting is that all the operations involved worked so well with:
+\[M\mapsto P^{-1}MP\]
+Which might be physically motivated.
+
+In abstract algebra we would call this type of map a "conjugation", 
+but that name already has a meaning in linear algebra,
+so maybe "inner-automorphism" would be better.
