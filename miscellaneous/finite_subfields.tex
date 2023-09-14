@@ -256,6 +256,12 @@ Hence $\img s_a\cong\langle a \rangle$.
 You can naturally iterate on this with $s_{a,b,c}: \langle 1_R \rangle[X,Y,Z] \rightarrow R$ where $s_{a,b,c}[X] = a$,$s_{a,b,c}[Y] = b$, and $s_{a,b,c}[Z] = c$ to give:
 \[\img s_{a,b,c} \cong \langle a,b,c \rangle\]
 
+\textcolor{red}{Condemned:} I've condemned the rest of this section because it's confused, over complex, poorly phrase, and most importantly, wrong. 
+I think I understood something at the time I wasn't able to capture and write down, 
+but this isn't it either.
+
+There is a new section for "Actual Subfields".
+
 \subsubsection{Corollary: If $R$ is finite than there is a subset $B$ such that $B$ is a basis for $R$ as a $\langle 1_R \rangle$-module.}
 Since $R$ is finite we can have a $|R|$ variable polynomial which can interrelate the previous result as a $\langle 1_R \rangle$-module.
 Just prune off non-extending elements to get the basis.
@@ -319,4 +325,42 @@ But since:
 \[f\left(\frac{1}{n}\right)f(n) = \phi(n)^{-1}\phi(n) = 1\]
 Implies $f$ is a field.
 Hence $\img f \cong \mathbb{Q}$ as required.
+
+\subsection{Actual Subfields \#2}
+\subsubsection{Theorem: If $\mathbb{F}$ is a field than all finite subring $R\subseteq \mathbb{F}$ are a fields.}
+There are actually a few cool ways to show this:
+\\
+
+\textbf{1:} The most undergrad is pidgin-holing. 
+Let $r\in R$, since
+$R$ is finite there is at two $m < n \leq |R|$ such that:
+\[ r^n=r^m\]
+Because $r$ is a member of a field we can cancel $m-1$ $r$s to give:
+\[1 = r^{n-m-1}\]
+If $n-m-1 = 1$ then $r = 1$ and hence $r^{-1}=1$.
+If $n-m-1 > 1$ we have:
+\[r^{n-m-2} = r^{-1}\]
+
+\textbf{2:}
+For $r\in R$ let $f: R\rightarrow R$ such that:
+\[f(x) = rx \]
+$f$ is injective since:
+\begin{equation*}
+\begin{aligned}
+	f(x) =& f(y) \\
+	rx =& ry \\
+	r(x-y) =& 0\\
+\end{aligned}
+\end{equation*}
+All fields are domains so when $r\neq 0$ we have $x=y$.
+\\
+
+Because $f$ is a function between two finite groups of the same side it being injective means it's surjective.
+Hence there exits some $x_0$ such that:
+\[
+	1 = f(x_0) = rx_0 \Rightarrow r^{-1} = x_0
+\]
+
+\subsubsection{Corollary: If $\mathbb{F}$ is a field with finite $n=|\langle 1_\mathbb{F} \rangle|$ than $n$ is prime.}
+Recall that $\langle 1_\mathbb{F} \rangle$ is cyclic and the only cyclic finite fields are the ones with prime order.
 % Might be time to split abstract algebra into a separate pdf.
