@@ -10,7 +10,7 @@ We will start with the classic problem:
 \end{aligned}
 \end{equation*}
 Start with a standard Lagrangian:
-\[ L = -\sum_ip_i\ln(p_i)+a\left(\sum_i p_i - 1\right) + b\left(\sum_i p_iw_i - \mu\right)\]
+\[ L = -\sum_ip_i\ln(p_i)-a\left(\sum_i p_i - 1\right) - b\left(\sum_i p_iw_i - \mu\right)\]
 Giving:
 \[p_i = \exp(-1-a-bw_i)\]
 We can easily remove $a$ by normalizing:
@@ -22,7 +22,7 @@ Likewise for $\mu$:
 Substituting back into $H$:
 \begin{equation*}
 \begin{aligned}
-	H =& \frac{1}{Z(b)}\sum_i\bigg(\exp(-bw_i)(bw_i+\ln(Z(b))\bigg)\\
+	H =& \frac{1}{Z(b)}\sum_i\bigg(\exp(-bw_i)(bw_i+\ln(Z(b)))\bigg)\\
 	=& \frac{1}{Z(b)}\bigg(bZ(b)\mu+Z(b)\ln(Z(b))\bigg)\\
 	=& b\mu+\ln(Z(b))\\
 \end{aligned}
@@ -48,3 +48,32 @@ And also:
 Which gives:
 \[\frac{d\, H}{d\, \mu} = b\]
 As expected.
+
+\subsection{A General Case}
+There's actually a lot of important probability distributions what have a similar form.
+The numerator is an exponential  of a weight times a constant and the denominator is,
+naturally, the sum of these exponentials.
+\\
+
+Start with a similar Lagrangian as before:
+\[ L = -\sum_ip_i\ln(p_i)-a\left(\sum_i p_i - 1\right) - bF\]
+Where $F$ is a function of just $p_i$.
+The goal is to extremize entropy while keeping normalization and the constraint $F$,
+giving:
+\[p_i = \exp\left(-1-a-b\frac{\partial F}{\partial p_i}\right)\]
+Defining $Z$ similar to before:
+\[Z(t) = \sum_i\exp\left(-t\frac{\partial F}{\partial p_i}\right)\]
+Lets us normalize out $a$ like before:
+\[p_i = \frac{1}{Z(b)}\exp\left(-b\frac{\partial F}{\partial p_i}\right)\]
+\\
+
+We can also similarly define the average of the weights:
+\begin{equation*}
+\begin{aligned}
+	\sum_ip_i\frac{\partial F}{\partial p_i} =&
+	\sum_i\frac{1}{Z(b)}\exp\left(-b\frac{\partial F}{\partial p_i}\right)\frac{\partial F}{\partial p_i}\\
+	=&-\frac{Z'(b)}{Z(b)}\\
+	=&-\frac{d}{d\,b}\ln(Z(b))
+\end{aligned}
+\end{equation*}
+
