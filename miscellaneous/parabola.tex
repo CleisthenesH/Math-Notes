@@ -200,6 +200,67 @@ To me, this suggests that these results can be generalized to some subset of euc
 I wasn't able to do so here,
 but thoughts like this are why I wanted to think about parabolas more.
 
+\subsection{Construction}
+\subsubsection{Semi-Circle}
+\begin{center}
+\begin{tikzpicture}[every node/.style={black}]
+	\begin{scope}
+		\clip (-4,0) rectangle (4,4);
+		\draw (0,0) circle(4);
+		\draw (-4,0) -- (4,0);
+	\end{scope}
+	\draw[red,dashed] plot[smooth,domain=-4:4] (\x, {2-0.125*\x*\x});
+	\draw[red,dashed,stealth-stealth] (-4,4)--(4,4);
+	\draw (-1,1.875) circle (1.875);
+
+	\coordinate (F) at (0,0);
+	\coordinate (T) at (-1,4);
+	\coordinate (P) at (-1,1.875);
+	\coordinate (A) at (-1,0);
+	\coordinate (B) at (-1.8823529,3.52941176);
+
+	\draw[blue] (T) node[above] {$T$} --
+	(P) node[above right] {$P$} --
+	(F) node[below] {$F$};
+
+	\draw[green] (A) node[below] {$A$} --
+	(P) --
+	(B) node[above left] {$B$};
+\end{tikzpicture}
+\end{center}
+Take a semicircle with an interior circle such that the interior circle is tangent to both the semicircle arc and base line.
+Then the centers of the interior circle forms a parabola.
+\\
+
+Let $F$ be the center of the semicircle and $P$ be the center of interior circle.
+Construct a parallel line to the base line at the apex of arc.
+Let $TA$ be the perpendicular segment that goes through $P$ and let $FB$ be the radius through $P$.
+\\
+
+By construction $|TA|$ is equal to the radius:
+\[|TA| = |FB|\]
+Expanding gives:
+\[|TP|+|PA| = |FP|+|PB|\]
+Since $PA$ and $PB$ are radii on the same interior circle they are of equal length,
+giving:
+\[|TP| = |FP|\]
+As required.
+
+\subsection{Conic Section}
+Yea it's analytic but synthetic conic section arguments are verbose and I want to note this down somewhere.
+\\
+
+Let the cone be given by:
+\[x^2+y^2-z^2=0\]
+And the plane by:
+\[ay+b-z=0\]
+(Note these coordinates are in the 3D space.
+If you want the in-plane ones discard the $z$ and scale $y$ by $\sqrt{1+a^2}$).
+
+If $a^2=1$ we get:
+\[x^2\pm2by-b^2=0\]
+If $a^2\neq 1$ we get:
+\[x^2+(1-a^2)\left(y-\frac{ab}{1-a^2}\right)^2-b\,\frac{1+a^2}{1-a^2} = 0\]
 %% An unused diagram I don't feel like deleting.
 %
 %\begin{center}
