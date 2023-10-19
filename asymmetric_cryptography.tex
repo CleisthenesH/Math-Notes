@@ -1,0 +1,41 @@
+% Copyright 2023 Kieran W Harvie. All rights reserved.
+\documentclass[12pt]{report}
+
+\input{common_preamble.tex}
+
+\title{Asymmetric Cryptography \\ \large Applied group theory 101}
+\date{Copyright \textcopyright \, \today. All Rights Reserved.}
+\author{Kieran Harvie}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\chapter{Introduction}
+\include{asymmetric_cryptography/terminology.tex}
+\include{asymmetric_cryptography/trap_door.tex}
+\include{asymmetric_cryptography/group_theory.tex}
+
+\chapter{Rivest–Shamir–Adleman}
+\include{asymmetric_cryptography/RSA_keygen.tex}
+\include{asymmetric_cryptography/RSA_application.tex}
+
+\chapter{Elliptic Curve Cryptography}
+\include{asymmetric_cryptography/elliptic_curves.tex}
+\include{asymmetric_cryptography/ECDSA.tex}
+\include{asymmetric_cryptography/playstation.tex}
+
+\chapter{Diffie–Hellman Key Exchange}
+\include{asymmetric_cryptography/DF_keyexchange.tex}
+
+\chapter{Merkle–Hellman Knapsack}
+\include{asymmetric_cryptography/knapsack_keygen.tex}
+\include{asymmetric_cryptography/knapsack_remarks.tex}
+
+\renewcommand{\thechapter}{A}
+\chapter{Appendix}
+\include{asymmetric_cryptography/group_revision.tex}
+\include{asymmetric_cryptography/field_revision.tex}
+\include{asymmetric_cryptography/montgomery_ladder.tex}
+
+\end{document}
