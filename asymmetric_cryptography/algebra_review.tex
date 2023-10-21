@@ -1,0 +1,28 @@
+% Copyright 2023 Kieran W Harvie. All rights reserved.
+
+\section{Algebra Revision}
+\subsection{Lagrange's Theorem}
+\subsection{Cyclic Group}
+\subsection{Bézout's Identity}
+\subsection{Totient Functions}
+A totient of an integer $n$ is a number less than $n$ that is relatively prime to $n$.
+Totient are important to cryptography because they are, by definition, the elements the multiplicative group of the ring $\mathbb{Z}/n\mathbb{Z}$,
+denoted $(\mathbb{Z}/n\mathbb{Z})^\times$.
+\\
+
+From this group we define two functions,
+Euler's totient function:
+\[\phi(n) = |(\mathbb{Z}/n\mathbb{Z})^\times|\]
+and the Carmichael function\footnote{I have not idea why Euler gets to own his function but Carmichael does not.}:
+\[\lambda(n) = \lcm\bigg\{\ord(k)\,|\, k\in(\mathbb{Z}/n\mathbb{Z})^\times\bigg\}\]
+
+These functions are often studied in their own right
+
+\subsubsection{Chinese Remainder Theorem:}
+Let $n_k$ be pairwise relatively prime positive integers and let:
+\[N =\prod_k n_k \]
+\[\mathbb{Z}/N\mathbb{Z} \cong \prod_k\mathbb{Z}/n_k\mathbb{Z}\]
+\subsubsection{Euler's Product Formula:}
+\subsubsection{Carmichael's Theorem:}
+\subsubsection{Carmichael's Theorem:}
+\subsubsection{Remark:}
