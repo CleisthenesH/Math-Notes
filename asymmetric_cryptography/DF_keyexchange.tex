@@ -1,2 +1,30 @@
 % Copyright 2023 Kieran W Harvie. All rights reserved.
 
+The Diffie-Hellman Key Exchange is a short but sweet demonstration of asymmetric cryptography.
+The goal is for Alice and Bob to use a public channel to end with a shared private key.
+
+\begin{enumerate}
+\item Alice and Bob agree on an integer $n>1$ and a generating element $g$ of the cyclic group $C_n$ in private. 
+\item Independently and in private,
+Alice and Bob pick random integers $1<a<n$ and $1<b<n$ respectfully.
+\item Alice and Bob let $g^a$ and $g^b$ be publicly known.
+\item Alice and Bob calculate $(g^b)^a$ and $(g^a)^b$ from the public $g^b$ and $g^a$ respectfully.
+\end{enumerate}
+
+Since:
+\[(g^b)^a = g^{ba} = g^{ab} = (g^a)^b\]
+Alice and Bob agree on $g^{ab}$ while only making $n,g,g^a$ and $g^b$ public.
+Under the discrete logarithm trapdoor assumption, 
+a third party can not deduce $a$ or $b$ from this information meaning $g^{ab}$ is safe from attackers.
+\\
+
+Two important remarks.
+
+Firstly,
+if $g$ is publicly known then the exchange is susceptible to a man-in-the-middle attack.
+Mallory is able to pretend to be Alice to Bob and send $g^m$ then Mallory and Bob will share the key $g^{mb}$ with Bob thinking the key was shared with Alice.
+
+Secondly, 
+The most direct implementation uses the $G=(\mathbb{Z}/p\mathbb{Z})^\times$ with prime $p$ and is called the Finite Field Diffie-Hellman.
+This is because $\mathbb{Z}/p\mathbb{Z}$ is a finite field and $(\mathbb{Z}/p\mathbb{Z})^\times$ is always 
+\hyperref[appx:cycle-multiplicative-group]{guaranteed to be a cyclic field}.
