@@ -1,0 +1,26 @@
+% Copyright 2023 Kieran W Harvie. All rights reserved.
+
+The knapsack problem is an easy to grasp yet complex to solve optimization problem best summarised through the archetypal example:
+
+\begin{quote}
+Given a knapsack with with a limited size and a collection of items of fixed size and value determine which selections of items with a combined size less than or equal to the knapsack has the maximum value.
+\end{quote}
+
+The practical applications are obvious and the problem has been thoroughly studied because of it.
+Yet the problem remains difficult to compute for arbitrary items,
+which makes the knapsack problem a candidate for producing a trapdoor function.
+\\
+
+For a trapdoor function to work we need a version of the problem which is hard without private information but easy with private information.
+The Subset Sum Problem (SSP) is a special case of the knapsack problem where the items values are constant and we must find a collection that {\bf equals} the knapsack size, not just be less than.
+With arbitrary item sizes the SSP is known to be hard,
+but when the item sizes are superincreasing the problem is trivial.
+\\
+
+A sequence $\{w_k\}$ is superincreasing if we have:
+\[w_n > \sum_{k=1}^{n-1}w_k\]
+In our terms it means there is no combination of items with size less than a given item that have a combined size greater or equal to the first item.
+This makes solving the superincreasing SSP easy because if we always take the largest item that would fit in the remaining knapsack size, since the remaining smaller items \hyperref[appx:SSP]{can't make up the difference}.
+\\
+
+Hence the plan is to construct some private key which can convert a public SSP to a private superincreasing SSP.
