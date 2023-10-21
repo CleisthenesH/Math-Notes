@@ -1,3 +1,27 @@
 % Copyright 2023 Kieran W Harvie. All rights reserved.
 
-\section{knapsack keygen}
+\section{Description}
+
+\subsubsection{Key Generation:}
+Let $n$ be the desired block size.
+\begin{enumerate}
+	\item Generate a random superincreasing $n$-array $\{w_k\}$.
+\item Generate a random integer $q$ such that:
+	\[q > \sum_{k=1}^nw_k\]
+\item Generate a random integer $r$ that is coprime to $q$.
+\item Calculate a new $n$-array $\{b_k\}$ such that:
+	\[b_k = rw_k \mod q\]
+\item Calculate $r'$ such that:
+	\[rr' \mod q = 1\]
+\end{enumerate}
+The public key is $\{b_k\}$ and the private key is $(\{w_k\},q,r')$,
+observe that $r$ can be discarded.
+
+\subsubsection{Encryption:}
+Let the $n$-bit message be given by the bits $m_k$.
+The cipher text is given by:
+\[c = \sum_{k=1}^nm_kb_k\]
+
+\subsubsection{Decryption:}
+Treat $(r'c\mod q)$ and $\{w_k\}$ as the knapsack size and item sizes for a superincreasing SSP problem,
+$w_k$ will be in the knapsack if and only if $m_k=1$.
