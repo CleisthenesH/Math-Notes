@@ -1,3 +1,38 @@
 % Copyright 2023 Kieran W Harvie. All rights reserved.
 
 \section{Description}
+
+\subsubsection{Key Generation:}
+\begin{enumerate}
+\item Generate two large distinct prime numbers $p$ and $q$.
+\item Calculate $\lambda(pq) = \lcm(p-1,q-1)$.
+\item Calculate $e$ such that $e$ and $\lambda(pq)$ are coprime and $2<e<\lambda(pq)$.
+\item Calculate $d$ such that $de \mod \lambda(pq) = 1$.
+\end{enumerate}
+The public key is $(pq,e)$ and the private key is $d$,
+$\lambda(pq)$ can be discarded.
+\\
+
+\subsubsection{Analysis:}
+There's a multiple applications for the RSA cryptosystem so instead of jumping into any particular one we'll focus on the key feature,
+that for an arbitrary $0\leq m < pq$ we have:
+\[m^{ed}\mod pq = m\]
+
+This is because by construction $ed-1$ is a multiple of $p-1$ meaning:
+\[m^{ed}\mod p = m^{ed-1}m\mod p = m \mod p\]
+
+\subsubsection{Remark:}
+Observe that the above proof doesn't really use any of $\lambda(pq)$'s \hyperref[appx:torient]{properties} beyond it being divisible by $p-1$ and $q-1$.
+When $m\in(\mathbb{Z}/pq\mathbb{Z})^\times$ we can present a much cooler proof.
+In this case $ed-1$ is a multiple of $\lambda(pq)$, 
+hence:
+\[m^{ed-1} \mod pq = 1\]
+From which the main result follows.
+\\
+
+The above proof is often presented as the sole proof of correctness for RSA,
+this is incorrect and probably done because it is much cooler.
+
+In practice it is true most of the time since $p$ and $q$ are large and:
+\[\frac{|(\mathbb{Z}/pq\mathbb{Z})^\times|}{|\mathbb{Z}/pq\mathbb{Z}|} = \frac{\phi(pq)}{pq} = 1-\frac{1}{p}-\frac{1}{q} +\frac{1}{pq}\]
+
