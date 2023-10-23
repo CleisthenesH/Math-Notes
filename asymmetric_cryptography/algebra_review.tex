@@ -4,7 +4,49 @@
 \subsection{Lagrange's Theorem}
 \subsection{Cyclic Group}
 \subsection{Bézout's Identity}
+I've send multiple time "Calculate $x$ such that $yx \mod z = 1$
+
+\subsection{Chinese Remainder Theorem}
+The Chinese Remainder Theorem is an interesting bring between regular and abstract algebra and I'll be using both forms in this document.
+
+\subsubsection{Regular:}
+Let $n_1$ and $n_2$ be coprime integers,
+from Bézout's identity there exists $q_1$ and $q_2$ such that:
+\[q_1n_1+q_2n_2 \mod n_1n_2 = 1\]
+Now consider another integer $x$ such that:
+\[x\mod n_1 = a_1\, \text{ and }\, x\mod n_2 = a_2\]
+Then the only $0\leq x < n_1n_2$ is given by
+\[x = a_1n_2q_2+a_2n_1q_1\mod n_1n_2\]
+Proof follows by substitution.
+\\
+
+Consider the corollary when $a=a_1=a_2$ then we have:
+\begin{equation*}
+\begin{aligned}
+x =& a_1n_2q_2+a_2n_1q_1\mod n_1n_2\\
+=& a(n_2q_2+n_1q_1)\mod n_1n_2\\
+=& a\\
+\end{aligned}
+\end{equation*}
+
+\subsubsection{Abstract:}
+
+We can use the prior construction to define a function 
+\begin{equation*}
+\begin{aligned}
+f:\mathbb{Z}/n_1\mathbb{Z}\times\mathbb{Z}/n_2\mathbb{Z} &\rightarrow \mathbb{Z}/n_1n_2\mathbb{Z}\\
+(a_1,a_2)&\mapsto a_1n_2q_2+a_2n_1q_1\\
+\end{aligned}
+\end{equation*}
+It's left as an excise that $f$ is an isomorphism, meaning:
+\[\mathbb{Z}/n_1\mathbb{Z}\times\mathbb{Z}/n_2\mathbb{Z} \cong \mathbb{Z}/n_1n_2\mathbb{Z}\]
+
+You can use induction to generalize this to:
+\[\mathbb{Z}/N\mathbb{Z} \cong \prod_k\mathbb{Z}/n_k\mathbb{Z}\]
+Where $n_k$ are pairwise relatively prime positive integers and:
+\[N =\prod_k n_k \]
 \subsection{Totient Functions}
+\label{appx:torient}
 A totient of an integer $n$ is a number less than $n$ that is relatively prime to $n$.
 Totient are important to cryptography because they are, by definition, the elements the multiplicative group of the ring $\mathbb{Z}/n\mathbb{Z}$,
 denoted $(\mathbb{Z}/n\mathbb{Z})^\times$.
@@ -18,10 +60,6 @@ and the Carmichael function\footnote{I have not idea why Euler gets to own his f
 
 These functions are often studied in their own right
 
-\subsubsection{Chinese Remainder Theorem:}
-Let $n_k$ be pairwise relatively prime positive integers and let:
-\[N =\prod_k n_k \]
-\[\mathbb{Z}/N\mathbb{Z} \cong \prod_k\mathbb{Z}/n_k\mathbb{Z}\]
 \subsubsection{Euler's Product Formula:}
 \subsubsection{Carmichael's Theorem:}
 \subsubsection{Cyclic Multiplicative group of integers modulo $n$:}

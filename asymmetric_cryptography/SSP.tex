@@ -17,7 +17,7 @@ We will formalize the greedy SSP algorithm as the recursive function:
 	\{0\}^\frown gSSP(c,\{w_k\}_{k=1}^{n-1})& c < w_n \\
 \end{cases}\]
 
-This algorithm is called greedy because at each call it reduce the first argument,
+This algorithm is called greedy because at each call it reduces the first argument,
 if it is able to.
 {\bf This does not work in the general SSP case!}
 
@@ -86,7 +86,7 @@ The $n$ case is given by the verbose:
 It can be simplified using the superincreasing lemmas,
 if $\sum_{k=1}^nm_kw_k \geq w_n $ we have $m_n = 1$ and:
 \[\sum_{k=1}^nm_kw_k -w_k = \sum_{k=1}^{n-1}m_kw_k\]
-and if $\sum_{k=1}^nm_kw_k > w_n $ we have $m_n = 0$ and:
+and if $\sum_{k=1}^nm_kw_k < w_n $ we have $m_n = 0$ and:
 \[\sum_{k=1}^nm_kw_k = \sum_{k=1}^{n-1}m_kw_k\]
 Combining these results gives:
 \[gSSP\left(\sum_{k=1}^nm_kw_k,\{w_k\}_{k=1}^n\right) = 
