@@ -15,8 +15,12 @@ In the fullness of time sections may make there way from here to other pdfs.
 2. :ocean: Fourier
 
 An ordered collection of notes to do with the Fourier Transform.
-Made with some about of readability in mind.
+Made with some amount of readability in mind.
 In the sense that earlier parts of the document inform later parts.
+
+3. :lock: Asymmetric Cryptography
+
+Similar to Fourier but Asymmetric Cryptography instead of the Fourier Transform.
 
 # :ballot_box_with_check: To-do
 The ongoing construction of this repository will consist of two steps:
