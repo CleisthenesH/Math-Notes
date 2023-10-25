@@ -45,11 +45,94 @@ You can use induction to generalize this to:
 \[\mathbb{Z}/N\mathbb{Z} \cong \prod_k\mathbb{Z}/n_k\mathbb{Z}\]
 Where $n_k$ are pairwise relatively prime positive integers and:
 \[N =\prod_k n_k \]
+Of particular importance is the case where $n_k = p_k^{m_k}$ for distinct primes $p_k$ and integers $m_k$.
+
+\subsection{Multiplicative group of integers modulo $n$}
+The "multiplicative group of integer module $n$" is is the multiplicative group of the ring $\mathbb{Z}/n\mathbb{Z}$ and is denoted $(\mathbb{Z}/n\mathbb{Z})^\times$.
+
+\subsubsection{Structure:}
+For general rings $R$ and $S$ we have:
+\[(R\times S)^\times \cong R^\times \times S^\times\]
+This follows from the, some what awkward looking, function:
+\begin{equation*}
+\begin{aligned}
+	f:(R\times S)^\times&\rightarrow R^\times \times S^\times\\
+	(r,s)&\mapsto (r,s)\\
+\end{aligned}
+\end{equation*}
+Applying this to the Chinese remainder theorem gives:
+\[(\mathbb{Z}/n\mathbb{Z})^\times \cong \prod_k (\mathbb{Z}/p_k^{m_k}\mathbb{Z})^\times\]
+Where $n$ is given by the distinct primes $p_k$ as:
+\[n =\prod_k p_k^{m_k} \]
+When $p\neq 2$ we have: 
+\[(\mathbb{Z}/p^{m}\mathbb{Z})^\times = C_{p^{m}-p^{m-1}}\]
+And when $p=2$ we have:
+\[(\mathbb{Z}/2^{m}\mathbb{Z})^\times =\begin{cases} 
+	C_2\times C_{2^{m-2}} & m\geq 2\\
+	C_1 & m = 1\\
+\end{cases}\]
+
+
+The general $m$ case is outside the scope of this document,
+but can be found in most undergrad algebra textbooks.
+The $m = 1$ case is pretty tractable:
+
+\subsubsection{The $m = 1$ case:}
+
+\subsubsection{Cyclic Corollary:}
+\label{appx:cycle-multiplicative-group}
+A corollary of the structure of $(\mathbb{Z}/n\mathbb{Z})^\times$ is that it cyclic if and only if:
+\[n = 1,2,4,p^k,2p^k\]
+For some odd prime $p$.
+\\
+
+This is because the product of cyclic groups is cyclic if and only if all but one are of size $1$.
+
+\subsubsection{Example $(\mathbb{Z}/9\mathbb{Z})^\times$ table:}
+Let $g\in(\mathbb{Z}/9\mathbb{Z})^\times$,
+bellow is a table of important properties:
+
+\begin{center}
+\begin{tabular}{|c|}
+	\hline
+	$g$\\
+	\hline
+	1\\2\\4\\5\\7\\8\\
+	\hline
+\end{tabular}
+\begin{tabular}{|c|c|c|c|c|c|}
+	\hline
+	$g^2$&$g^3$&$g^4$&$g^5$&$g^6$\\
+	\hline
+	1&1&1&1&1\\
+	4&8&7&5&1\\
+	7&1&4&7&1\\
+	7&8&4&2&1\\
+	4&1&7&4&1\\
+	1&8&1&8&1\\
+	\hline
+\end{tabular}
+\begin{tabular}{|c|}
+	\hline
+	$\ord(g)$\\
+	\hline
+	1\\6\\3\\6\\3\\2\\
+	\hline
+\end{tabular}
+\begin{tabular}{|c|}
+	\hline
+	$g^{-1}$\\
+	\hline
+	1\\5\\7\\2\\4\\8\\
+	\hline
+\end{tabular}
+\end{center}
+
+
 \subsection{Totient Functions}
 \label{appx:torient}
 A totient of an integer $n$ is a number less than $n$ that is relatively prime to $n$.
-Totient are important to cryptography because they are, by definition, the elements the multiplicative group of the ring $\mathbb{Z}/n\mathbb{Z}$,
-denoted $(\mathbb{Z}/n\mathbb{Z})^\times$.
+Totient are important to cryptography because they are, by definition, the elements of $(\mathbb{Z}/n\mathbb{Z})^\times$.
 \\
 
 From this group we define two functions,
@@ -62,7 +145,5 @@ These functions are often studied in their own right
 
 \subsubsection{Euler's Product Formula:}
 \subsubsection{Carmichael's Theorem:}
-\subsubsection{Cyclic Multiplicative group of integers modulo $n$:}
-\label{appx:cycle-multiplicative-group}
 \subsubsection{Carmichael's Theorem:}
 \subsubsection{Remark:}
