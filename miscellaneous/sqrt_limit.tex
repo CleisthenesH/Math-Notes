@@ -1,0 +1,88 @@
+% Copyright 2023 Kieran W Harvie. All rights reserved.
+
+\section{Square Root Limit}
+While working on something else and the Stack Overflow and the "Hot Network Questions" brought up the following limit:
+\[\lim_{x\rightarrow \infty} \bigg(\sqrt{x^2+x+1} - x\bigg) = \frac{1}{2}\]
+The questioner asked why the limit wasn't $0$ as $\sqrt{x^2+o(x^2)}\rightarrow x$.
+The simple answer is that you can't split up a sum in a limit like that when each term isn't finite.
+\\
+An interesting point in this presentation is that $x^2+x+1$ is manipulated three different ways, 
+if you include not manipulating it as a way,
+and each manipulation has a different analysis step.
+Pretty cool to see the algebra-analysis relationship like that.
+
+\subsubsection{Algebra Answer}
+This answer uses the algebra observation:
+\[\sqrt{a^2+b}-a =\frac{(\sqrt{a^2+b})^2-a^2}{\sqrt{a^2+b}+a}=\frac{b}{\sqrt{a^2+b}+a}\]
+Manipulating the limit into this form gives:
+\begin{equation*}
+\begin{aligned}
+\sqrt{x^2+x+1} - x=& \sqrt{\left(x+\frac{1}{2}\right)^2+\frac{3}{4}}-\left(x+\frac{1}{2}\right)+\frac{1}{2}\\
+=&\frac{3}{4}\frac{1}{\sqrt{\left(x+\frac{1}{2}\right)^2+\frac{3}{4}}+\left(x+\frac{1}{2}\right)}+\frac{1}{2}\\
+\end{aligned}
+\end{equation*}
+Observe that the denominator grows without bound but the numerator is constant.
+Hence the fraction goes to $0$ meaning only $\frac{1}{2}$ remains, 
+as expected.
+
+\subsubsection{L'Hôpital's Rule Answer}
+This answer isn't as careful with the early algebra and gets less cancellation.
+Instead it uses L'Hôpital's Rule in a kind of cool way.
+First perform the algebra:
+\begin{equation*}
+\begin{aligned}
+\sqrt{x^2+x+1} - x=&\frac{x^2+x+1-  x^2}{\sqrt{x^2+x+1} + x} \\
+=&\frac{x+1}{\sqrt{x^2+x+1} + x} \\
+\end{aligned}
+\end{equation*}
+Both numerator and denominator grow without bound,
+so applying L'Hôpital's rule gives:
+\[\sqrt{x^2+x+1} - x\rightarrow\left(\frac{2x+1}{2\sqrt{x^2+x+1}}+1\right)^{-1}=(f(x)+1)^{-1}\]
+Where:
+\[f(x)=\frac{2x+1}{2\sqrt{x^2+x+1}}\]
+Similarly, 
+both numerator and denominator grow without bound,
+so applying L'Hôpital's rule gives:
+\[f(x)\rightarrow \frac{2}{2\frac{2x+1}{2\sqrt{x^2+x+1}}} = \frac{1}{f(x)}\]
+Tidying up gives:
+\[\lim_{x\rightarrow \infty} f(x) = 1\]
+Hence
+\[\sqrt{x^2+x+1} - x\rightarrow=(f(x)+1)^{-1} = \frac{1}{2}\]
+As expected.
+
+\subsubsection{Holomorphic Answer}
+Let $a$ satisfy:
+\[a^2-a+1=0\]
+Then let us write:
+\[\sqrt{x^2+x+1} - x = \sqrt{(x+a)^2+(1-2a)(x+a)}-(x+a)+a\]
+Unfortunately $a\not\in \mathbb{R}$ meaning we are now using complex analysis.
+\footnote{From $(a+1)(a^2-a+1)=a^3+1=0$ we know $a$ is an odd $6^\text{th}$ root of unity but not $-1$}
+\\
+Define:
+\[h=\frac{1-2a}{x+a}\]
+Simple algebra gives:
+\[\sqrt{x^2+x+1} - x =(1-2a)\frac{\sqrt{1+h}-1}{h}+a\]
+Observe that as $|h|\rightarrow 0$ we've constructed the derivative of $\sqrt{\cdot}$ at $1$ giving:
+\[\lim_{|h|\rightarrow 0}\bigg((1-2a)\frac{\sqrt{1+h}-1}{h}+a\bigg) = (1-2a)\frac{1}{2\sqrt{1}}+a = \frac{1}{2}\]
+As expected.
+
+\subsubsection{Geometric Progression}
+If we want the general $n^\text{th}$-root consider the geometric progression:
+\[(a-b)\sum_{k=0}^{n}a^kb^{n-k} = a^{n+1}-b^{n+1}\]
+The difference of two squares we used earlier is the $n=1$ case.
+\\
+\[\frac{(x+h)^\frac{1}{n}-x^\frac{1}{n}}{h} = \frac{1}{\sum_{k=0}^{n-1}(x+h)^\frac{k}{n}x^\frac{n-1-k}{n}}\]
+Both numerator and denominator are finite in the $h\rightarrow 0$ limit, giving:
+\[\lim_{h\rightarrow 0}\frac{(x+h)^\frac{1}{n}-x^\frac{1}{n}}{h} = \frac{1}{nx^\frac{n-1}{n}}\]
+As expected.
+\\
+\\
+We might be apple to apply a similar argument to a more general problem.
+Let $f,g$ be functions such the limits $f-g$ and $f^p-g^p$ are finite then we get a cool limit:
+\[\sum_{k=0}^{p-1}f^kg^{p-1-k}\]
+This is cool since the limit of $f^p-g^p$ looks like it could be related to a cool metric.
+\\
+\\
+Similarly if $f-g$ is finite but both $f^p-g^p$ and $\sum_{k=0}^{p-1}f^kg^{p-1-k}$ are not we could apply L'Hôpital's rule to get an interesting result.
+The general case has too much algebra for me to care about now, 
+but I might come back to it.
