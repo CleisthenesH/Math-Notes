@@ -1,0 +1,26 @@
+% Copyright 2023 Kieran W Harvie. All rights reserved.
+
+\section{Cosine Transform}
+Let $A(\xi)$ and $\phi(\xi)$ be given amplitudes and phase offset for a cosine transform:
+\[\int_{-\infty}^{\infty}A(\xi)\cos(2\pi(t\xi+\phi(\xi)))\,d\xi \]
+I like that the functions are fully real,
+but we can convert this form to a regular Fourier transform through:
+\begin{equation*}
+\begin{aligned}
+	&\int_{-\infty}^{\infty}A(\xi)\cos(2\pi(t\xi+\phi(\xi)))\,d\xi \\
+	=&\int_{-\infty}^{\infty}A(\xi)\frac{1}{2}\big[\exp(2\pi i(t\xi+\phi(\xi)))+\exp(-2\pi i(t\xi+\phi(\xi)))\big]\,d\xi \\
+	=&\int_{-\infty}^{\infty}\frac{A(\xi)\exp(2\pi\phi(\xi))-A(-\xi)\exp(2\pi\phi(-\xi))}{2}\exp(2\pi i t \xi)\,d\xi \\
+\end{aligned}
+\end{equation*}
+\\
+Addition of exponentials:
+\begin{equation*}
+\begin{aligned}
+	\exp(a)+\exp(b) =& \bigg[\exp(xa)+\exp(xb)\bigg]_{x=1} \\
+	=&2\pi\bigg[\int_{-\infty}^{\infty}\big(\delta(k-a)+\delta(k-b)\big)\exp(-ixk)\,dk\bigg]_{x=1} \\
+	&\text{By letting $k = k' + \frac{a+b}{2}$} \\
+	=&\exp\left(\frac{a+b}{e}\right)\left(\exp\left(\frac{a-b}{e}\right)+\exp\left(\frac{b-a}{e}\right)\right)\\
+\end{aligned}
+\end{equation*}
+\\
+Observe how the second line's form resembles the conversion between Fourier and cosine transforms.
