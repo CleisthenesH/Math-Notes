@@ -29,7 +29,7 @@ The ongoing construction of this repository will consist of two steps:
 The editing, incorporation, or deletion or the following lose .tex files into this repository:
 - ~~Airy~~ (In Fourier)
 - ~~Chinese~~ (Not Math)
-- ComplexPhase
+- ~~ComplexPhase~~ (Renamed to Cosine Transform)
 - CoolChebyshev
 - Dice
 - DTFT
