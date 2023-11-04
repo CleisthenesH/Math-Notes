@@ -1,0 +1,73 @@
+% Copyright 2023 Kieran W Harvie. All rights reserved.
+
+\section{Cool Chebyshev Generating Functions}
+
+\subsection{Elementary Generating Functions}
+
+\begin{equation*}
+\begin{aligned}
+	\sum_{i=0}^{\infty}T_n(x)t^n =& \frac{1-xt}{1-2xt+t^2} \\
+	\sum_{i=0}^{\infty}U_n(x)t^n =& \frac{1}{1-2xt+t^2} \\
+	\text{With}&\\
+	T_n(\cos(\theta)) =& \cos(n\theta)\\
+	U_n(\cos(\theta))\sin(\theta) =& \sin((n+1)\theta)\\
+\end{aligned}
+\end{equation*}
+For example:
+\begin{equation*}
+\begin{aligned}
+	\sum_{n=0}^\infty t^n\sum_{k=0}^nT_k(\cos(\theta))
+	=& \frac{1}{1-t}\cdot\frac{1-\cos(\theta)t}{1-2\cos(\theta)t+t^2} \\	
+	=& \frac{1-t\cos(\theta)}{\sin(\theta)(1-t)}\cdot\frac{\sin(\theta)}{1-2\cos(\theta)t+t^2} \\	
+	=& \frac{1-t\cos(\theta)}{\sin(\theta)(1-t)}\sum_{n=0}^{\infty}t^n\sin((n+1)\theta) \\
+\end{aligned}
+\end{equation*}
+
+\subsection{Complex Exponential}
+There's some stuff you can do with the complex exponential.
+\\
+First is an explanation for the generating function forms:
+\begin{equation*}
+\begin{aligned}
+	\sum_{n=0}^\infty t^n\exp(in\phi) 
+	=&\frac{1}{1-t\exp(i\phi)} \\
+	=&\frac{1-t\exp(-i\phi)}{1+t^2-2t\cos(\phi)} \\
+	=&\frac{1-t(\cos(\phi)-i\sin(\phi))}{1+t^2-2t\cos(\phi)} \\
+	=&\sum_{n=0}^\infty t^n\cos(n\phi)+i\sum_{n=0}^\infty t^{n+1}\sin((n+1)\phi)\\ 
+\end{aligned}
+\end{equation*}
+But also stuff like:
+\begin{equation*}
+\begin{aligned}
+	\sum_{n=0}^{\infty}nt^n\exp(in\phi) 
+	=& \frac{t\exp(i\phi)}{(1-t\exp(i\phi))^2}\\
+	=& \frac{t\exp(i\phi)(1-t\exp(-i\phi))^2}{(1+t^2-2t\cos(\phi))^2} \\
+	=& \frac{t\cos(\phi)(1-2t\cos(\phi)+t^2)+t\sin(\phi)(1-2t\sin(\phi)-t^2)}{(1+t^2-2t\cos(\phi))^2} \\
+\end{aligned}
+\end{equation*}
+The notes kind of end here and I don't remember what I was cooking.
+The denominator and the $t\cos(\phi)$ factor resemble the generating function but need more massaging.
+
+\subsection{Orthogonality}
+
+Let:
+\[f(x,t) = \frac{1-t^2}{1-2tx+t^2} \]
+We have:
+\[\int_{-1}^1T_n(x)f(x,t)\frac{dx}{\sqrt{1-x^2}}\ = \pi t^n \]
+
+Let $P$ be some polynomial:
+\[ P(x) = \sum_{n}p_nT_n(x) \]
+Then:
+\[ P(x) = (1-2tx+t^2)Q(x,t)+P\left(\frac{1+t^2}{2t}\right) \]
+For some polynomial $Q$ with coefficients dependent on $t$.
+\\
+Let $q(t)$ be the coefficient from polynomial $T_0(x)$.
+\\
+Then:
+\[\pi\sum_np_nt^n = \int_{-1}^1P(x)f(x,t)\frac{dx}{\sqrt{1-x^2}} = \pi q(t)(1-t^2) + P\left(\frac{1+t^2}{2t}\right) \]
+
+Derive and sub $t=\pm1$ to get:
+\[\sum_nnp_n = -2q(1)\]
+\[\sum_nnp_n(-1)^n = 2q(-1)\]
+
+Might work for some general function, not sure.

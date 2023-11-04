@@ -30,7 +30,7 @@ The editing, incorporation, or deletion or the following lose .tex files into th
 - ~~Airy~~ (In Fourier)
 - ~~Chinese~~ (Not Math)
 - ~~ComplexPhase~~ (Renamed to Cosine Transform)
-- CoolChebyshev
+- ~~CoolChebyshev~~ (Added Generating Function to name)
 - Dice
 - DTFT
 - Elementary Symmetric Polynomial
