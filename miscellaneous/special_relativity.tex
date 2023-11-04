@@ -1,0 +1,76 @@
+% Copyright 2023 Kieran W Harvie. All rights reserved.
+
+\section{Special Relativity}
+The plan:
+Special Relativity is the study of affine transformations in a hyperbolic pseudo-Riemann space.
+It makes sense to study hyperbolic Riemann space to get a foot hold.
+In particular perspective space and the technique of homogeneous coordinates. 
+
+Kids running at constant speed in a field (special) and hill (general)
+Use electromagnetism as a testing device.
+
+\subsection{Homogeneous coordinates}
+\subsubsection{Basics}
+First start with affine transforms.
+Consider the composition of a rotation and translation in the Cartesian plane.
+\[\begin{bmatrix} x'\\y' \end{bmatrix} = \begin{bmatrix}\cos(\theta) & -\sin(\theta)\\ \sin(\theta) & -\cos(\theta)\end{bmatrix}
+	\begin{bmatrix} x\\ y\end{bmatrix}+ \begin{bmatrix}T_x\\T_y\end{bmatrix}\]
+With the addition of an extra bit of information we can encode all this information in one matrix:
+\[\begin{bmatrix} 1\\x'\\y' \end{bmatrix} = \begin{bmatrix}1&0&0 \\ T_x & cos(\theta) & -\sin(\theta) \\ T_y & \sin(\theta) & -\cos(\theta) \end{bmatrix}
+\begin{bmatrix} 1\\x\\y \end{bmatrix}
+\]
+The top row stores projective information, the left column stores translational information, and the rest stores rotational information.
+
+The benefit to this formalism is that it is also easy to do perspective calculations, that is figure out what someone standing at the origin sees.
+I forget the form of the 2D projection matrix, but rest easy that it has a different top row then the rest.
+\subsubsection{Lorentz force}
+Consider the Lorentz force law:
+\[F = q(E+v\times B)\]
+Remembering that the cross product can be expressed as a matrix multiplication as:
+\[v\times B = \begin{bmatrix}0 & B_z & -B_y \\ -B_z & 0 & B_x \\ B_y & -B_x & 0 \end{bmatrix}\begin{bmatrix}v_x \\ v_y \\ v_x \end{bmatrix}\]
+Using homogeneous coordinates we can combine this with the electrical component to obtain.
+\[ F= q\begin{bmatrix}1 & 0 & 0 & 0 \\E_x & 0 & B_z & -B_y \\ E_y & -B_z & 0 & B_x \\ E_z & B_y & -B_x & 0 \end{bmatrix}\begin{bmatrix}1 \\v_x \\ v_y \\ v_x \end{bmatrix}\]
+This is remarkably close to the correct Electromagnetic tensor.
+
+\subsection{pseudo-Riemann space}
+Three main changes occurs when converting this idea to pseudo-Riemann form.
+The first two are easy.
+Firstly constant we chose at the start of the vector is $c$ and the whole vector is multiplied by the Lorentz factor 
+Secondly the first element has a different sign then the rest.
+
+These first two corrections are easily fixed:
+\[ F= q\gamma\begin{bmatrix}1 & 0 & 0 & 0 \\-E_x/c & 0 & B_z & -B_y \\ -E_y/c & -B_z & 0 & B_x \\ -E_z/c & B_y & -B_x & 0 \end{bmatrix}\begin{bmatrix}c \\v_x \\ v_y \\ v_x \end{bmatrix}\]
+
+The correct tensor is this:
+\[ F= q\gamma\begin{bmatrix}0 & E_x/c & E_y/c & E_z/c \\-E_x/c & 0 & B_z & -B_y \\ -E_y/c & -B_z & 0 & B_x \\ -E_z/c & B_y & -B_x & 0 \end{bmatrix}\begin{bmatrix}c \\v_x \\ v_y \\ v_x \end{bmatrix}\]
+
+And we can see that the new tensor is the same as the old one bar perspective information.
+This should also be a clue that the speed of light being constant is related to perspective.
+
+This new perspective information is because a four force the zeroth component is the change of energy with time.
+Which is:
+\[v\cdot E\]
+Which matches the given expression, if you expand it.
+
+\subsection{Running in a field}
+Imagine people running in a flat field.
+All at the same speed abut in different directions.
+The runner preserves their direction at time and the perpendicular axis of time.
+
+The runner doesn't preserves their own motion in space but only in time, at the constant speed.
+This is analogous to how the world line when traveled in proper time, is always at the speed of light.
+
+The fastest a runner can see another runner run is if that runner runs perpendicularly to the first runner.
+In this case the second runner is running at the constant speed, according to the first runner.
+This is analogous to there being a maximum speed of light.
+
+Now put a hill in the field.
+Imagine someone far away from the hill and a second person running up the hill such that from a birds eye perspective the runners velocities are collinear (line up).
+The far runner doesn't see the deflection up the hill so from their perspective they only see the smaller birds eye view projection.
+To them the hill runners local time is running slow.
+
+If the hill runner is smart they won't run directly up the fill, they will instead by slightly deflected by it.
+This is analogous to how geodesic works.
+
+To the far runner the hill runner is experience a force.
+This is analogous to a local time gradient causing a force on the hill.

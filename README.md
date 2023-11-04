@@ -35,7 +35,7 @@ The editing, incorporation, or deletion or the following lose .tex files into th
 - DTFT
 - Elementary Symmetric Polynomial
 - Euler
-- ~~Fourier~~ (Large and in a separate repository)
+- ~~Fourier~~ (Own PDF)
 - ~~Geometry~~
 - Goldenratio
 - GreatSword
@@ -51,7 +51,7 @@ The editing, incorporation, or deletion or the following lose .tex files into th
 - Pentagonal
 - Quintic
 - ~~Rational_Tangent~~
-- SpecialRelativity(Added the geometry component, the rest is kind of cringe)
+- ~~SpecialRelativity~~ (Added the geometry component, ~~the rest is kind of cringe~~) (Let the cringe flow)
 - ~~Unit Fraction~~
 - ~~Variance~~
 - ~~WaveEq~~
@@ -60,7 +60,7 @@ The editing, incorporation, or deletion or the following lose .tex files into th
 ## :seedling: Creating the New
 And add new notes directly too this repository, subject to change:
 
-(This list is no longer being activily added too, now just a wish list of things to look into)
+(This list is no longer being actively added too, now just a wish list of things to look into)
 - ~~Convex Cords~~
 - ~~Jensen's Inequality~~
 - ~~Isosets~~
@@ -74,6 +74,6 @@ And add new notes directly too this repository, subject to change:
 - ~~Quick Summary of Spaces~~
 - ~~XOR hash~~
 - Helmholtz decomposition (Incl. Fourier)
-- Fouier Series from Nyquist style argument. (Maybe include the last two in fourier)
+- Fourier Series from Nyquist style argument. (Maybe include the last two in Fourier)
 - Commuting Probability
 - Laplace's Rule of Succession
