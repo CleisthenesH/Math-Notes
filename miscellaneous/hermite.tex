@@ -1,0 +1,102 @@
+% Copyright 2023 Kieran W Harvie. All rights reserved.
+
+\section{Hermite Generating Functions}
+\subsection{General}
+\begin{equation*}
+\begin{aligned}
+	\sum_{n=0}^{\infty}\frac{H_n(x)}{n!}t^n =& \exp(2xt-t^2) \\
+	=&\left(\sum_{n=0}^{\infty}\frac{(2x)^n}{n!}t^n\right)\left(\sum_{n=0}^{\infty}\frac{(-1)^n}{n!}(t^2)^n\right)\\
+	=&\left(\sum_{n=0}^{\infty}\frac{(2x)^{2n}}{(2n)!}t^{2n}+2xt\sum_{n=0}^{\infty}\frac{(2x)^{2n}}{(2n+1)!}t^{2n}\right)\left(\sum_{n=0}^{\infty}\frac{(-1)^n}{n!}(t^2)^n\right)\\
+	\frac{H_{2n}(x)}{(2n)!} =& \sum_{k=0}^{n}\frac{(4x^2)^k}{(2k)!}\frac{(-1)^{n-k}}{(n-k)!} \\
+	H_{2n}(x)=& (-1)^n\sum_{k=0}^{n}(-4x^2)^k\frac{(2n)!}{(2k)!(n-k)!} \\
+	=& (-1)^n\sum_{k=0}^{n}(-4x^2)^k\frac{(2n)!}{(2k)!(2(n-k))!}\cdot2^{n-k}\prod_{l=1}^{n-k}(2l-1)\\
+	=& \sum_{k=0}^{n}x^{2k}2^{n+k}\binom{2n}{2k}\prod_{l=1}^{n-k}(1-2l)\\
+	=& \sum_{k=0}^{n}x^{2k}2^{n+k}\binom{n}{k}\prod_{l=k+1}^{n}(1-2l)\\
+%	=& (-1)^n(2n)!\sum_{k=0}^{n}\frac{(-4x^2)^k}{(2k)!(n-k)!} \\
+%	=& \frac{(-1)^n(2n)!}{n!}\sum_{k=0}^{n}(-x^2)^k\binom{n}{k}\frac{4^kk!}{(2k)!}\\
+%	=& (-1)^n\sum_{k=0}^{n}(-x^2)^k\binom{n}{k}\binom{2n}{n}\binom{2k}{k}^{-1}\frac{4^krn!}{k!}\\
+\end{aligned}
+\end{equation*}
+
+\subsection{Multidimensional}
+Let $T_0 = \sum_{i\in\mathbb{Z}\backslash n\mathbb{Z}}t_i $ and  $T_1 = T_0^2-\sum_{i\in\mathbb{Z}\backslash n\mathbb{Z}}t_i^2 = \sum_{(i,j)\in(\mathbb{Z}\backslash n\mathbb{Z})^2,i\neq j}t_it_j $
+
+\begin{equation*}
+\begin{aligned}
+	&\sum_{\sigma \in \mathbb{N}^n}\left(\prod_{i\in\mathbb{Z}\backslash n\mathbb{Z}}\frac{t_i^{\sigma_i}}{\sigma_i!}\right)\int_{-\infty}^{\infty}\exp(-x^2)\left(\prod_{i\in\mathbb{Z}\backslash n\mathbb{Z}}H_{\sigma_i}(x)\right)\,dx\\
+	=&\int_{-\infty}^{\infty}\exp(-x^2)\sum_{\sigma \in \mathbb{N}^n}\left(\prod_{i\in\mathbb{Z}\backslash n\mathbb{Z}}H_{\sigma_i}(x)\frac{t_i^{\sigma_i}}{\sigma_i!}\right)\,dx\\
+	=&\int_{-\infty}^{\infty}\exp(-x^2)\prod_{i\in\mathbb{Z}\backslash n\mathbb{Z}}\left(\sum_{\sigma \in \mathbb{N}^n}H_{\sigma_i}(x)\frac{t_i^{\sigma_i}}{\sigma_i!}\right)\,dx\\
+	=&\int_{-\infty}^{\infty}\exp(-x^2)\prod_{i\in\mathbb{Z}\backslash n\mathbb{Z}}\exp(2xt_i-t_i^2)\,dx\\
+	=&\int_{-\infty}^{\infty}\exp(-x^2)\exp\left(2x\sum_{i\in\mathbb{Z}\backslash n\mathbb{Z}}t_i-\sum_{i\in\mathbb{Z}\backslash n\mathbb{Z}}t_i^2\right)\,dx\\
+	=&\int_{-\infty}^{\infty}\exp\left(-x^2+2xT_0-T_0^2+T_1\right)\,dx\\
+	=&\exp(T_1)\int_{-\infty}^{\infty}\exp(-(x-T_0)^2)\,dx\\
+	=&\exp(T_1)\sqrt{\pi}\\
+\end{aligned}
+\end{equation*}
+
+For $n\geq 4$ we have 
+\[t_0t_1t_2t_3=(t_0t_1)(t_2t_3)=(t_0t_2)(t_1t_3)\]
+But for $n = 3$ we have a unique way to get each term in the generating function from the final product as any two pairs share an element.
+On the condition that $s \geq t_n$ and is an integer, this uniqueness is given by:
+
+\begin{equation*}
+\begin{aligned}
+	t_0^{p_0}t_1^{p_1}t_2^{p_2} =& (t_0t_1)^{\frac{p_0+p_1-p_2}{2}}(t_0t_2)^{\frac{p_0+p_2-p_1}{2}}(t_1t_2)^{\frac{p_1+p_2-p_0}{2}}\\
+	=&(t_0t_1)^{s-p_2}(t_0t_2)^{s-p_1}(t_1t_2)^{s-p_0}\\
+\end{aligned}
+\end{equation*}
+Where $s = \frac{1}{2}(t_0+t_1+t_2)$
+
+Using this result for $n=3$ and reading of the terms of the generating function gives:
+\begin{equation*}
+\begin{aligned}
+	\int_{-\infty}^{\infty}H_{t_0}(x)H_{t_1}(x)H_{t_2}(x)\exp(-x^2)\,dx=&\frac{\sqrt{\pi}2^st_0!t_1!t_2!}{(s-t_0)!(s-t_1)!(s-t_2)!}\\
+	\int_{-\infty}^{\infty}H_{t_0}(x)H_{t_1}(x)\exp(-x^2)\,dx=&\delta_{t_0,t_1}\sqrt{\pi}2^{t_0}t_0!\\
+\end{aligned}
+\end{equation*}
+
+\newpage
+For a cool application: $H_n^2(x) = \sum_{k\in\mathbb{N}}c_kH_k(x)$:
+\begin{equation*}
+\begin{aligned}
+	c_k=&\frac{2^{-k}}{\sqrt{\pi}k!}\sum_{l\in\mathbb{N}}2^k\sqrt{\pi}k!\delta_{k,l}c_l\\
+	=&\frac{2^{-k}}{\sqrt{\pi}k!}\sum_{l\in\mathbb{N}}\int_{-\infty}^{\infty}H_k(x)H_l(x)c_l\exp(x)\,dx\\
+	=&\frac{2^{-k}}{\sqrt{\pi}k!}\int_{-\infty}^{\infty}H_k(x)H_n^2(x)\exp(x)\,dx\\
+	=&\frac{2^{-k}}{\sqrt{\pi}k!}\frac{\sqrt{\pi}2^{n+k/2}n!^2k!}{(k/2)!^2(n-k/2)!}\\
+	c_{2k}=&\frac{2^{n-k}n!^2}{k!^2(n-k)!}\\
+	H_n^2(x)=&2^nn!\sum_{k=0}^{n}\binom{n}{k}\frac{H_{2k}(x)}{k!2^k}
+\end{aligned}
+\end{equation*}
+
+\newpage
+Let:
+\[I(n.m) = \int_{\mathbb{R}}x^mH_n(x)\exp(-x^2)\,dx\]
+A general relation:
+\begin{equation*}
+\begin{aligned}
+	&\int_{\mathbb{R}}x^mH_n(x)\exp(-x^2)\,dx\\
+	=&\frac{1}{2(n+1)}\int_{\mathbb{R}}x^mH_{n+1}^{(1)}(x)\exp(-x^2)\,dx\\
+	=&\frac{1}{2(n+1)}\left(\left[H_{n+1}(x)x^m\exp(-x^2)\right]^{\infty}_{-\infty}-\int_{\mathbb{R}}H_{n+1}(x)(mx^{m-1}-2x^{m+1})\exp(-x^2)\,dx\right)\\
+	I(n,m)=&\frac{1}{2(n+1)}\left(2I(n+1,m+1)-I(n+1,m-1)\right)\\
+\end{aligned}
+\end{equation*}
+
+\begin{equation*}
+\begin{aligned}
+	&\sum_{(n,m)\in\mathbb{N}^2}\frac{(2i\tau)^m}{m!}\frac{t^n}{n!}\int_{\mathbb{R}}x^mH_n(x)\exp(-x^2)\,dx\\
+	=&\int_{\mathbb{R}}\exp(2ix\tau)\exp(2xt-t^2)\exp(-x^2)\,dx\\
+	=&\exp(2t\tau-\tau^2)\int_{\mathbb{R}}\exp(-(x-t-i\tau)^2)\,dx\\
+	=&\sqrt{\pi}\exp(2t\tau-\tau^2)\\
+	H_m(t)=&(2i)^m\sum_{n\in\mathbb{N}}\frac{t^n}{n!}\int_{\mathbb{R}}x^mH_n(x)\exp(-x^2)\,dx
+\end{aligned}
+\end{equation*}
+
+\newpage
+\begin{equation*}
+\begin{aligned}
+	\sum_{n=0}^{\infty}\frac{H_n(x)}{n!}t^n =& \exp(2xt-t^2) \\
+	\sum_{n=0}^{\infty}H_n(x)t^n =&\int_{0}^{\infty} \exp(2xt\tau-t^2\tau^2)\,d\tau \\
+	=&\frac{\exp(-x^2)}{2}\sqrt{\frac{\pi}{t}}\\
+\end{aligned}
+\end{equation*}
+
