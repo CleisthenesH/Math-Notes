@@ -40,10 +40,10 @@ The editing, incorporation, or deletion or the following lose .tex files into th
 - Goldenratio
 - GreatSword
 - ~~GroupTheoryIntegral~~
-- Harmonic
-- Hermite
+- ~~Harmonic~~ (Insubstantial)
+- ~~Hermite~~
 - Lattice
-- Logistic
+- ~~Logistic~~ (Insubstantial)
 - ~~MTG~~ (Not Math)
 - NewtonGenerator
 - NewtonSqrt
