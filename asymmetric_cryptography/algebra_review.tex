@@ -77,7 +77,84 @@ The general $m$ case is outside the scope of this document,
 but can be found in most undergrad algebra textbooks.
 The $m = 1$ case is pretty tractable:
 
-\subsubsection{The $m = 1$ case:}
+\subsubsection{Sketch of the $m = 1$ case:}
+The goal is to prove that:
+\[(\mathbb{Z}/p\mathbb{Z})^\times\]
+Is cyclic, the structure of this proof is the following:
+\begin{enumerate}
+	\item Prove there is some $d\in(\mathbb{Z}/p\mathbb{Z})^\times$ such that $g\in(\mathbb{Z}/p\mathbb{Z})^\times \Rightarrow g^{\ord(d)}=1$.
+	\item Hence, the polynomial $f(x)=x^d-1$ has $|(\mathbb{Z}/p\mathbb{Z})^\times)|$ distinct roots.
+	\item Hence, $\ord(d)=|(\mathbb{Z}/p\mathbb{Z})^\times|$.
+	\item Hence, $(\mathbb{Z}/p\mathbb{Z})^\times$ is cyclic with generator $g$.
+\end{enumerate}
+It takes a few steps to prove such a $d$ exists,
+an important result to help us is that:
+\[\ord(g^n) = \frac{\ord(g)}{\gcd(\ord(g),n)}\]
+This result is pretty common in algebra textbooks, 
+but a sketch of the proof is that by the minimality of $\ord(g)$ and $\ord(g^n)$ the relation:
+\[(g^{n})^{\ord(g^n)} = g^{n\ord(g^n)}=1\] 
+Means every factor of $\ord(g)$ not in $n$ has to come from $\ord(g^n)$.
+\\
+There is three corollaries from this result:
+
+\subsubsection{Inverse Corollary:}
+From the $n=-1$ case we have:
+\[\ord(g^{-1})=\ord(g)\]
+
+\subsubsection{Relatively Prime Corollary:}
+Let $x,y\in(\mathbb{Z}/p\mathbb{Z})^\times$ with $\ord(x)$ and $\ord(y)$ being relatively prime,
+then:
+\[\ord(xy) = \ord(x)\ord(y)\]
+Let $(xy)^n=1$, since $(\mathbb{Z}/p\mathbb{Z})^\times$ is Abelian we have:
+\[x^ny^n = (xy)^n=1\]
+From the previous corollary we have:
+\[\ord(x^n) = \ord(y^n)\]
+Giving:
+\[\frac{\ord(x)}{\gcd(\ord(x),n)}=\frac{\ord(y)}{\gcd(\ord(y),n)}\]
+The LHS is a factor of $\ord(x)$ and likewise for the RHS and $\ord(y)$.
+Since they are relatively prime they can be equal only when they are both $1$,
+meaning:
+\[\ord(x) = \gcd(\ord(x),n),\quad\ord(y)=\gcd(\ord(y),n)\]
+Hence $n$ is a multiple of both $\ord(x)$ and $\ord(y)$.
+Since $\ord(x)$ and $\ord(y)$ are relatively prime the smallest such $n$ is:
+\[n=\ord(x)\ord(y)\quad\square\]
+
+\subsubsection{Lowest Common Denominator Corollary:}
+Now let $x,y\in(\mathbb{Z}/p\mathbb{Z})^\times$ and let:
+\[g=\gcd(\ord(x),\ord(y))\]
+Then:
+\[\ord(x^gy) = \lcm(\ord(x),\ord(y))\]
+\\
+This follows from $\ord(x^g)$ and $\ord(y)$ being relatively prime as:
+\begin{equation*}
+\begin{aligned}
+	\ord(x^g)=&\frac{\ord(x)}{\gcd(\ord(x),g)}\\
+	=&\frac{\ord(x)}{g}\\
+\end{aligned}
+\end{equation*}
+Means $\ord(x^g)$ is $\ord(x)$ with all its common factors with $\ord(y)$ removed.
+\\
+\\
+Hence we can use the previous corollary to get:
+\begin{equation*}
+\begin{aligned}
+	\ord(x^gy)=&\ord(x^g)\ord(y)\\
+	=&\frac{\ord(x)\ord(y)}{g}\\
+	=&\lcm(\ord(x),\ord(y)) \quad \square\\
+\end{aligned}
+\end{equation*}
+
+\subsubsection{Proving $d$ exists:}
+From the preceding corollary for any $x,y\in(\mathbb{Z}/p\mathbb{Z})^\times$ there exits $z\in(\mathbb{Z}/p\mathbb{Z})^\times$ such that:
+\[\ord(z) = \lcm(\ord(x),\ord(y))\]
+Now $\lcm(\ord(x),\ord(y))$ is by definition a multiple of $\ord(x)$ and $\ord(y)$ hence:
+\[z^{\ord(z)}=x^{\ord(z)}=y^{\ord(z)}=1\]
+Hence a there exists $d\in(\mathbb{Z}/p\mathbb{Z})^\times$ such that:
+\[g\in(\mathbb{Z}/p\mathbb{Z})^\times \Rightarrow g^{\ord(d)}=1\]
+Since we can take two elements $x$ and $y$ and calculate $z=x^{\gcd(\ord(x),\ord(y))}y$,
+then we take another element $w$ and calculate $z^{\gcd(\ord(z),\ord(x))}x^{\gcd(\ord(x),\ord(y))}y$.
+We continue until all elements of $(\mathbb{Z}/p\mathbb{Z})^\times$ are included,
+the end result of this process is $d$.
 
 \subsubsection{Cyclic Corollary:}
 \label{appx:cycle-multiplicative-group}
@@ -90,7 +167,7 @@ This is because the product of cyclic groups is cyclic if and only if all but on
 
 \subsubsection{Example $(\mathbb{Z}/9\mathbb{Z})^\times$ table:}
 Let $g\in(\mathbb{Z}/9\mathbb{Z})^\times$,
-bellow is a table of important properties:
+bellow is a table of important properties that is useful as an example:
 
 \begin{center}
 \begin{tabular}{|c|}
