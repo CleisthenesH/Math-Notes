@@ -1,0 +1,224 @@
+% Copyright 2023 Kieran W Harvie. All rights reserved.
+
+\section{Orthogonal Group}
+The orthogonal group $O(n)$ has two equivalent definitions:
+\begin{quote}
+	The group of endomorphisms of the vector space $\mathbb{R}^n$, under compositions, such that the endomorphisms:
+
+	\quad $\circ$\,Preserve the Euclidean Norm.
+	
+	{\centering Or}
+
+	\quad$\circ$\,Takes orthonormal bases to orthonormal bases.
+\end{quote}
+To prove equivalence we will identify endomorphisms with matrices,
+taking cation that for the second definition the matrix base $b_k$ will need to be orthonormal:
+
+Preserving the Euclidean Norm:
+\[\|Mv\| = \|v\|\]
+
+Orthonormal bases to orthonormal bases:
+\[MM^T=M^TM=I\]
+
+\subsubsection{Preserving the Euclidean Norm $\Rightarrow$ Orthonormal bases to Orthonormal bases:}
+The inner product can be written in terms of the Norm:
+\[\langle u,v\rangle = \frac{\|u+v\|-\|v\|-\|u\|}{2\sqrt{\|u\|\|v\|}}\]
+Hence:
+\begin{equation*}
+\begin{aligned}
+\langle Mb_i,Mb_j\rangle =&\frac{\|Mb_i+Mb_j\|-\|Mb_j\|-\|Mb_i\|}{2\sqrt{\|Mb_i\|\|Mb_j\|}}\\
+ =&\frac{\|b_i+b_j\|-\|b_j\|-\|b_i\|}{2\sqrt{\|b_i\|\|b_j\|}}\\
+ =&\langle b_i,b_j\rangle\\
+\end{aligned}
+\end{equation*}
+As required.
+
+\subsubsection{Orthonormal bases to Orthonormal bases $\Rightarrow$ Preserving the Euclidean Norm:}
+This follows directly from Parseval's identity:
+\begin{equation*}
+\begin{aligned}
+\|Mv\| =& \left\|a_k\sum_kMb_k\right\| \\
+=& \sum_k|a_k|^2\\
+=& \|v\|\\
+\end{aligned}
+\end{equation*}
+
+\subsection{Parameterization of $O(2)$}
+The elements of $O(2)$ are pretty easy to parameterize: 
+
+\subsubsection{Matrix Parametrization:}
+We need to find a parametrization for the following elements:
+\[
+\begin{bmatrix}
+	m_{1,1}&m_{1,2} \\
+	m_{2,1}&m_{2,2} \\
+\end{bmatrix}
+\]
+Start by multiplying the standard basis: 
+\[
+\begin{bmatrix}
+	m_{1,1}&m_{1,2} \\
+	m_{2,1}&m_{2,2} \\
+\end{bmatrix}
+\begin{bmatrix}
+	1\\0\\
+\end{bmatrix}
+=
+\begin{bmatrix}
+	m_{1,1} \\ m_{2,1}\\
+\end{bmatrix}
+\quad
+\begin{bmatrix}
+	m_{1,1}&m_{1,2} \\
+	m_{2,1}&m_{2,2} \\
+\end{bmatrix}
+\begin{bmatrix}
+	0\\1\\
+\end{bmatrix}
+=
+\begin{bmatrix}
+	m_{1,2} \\ m_{2,2}\\
+\end{bmatrix}
+\]
+Since orthonormal bases are sent to orthonormal bases the following set is an orthonormal basis:
+\[
+\left\{
+\begin{bmatrix}
+	m_{1,2} \\ m_{2,1}\\
+\end{bmatrix}
+,
+\begin{bmatrix}
+	m_{1,2} \\ m_{2,2}\\
+\end{bmatrix}
+\right\}
+\]
+Hence the norm of the first element is $1$, meaning:
+\[m_{1,1}^2+m_{2,1}^2=1\]
+Hence the first column is given by, for some $\theta$:
+\[m_{1,1} = \cos(\theta)\,,\quad m_{2,1} = \sin(\theta)\]
+\\
+The second column needs to be perpendicular to the first.
+The perpendicular space to $(\cos(\theta),\sin(\theta))$ has dimension $2-1 = 1$ and is given by:
+\[
+t
+\begin{bmatrix}
+	-\sin(\theta) \\ \cos(\theta)\\
+\end{bmatrix}
+\]
+However the second column needs to be normalized:
+\[
+\left\|
+t
+\begin{bmatrix}
+	-\sin(\theta) \\ \cos(\theta)\\
+\end{bmatrix}
+\right\|
+= t^2
+\]
+Hence the second column is one of:
+\[
+\begin{bmatrix}
+	\mp\sin(\theta) \\ \pm\cos(\theta)\\
+\end{bmatrix}
+\]
+
+\subsubsection{Geometric Parametrization:}
+Let $A$ and $B$ be the end points orthogonal unit vectors with shared origin $O$.
+Let $A'$ and $B'$ be the transforms of $A$ and $B$ respectfully.
+Given $A'$ where can the $B'$ be located?
+\begin{center}
+\begin{tikzpicture}[every node/.style={black}]
+	\coordinate (O) at (0,0);
+	\coordinate (A) at (3,0);
+	\coordinate (B) at (0,3);
+	\coordinate (A') at (-2.4,1.8);
+
+	\begin{scope}[-stealth]
+		\draw (O) node[below]{$O$}-- (A) node[right] {$A$};
+		\draw (O) -- (B) node[above] {$B$};
+		\draw (O) -- (A') node[left] {$A'$};
+	\end{scope}
+
+	\pic[draw] {right angle = A--O--B};
+\end{tikzpicture}
+\end{center}
+From normality all of $A,B,A'$ and $B'$ are on the same circle centered at $O$.
+From orthogonality $B'$ is located on the intersection of this circle with the perpendicular line to $A'O$ at $O$ (Here labeled $P$ and $Q$):
+\begin{center}
+\begin{tikzpicture}[every node/.style={black}]
+	\coordinate (P) at (1.8,2.4);
+	\coordinate (Q) at (-1.8,-2.4);
+
+	\draw[dashed,gray] (O) circle (3);
+
+	\begin{scope}[-stealth]
+		\draw (O) node[below]{$O$}-- (A) node[right] {$A$};
+		\draw (O) -- (A') node[left] {$A'$};
+	\end{scope}
+
+	\draw (3.6,4.8) -- (-3.6,-4.8);
+	\filldraw (Q) node[left] {$Q$} circle (2pt);
+	\filldraw (P) node[right] {$P$} circle (2pt);
+	\pic[draw] {right angle = A'--O--P};
+\end{tikzpicture}
+\end{center}
+These operations have easy interpretations as rotation and reflection.
+This can easily be seen by angle counting and introducing an angular bisector of $\angle AOA'$:
+\begin{center}
+\begin{tikzpicture}[every node/.style={black}]
+	\draw[dashed,gray] (O) circle (3);
+
+	\begin{scope}[-stealth]
+		\draw (O) node[below]{$O$}-- (A) node[right] {$A$};
+		\draw (O) -- (A') node[left] {$A'$};
+		\draw (O) -- (B) node[above] {$B$};
+		\draw (O) -- (Q) node[left] {$B'$};
+	\end{scope}
+
+	\pic[draw=red, ->] {angle = A--O--A'};
+	\pic[draw] {right angle = A--O--B};
+	\pic[draw] {right angle = A'--O--Q};
+\end{tikzpicture}
+\begin{tikzpicture}[every node/.style={black}]
+	\draw[dashed,gray] (O) circle (3);
+
+	\begin{scope}[-stealth]
+		\draw (O) node[below]{$O$}-- (A) node[right] {$A$};
+		\draw (O) -- (A') node[left] {$A'$};
+		\draw (O) -- (B) node[above] {$B$};
+		\draw (O) -- (P) node[right] {$B'$};
+	\end{scope}
+
+	\draw[red] (-0.9,-3) -- (0.9,3);
+\end{tikzpicture}
+\end{center}
+
+\subsection{Group Order:}
+This result is the main reasion I was thinking about the Orthogonal group.
+\\
+
+Let:
+\[
+R_\theta=\begin{bmatrix}
+	\cos(\theta) & -\sin(\theta) \\
+	\sin(\theta) & \cos(\theta) \\
+\end{bmatrix}
+\, ,\quad
+M_\theta=\begin{bmatrix}
+	\cos(\theta) & \sin(\theta) \\
+	\sin(\theta) & -\cos(\theta) \\
+\end{bmatrix}
+\]
+Through angle sum formulae we can derive:
+\[R_\theta R_\phi = R_{\theta+\phi}\,,\quad M_\theta M_\phi = R_{\theta -\phi}\]
+As a corollary we have:
+\[M_\theta^2 = I\]
+And 
+\[R_\theta^n = I \text{ if and only if } \frac{n\theta}{2\pi}\in\mathbb{Z}\]
+
+Hence, despite $M_{0}$ and $M_{\sqrt{2}\pi}$ having finite order $2$ their product:
+\[M_{\sqrt{2}\pi}M_0 = R_{\sqrt{2}\pi}\]
+Doesn't have a finite order, since the angle is irrational.
+\\
+
+This result can also be proved geometrically by considering a vector collinear with the mirror and that two reflections is a rotation (through considering order).
