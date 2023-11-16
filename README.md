@@ -77,3 +77,4 @@ And add new notes directly too this repository, subject to change:
 - Fourier Series from Nyquist style argument. (Maybe include the last two in Fourier)
 - Commuting Probability
 - Laplace's Rule of Succession
+- Mordell-Tornheim Sums

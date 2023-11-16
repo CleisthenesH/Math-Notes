@@ -183,7 +183,7 @@ This can easily be seen by angle counting and introducing an angular bisector of
 	\draw[dashed,gray] (O) circle (3);
 
 	\begin{scope}[-stealth]
-		\draw (O) node[below]{$O$}-- (A) node[right] {$A$};
+		\draw (O) node[below right]{$O$}-- (A) node[right] {$A$};
 		\draw (O) -- (A') node[left] {$A'$};
 		\draw (O) -- (B) node[above] {$B$};
 		\draw (O) -- (P) node[right] {$B'$};
@@ -194,7 +194,7 @@ This can easily be seen by angle counting and introducing an angular bisector of
 \end{center}
 
 \subsection{Group Order:}
-This result is the main reasion I was thinking about the Orthogonal group.
+This result is the main reason I was thinking about the Orthogonal group.
 \\
 
 Let:
@@ -221,4 +221,30 @@ Hence, despite $M_{0}$ and $M_{\sqrt{2}\pi}$ having finite order $2$ their produ
 Doesn't have a finite order, since the angle is irrational.
 \\
 
-This result can also be proved geometrically by considering a vector collinear with the mirror and that two reflections is a rotation (through considering order).
+\subsubsection{Geometry Argument:}
+A corollary of the geometric parameterization is that all endomorphisms that preserve orientation are rotations and all the invert are reflections.
+It follows that the composition of two reflections is a rotation.
+
+An arbitrary unit vector $\vec{OA}$ is unaffected by a reflection $R_1$ with an axis of symmetry on $OA$.
+Now consider the unit vector $\vec{OA'}$ which is $\vec{OA}$ rotated by $\sqrt{2}\pi$.
+A reflection $R_2$ with an axis of symmetry that is angular bisector of $\angle AOA'$ sends $\vec{OA}$ to $\vec{OA'}$.
+
+$R_2R_1$ is an orientation preserving endomorphism that sends $A$ to $A'$ and hence is a rotation by $\sqrt{2}\pi$.
+By the irrationally of $\sqrt{2}$,
+$R_2R_1$ doesn't have a finite order, despite $R_1$ and $R_2$ being reflections and hence having order $2$.
+\begin{center}
+\begin{tikzpicture}[every node/.style={black}]
+	\draw[dashed,gray] (O) circle (3);
+	\coordinate (A') at (-0.798766026,-2.891707599);
+
+	\draw[red] (-3.1,0) node[left]{$R_1$} -- (3.1,00);
+	\draw[red] (-1.877669588,2.466648925) node[left]{$R_2$}-- (1.877669588,-2.466648925);
+
+	\begin{scope}[-stealth]
+		\draw (O) -- (A) node[right] {$A$};
+		\draw (O) -- (A') node[below left] {$A'$};
+	\end{scope}
+	\pic[draw, -stealth] {angle = A--O--A'};
+
+\end{tikzpicture}
+\end{center}
