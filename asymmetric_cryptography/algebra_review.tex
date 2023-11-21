@@ -83,8 +83,8 @@ The goal is to prove that:
 Is cyclic, the structure of this proof is the following:
 \begin{enumerate}
 	\item Prove there is some $d\in(\mathbb{Z}/p\mathbb{Z})^\times$ such that $g\in(\mathbb{Z}/p\mathbb{Z})^\times \Rightarrow g^{\ord(d)}=1$.
-	\item Hence, the polynomial $f(x)=x^d-1$ has $|(\mathbb{Z}/p\mathbb{Z})^\times)|$ distinct roots.
-	\item Hence, $\ord(d)=|(\mathbb{Z}/p\mathbb{Z})^\times|$.
+	\item Hence, the polynomial $f(x)=x^{\ord(d)}-1$ has $|(\mathbb{Z}/p\mathbb{Z})^\times)|$ distinct roots.
+	\item Hence, $\ord(d)=|(\mathbb{Z}/p\mathbb{Z})^\times|$.\footnote{This only works because $\mathbb{Z}/p\mathbb{Z}$ is a field.}
 	\item Hence, $(\mathbb{Z}/p\mathbb{Z})^\times$ is cyclic with generator $g$.
 \end{enumerate}
 It takes a few steps to prove such a $d$ exists,

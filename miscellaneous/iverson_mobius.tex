@@ -1,0 +1,60 @@
+% Copyright 2023 Kieran W Harvie. All rights reserved.
+
+\section{Iverson Bracket and Möbius Function}
+I saw a pretty cool manipulation the other day.
+Let $f$ be a function such that:
+\[f(da,db) = g(d)h(a,b)\]
+Then we can "factor out" a relative prime condition in a cool way:
+\[\sum_{\substack{a,b > 0\\ \gcd(a,b) = 1}}f(a,b) = \left(\sum_{d>0}\mu(d)g(d)\right)\left(\sum_{a,b>0}h(a,b)\right)\]
+Where $\mu$ is the Möbius function.
+I won't be going into it here,
+just know there are a lot of known sums that make the first term of the RHS tractable:
+\\
+
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline
+	$g(n)$&$n^{-s}$&$n^{-1}$&$\ln(n)n^{-1}$&$\ln(n)^2n^{-1}$&$q^n(1-q^n)^{-1}$&$\mu(n)n^{-s}$\\
+	\hline
+	$\sum_{n>0}\mu(n)g(n)$&$\zeta(n)^{-1}$&$0$&$1$&$-2\gamma$&$q$&$\zeta(s)\zeta(2s)^{-1}$\\
+	\hline
+\end{tabular}
+\\
+
+To prove this consider the well known result:
+\[\sum_{d|n}\mu(d) = \begin{cases} 1&n=1\\ 0&\text{else} \end{cases}\]
+And the Iverson bracket,
+notation I normally think is ugly but is cool here,
+where for a true or false proposition $P$ we define:
+\[[P] = \begin{cases} 1 & P \text{ is true} \\ 0 & P \text{ is false} \end{cases}\]
+(Basically an indicator function, or like typecasting from programing).
+We have:
+\begin{equation*}
+\begin{aligned}
+[\gcd(a,b)=1] =&
+\sum_{d|\gcd(a,b)}\mu(d)\\
+=&\sum_{d>0}[d|\gcd(a,b)]\mu(d)\\
+=&\sum_{d>0}[d|a \cap d|b]\mu(d)\\
+=&\sum_{d>0}[d|a][ d|b]\mu(d)\\
+\end{aligned}
+\end{equation*}
+
+Hence:
+\begin{equation*}
+\begin{aligned}
+\sum_{\substack{a,b > 0\\ \gcd(a,b) = 1}}f(a,b) =& \sum_{a,b>0}[\gcd(a,b)=1]f(a,b)\\
+=&\sum_{a,b>0}\left(\sum_{d>0}[d|a][d|b]\mu(d)\right)f(a,b) \\
+=&\sum_{d>0}\mu(d)\sum_{a,b>0}[d|a][d|b]f(a,b) \\
+=&\sum_{d>0}\mu(d)\sum_{a,b>0}f(da,db) \\
+=&\sum_{d>0}\mu(d)\sum_{a,b>0}g(d)h(a,b) \\
+=& \left(\sum_{d>0}\mu(d)g(d)\right)\left(\sum_{a,b>0}h(a,b)\right)\\
+\end{aligned}
+\end{equation*}
+
+\subsubsection{Tornheim Sums}
+Define the, second depth, Tornheim sum as:
+\[T(a,b,c) = \sum_{n,m>0}\frac{1}{n^am^b(n+m)^b}\]
+They're sums I have some exposure to already,
+and wish to have more,
+but using the above methods we obtain:
+\[\sum_{\substack{n,m>0\\\gcd(n,m)=1}}\frac{1}{n^am^b(n+m)^b} = T(a,b,c)\sum_{d>0}d^{-(a+b+c)}\mu(d) = \frac{T(a,b,c)}{\zeta(a+b+c)}\]
+Which is cool.
