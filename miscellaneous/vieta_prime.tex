@@ -1,0 +1,23 @@
+% Copyright 2023 Kieran W Harvie. All rights reserved.
+
+\section{Vieta's Formula Applied to Prime Fields}
+For a prime number $p$ we have the well known formula:
+\[x^p-x \equiv \prod_{k=0}^{p-1}(x-k)\,\mod p\]
+(Look up Frobenius Endomorphism for more info).
+
+Vieta's formulas link the elementary symmetric functions of a polynomials roots to it's polynomials.
+There are two nonzero coefficients the $p$-th degree doesn't tell anything and the $1$ is one-half of Wilson's Theorem:
+\[(p-1)! \equiv -1\,\mod p\]
+
+The other coefficients are zero hence the other elementary symmetric functions of $0$ to $p-1$ are divisible by $p$.
+(Since terms with $0$ vanish $1$ to $p-1$ can be used).
+
+\subsubsection{Example $p=5$:}
+\begin{equation*}
+\begin{aligned}
+	&1\cdot2\cdot3\cdot 4 &=& 24 =&&5\cdot5-1\\
+	&1\cdot2\cdot3 + 1\cdot2\cdot4+1\cdot3\cdot4+2\cdot3\cdot4&=& 50 =&& 5\cdot 10\\
+	&1\cdot2+1\cdot3+1\cdot4+2\cdot3+2\cdot4+3\cdot4 &=& 35 =&&5\cdot 7\\
+	&1+2+3+4 &=& 10 =&&5\cdot 2\\
+\end{aligned}
+\end{equation*}
