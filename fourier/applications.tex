@@ -573,3 +573,19 @@ Which will produce a Dirichlet generating function, and outputs something like a
 
 Also using Hermite functions as a basis might also be interesting.
 
+\subsection{Discrete Fourier Transform Generating Function}
+Let $A_k$ be a sequence of $n$ numbers and let:
+\[\omega = \exp\left(-\frac{2\pi i }{n}\right)\]
+Then the discrete Fourier transform of $A_k$ is given by:
+\[\widehat{A_l} = \sum_{k=0}^{n-1}A_k\omega^{kl}\]
+The geometric progression formula gives us:
+\[\sum_{k=0}^{n-1}\omega^{lk}x^k = \frac{1-\omega^{nl}x^n}{1-\omega^l x}=\frac{1-x^n}{1-\omega^l x}\]
+Hence:
+\begin{equation*}
+\begin{aligned}
+	\sum_{k=0}^{n-1}\frac{A_k}{1-\omega^k x} =&\frac{1}{1-x^n}\sum_{k=0}^{n-1}A_k\sum_{l=0}^{n-1}\omega^{kl}x^l \\
+	=&\frac{1}{1-x^n}\sum_{l=0}^{n-1}x^l\sum_{k=0}^{n-1}A_k\omega^{kl} \\
+	=&\frac{1}{1-x^n}\sum_{l=0}^{n-1}x^l\widehat{A_l} \\
+\end{aligned}
+\end{equation*}
+
