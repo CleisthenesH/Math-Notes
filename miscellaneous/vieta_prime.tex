@@ -21,3 +21,46 @@ The other coefficients are zero hence the other elementary symmetric functions o
 	&1+2+3+4 &=& 10 =&&5\cdot 2\\
 \end{aligned}
 \end{equation*}
+
+\subsection{Commutative Rings}
+Let $R$ be a commutative ring and let $x_0$ and $x_1$ be distinct elements of $R$.
+Let $f$ be an element of $R[X]$ such that $f(x_0)=f(x_1) = 0$ then:
+\[f(x) = (x-x_0)(x-x_1)q(x)+(x-x_0)r\]
+For some $r\in R$ and $q \in R[X]$.
+\\
+
+\subsubsection{Proof:}
+It is a corollary of Euclidean division of polynomials with monic polynomials that for a given $p\in R[X]$ and $x'\in R$ there exists a $p' \in R[X]$ such that:
+\[p(x) = (x-x')p'(x)+p(x')\]
+Applying this to $f$ and $x_0$ we get:
+\[f(x) = (x-x_0)f'(x) + f(x_0) = (x-x_0)f(x)\]
+And applying this to $f'$ and $x_1$ we get:
+\[f(x) = (x-x_0)((x-x_1)f''(x)+f'(x_1))\]
+Setting $q=f''$ and $r=f'(x_1)$ completes the proof
+
+\subsubsection{Corollary:}
+If $R$ is a domain, 
+has no zero dividers,
+then $r=0$ since $x_1-x_0\neq 0$ and:
+\[0 = f(x_1) = (x_1-x_0)r\]
+This is why the result main result works since $\mathbb{Z}/p\mathbb{Z}$ is a field,
+and hence domain,
+and why it may not work in general as:
+\[2\cdot 3 \equiv 0 \mod 6\]
+
+\subsection{Composite Numbers}
+For general $n$ and relative prime $x$ we have:
+\[x^{\lambda(n)}\equiv 1 \mod n\]
+Which looks similar but we already see problems.
+There are $\phi(n)$ totients to $n$ but $\lambda(n)$ can be less than $\phi(n)$ meaning a $\lambda(n)$ degree polynomial with $\phi(n)$ distinct roots has more roots than it's degree.
+For example:
+\[\lambda(8) = 2 < 4 = \phi(8)\]
+So all of $\{1,3,5,7\}$ are roots of:
+\[x^2-1 \mod 8\]
+
+\subsubsection{Notes}
+Considering the case $n=15$ since it's the lowest number with $2<\lambda(n)<\phi(n)$ as $\lambda(15) = 4$ and $\phi(15) = 8$.
+
+\[x^4-1 = (x-1)(x-2)(x^2+3x+7)\]
+\[x^4-1 = (x-1)(x-14)(x^2+1)\]
+\[x^4-1 = (x-1)(x-8)(x^2+9x+13)\]
