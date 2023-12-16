@@ -1,0 +1,73 @@
+% Copyright 2023 Kieran W Harvie. All rights reserved.
+
+\section{Finite Field Endomorphism}
+Let $F_n$ be and finite field and let $f$ be an endomorphism,
+then $f$ can be written as a polynomial of degree $n-1$ or less.
+\\
+
+Construct an indicator function in the normal way:
+\[\chi_y(x) = \prod_{z\in F_n/\{y\}}\frac{x-z}{y-z}\]
+Observe that this is a $n-1$ degree polynomial.
+Now use the indicator function in the normal way:
+\[f(x) = \sum_{y\in F_n}\chi_y(x)f(y)\]
+
+\subsection{Low Hanging Fruit}
+\[f(x) = yx\]
+For non-zero $y$,
+this is a permutation of $F_n$ that only fixes $0$.
+\[f(x) = x+y\]
+Is a permutation that doesn't fix anything.
+Combining the two gives:
+\[f(x) = y(x-x_0)+x_0\]
+A permutation that only fixes $x_0$.
+
+\subsection{Elementary Symmetric Function}
+Let $e_n(S)$ be the $n$th elementary symmetric function of the set $S$ with element $y$.
+\[e_0(S) = 0\]
+\[e_n(S/\{y\})=e_n(S)-ye_{n-1}(S/\{y\})\]
+\[e_n(S/\{y\})=\sum_{k=0}^ne_k(S)(-y)^{n-k}\]
+Now recall:
+\[x^{n}-x = \prod_{y\in F_n}(x-y)\]
+Which gives the classic:
+\[e_m(F_n) = \begin{cases} 1 & m = 0\text{ or } m = n-1\\ 0 & \text{ else}\\\end{cases}\]
+\\
+
+The first simplification we can make is to notice that:
+\begin{equation*}
+\begin{aligned}
+\prod_{z\in F_n/\{y\}}\frac{1}{y-z} =& \frac{1}{e_{n-1}(F_n/\{0\})}\\
+=& \frac{1}{e_{n-1}(F_n)-0e_{n-2}(F_n/\{0\})}\\
+=&1\\
+\end{aligned}
+\end{equation*}
+Hence:
+\[\chi_y(x) = \prod_{z\in F_n/\{y\}}(x-z)\]
+Going further:
+\begin{equation*}
+\begin{aligned}
+e_m(F_n/\{y\})=&\sum_{k=0}^me_k(F_n)(-y)^{m-k}\\
+=&(-y)^m+[m\geq n-1](-y)^{m-(n-1)}\\
+\end{aligned}
+\end{equation*}
+
+\begin{equation*}
+\begin{aligned}
+\chi_y(x) =& \prod_{z\in F_n/\{y\}}(x-z)\\
+=&\sum_{k=0}^{n-1}x^k(-1)^{n-k-1}e_{n-k-1}(F_n/\{y\})\\
+=&\sum_{k=0}^{n-1}x^k(-1)^{n-k-1}(-y)^{n-k-1}+(-1)^{n-1}\\
+=&\sum_{k=0}^{n-1}x^ky^{n-k-1}+(-1)^{n-1}\\
+\end{aligned}
+\end{equation*}
+Which I guess makes a lot of sense when looked at like a geometric progression with
+Frobenius to the numerator.
+But that this more formal argument is cool.
+
+\subsection{Second Attempt}
+The last attempt with elementary polynomials had errors and was generally sloppy,
+but it's enough to work backwards from:
+\[\chi_y(x) = \frac{1}{n-1}\sum_{k=0}^{n-2}x^ky^{n-1-k}+y^{n-1}\frac{x^{n-1}-1}{n-1}+(1-x^{n-1})(1-y^{n-1})\]
+When $y=0$ we have:
+\[\chi_y(x) = 1-x^{n-1}\]
+When $y\neq 0$ we have:
+\[\chi_y(x) = \frac{1}{n-1}\sum_{k=0}^{n-2}(xy^{-1})^k+\frac{x^{n-1}-1}{n-1}\]
+Gives Fourier vibes, might try again with generators.
