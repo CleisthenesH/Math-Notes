@@ -1,7 +1,7 @@
 % Copyright 2023 Kieran W Harvie. All rights reserved.
 
-\section{Finite Field Endomorphism}
-Let $F_n$ be and finite field and let $f$ be an endomorphism,
+\section{Finite Field Endofunctions}
+Let $F_n$ be and finite field and let $f$ be an endofunction,
 then $f$ can be written as a polynomial of degree $n-1$ or less.
 \\
 
@@ -71,3 +71,24 @@ When $y=0$ we have:
 When $y\neq 0$ we have:
 \[\chi_y(x) = \frac{1}{n-1}\sum_{k=0}^{n-2}(xy^{-1})^k+\frac{x^{n-1}-1}{n-1}\]
 Gives Fourier vibes, might try again with generators.
+\\
+
+On further reflection:
+\begin{equation*}
+\begin{aligned}
+	\chi_y(x) =& \frac{1}{n-1}\sum_{k=0}^{n-2}(xy^{-1})^k+\frac{x^{n-1}-1}{n-1}\\
+	=& \frac{1}{n-1}\sum_{k=1}^{n-1}(xy^{-1})^k\\
+\end{aligned}
+\end{equation*}
+So yea, Fourier.
+
+\subsection{Polynomial}
+\[f(x) = \frac{1}{n-1}\sum_{k=1}^{n-1}x^k\sum_{y\in F_n/\{0\}}\frac{f(y)}{y^k}+f(0)(1-x^{n-1})\]
+If we write:
+\[\hat{f}(k)=\sum_{y\in F_n/\{0\}}f(y)y^{-k}\]
+Then the Fourier transform becomes even more apparent,
+especially if rephrased in terms of a generator,
+which is a cool result.
+\\
+
+Also note that a endomorphism will have $f(0)=0$ and remove the annoying edge case.
