@@ -1,0 +1,285 @@
+% Copyright 2023 Kieran W Harvie. All rights reserved.
+
+\section{Laplace Expansion}
+The Laplace Expansion is a way to compute the determinate of an $n\times n$ matrix in term of $(n-1)\times (n-1)$ determinates.
+It's also kind of hard to cleanly state without some terminology I'll introduce later,
+but the gist can be found in the $n\in\{2,3\}$ examples:
+\[\begin{vmatrix} a&b&c\\d&e&f\\g&h&i\\ \end{vmatrix} =
+	a\begin{vmatrix} e&f\\h&i\end{vmatrix}
+	-b\begin{vmatrix}d&f\\g&i\end{vmatrix}
+	+c\begin{vmatrix}d&e\\g&h\end{vmatrix}
+\]
+and:
+\[\begin{vmatrix} a&b\\ c&d\\ \end{vmatrix} = a|d|-b|c| = ad-bc 
+\]
+(Note that in the second expression $|\cdot|$ is the determinate of a $1\times 1$ matrix and not absolute value.)
+
+This seems like a good way to define the determinate,
+something I have been working on
+\footnote{Yes I know the geometric characterization, 
+I'm just not looking for that right now.},
+so with this definition I wish to understand:
+
+\begin{itemize}
+	\item Why it is well defined, meaning that we can expand along different rows columns.
+	\item Elementary row operations.
+	\item Product rule.
+	\item Triangle rule.
+	\item Inverse matrix in terms of the cofactor.
+	\item Relation to the Wedge product.
+\end{itemize}
+
+\subsection{Terminology}
+For a given $m\times n$ matrix $A$ the entries $a_{i,j}$ are arranged such that:
+\[\begin{bmatrix}
+	a_{1,1}&a_{1,2}&\dots&a_{1,n} \\
+	a_{2,1}&a_{2,2}&\dots&a_{2,n} \\
+	\vdots&\vdots&\ddots&\vdots\\
+	a_{m,1}&a_{m,2}&\dots&a_{m,n} \\
+\end{bmatrix}\]
+
+\subsubsection{Principal Diagonal}
+The principal diagonal of a matrix are the elements $a_{i,j}$ such that $i=j$. 
+\[\begin{bmatrix}
+	\color{red} a_{1,1}&a_{1,2}&a_{1,3}&a_{1,4} \\
+	a_{2,1}&\color{red} a_{2,2}&a_{2,3}&a_{2,4} \\
+	a_{3,1}&a_{3,2}&\color{red} a_{3,3}&a_{3,4} \\
+	a_{4,1}&a_{4,2}&a_{4,3}&\color{red} a_{4,4} \\
+\end{bmatrix}\]
+Sometimes also called the "main diagonal".
+
+\subsubsection{Submatrix}
+A submatrix is a subset of rows and column and can look quite different depending on how the rows/columns are chosen.
+For example both:
+\[
+\begin{bmatrix}
+	\color{red} a_{1,2} \\
+	\color{red} a_{2,2} \\
+\end{bmatrix}
+\quad\text{and}\quad
+\
+\begin{bmatrix}
+	\color{blue} a_{1,1}&\color{blue} a_{1,3}&\color{blue} a_{1,4} \\
+	\color{blue} a_{2,1}&\color{blue} a_{2,3}&\color{blue} a_{2,4} \\
+	\color{blue} a_{4,1}&\color{blue} a_{4,3}&\color{blue} a_{4,4} \\
+\end{bmatrix}\]
+Are submatrices of:
+\[\begin{bmatrix}
+	\color{blue} a_{1,1}&\color{red} a_{1,2}&\color{blue} a_{1,3}&\color{blue} a_{1,4} \\
+	\color{blue} a_{2,1}&\color{red} a_{2,2}&\color{blue} a_{2,3}&\color{blue} a_{2,4} \\
+	a_{3,1}&a_{3,2}&a_{3,3}&a_{3,4} \\
+	\color{blue} a_{4,1}&a_{4,2}&\color{blue} a_{4,3}&\color{blue} a_{4,4} \\
+\end{bmatrix}\]
+Where in the first one the subset was rows $1$ and $2$ and column $1$ making the block contiguous in the main matrix.
+Where for the second one we took all except rows $3$ and column $2$, effectively cutting them out.
+
+\subsubsection{Minor}
+The minor $M_{i,j}$ of an element $a_{i,j}$ is the determinate of the submatrix where the row and column are removed.
+Given:
+\[\begin{bmatrix}
+	a_{1,1}&a_{1,2}&a_{1,3}&a_{1,4} \\
+	a_{2,1}&a_{2,2}&a_{2,3}&a_{2,4} \\
+	a_{3,1}&a_{3,2}&a_{3,3}&a_{3,4} \\
+	a_{4,1}&a_{4,2}&a_{4,3}&a_{4,4} \\
+\end{bmatrix}\]
+The minor $M_{3,2}$ is given by:
+\[M_{3,2} = \begin{vmatrix}
+	a_{1,1}&a_{1,3}&a_{1,4} \\
+	a_{2,1}&a_{2,3}&a_{2,4} \\
+	a_{4,1}&a_{4,3}&a_{4,4} \\
+\end{vmatrix}\]
+
+\subsubsection{Minor of General Order}
+There is a more general definition of a minor that isn't used in the definition of Laplace Expansion,
+but will be used in proofs.
+\\
+
+Let $I$ and $J$ be a set of integers between $1$ and $n$ such that the submatrix with all $I$ rows and $J$ columns are removed is a $k\times k$ matrix.
+Then the determinate of the submatrix is denoted $M_{I,J}$ and is called a `minor of order $k$'.
+\\
+
+
+The minor $M_{\{1,3\},\{1,2\}}$ is of order $2$ and is given by:
+\[M_{\{1,3\},\{1,2\}} = \begin{vmatrix}
+	a_{2,3}&a_{2,4} \\
+	a_{4,3}&a_{4,4} \\
+\end{vmatrix}\]
+The minor $M_{\{1,2,3\},\{1,2,4\}}$ is of order $1$ and is given by:
+\[M_{\{1,2,3\},\{1,2,4\}} = \begin{vmatrix}
+	a_{4,3} \\
+\end{vmatrix} = a_{4,3}\]
+Some important observations before continuing:
+\begin{itemize}
+	\item As expected, $M_{\{i\},\{j\}} = M_{i,j}$ and the previous minor can be called the "minor of order $n-1$" or "first minor".
+	\item We have the base cases $M_{\varnothing,\varnothing} = |A|$ and $M_{\{1,2,\ldots,i-1,i+1,\ldots n\},\{1,2,\ldots,j-1,j+1,\ldots n\}} = a_{i,j}$.
+	\item This definition can be extended to non-square matrices, provided the submatrix with all $I$ rows and $J$ columns removed is a square $k\times k$ matrix everything still works.
+		$I$ and $J$ just wont have the same number of elements.
+\end{itemize}
+
+\subsubsection{Cofactor}
+The cofactor $C_{i,j}$ of an element $a_{i,j}$ is the minor of that element multiplied by $(-1)^{i+j}$.
+The cofactor of $a_{3,2}$ of the previous example is given by:
+\[C_{3,2} = (-1)^5\begin{vmatrix}
+	a_{1,1}&a_{1,3}&a_{1,4} \\
+	a_{2,1}&a_{2,3}&a_{2,4} \\
+	a_{4,1}&a_{4,3}&a_{4,4} \\
+\end{vmatrix}= -\begin{vmatrix}
+	a_{1,1}&a_{1,3}&a_{1,4} \\
+	a_{2,1}&a_{2,3}&a_{2,4} \\
+	a_{4,1}&a_{4,3}&a_{4,4} \\
+\end{vmatrix}\]
+
+\subsection{Laplace Expansion}
+Laplace Expansion states that you can find the determinate of a matrix by the sum of the elements in a row/column times by their cofactor.
+Expanding along the $j$th column gives:
+\[|A| = \sum_{i=1}^na_{i,j}C_{i,j}\]
+Like wise for the $i$th row:
+\[|A| = \sum_{j=1}^na_{i,j}C_{i,j}\]
+If we include the base case that the determinate of a $1\times 1$ matrix is its sole element,
+this actually serves as a definition of the determinate.
+
+\subsubsection{Well Definedness of Row/Column}
+Well definedness of columns requires showing that the following expression is independent of $j$:
+\[|A| = \sum_{i=1}^na_{i,j}(-1)^{i+j}M_{i,j}\]
+The idea of the proof is simple induction.
+Show its true for $n\leq 2$
+then prove for $n>2$ with $j_0\neq j_1$ by expanding along $j_0$ then $j_1$ and $j_1$ then $j_0$ and comparing the two results.
+\\
+
+\textit{The determinate of dimension $1$ and $2$ are well defined:}
+For dimension $1$ there is one element and hence are well defined.
+For dimension $2$ have we have:
+\[|A| = \begin{vmatrix} a_{1,1} & a_{1,2}\\a_{2,1} & a_{2,2}\end{vmatrix}\]
+Expand on the first column to give:
+\[|A| = a_{1,1}|a_{2,2}|-a_{1,2}|a_{2,1}| = a_{1,1}a_{2,2}-a_{1,2}a_{2,1}\]
+And likewise on the second column to give:
+\[|A| = -a_{2,1}|a_{1,2}|+a_{2,2}|a_{1,1}| = a_{1,1}a_{2,2}-a_{1,2}a_{2,1}\]
+
+\textit{Determinates of dimension greater than $2$:}
+Let $j_0>j_1$ be indexes of columns in $A$ and expand $|A|$ on the larger $j_0$th column first:
+\[|A| = \sum_{i_0=1}^na_{i_0,j_0}(-1)^{i_0+j_0}M_{i_0,j_0}\]
+By the inductive assumption the determinate is well defined for the for any column of the submatrix defining $M_{i_0,j_0}$.
+Expanding on $j_1$ gives:
+\begin{equation*}
+	\begin{aligned}
+		M_{i_0,j_0}=&\sum_{i_1=1}^{i_0-1}(-1)^{i_1+j_1}a_{i_1,j_1}M_{\{i_0,i_1\},\{j_0,j_1\}}+\sum_{i_1=i_0+1}^{n}(-1)^{i_1+j_1-1}a_{i_1,j_1}M_{\{i_0,i_1\},\{j_0,j_1\}}\\
+		=&\sum_{i_1=1}^{i_0-1}(-1)^{i_1+j_1}a_{i_1,j_1}M_{\{i_0,i_1\},\{j_0,j_1\}}-\sum_{i_1=i_0+1}^{n}(-1)^{i_1+j_1}a_{i_1,j_1}M_{\{i_0,i_1\},\{j_0,j_1\}}\\
+	\end{aligned}
+\end{equation*}
+
+The split sum is because when $i_1>i_0$ a prior row has been removed in making the submatrix,
+so we have to move the elements up one,
+which factors out to a multiplication by $-1$.
+No such modification is required for the column because we assume $j_1<j_0$,
+if we had chosen $j_1 > j_0$ the whole expression would have been multiplied by $-1$.
+\\
+
+Observe that the left term is positive and has matching $i_1< i_0$ and $j_1 < j_0$ while the right term is negative and has mismatched $i_1> i_0$ and $j_1 < j_0$.
+If we had expanded along the smaller $j_1$ first the whole expression would gain a $-1$ making the left term negative and the right positive but the left would have mismatched $i_1< i_0$ and $j_1 > j_0$ while the right would have matching $i_1 > i_0$ and $j_1 > j_0$.
+Hence pairing of sign and matched-ness stay the same.
+\\
+
+This is what causes both orders of expansion to be the same and the well definedness for columns,
+as can be seen when substituting the above expression back into the Laplace Expansion for $|A|$ and changing the order of summation such that the larger row is the outer summation:
+\begin{equation*}
+\begin{aligned}
+	|A|=&\sum_{i_0=1}^{n}(-1)^{i_0+j_0}a_{i_0,j_0}M_{i_0,j_0} \\
+	=&\sum_{i_0=1}^{n}(-1)^{i_0+j_0}a_{i_0,j_0}\bigg(
+		\sum_{i_1=1}^{i_0-1}(-1)^{i_1+j_1}a_{i_1,j_1}M_{\{i_0,i_1\},\{j_0,j_1\}}\\
+		&\quad+\sum_{i_1=i_0+1}^{n}(-1)^{i_1+j_1+1}a_{i_1,j_1}M_{\{i_0,i_1\},\{j_0,j_1\}}
+	\bigg) \\
+	=&\sum_{i_0=1}^{n}\sum_{i_1=1}^{i_0-1}(\overbrace{a_{i_0,j_0}a_{i_1,j_1}}^\text{Matched}-\overbrace{a_{i_1,j_0}a_{i_0,j_1}}^\text{Mismatched})(-1)^{i_0+i_1+j_0+j_1}M_{\{i_0,i_1\},\{j_0,j_1\}} \\
+\end{aligned}
+\end{equation*}
+
+Expanding $j_1$ first would have multiplied the expression for the minor by $-1$ but make the outer factor ($a_{i_0,j_1}$) mismatched.
+When changing the order of summation,
+such that the larger row is the outer summation,
+this $-1$ would sill get paired with the mismatched term.
+Hence we get the same result regardless of if the smaller or larger column is expanded first,
+as required.
+\\
+
+Note that this argument can be recycled for rows.
+Also note that the final summed term is symmetric in $j_0$ and $j_1$,
+maybe a closing argument can come from this symmetry.
+
+\subsubsection{Well Definedness of Direction}
+From the previous section we know the following expressions are independent of $k$:
+\[|A|_r = \sum_{i=1}^na_{i,k}C_{i,k},\quad |A|_c = \sum_{i=1}^na_{k,i}C_{k,i}\]
+Define:
+\[S=\frac{1}{n}\sum_{j=1}^n\sum_{i=1}^na_{j,i}C_{j,i}\]
+We have:
+\[S=\frac{1}{n}\sum_{j=1}^n\sum_{i=1}^na_{j,i}C_{j,i} = \frac{1}{n}\sum_{j=1}^{n}|A|_c = |A|_c\]
+However, the finitude of the summation means we can reverse the order to similarly give:
+\[S=|A|_r\]
+Hence:
+\[|A|_r = S = |A|_c\]
+As required.
+
+\subsection{Triangular Matrix}
+A lower triangular matrix is one where $i<j \Rightarrow a_{i,j} = 0$.
+They are called such because when written out in matrix form they look like a triangle:
+\[\begin{bmatrix}
+	a_{1,1}&a_{1,2}&a_{1,3}&a_{1,4} \\
+	a_{2,1}&a_{2,2}&a_{2,3}&a_{2,4} \\
+	a_{3,1}&a_{3,2}&a_{3,3}&a_{3,4} \\
+	a_{4,1}&a_{4,2}&a_{4,3}&a_{4,4} \\
+\end{bmatrix} =
+\begin{bmatrix}
+	a_{1,1}&0&0&0 \\
+	a_{2,1}&a_{2,2}&0&0 \\
+	a_{3,1}&a_{3,2}&a_{3,3}&0 \\
+	a_{4,1}&a_{4,2}&a_{4,3}&a_{4,4} \\
+\end{bmatrix}\]
+The upper triangular matrix is the reverse with $i>j \Rightarrow a_{i,j} = 0$.
+\\
+
+By induction the determinate of a lower triangular matrix is the product of all principal diagonal elements.
+The base case is a matrix of size $1\times 1$ and true by definition. 
+In the induction step observe that the only nonzero element in the $1$st row is $a_{1,1}$ hence:
+\[|A| = a_{1,1}C_{1,1} = a_{1,1}M_{1,1}\]
+The submatrix used for $M_{1,1}$ is a lower diagonal matrix with all principle elements but $a_{1,1}$
+Hence:
+\[M_{1,1} = a_{2,2}a_{3,3}\dots a_{n,n}\]
+Giving:
+\[|A| = a_{1,1}a_{2,2}a_{3,3}\dots a_{n,n}\]
+As required.
+\\
+
+I've included a more visual proof bellow:
+\[\begin{vmatrix}
+	a_{1,1}&0&0&\dots&0 \\
+	a_{2,1}&a_{2,2}&0&\dots&0 \\
+	a_{3,1}&a_{3,2}&a_{3,3}&\dots&0 \\
+	\vdots&\vdots&\vdots&\ddots&\vdots \\
+	a_{n,1}&a_{n,2}&a_{n,3}&\dots&a_{n,n} \\
+\end{vmatrix}
+=a_{1,1}
+\begin{vmatrix}
+	a_{2,2}&0&\dots&0 \\
+	a_{3,2}&a_{3,3}&\dots&0 \\
+	\vdots&\vdots&\ddots&\vdots \\
+	a_{n,2}&a_{n,3}&\dots&a_{n,n} \\
+\end{vmatrix}
+=a_{1,1}a_{2,2}a_{3,3}\dots a_{n,n}\]
+
+\subsection{Product Rule}
+We wish to show that:
+\[|AB|=|A||B|\]
+This will be useful for analysing other properties of the determinate because if we can find a matrix representing that operation we can simply times by that matrix's determinate.
+\\
+
+We will have to deal with multiple cofactor so use that notation:
+\[C[A]_{i,j}\]
+For the $(i,j)$th cofactor of matrix $A$.
+Maybe move this notation into the terminology section.
+
+\subsection{Permutation Matrix}
+A permutation matrix is a matrix where each row and each column have exactly one non-zero element and every non-zero element is equal to $1$.
+\\
+
+Let $\pi:\mathbb{N}\rightarrow\mathbb{N}$ be a function where $\pi(n)$ is the column of the non-zero element it the $n$th row.
+
+\[S=n+\sum_{k=1}^n\pi(k)-\sum_{k=1}^{n}|\{j<k \text{ where } \pi(j)<\pi(k)\}|\]
+Then the determinate is $(-1)^S$
