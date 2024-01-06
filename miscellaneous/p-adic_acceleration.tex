@@ -1,0 +1,47 @@
+% Copyright 2024 Kieran W Harvie. All rights reserved.
+
+\section{p-adic Acceleration}
+Say we are part way through calculating the p-adic expansion of $\frac{1}{n}$ and have:
+\[\frac{1}{n} = a_0+a_1p^1+a_2p^2+\dots+a_{k-1}p^{k-1}+rp^{k}\frac{1}{n}\]
+Then we have:
+\begin{equation*}
+\begin{aligned}
+\frac{1}{n} =& a_0+a_1p^1+a_2p^2+\dots+a_{k-1}p^{k-1}+rp^{k}\frac{1}{n}\\
+=& a_0+a_1p^1+a_2p^2+\dots+a_{k-1}p^{k-1}+rp^{k}\left(a_0+a_1p^1+a_2p^2+\dots+a_{k-1}p^{k-1}+rp^{k}\frac{1}{n}\right)\\
+=& a_0+a_1p^1+a_2p^2+\dots+a_{k-1}p^{k-1}+a_0rp^{k}+a_1rp^{k+1}+a_2rp^{k+2}+\dots+a_{k-1}rp^{2k-1}+r^2p^{2k}\frac{1}{n}\\
+\end{aligned}
+\end{equation*}
+
+Observe that,
+after we clean up the multiplication of coefficients by $r$,
+we have doubled the number of coefficients.
+\\
+
+Unfortunately,
+despite getting the unclean coefficients being $O(\log(N))$ cleaning the coefficients is still $O(N)$.
+Where $N$ is the number of desired coefficients.
+
+\subsubsection{Example:}
+Consider $n=1000$ and $p=7$.
+User Bézout's identity to get the initial value:
+\[(-857 )\times7+6\times1000=1\Rightarrow \frac{1}{1000} = 6-\frac{857}{1000}7\]
+First iteration:
+\[\frac{1}{1000}=6-5142\times7+734449\times7^2\times\frac{1}{1000}\]
+Example cleanup:
+\begin{equation*}
+\begin{aligned}
+\frac{1}{1000}=&6+(735\times7-5142\times-735\times7)7+734449\times7^2\times\frac{1}{1000}\\
+=&6+3\times7+(734449-735\times1000)\times7^2\times\frac{1}{1000}\\
+=&6+3\times7-551\times7^2\times\frac{1}{1000}\\
+\end{aligned}
+\end{equation*}
+Second iteration:
+\begin{equation*}
+\begin{aligned}
+\frac{1}{1000}=&6+3\times7-551\times7^2\times\left(6+3\times7-551\times7^2\times\frac{1}{1000}\right)\\
+=&6+3\times7+5\times7^2-2126\times7^3+303601\times7^4\frac{1}{1000}\\
+=&6+3\times7+5\times7^2+2\times7^3-399\times7^4\frac{1}{1000}\\
+\end{aligned}
+We got the coefficient of $7^3$ and well as $7^2$.
+\end{equation*}
+
