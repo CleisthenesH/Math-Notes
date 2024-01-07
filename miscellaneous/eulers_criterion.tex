@@ -1,0 +1,84 @@
+% Copyright 2024 Kieran W Harvie. All rights reserved.
+
+\section{Euler's Criterion}
+Euler's criterion is and elementary number theory result that states that for odd prime $p$ and coprime non-zero integer $a$ we have:
+\[x^{\frac{p-1}{2}}\mod p = \begin{cases} 1 & \text{ if $x$ is a square}\\ -1 & \text{ otherwise.}\end{cases}\]
+I proved this the `involved' way back in the day,
+but it's really easy to prove and generalize with field theory.
+
+\subsubsection{Field Theory Proof:}
+Let $p$ be an odd prime and consider the polynomial $q\in\mathbb{F}_p[X]$:
+\[p(x) = x^{\frac{p-1}{2}}-1\]
+
+\textbf{Lemma, every non-zero square is a root of $p$:}
+Let $a=b^2$ then:
+\[p(a) = p(b^2) = b^{p-1}-1 = 0\,\, \square\]
+
+\textbf{Lemma, there are at least $\frac{p-1}{2}$ non-zero squares in $\mathbb{F}_p$:}
+Let $a\in \mathbb{F}_p$ and consider the polynomial:
+\[q(x) = x^2-a\]
+There are at most two distinct roots of $q$ and when $a\neq 0$ any roots are non-zero.
+However there are $p-1$ distinct non-zero elements of $\mathbb{F}_p$ and the square of every non-zero element is non-zero,
+but no more than two can share the same value when squared,
+hence there are at least $\frac{p-1}{2}$ non-zero squares in $\mathbb{F}_p$. $\square$
+\\
+
+Combining the previous results means every root of $p$ is distinct and a square.
+The only loose end is to prove that $x^\frac{p-1}{2}=-1$ when $x$ isn't a square.
+\\
+
+From the previous result when $x$ isn't a square we know $x^\frac{p-1}{2}\neq 1$.
+$0$ is a square, hence $x$ is non-zero meaning:
+\[0 = x^{p-1}-1=\left(x^{\frac{p-1}{2}}-1\right)\left(x^{\frac{p-1}{2}}+1\right)\]
+Since the first factor isn't zero the second must be,
+giving $x^{\frac{p-1}{2}}=-1$, as required.
+\\
+
+This result easily generalizes to all finite fields of odd size.
+Which are fields of odd prime characteristic,
+cool.
+
+\subsubsection{Low Hanging Generalizations:}
+Let $\mathbb{F}_n$ be a finite field and suppose $n-1$ is divisible by $m$ and let:
+\[p(x) = x^\frac{n-1}{m}-1\]
+Similar arguments show that all the roots of $p$ are distinct and are the non-zero $m$th powers.
+Now it's only the loose ends of non-powers that matter.
+\\
+
+Let $h$ be an element of order $m$.
+(Guaranteed since every finite field has a generator $g$ which you can raise to power $g^\frac{n-1}{m}$).
+And let $q$ be:
+\[q(x)=x^m-1\]
+From similar arguments as those above,
+you can show that the powers of $h$ are the roots of $q$:
+\[q(x) = x^m-1= \prod_{k=1}^m(x-h^k)\]
+Substitute $x\mapsto x^\frac{n-1}{m}$ to give:
+\[\prod_{k=1}^m(x^\frac{n-1}{m}-h^k)= (x^\frac{n-1}{m})^m-1=x^{n-1}-1\]
+Hence for non-zero $x$ we have:
+\[\prod_{k=1}^m(x^\frac{n-1}{m}-h^k)= 0\]
+Meaning $x^\frac{n-1}{m}$ is a power of $h$.
+\\
+
+We can combine these results in a nice way:
+Let $m$ divide $n-1$ and let $h$ be an element of order $m$.
+Define $f_m:\mathbb{F}_n^\times\rightarrow \langle h\rangle \cong C_m$ such that $f_m(x) = x^{\frac{n-1}{m}}$
+$f_m$ is a group homomorphism where the kernel is the $m$th powers of $\mathbb{F}_n$
+
+%Suppose $n-1$ is divisible by $3$ and let $h$ be an element of order $3$.
+%(Guaranteed since every finite field has a generator $g$ which you can raise to power $g^\frac{n-1}{3}$).
+%We have:
+%\begin{equation*}
+%\begin{aligned}
+%&\left(x^\frac{n-1}{3}-1\right)\left(x^\frac{n-1}{3}-h\right)\left(x^\frac{n-1}{3}-h^2\right)\\
+%=&x^{n-1}-x^\frac{2(n-1)}{3}\left(1+h+h^2\right) +x^\frac{n-1}{3}\left(1\cdot h+1\cdot h^2+h\cdot h^2\right)-1\cdot h\cdot h^2\\
+%=&x^{n-1}-1\\
+%\end{aligned}
+%\end{equation*}
+%Easy to see that:
+%\[\img\left(x^\frac{n-1}{m}\right)=\langle h \rangle \cong C_3\]
+%and
+%\[\ker\left(x^\frac{n-1}{m}\right)=\{\text{$m$th powers}\}\]
+%
+%Unfortunately this doesn't work for $4$ and I'll have to actually think,
+%will probably use:
+%\[\ord(x^k) = \frac{\ord(x)}{\gcd(k,\ord(x))}\]
