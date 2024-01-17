@@ -1,0 +1,112 @@
+% Copyright 2024 Kieran W Harvie. All rights reserved.
+
+\section{Partial Fractions}
+Some observations and proofs of well known facts that I want to write down.
+
+\subsection{Bézout's Identity}
+Let $P_n$ be a finitely indexed family of polynomials and define:
+\begin{equation*}
+\begin{aligned}
+Q_n =& \prod_{k\neq n}P_k\\
+G =&\gcd(\{Q_n\}_n)\\
+\end{aligned}
+\end{equation*}
+Then there exits polynomials $q_n$ such that:
+\[\left(\prod_n P_n\right)^{-1} = G^{-1}\sum_n\frac{q_n}{P_n}\]
+And that this solution is "the best we can get" in the sense that if there exits $q'_n$ and $G'$ such that:
+\[\left(\prod_n P_n\right)^{-1} = G'^{-1}\sum_n\frac{q'_n}{P_n}\]
+Then $\deg(G') \geq \deg(G)$
+
+\subsubsection{Existence}
+From Bézout's identity on $\{Q_n\}_n$ there existences $q_n$ such that:
+\[\sum_n q_n Q_n = G \,\Rightarrow\, G^{-1}\sum_n q_n Q_n = 1\]
+Substitution gives:
+\begin{equation*}
+\begin{aligned}
+\left(\prod_n P_n\right)^{-1} =& \left(\prod_n P_n\right)^{-1}\left(G^{-1}\sum_n q_n Q_n\right)\\
+=& G^{-1}\left(\sum_n q_n \left(\prod_{k\neq n} P_k\right)\left(\prod_k P_k\right)^{-1}\right)\\
+=& G^{-1}\sum_n\frac{q_n}{P_n}\quad \square\\
+\end{aligned}
+\end{equation*}
+
+\subsubsection{Best Case}
+Assume we have $q_n'$ and $g'$ such that:
+\[\left(\prod_n P_n\right)^{-1} = G'^{-1}\sum_n\frac{q'_n}{P_n}\]
+Then doing all the previous steps in reverse gives:
+\[\sum_n q_n' Q_n = G'\]
+Meaning $G | G'$ and hence $\deg(G') \geq \deg(G)\quad\square$.
+
+\subsubsection{Sharpness}
+The above inequality is sharp,
+this can be seen in the standard way.
+Multiply the relevant polynomials by the same element $k$ from underlying ring gives a new solution with $\deg(G') = \deg(G)$:
+\begin{equation*}
+\begin{aligned}
+	q'_n =& kq_n\\
+	G' =& kG\\
+\end{aligned}
+\end{equation*}
+We could, however, probably get some interesting results by putting some restrictions on $q_n$ and $P_n$.
+
+\subsubsection{Remarks}
+This result matches our intuition when calculating partial fractions,
+that shared factors can't easily be removed:
+
+If a polynomial $P$ can be factorized as $P=P_0P_1$ then:
+\[\frac{1}{P} = \frac{1}{\gcd(P_0,P_1)}\left(\frac{q_0}{P_0}+\frac{q_1}{P_1}\right)\]
+And the "Best Case" condition means we can't get rid of the external fraction.
+\\
+
+Also note that this result suggest the application of extended euclidean algorithm to partial fractions,
+which sounds like it might be a fun one-day project.
+
+\subsection{Divisibility}
+What of the reverse?
+If we have:
+\[\frac{1}{P} = \frac{q_0}{P_0}+\frac{q_1}{P_1}\]
+What can we say of the factorization of $P$?
+Well the desired answer,
+that $P_0$ and $P_1$ are factors of $P$,
+doesn't work:
+\[\frac{1}{x-1} = \frac{1}{x-2}-\frac{1}{(x-1)(x-2)}\]
+The problem seems to come from cancellation means $P$ can be of lower degree then $P_0$ or $P_1$,
+so lets take $\deg(P)$ as a possible condition.
+\\
+
+Simple manipulation gives:
+\[(q_1P_0+q_0P_1)P = P_0P_1 = \lcm(P_0,P_1)\gcd(P_0,P_1)\]
+Since $\gcd(P_0,P_1) | (q_1P_0+q_0P_1)$ we have $P | \lcm(P_0,P_1)$ meaning if $\deg(P) \geq \deg(\lcm(P_0,P_1))$ we have:
+\[P = \lcm(P_0,P_1)\]
+
+\subsubsection{Remark}
+When preforming calculations we may not know $\deg(\lcm(P_0,P_1))$,
+instead we can use $\deg(P) \geq \deg(P_0P_1)$ as:
+\[\deg(P_0P_1) \geq \deg(\lcm(P_0,P_1))\]
+
+\subsection{Complex Residue}
+The application of the extended euclidean algorithm to finding the complex residues of rational functions is something I've talked about before.
+But my prior attempts can be improved with these observations.
+\\
+
+Assume us want to find the residues of $P/Q$ at $a$ and $b$ where $Q$ has multiplicities $n$ and $m$.
+Let $q$ be the polynomial such that:
+\[Q(z) = q(z)(z-a)^n(z-b)^m\]
+All three factors are pairwise relatively prime meaning there exists polynomials $s$,$r$, and $t$ such that:
+\[s(z)(z-a)^nq(z)+r(z)(z-b)^mq(z)+t(z)(z-a)^n(z-b)^m = 1\]
+Giving:
+\[\frac{P(z)}{Q(z)} = s(z)\frac{P(z)}{(z-b)^m}+r(z)\frac{P(z)}{(z-a)^n}+t(z)\frac{P(z)}{q(z)}\]
+Residues naturally follow.
+Interestingly,
+this approach might be able to to link the residues at $a$ and $b$ together.
+
+\subsection{Perturbation}
+I found this interesting perturbation identity while working:
+\begin{equation*}
+\begin{aligned}
+	\frac{1}{(P_0-\lambda \delta_0)(P_1+\lambda \delta_1)} =& \frac{1}{P_0\delta_1+P_1\delta_0}\left(\frac{\delta_0}{P_0-\lambda \delta_0}+\frac{\delta_1}{P_1+\lambda \delta_1}\right)\\
+	=&\frac{1}{P_0\delta_1+P_1\delta_0}\sum_{n=0}^{\infty}\lambda^n\left(\left(\frac{\delta_0}{P_0}\right)^{n+1}-\left(-\frac{\delta_1}{P_1}\right)^{n+1}\right)\\
+\end{aligned}
+\end{equation*}
+
+This probably only has useful results when $\delta_0$ and $\delta_1$ are chosen such that $P_0\delta_1+P_1\delta_0$ means something.
+Still cool.
