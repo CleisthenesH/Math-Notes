@@ -25,6 +25,15 @@ Given three 2D points $P_n$ why would we expect the set:
 To have anything to do with triangles?
 Well consider the function $f:\mathbb{R}^3\rightarrow\mathbb{R}^2$:
 \[f(x,y,z) = P_1x+P_2y+P_3z\]
+And consider the subset of $S\subset\mathbb{R}^3$ such that $x,y,z\geq0$ and $x+y+z=1$.
+\\
+
+$S$ is an equilateral triangle spanning the points $(1,0,0),\,(0,1,0)$ and $(0,0,1)$,
+with the image of these points being the points $P_n$.
+And $S$ is defined analogously the span of the barycentric coordinates,
+so it's a good starting place to get some intuition.
+
+\subsubsection{$f$ is linear}
 This function is clearly linear:
 \begin{equation*}
 \begin{aligned}
@@ -34,24 +43,78 @@ This function is clearly linear:
 	=&af(x_1,y_1,z_1)+bf(x_1,y_1,z_1)\\
 \end{aligned}
 \end{equation*}
-Meaning it sends line segments to lines segments:
+
+\subsubsection{$f$ sends line segments to line segments}
+Being linear means it sends line segments to lines segments (Or to a single point point if $f(A)=f(B)$):
 \[f(At+B(1-t)) = f(A)t+f(B)(1-t)\] 
-(Or to a single point point if $f(A)=f(B)$.)
+The function also keeps the `progress' along the line segment.
+The point $Q=At+B(1-t)$ is $t$\% along the line $BA$ and $f(Q)$ is $t$\% along $f(B)f(A)$.
+
+\subsubsection{$f$ is a bounded operator}
+From the Cauchy-Schwartz inequality we can see that $f$ is a bounded operator:
+\begin{equation*}
+\begin{aligned}
+	||f(\lambda_1,\lambda_2,\lambda_3)||
+	=&(\lambda_1x_1+\lambda_2x_2+\lambda_3x_3)^2+(\lambda_1y_1+\lambda_2y_2+\lambda_3y_3)^2\\
+	\leq&(\lambda_1^2+\lambda_2^2+\lambda_3^2)(x_1^2+x_2^2+x_3^2)+(\lambda_1^2+\lambda_2^2+\lambda_3^2)(y_1^2+y_2^2+y_3^2)\\
+	=&(\lambda_1^2+\lambda_2^2+\lambda_3^2)(x_1^2+x_2^2+x_3^2+y_1^2+y_2^2+y_3^2)\\
+\end{aligned}
+\end{equation*}
+For $(\lambda_1,\lambda_2,\lambda_3)\in S$ we have:
+\[\lambda_1^2+\lambda_2^2+\lambda_3^2 \leq 1\]
+meaning:
+\[s\in S \Rightarrow ||f(s)|| \leq x_1^2+x_2^2+x_3^2+y_1^2+y_2^2+y_3^2\]
+Hence all geometry in the image of $S$ takes place is a fixed circle around the origin.
+While I don't think this result is technically necessary it does put my mind at ease about weird "projective geometry at infinity" edge cases.
 \\
 
-Now,
-consider the subset of $\mathbb{R}^3$ such that $x,y,z\geq0$ and $x+y+z=1$.
-This is set is an equilateral triangle spanning the points $(1,0,0),\,(0,1,0)$ and $(0,0,1)$,
-with the image of these points being the points $P_n$.
-This subset is by definition the span of the barycentric coordinates.
+Curiously, 
+we can make the inequality strict if we assume the triangle is non-degenerate.
+Since there's equality in Cauchy-Schwartz iff:
+\[k(x_1,x_2,x_3)=(\lambda_1,\lambda_2,\lambda_3)=l(y_1,y_2,y_3)\]
+Which contradicts the triangle being non-degenerate.
+
+\subsubsection{Interior}
+Let $Q = (\lambda_1,\lambda_2,\lambda_3)\in S$ and $Q' = \frac{1}{\lambda_1+\lambda_2}(\lambda_1,\lambda_2,0)$, we can write:
+\begin{equation*}
+\begin{aligned}
+	Q'=&\frac{\lambda_1}{\lambda_1+\lambda_2}(1,0,0)+\left(1-\frac{\lambda_1}{\lambda_1+\lambda_2}\right)(0,1,0)\\
+	Q =& (1-\lambda_3)Q'+\lambda_3(0,0,1)\\
+\end{aligned}
+\end{equation*}
+Which shows $Q'$ as being on the line segment $P_1P_2$ and $Q$ on $Q'P_3$:
+\begin{center}
+\begin{tikzpicture}[every node/.style={black}]
+	\coordinate (P1) at (-2,0);
+	\coordinate (P2) at (2,0);
+	\coordinate (P3) at (0,4);
+
+	\coordinate (Q') at (0,0);
+	\coordinate (Q) at (0,2);
+
+	\filldraw[gray] (P1) -- (P2) -- (P3);
+
+	\draw[dashed] (P1) -- (P2);
+	\draw[dashed] (Q') -- (P3);
+
+
+	\filldraw (Q) node[left] {$Q$} circle (2pt);
+	\filldraw (Q') node[below] {$Q'$} circle (2pt);
+	\filldraw (P1) node[left] {$P_1$} circle (2pt);
+	\filldraw (P2) node[right] {$P_2$} circle (2pt);
+	\filldraw (P3) node[above] {$P_3$} circle (2pt);
+\end{tikzpicture}
+\end{center}
+Because $Q'$ is on $P_1P_2$,
+the opposite side to $P_3$,
+$Q$ is on the segment between a point $P_3$ and that points opposite side $P_1P_2$ and hence is an interior point of $P_1P_2P_3$.
+Hence $S\subset P_1P_2P_3$, 
+this argument can be reversed to show that $P_1P_2P_3 \subset S$ and thus equality.
 \\
 
-These result combined show that function maps the boundary of the equilateral triangle to $P_1P_2P_3$.
-\\
-
-But what about the interior?
-Is it mapped to the interior or exterior of $P_1P_2P_3$?
-To see why it's the interior consider the following result:
+Because of how $f$ preserves line segments,
+the same stands for $f(Q')$ and $f(Q)$,
+The same stands for $f(S) = f(P_1)f(P_2)f(P_3)$.
 
 \subsection{Area coordinates}
 \begin{center}
@@ -100,8 +163,6 @@ This is why barycentric coordinates for triangles are also called area coordinat
 Because the first coordinate is the ratio of the area of the total triangle to $P_2P_3Q$,
 and likewise for the other coordinates.
 \\
-
-It also flows that for this to be valid for all $\lambda_n$ that $Q$ is internal and unique.
 
 % Trilinear conversion?
 
