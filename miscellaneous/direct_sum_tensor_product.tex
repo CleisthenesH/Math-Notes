@@ -1,0 +1,142 @@
+% Copyright 2024 Kieran W Harvie. All rights reserved.
+
+\section{Direct Sum and Tensor Product}
+(While doing something else I got the direct sum and tensor product confused again.
+So this section is my penance to try and not do that again.)
+\\
+
+Lets say we have two vector spaces $V$ and $W$ over the shared field $F$ and want to construct a new vector space based on them,
+how would we do that?
+Well the most general way would be to consider the formal sum of $V\times W$ over $F$.
+\\
+
+The formal sum of the set $S$ over the ring $R$ is a $R$-submodule of standard $R$-module of functions from $S$ to $R$ where the elements are the function  with a finite number of non-zero terms\footnote{As expected, a formal series drops this condition}.
+For example the function:
+\[f(s) = \begin{cases} 1_R & s=s_0\\ 2_R & s=s_1\\ 0_R & \text{ otherwise} \end{cases}\]
+
+Corresponds to the formal sum:
+\[s_0+2_Rs_1\]
+
+In our case $S=V\times W$ and $R$ is the shared underlying field $F$,
+upgrading the module to a vector space.
+While this construct {\em is} a vector space based on $V$ and $W$,
+it doesn't actually use them being vector space in anyway beyond having a set of underlying elements,
+and is hence too general for many applications.
+\\
+
+We can enrich the structure by the use of quotient spaces.
+For example,
+let $S$ be the subset of elements of {\bf either} of the following forms:
+\begin{equation*}
+\begin{aligned}
+	k(v,w) -& (kv,kw)\\
+	(v_1,w_1)+(v_2,w_2) -& (v_1+v_2,w_1+w_2)\\
+\end{aligned}
+\end{equation*}
+
+The quotient space of the main space by the span of this set is called the direct sum and is denoted $V\oplus W$ and similarly the equivalent class containing the element $\sum_nk_n(v_n,w_n)$ is denoted $\sum_nk_n(v_n\oplus w_n)$.
+\\
+
+The equivalent classes are linear.
+The proof is basically just expanding notation but I'll demonstrate the scaling property,
+just for future me rereading this in 10 years.
+\begin{enumerate}
+	\item $k(v,w)-(kv,kw)$ can be written in above form as:
+		\begin{equation*}
+		\begin{aligned}
+			k_0=k,&\quad v_0=v,\quad w_0=w\\
+			k_1=-1,&\quad v_1=kv,\quad w_1=kw\\
+		\end{aligned}
+		\end{equation*}
+	\item This means it's in the $k(v\oplus w) - (kv)\oplus(kw)$ equivalent class.
+	\item Since the construction of quotient spaces takes $k(v,w)-(kv,kw)$ to $0$ we have:
+		\[k(v\oplus w) - (kv)\oplus(kw) = 0\quad\square\]
+\end{enumerate}
+A similar argument works for:
+\[(v_1\oplus w_1)+(v_2\oplus w_2) = (v_1+v_2)\oplus (w_1+w_2)\]
+
+For the equivalent classes to be bilinear instead consider the following forms:
+\begin{equation*}
+\begin{aligned}
+	k(v,w) -& (kv,w)\\
+	k(v,w) -& (v,kw)\\
+	(v_1,w)+(v_2,w) -& (v_1+v_2,w)\\
+	(v,w_1)+(v,w_1) -& (v,w_1+w_2)\\
+\end{aligned}
+\end{equation*}
+Replace uses of $\oplus$ with $\otimes$ and "direct sum" with "tensor product".
+
+\subsection{Important Lemmas}
+There's two useful lemmas I want to get out there but their proof is bloated.
+Either I define two new functions that I won't use again or juggle a lot of constants.
+Since I don't like either I'm just going to let them have a messy subsection to themselves.
+\\
+
+Let $S$ be the subset of forms from the linear case above, $f$ be linear, and $s \in \spn(S)$.
+We can write $s$ as:
+\[s =\sum_nK_n(k_n(v_n,w_n)-(k_nv,k_nw))+\sum_nK_n'((v_n',w_n')+(v_n'',w_n'')-(v_n'+v_n'',w_n'+w_n''))\]
+If we consider these values in the following expression:
+\begin{equation*}
+\begin{aligned}
+	&\sum_nK_n(k_nf(v_n,w_n)-f(k_nv,k_nw))+\sum_nK_n'(f(v_n',w_n')+f(v_n'',w_n'')-f(v_n'+v_n'',w_n'+w_n'')) \\
+	=&\sum_nK_n\cdot0+\sum_nK_n'\cdot0 \\
+	=&0\\
+\end{aligned}
+\end{equation*}
+
+We see that if take the values out of $s$ and plug them into a linear function then we get zero.
+If the reader feels so inclined they can define a function from the formal sums to range of $f$ to formalize this argument but as stated I don't want to do that,
+and instead will hope you simply get that it works here and with the bilinear case.
+
+\subsection{Universal Properties}
+$V\oplus W$ and $V\otimes W$ have important applications as bookkeeping for function arguments.
+To see what I mean let $X$ be an unknown vector space and consider a linear function $f:V\times W \rightarrow X$:
+\begin{equation*}
+\begin{aligned}
+	kf(v,w) =& f(kv,kw)\\
+	f(v_1,w_1)+f(v_2,w_2) =& f(v_1+v_2,w_1+w_2)\\
+\end{aligned}
+\end{equation*}
+
+We define a new function $\tilde{f}:V\oplus W \rightarrow X$ by:
+\[\tilde{f}\left(\sum_nk_n(v_n\oplus w_n)\right) = \sum_nk_nf(v_n,w_n)\]
+
+By inspection we can see that $\tilde{f}$ is defined for all members of $V\oplus W$ and that those values are completely defined by $f$\footnote{All members of $V\oplus W$ can be written as $\sum_nk_nf(v_n\oplus w_n)$ and the LHS is defined solely in terms of $f$.},
+so to prove well-definedness of {\em the} function we only need to show that all ways to write the same direct sum give the same value, i.e. that things like the following hold:
+\[f((v_1\oplus w_1)+(v_2\oplus w_2)) = f((v_1+v_2)\oplus (w_1+w_2))\]
+\\
+
+By definition of the quotient space direct sums are equivalent class meaning they are equal iff their formal sums differ by an element in $\spn(S)$:
+\begin{equation*}
+\begin{aligned}
+	&\sum_nk_n(v_n\oplus w_n) = \sum_nk_n'(v_n'\oplus w_n')\\
+	\Rightarrow&\sum_nk_n(v_n,w_n) - \sum_nk_n'(v_n',w_n') \in \spn(S)\\
+\end{aligned}
+\end{equation*}
+From the important lemmas section, 
+if we input the values of these formal sums into $f$ it evaluates to $0$.
+\[\sum_nk_nf(v_n,w_n) - \sum_nk_n'f(v_n',w_n') = 0 \]
+
+Hence:
+\begin{equation*}
+\begin{aligned}
+	\tilde{f}\left(\sum_nk_n(v_n\oplus w_n)\right) =& \sum_nk_nf(v_n,w_n)\\
+	=& \sum_nk_n'f(v_n',w_n')\\
+	=&\tilde{f}\left(\sum_nk_n'(v_n'\oplus w_n')\right) \\
+\end{aligned}
+\end{equation*}
+Hence $\tilde{f}$ is well-defined and unique for any given $f$.
+Similar arguments work for bilinear functions and the tensor product.
+
+\subsection{Interpretation}
+Consider archetypal linear and bilinear functions that occur when $V=W=F$:
+\begin{equation*}
+\begin{aligned}
+	\text{Linear: }&f(v,w) = v+w\\
+	\text{Bilinear: }&f(v,w) = vw\\
+\end{aligned}
+\end{equation*}
+It's easy to verify these functions are linear and bilinear respectfully and that,
+down to constants,
+are the only such functions.
+Hence we expect expect the direct some resemble the addition of vector from two different spaces and for the tensor product to resemble their multiplication.
