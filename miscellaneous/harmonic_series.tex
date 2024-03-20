@@ -1,0 +1,98 @@
+% Copyright 2024 Kieran W Harvie. All rights reserved.
+
+\section{Series Involving Harmonic Numbers}
+I've once again wasted to much time thinking about the following series:
+\[\sum_{n=1}^\infty\frac{H_n}{n^2}=2\zeta(3),\quad \sum_{n=1}^\infty\frac{H_n}{n^3}=\frac{1}{2}\zeta(2)\]
+While the time wasted is a nice example of how math sometimes feels more compulsive then is healthy,
+I also want to write down some theory here and hope I may avoid wasting time thinking about this in future.
+
+\subsection{Convergence}
+From the standard harmonic number bounds:
+\[\ln(n)+\frac{1}{n} \leq H_n \leq \ln(n)+1\]
+We can see that the series $\sum_{n=1}^\infty H_nn^{-k}$ wouldn't converge for $k=0,1$ but would for $k\geq 2$.
+
+\subsection{Properties of $T$:}
+Series of the form:
+\[T(s_1,s_2;s) = \sum_{n=1}^{\infty}\sum_{m=1}^{\infty}\frac{1}{n^{s_1}m^{s_2}(n+m)^s}\]
+Are called Tornheim Sums and is a case of the more general Mordell-Tornheim Sums with a depth of $2$.
+The weight of a Tornheim Sum is the sum of its parameters, $s_1+s_2+s$.
+
+\subsubsection{Argument Symmetry of $T$:}
+From the symmetry of $n$ and $m$ in the bounds and summand we get:
+\[T(s_1,s_2;s) = T(s_2,s_1;s)\]
+By convention, we simplify Tornheim Sums by writing them with $s_1\leq s_2$.
+
+\subsubsection{Recursion:}
+Consider the following expression:
+\[\frac{1}{n^{s_1}m^{s_2}(n+m)^s} = \frac{1}{n^{s_1-1}m^{s_2}(n+m)^{s+1}}+\frac{1}{n^{s_1}m^{s_2-1}(n+m)^{s+1}}\]
+It can be verified pretty easily by factorizing out $n^{s_1-1}m^{s_2-1}(n+m)^s$,
+double summing this expression over $n$ and $m$ we obtain:
+\[T(s_1,s_2;s) = T(s_1-1,s_2;s+1)+T(s_1,s_2-1;s+1)\]
+Note the weight of all terms is the same.
+
+\subsubsection{Relation to $\zeta$ functions:}
+When one or more of the arguments are zero the Tornheim Sums simplify to the (general) zeta functions:
+\begin{equation*}
+\begin{aligned}
+	T(s_1,s_2;0) =& \sum_{n=1}^\infty\sum_{m=1}^\infty\frac{1}{n^{s_1}m^{s_2}} =\zeta(s_1)\zeta(s_2)\\
+	T(0,s_2;s) =& \sum_{n=1}^\infty\sum_{m=1}^\infty\frac{1}{m^{s_2}(n+m)^s} =\zeta(s,s_2)\\
+\end{aligned}
+\end{equation*}
+
+\subsubsection{Telescoping Recursion:}
+Consider the last expression in more detail,
+if we change how we parameterize the summation we get:
+\begin{equation*}
+\begin{aligned}
+	T(0,s_2;s)=& \sum_{n=1}^\infty\sum_{m=1}^\infty\frac{1}{m^{s_2}(n+m)^s}\\
+	=&\sum_{n=2}^\infty\frac{1}{n^s}\sum_{m=1}^{n-1}\frac{1}{m^{s_2}} \\
+	=&\sum_{n=2}^\infty\frac{1}{n^s}\sum_{m=1}^n\frac{1}{m^{s_2}}-\sum_{n=2}^\infty\frac{1}{n^{s+s_2}} \\
+	=&\sum_{n=1}^\infty\frac{1}{n^s}\sum_{m=1}^n\frac{1}{m^{s_2}}-\sum_{n=1}^\infty\frac{1}{n^{s+s_2}} \\
+\end{aligned}
+\end{equation*}
+The left term is very similar to a Tornheim Sum!
+All we need to do is turn the finite sum into a series.
+When $s_2=1$ we can achieve this with a telescoping series,
+(even though this technique is normally used to go from series to finite sum):
+\begin{equation*}
+\begin{aligned}
+	\sum_{m=1}^{n}\frac{1}{m} =&\sum_{m=1}^\infty\left(\frac{1}{m}-\frac{1}{m+n}\right)\\
+	=&n\sum_{m=1}^\infty\frac{1}{m(n+m)}\\
+\end{aligned}
+\end{equation*}
+Substitution gives:
+\begin{equation*}
+\begin{aligned}
+	T(0,1;s) =&\sum_{n=1}^\infty\frac{1}{n^s}\sum_{m=1}^n\frac{1}{m}-\sum_{n=1}^\infty\frac{1}{n^{s+1}} \\
+	=&\sum_{n=1}^\infty\sum_{m=1}^\infty\frac{1}{n^{s-1}m(n+m)}-\sum_{n=1}^\infty\frac{1}{n^{s+1}} \\
+	=&T(1,s-1;1)-T(0,s+1;0)\\
+\end{aligned}
+\end{equation*}
+Again note that the weights are the same.
+
+\subsection{Calculating the Original Series}
+With all this machinery in place we return to the original series.
+Start by writing them as Tornheim Sums by using the telescoping trick again:
+\begin{equation*}
+\begin{aligned}
+	\sum_{n=1}^\infty\frac{H_n}{n^k} =& \sum_{n=1}^\infty\frac{1}{n^k}\left(\sum_{m=1}^{n}\frac{1}{m}\right)\\
+	=& \sum_{n=1}^\infty\sum_{m=1}^\infty\frac{1}{mn^{k-1}(n+m)}\\
+	=& T(1,k-1;1)\\
+\end{aligned}
+\end{equation*}
+
+\subsubsection{Case $k=3$:}
+This case is follows from a direct application of general recursion to $T(2,2;0)$
+\[T(2,2;0) = T(1,2;1)+T(2,1;1) = 2T(1,2;1)\]
+Hence:
+\[\sum_{n=1}^\infty\frac{H_n}{n^3} = T(1,2;1) = \frac{1}{2}T(2,2;0) = \frac{1}{2}\zeta(2)^2\]
+
+\subsubsection{Case $k=2$:}
+For this case we first use the telescoping result to give:
+\[T(1,1;1) = T(0,1;2)+T(0,3;0)\]
+And the general recursive result to give:
+\[T(1,1;1) = 2T(0,1;2)\]
+Combining these results gives:
+\[T(0,1;2) = T(0,3;0) = \zeta(3)\]
+Hence:
+\[\sum_{n=1}^\infty\frac{H_n}{n^2} = T(1,1;1) = 2\zeta(3)\]
