@@ -96,3 +96,33 @@ Combining these results gives:
 \[T(0,1;2) = T(0,3;0) = \zeta(3)\]
 Hence:
 \[\sum_{n=1}^\infty\frac{H_n}{n^2} = T(1,1;1) = 2\zeta(3)\]
+
+\subsection{Generalization}
+The telescoping trick can be generalized.
+Let $\chi_n$ be a family of functions such that:
+\[\chi_n(x+n)=\chi_n(x)\]
+Then:
+\begin{equation*}
+\begin{aligned}
+	\sum_{n=1}^\infty\sum_{m=1}^\infty\frac{\chi_n(m)}{n^sm(n+m)} =& \sum_{n=1}^\infty\frac{1}{n^{s+1}}\sum_{m=1}^\infty\chi_n(m)\left(\frac{1}{m}-\frac{1}{m+n}\right)\\
+	=& \sum_{n=1}^\infty\frac{1}{n^{s+1}}\sum_{k=1}^n\sum_{m=0}^\infty\chi_n(k+nm)\left(\frac{1}{k+nm}-\frac{1}{k+n(m+1)}\right)\\
+	=& \sum_{n=1}^\infty\frac{1}{n^{s+1}}\sum_{k=1}^n\chi_n(k)\sum_{m=0}^\infty\left(\frac{1}{k+nm}-\frac{1}{k+n(m+1)}\right)\\
+	=& \sum_{n=1}^\infty\frac{1}{n^{s+1}}\sum_{k=1}^n\frac{\chi_n(k)}{k}\\
+\end{aligned}
+\end{equation*}
+The original result is recovered when $\chi_n(m)=1$,
+another choice is the function:
+\[\chi_n(m)=\begin{cases}1&\gcd(n,m)=1\\0&\text{ otherwise}\end{cases}\]
+From the `Inverson Bracket and Möbius Function'\footnote{hyperref isn't working and I don't feel like fixing it.} section we have:
+\[\sum_{n=1}^\infty\sum_{\substack{m=1\\\gcd(n,m)=1}}^\infty\frac{1}{n^sm(n+m)}\\= \frac{1}{\zeta(s+2)}\sum_{n=1}^\infty\sum_{m=1}^\infty\frac{1}{n^sm(n+m)}\]
+Combining gives:
+\begin{equation*}
+\begin{aligned}
+	\sum_{n=1}^\infty\frac{1}{n^{s+1}}\sum_{\substack{k=1\\\gcd(n,k)=1}}^n\frac{1}{k}
+	=& \sum_{n=1}^\infty\sum_{\substack{m=1\\\gcd(n,m)=1}}^\infty\frac{1}{n^sm(n+m)}\\
+	=& \frac{1}{\zeta(s+2)}\sum_{n=1}^\infty\sum_{m=1}^\infty\frac{1}{n^sm(n+m)}\\
+	=& \frac{1}{\zeta(s+2)}\sum_{n=1}^\infty\frac{1}{n^{s+1}}\sum_{k=1}^n\frac{1}{k}
+\end{aligned}
+\end{equation*}
+Which is a pretty cool expression that relates two Dirichlet generating functions.
+Since the two functions are related by multiplication of a zeta function there's either more cool convolution based results or a result which trivializes all this work.
