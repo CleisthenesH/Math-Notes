@@ -140,3 +140,55 @@ It's easy to verify these functions are linear and bilinear respectfully and tha
 down to constants,
 are the only such functions.
 Hence we expect expect the direct some resemble the addition of vector from two different spaces and for the tensor product to resemble their multiplication.
+
+\subsection{(finite) Dimensions}
+I've avoided talking about bases till now for two reasons:
+Firstly is that avoiding talking about them till now also avoided common misconceptions around the tensor product.
+Secondly is because I don't feel like dealing with infinite dimension vector spaces.
+
+But there's still somethings I wanted to talk about and since no one is paying me to write this I've come up with a good solution.
+Writing those bit for finite dimension vector spaces now and doing the general case if I feel like it later!
+\\
+
+Let $\mathcal{B}(V)$ and $\mathcal{B}(W)$ be a basis for $V$ and $W$ respectfully.
+Then we can write a basis for $V\oplus W$ and $V\otimes W$ as:
+\begin{equation*}
+\begin{aligned}
+	\mathcal{B}(V\oplus W) =& \bigcup_{b\in\mathcal{B}(V)}b\oplus0\cup\bigcup_{b\in\mathcal{B}(W)}0\oplus b\\
+	\mathcal{B}(V\otimes W) =& \bigcup_{(b_0,b_1)\in\mathcal{B}(V)\times\mathcal{B}(W)}b_0\otimes b_1\\
+\end{aligned}
+\end{equation*}
+It's clear that these sets satisfy the spanning property but what about linear independence?
+\\
+
+Assume the elements $(v_n,w_k)\in\mathcal{B}(V\otimes W)$ are linearly dependent,
+meaning there are elements $k_n\in F$ such that at least one $k_n\neq0$ and:
+\[\sum_nk_nv_n\otimes w_n=0\otimes0\]
+Define $\chi_n:V\times W\rightarrow F$ where $\chi_n(v,w)$ is equal the coefficient of $v_n$ when $v$ is expanded in the basis $\mathcal{B}(V)$.
+This function is well defined because such coefficients are unique when $V$ is finite dimensional.
+Since $v_n$ are basis element we have $\chi_n(v_m,w_l) = \delta_{n,m}$,
+and since $\chi_n$ is bilinear the universal property means there is a function $\tilde{\chi}_n$ such that:
+\[\tilde{\chi}_n\left(\sum_mk_mv_m\otimes w_m\right) = \sum_mk_n\chi_n(v_m,w_m)\]
+Combining all this together we get:
+\begin{equation*}
+\begin{aligned}
+	k_n =& \sum_mk_n\chi_n(v_m,w_m)\\
+	=&\tilde{\chi}_n\left(\sum_mk_mv_m\otimes w_m\right)\\
+	=&\tilde{\chi}_n(0\otimes 0)\\
+	=&\chi(0,0)\\
+	=&0\\
+\end{aligned}
+\end{equation*}
+A contradiction,
+hence $\mathcal{B}(V\otimes W)$ is linearly independence and hence a basis of $V\otimes W$.
+Similar arguments work for $\mathcal{B}(V\oplus W)$.
+\\
+
+A corollary of these bases is that for finite dimensional vector spaces $V$ and $W$ we have:
+\begin{equation*}
+\begin{aligned}
+	\dim(V\oplus W) =& \dim(V)+\dim(W)\\
+	\dim(V\otimes W) =& \dim(V)\dim(W)\\
+\end{aligned}
+\end{equation*}
+Which further supports the previous interpretation subsection.
