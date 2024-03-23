@@ -1,0 +1,29 @@
+% Copyright 2024 Kieran W Harvie. All rights reserved.
+
+\section{Curried Function}
+(This is a simple `I got something wrong and am revising' note).
+
+There are two related but distinct operations one can apply to a multivariate function:
+Currying and (partial) application.
+\\
+
+Consider the case of a bivariate\footnote{Easily generalized to higher variate functions.}
+function $f:X\times Y\rightarrow Z$
+(Partial) application takes the function $f$ and a value $x_0 \in X$ and outputs a new function $g:Y\rightarrow Z$ such that:
+\[g(y) = f(x_0,y)\]
+This operations is likely known to the reader and has the following signature:
+\[\operatorname{apply}:[X\times Y\rightarrow Z]\times X\rightarrow [Y\rightarrow Z]\]
+Currying a function just the function $f$ and outputs a new function $h$.
+The function $h$ is itself a higher order function that takes an element $x_0\in X$ and outputs a function such that:
+\[h(x_0) = g\]
+This operation has the following signature:
+\[\operatorname{curry}:[X\times Y\rightarrow Z]\rightarrow(X\rightarrow [Y\rightarrow Z])\]
+Hence currying a function is like a middle step for partially applying it.
+An important observation is that when currying a function all steps take a single parameter while partial applying needs to take two, both $x_0$ and $f$:
+\[\operatorname{curry}(f)(x_0)(y) = \operatorname{apply}(f,x_0)(y)\]
+This property can be useful for analysis. 
+\\
+
+Also note that currying is named after Haskell Curry.
+The similarity of the term `curried function $f$' to the foods like `curried egg' and `curried sausage' is coincidental.
+Won't stop me thinking of the later when people say the former.
