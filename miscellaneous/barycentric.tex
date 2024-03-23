@@ -164,6 +164,51 @@ Because the first coordinate is the ratio of the area of the total triangle to $
 and likewise for the other coordinates.
 \\
 
+\subsection{Some Relations}
+Some relations between barycentric coordinates I doodled while waiting for something.
+\\
+The sum of squares is basically the norm to the center:
+\begin{equation*}
+\begin{aligned}
+	&\left(\lambda_1-\frac{1}{3}\right)^2+\left(\lambda_2-\frac{1}{3}\right)^2+\left(\lambda_3-\frac{1}{3}\right)^2\\
+	=&\lambda_1^2+\lambda_2^2+\lambda_3^2-\frac{2}{3}(\lambda_1+\lambda_2+\lambda_3)+\frac{1}{3}\\
+	=&\lambda_1^2+\lambda_2^2+\lambda_3^2+\frac{1}{3}\\
+\end{aligned}
+\end{equation*}
+And the second symmetric sum is basically the negative of the norm to the center:
+\begin{equation*}
+\begin{aligned}
+	&\lambda_1\lambda_2+\lambda_2\lambda_3+\lambda_1\lambda_3\\
+	=& \frac{1}{2}\bigg((\lambda_1+\lambda_2+\lambda_3)^2 -(\lambda_1^2+\lambda_2^2+\lambda_3^2)\bigg)\\
+	=& \frac{1}{2}\bigg(1 -(\lambda_1^2+\lambda_2^2+\lambda_3^2)\bigg)\\
+\end{aligned}
+\end{equation*}
+From the Sedrakyan's inequality we have a lower bound on the interpolation of the reciprocals of positive numbers $a,b,$ and $c$:
+\begin{equation*}
+\begin{aligned}
+	\frac{1}{a+b+c} =& \frac{(\lambda_1+\lambda_2+\lambda_3)^2}{a+b+c} \\
+	\leq& \frac{\lambda_1^2}{a}+\frac{\lambda_2^2}{b}+\frac{\lambda_3^2}{c}\\
+	\leq& \frac{\lambda_1}{a}+\frac{\lambda_2}{b}+\frac{\lambda_3}{c}\\
+\end{aligned}
+\end{equation*}
+Changing variable use in the same inequality gives:
+\[(x+y+z)^2 = \frac{(x+y+z)^2}{\lambda_1+\lambda_2+\lambda_3} \leq \frac{x^2}{\lambda_1} +\frac{y^2}{\lambda_2} +\frac{z^2}{\lambda_3}\]
+Which is interpolation of squares,
+but over reciprocals of the barycentric coordinates.
+\\
+Consider the function:
+\[f(\lambda_1,\lambda_2,\lambda_3) = \lambda_1\lambda_2(1-\lambda_3)+\lambda_1\lambda_3(1-\lambda_2)+\lambda_2\lambda_3(1-\lambda_1)\]
+Interestingly this function is $0$ at the triangle vertices but on the edges, WLOG the edge opposite $P_1$, we get a parabola:
+\[f(0,t,1-t) = t(1-t)\]
+Looking at the gradient of the function,
+recalling that it is a function in the 3D space,
+we get:
+\[\nabla f = (-\lambda_2\lambda_3,-\lambda_1\lambda_3,-\lambda_1\lambda_2)\]
+It always points to the origin and in symmetric around the line from the origin to the center of the triangle.
+Hence the center is the maximum and it decreases with radial symmetry.
+This radial symmetry is squished by the transform to 2D space,
+but can still be used as a displacement to make a triangle wax/wane while keeping the corner the same.
+
 % Trilinear conversion?
 
 %The altitude of $P_1$ is perpendicular to $\overline{P_2P_3}$ giving it a gradient of:
