@@ -126,3 +126,51 @@ Combining gives:
 \end{equation*}
 Which is a pretty cool expression that relates two Dirichlet generating functions.
 Since the two functions are related by multiplication of a zeta function there's either more cool convolution based results or a result which trivializes all this work.
+
+\subsubsection{Cool Convolution Results}
+Lets execute on the promise of additional results and decide if it trivializes previous work or not.
+Start by defining:
+\[\tilde{H}_n = \sum_{\substack{k=1\\\gcd(n,k)=1}}^n\frac{1}{k}\]
+Allowing us to take the above result into a more standard form.
+\[ \sum_{n=1}^\infty\frac{1}{n^s}\frac{H_n}{n}=\left(\sum_{n=1}^\infty\frac{1}{n^s}\frac{1}{n^2}\right)\left(\sum_{n=1}^\infty\frac{1}{n^s}\frac{\tilde{H}_n}{n}\right)\]
+Which, by the Dirichlet convolution theorem, gives:
+\[\frac{H_n}{n} = \sum_{d|n}\frac{\tilde{H}_d}{d}\frac{1}{\left(\frac{n}{d}\right)^2}\]
+Which after cleanup is:
+\[H_n = \frac{1}{n}\sum_{d|n}d\tilde{H}_d\]
+But what about triviality?
+\\
+
+\subsubsection{Triviality}
+One way the result could be said to be trivialized is if it can easily achieved using elementary number theory.
+To that end consider the following result,
+let $n,k,m$ be integers with $m>0$ then we have:
+\[\gcd(mn,mk)=m\gcd(n,k)\]
+(This result intuitively follows from expressing $\gcd(n,k)$ as the minimal non-zero linear combination of $n$ and $k$).
+When $d|n$ and $\gcd(nd^{-1},k)=1$ we have:
+\[\gcd(n,dk) = \gcd(ndd^{-1},dk) = d\gcd(nd^{-1},k) = d\]
+Hence we can reparametrize the following sum:
+\[\sum_{\substack{k=1\\\gcd(nd^{-1},k)=1}}^{nd^{-1}}f(dk)=\sum_{\substack{k'=1\\\gcd(n,k')}}^nf(k')\]
+Applying to our series:
+\begin{equation*}
+\begin{aligned}
+	H_n =& \sum_{k=1}^n\frac{1}{k}\\
+	=& \sum_{d|n}\sum_{\substack{k=1\\\gcd(n,k)=d}}^n\frac{1}{k}\\
+	=& \sum_{d|n}\sum_{\substack{k=1\\\gcd(nd^{-1},k)=1}}^{nd^{-1}}\frac{1}{dk}\\
+	=& \sum_{d|n}\frac{1}{d}\tilde{H}_{nd^{-1}}\\
+\end{aligned}
+\end{equation*}
+Swapping the order of summation, $d\mapsto nd^{-1}$ we get the original result.
+I'd say this result is elementary enough to trivialize the previous result but if we can get just a touch more advanced there's a cooler proof.
+\\
+
+It's clear that:
+\[\sum_{\substack{k=1\\d|k}}^n\frac{1}{k}=\frac{1}{d}H_{nd^{-1}}\]
+Hence by the Inclusion-Exclusion principle we have:
+\[\tilde{H}_n = \sum_{d|n}\mu(k)\frac{H_{nd^{-1}}}{d}\]
+As we start with $d=1$,
+which includes all reciprocals,
+then $\mu(p)=-1$ means we exclude all numbers with a given prime divisor,
+then $\mu(p_0p_=)=1$ means we include all numbers with two given prime divisors,
+which otherwise would have been removed twice.
+So an and so forth till we get the whole sum.
+Möbius inversion gives us the original result.
