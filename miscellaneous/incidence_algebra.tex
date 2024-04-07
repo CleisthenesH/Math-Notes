@@ -1,0 +1,67 @@
+% Copyright 2024 Kieran W Harvie. All rights reserved.
+
+\section{Incidence Algebra}
+While working on the harmonic series I got an itch to revise some incidence algebra.
+This is because of the use of the inclusion-exclusion principle,
+which is beautifully generalized by this structure. 
+
+\subsection{Poset Revision}
+A poset $P$ is set with an operator $\preceq$ referred to as the `partial order' and works as one would expect, meaning for $x,y,z\in P$ :
+\begin{itemize}
+	\item {\bf Reflexivity:}  $x\preceq x$.
+	\item {\bf Antisymmetry:}  If $x\preceq y$ and $y\preceq x$ then $x=y$.
+	\item {\bf Transitivity:}  If $x\preceq y$ and $y\preceq z$ then $x\preceq z$.
+\end{itemize}
+We write $x\prec y$ if $x\preceq$ and $x\neq y$.
+A chain is a sequence of $P$ such that:
+\[x_0\prec x_1 \prec x_2 \prec \dots \prec x_n\]
+A multichain is a sequence of $P$ such that:
+\[x_0\preceq x_1 \preceq x_2 \preceq \dots \preceq x_n\]
+A closed interval $[x,y]$ is a subset of $P$ defined as:
+\[[x,y] = \{z\,:\,x\preceq z\preceq y \text{ where }x,y,z\in P\}\]
+The set of all intervals of a $P$ is denoted $\operatorname{Int}(P)$ and a locally finite poset $P$ is one where each closed interval is finite.
+
+\subsection{Incidence Algebra Definition}
+The Incidence Algebra of $P$ over $K$, denoted $I(P,K)$, is the vector space is the space of functions $K^{\operatorname{Int}(P)}$ with addition and scalar multiplication defined in the normal way.
+The bilinear function of the algebra is called convolution and is defined as:
+\[(f*g)([x,y]) = \sum_{z\in [x,y]}f([x,z])g([z,y])\]
+When meaning is obvious a lot of symbols are dropped:
+\[fg[x,y] = \sum_{z\in [x,y]}f[x,z]g[z,y]\]
+Some special names elements are the delta and zeta functions:
+\[\zeta[x,y] = 1,\quad\delta[x,y] = \begin{cases}1&x=y\\0&x\neq y\end{cases}\]
+These functions are defined their useful convolution properties:
+\begin{equation*}
+\begin{aligned}
+	f\zeta[x,y] =& \sum_{z\in [x,y]}f[x,z]\\
+	\zeta f[x,y] =& \sum_{z\in [x,y]}f[z,y]\\
+	f\delta[x,y] =& \delta f[x,y] = f[x,y]\\
+\end{aligned}
+\end{equation*}
+We call a function $f$ invertible if there exits a function $g$ such that:
+\[fg=\delta\]
+We can see that the set of invertible functions $K^{\operatorname{Int}(P)}$ are a group with unit element $\delta$.
+To this end  with define a new function $\mu$ called the Möbius function:
+\[\mu[x,y] = \begin{cases}1&x=y\\-\sum_{x\preceq z\prec y}\mu(x,y)&x\prec y\\0&y\prec x\\\end{cases}\]
+You can show that:
+\[\mu\zeta = \delta\]
+An important use for this group is as a group action from this group onto $K^P$ such that:
+\[(f\cdot a)(x) = \sum_{y\preceq x}f(y)a[y,x]\]
+
+\subsection{General Inclusion-Exclusion Principle}
+Assume all the previous results are true\footnote{Prove them yourself.} we get the following corollary.
+Let $f,g\in K^P$ then:
+\[g(x) = (f\cdot \zeta)(x) \Leftrightarrow f(x) = (g\cdot \mu)(x)\]
+Or more verbosely:
+\[g(x) = \sum_{y\preceq x}f(y) \Leftrightarrow f(x) = \sum_{y\preceq x}g(y)\mu[y,x]\]
+For a sketch of how this is generalization of the more common inclusion-exclusion principle consider the following:
+\begin{enumerate}
+	\item Let $(A_i)_{i\in I}$ be a family of sets indexed by $I$ and let $P$ be the poset of subsets of $I$ ordered by inclusion.
+	This makes $\mu[S,T] = (-1)^{T/S}$
+	\item Define $f:P\rightarrow \mathbb{N}$ where $f(T)$ is the number of elements $a$ such that:
+		\[\left\{a\mid a \in \bigcap_{i\in I/T}A_i \text{ and } i\in T \Rightarrow a\not\in A_i \right\}\]
+	In natural language, this is set elements in the sets indexed by $I/T$ but not in the sets indexed by $T$.
+	\item These sets are mutually exclusive so we directly get:
+		\[g(T)=\begin{cases}\left|\bigcap_{i\in I/T}A_i\right| T\neq I\\\left|\bigcup_{i\in I\phantom{/I}}A_i\right|T=I\end{cases}\]
+	\item $f(I)=0$ because $\bigcup_{i\in I/I}A_i = \varnothing$ applying the general inclusion-exclusion principle to $f(I)$ we get: 
+		\[0=\left|\bigcup_{i\in I}A_i\right|+\sum_{T\subset I}\left|\bigcap_{i\in I/T}A_i\right|(-1)^{I/T}\quad\square\]
+\end{enumerate}
