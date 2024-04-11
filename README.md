@@ -78,3 +78,4 @@ And add new notes directly too this repository, subject to change:
 - Commuting Probability
 - Laplace's Rule of Succession
 - Mordell-Tornheim Sums
+- Bézier triangle
