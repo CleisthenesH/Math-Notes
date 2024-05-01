@@ -1,0 +1,47 @@
+% Copyright 2024 Kieran W Harvie. All rights reserved.
+
+\section{Quadratic Form Hadamard Matrix}
+Consider the following equality between quadratic forms:
+\[\begin{aligned}
+	&w_{+,+}(x+y+z)^2+w_{+,-}(x+y-z)^2+w_{-,+}(x-y+z)^2+w_{-,-}(x-y-z)^2\\
+	=&h_0(x^2+y^2+z^2)+2h_{xy}xy+2h_{xz}xz+2h_{yz}yz\\
+\end{aligned}\]
+Their coefficients are related by:
+\[
+	\begin{bmatrix}1&1&1&1\\1&-1&1&-1\\1&1&-1&-1\\1&-1&-1&1\\\end{bmatrix}
+	\begin{bmatrix}w_{+,+}\\w_{+,-}\\w_{-,+}\\w_{-,-}\end{bmatrix}
+	=\begin{bmatrix}h_0\\h_{xz}\\h_{xy}\\h_{yz}\end{bmatrix}
+\]
+This might already be a cool result as expressions with squares like this are often useful.
+But the matrix is $H_4$, the fourth order Hadamard Matrix,
+a known matrix with many cool properties like:
+\[H_n^2=4I_4\]
+
+\subsection{Sedrakyan's Inequality}
+If we express a general linear relation between $x$,$y$, and $z$ as:
+\[\begin{aligned}
+	&a_0x+a_1y+a_2z\\
+	=& t(x+y+z) + (\mu_{+,-}-t)(x+y-z)\\
+	&+(\mu_{-,+}-t)(x-y+z)+(\mu_{-,-}-t)(x-y-z)\\
+	=& |\mu_{+,+}-t|\sgn(\mu_{+,+}-t)(x+y+z) + |\mu_{+,-}-t|\sgn(\mu_{+,-}-t)(x+y-z)\\
+	&+|\mu_{-,+}-t|\sgn(\mu_{-,+}-t)(x-y+z)+|\mu_{-,-}-t|\sgn(\mu_{-,-}-t)(x-y-z)\\
+\end{aligned}\]
+Where:
+\[\mu_{+,+} =0,\,\mu_{+,-} = \frac{a_0+a_1}{2},\,\mu_{-,+}=\frac{a_0+a_2}{2},\,\mu_{-,-}=\frac{a_1+a_2}{2}\]
+Assuming $t$ is not equal to any of the $\mu_S$, we can apply Sedrakyan's Inequality to give: 
+\[\begin{aligned}
+	&\frac{(a_0x+a_1y+a_2z)^2}{|t|+|\mu_{+,-}-t|+|\mu_{-,+}-t|+|\mu_{-,-}-t|}\\
+	\leq&\frac{(x+y+z)^2}{|t|}+\frac{(x+y-z)^2}{|\mu_{+,-}-t|}+\frac{(x-y+z)^2}{|\mu_{-,+}-t|}+\frac{(x-y-z)^2}{|\mu_{-,-}-t|}
+\end{aligned}\]
+When $t$ is equal to one or more of the $\mu_S$ simply use a lower dimensional Sedrakyan's Inequality for a similar result.
+Combining these gives:
+\[\begin{aligned}
+	&(a_0x+a_1y+a_2z)^2\\
+	\leq&w_{+,+}(x+y+z)^2+w_{+,-}(x+y-z)^2+w_{-,+}(x-y+z)^2+w_{-,-}(x-y-z)^2\\
+\end{aligned}\]
+With:
+\[w_S = \begin{cases}|\mu_S-t|^{-1}(|t|+|\mu_{+,-}-t|+|\mu_{-,+}-t|+|\mu_{-,-}-t|)&t\neq \mu_S\\0&t=\mu_S\end{cases}\]
+(Note that the orginal LHS denominator being $0$ isn't an issue when at lest one $a_k$ is nonzero).
+\\
+
+Meaning we can use the main result to express a bound of $(a_0x+a_1y+a_2z)^2$ as a linear sum of $x^2+y^2+z^2$, $xy$, $xz$, and $yz$.
