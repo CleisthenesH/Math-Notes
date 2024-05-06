@@ -147,6 +147,88 @@ We can use these results to express the supersystem as a superposition of differ
 (Note, alternative parametrizations of this sum are common and available)
 These coefficients $\braket{m_1,m_2,j_1,j_2}{J,M}$ are the Clebsch–Gordan coefficients and can be looked up in readily available and iconically shaped tables.
 
+\subsection{Rotating Cones}
+In the beginning I talked about interpreting quantum angular momentum as rotating cones,
+what did I mean by this?
+Well consider the set of points in $\mathbb{R}^3$ with a known distance to the origin and known $Z$ component.
+We get a circle centered on the $Z$ axis at that known hight.
+The analogy to quantum angular momentum is obvious:
+\begin{center}
+\begin{tikzpicture}
+	\draw[<->] (-3,0)--(3,0) node[right]{$X$};
+	\draw[->] (0,0)--(0,6) node[above]{$Z$};
+	\draw[<->] (-2,-1)--(2,1) node[above right]{$Y$};
+	\draw[fill = gray] (0,4) circle[x radius = 2, y radius = 0.9];
+	\draw[->] (0,4)--(0,6) node[above]{$Z$};
+
+	\draw[dashed] (-3,4)--(0,4);
+	\draw[|<->|] (-3.2,0)--  (-3.2,4) node[midway,fill=white]{$m$};
+
+	\draw[->] (0,0)--(2,4) node[midway,fill=white]{$\sqrt{(j+1)j}$} ;
+\end{tikzpicture}
+\end{center}
+But how do we add momentum this way?
+Well if we consider the most simple case of adding a one of these disks to to itself.
+We simply take one point on the edge of the disk and scale up accordingly:
+\begin{center}
+\begin{tikzpicture}
+	\draw[<->] (-3,0)--(3,0) node[right]{$X$};
+	\draw[<->] (-2,-1)--(2,1) node[above right]{$Y$};
+	\draw (0,0)--(0,2.5);
+	\draw[fill = gray] (0,2.5) circle[x radius = 2.5, y radius = 0.9];
+	\draw (0,2.5)--(0,5);
+	\draw[fill = gray] (0,5) circle[x radius = 5, y radius = 1.8];
+	\draw[->] (0,5)--(0,6) node[above]{$Z$};
+
+	\draw[->] (0,0)--(2.5,2.5);
+	\draw[->] (2.5,2.5)--(5,5);
+\end{tikzpicture}
+\end{center}
+This corresponds to the following equation:
+\[\ket{\left[\frac{1}{2},\frac{1}{2}\right],1,1}=\frac{1}{\sqrt{2}}\left(\ket{\frac{1}{2},\frac{1}{2}}+\ket{\frac{1}{2},\frac{1}{2}}\right)\]
+But this idea isn't complete because we need to incorporate relative phase of the basis vectors into the picture.
+For example we have could be in phase:
+\begin{center}
+\begin{tikzpicture}
+	\draw[<->] (-5,0)--(5,0) node[right]{$X$};
+	\draw[<->] (-4,-2)--(4,2) node[above right]{$Y$};
+	\draw[fill = gray] (0,0) circle[x radius = 4, y radius = 1.8];
+	\draw[->] (0,0)--(0,6);
+	\draw[fill = gray] (0,4) circle[x radius = 2, y radius = 0.9];
+	\draw[->] (0,4)--(0,6) node[above]{$Z$};
+
+	\draw[->] (0,0)--(2,4);
+	\draw[->] (2,4)--(4,0);
+\end{tikzpicture}
+\end{center}
+\[\ket{1,0}=\frac{1}{\sqrt{2}}\left(\ket{\frac{1}{2},-\frac{1}{2}}+\ket{-\frac{1}{2},\frac{1}{2}}\right)\]
+As well as in opposite phase:
+\begin{center}
+\begin{tikzpicture}
+	\draw[<->] (-3,0)--(3,0) node[right]{$X$};
+	\draw[->] (0,0)--(0,6) node[above]{$Z$};
+	\draw[<->] (-2,-1)--(2,1) node[above right]{$Y$};
+	\draw[fill = gray] (0,4) circle[x radius = 2, y radius = 0.9];
+	\draw[->] (0,4)--(0,6) node[above]{$Z$};
+
+	\draw[<->] (0,0)--(2,4);
+\end{tikzpicture}
+\end{center}
+\[\ket{0,0}=\frac{1}{\sqrt{2}}\left(\ket{\frac{1}{2},-\frac{1}{2}}-\ket{-\frac{1}{2},\frac{1}{2}}\right)\]
+As suggested by the picture the relative phase of the basis vectors is the relative phase of the $\mathbb{R}^3$ vectors as they rotate around.
+In the first example the two basis vectors are in phase so both vectors start at $0$ degrees and rotate together.
+While in the second example the two basis vectors are in opposite phase so one starts at $0$ degrees and the other at $180$ meaning as they rotate they cancel out.
+\\
+
+This is what's meant by "Rotating cones set up a certain way".
+First you convert vectors into cones using the initial geometry analogy.
+Then you scale them by the basis vectors' coefficients relative magnitude and rotate them by their relative phase.
+Finally you rotate the vectors at the same angular velocity and see which disk is traced out.
+\\
+
+(Note the reason they are disks instead of cones is because it's surprisingly difficult to draw cones in tikz.
+The reader is invited to use their imagination to fill in the missing sides.)
+
 \subsection{Conclusion}
 The previous section concludes the revision I needed and I'm getting kind of tired of thinking about Clebsch–Gordan theory.
 However the topic is rich and I can see myself coming back later and appending to this section,
