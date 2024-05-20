@@ -1,0 +1,56 @@
+% Copyright 2024 Kieran W Harvie. All rights reserved.
+
+\section{Leibniz Integral Rule and Distributions}
+A post on the internet was confused by a step when trying to solve:
+\[\int_a^x(x-t)f(t)\,dt = \ln(x)-x+1\]
+In particular why we where allowed to derive both sides to get:
+\[\int_a^xf(t)\,dt = \frac{1}{x}-1\]
+I, presumably like the poster, was concerned about a misapplication of Friedman's trick as $x$ appears in the bounds.
+Well this problem is propertly handled by Leibniz integral rule:
+\[\frac{d}{d x}\int_{a(x)}^{b(x)}G(x,t)\,dt=G(x,b(x))b'(x)-G(x,a(x))a'(x)+\int_{a(x)}^{b(x)}\frac{\partial}{\partial x}G(x,t)\,dt\]
+When applied to a moment like product of a general function $g$:
+\[G(x,t)=(x-t)^ng(t)\]
+We obtain:
+\[\frac{d}{dx}\int_a^x(x-t)^ng(t)\,dt = n\int_a^x(x-t)^{n-1}g(t)\,dt\]
+Applying this to the original problem gives the desired result.
+Their analysis continues from here in a way I'm not privy to but this result kind of troubles me.
+A function $f$ can't satisfy this for general $a$ as:
+\[\int_a^af(t)\,dt = 0 \neq \frac{1}{a}-1\]
+So considering $f$ as a distribution based on functions $g$ and $h$ with:
+\[f(t) = g(t)\delta(t-a)+h(t)\]
+The only value of $g$ hat matters is $g(a)$ matters:
+\[\int_a^af(t)\,dt = g(a) = \frac{1}{a}-1\]
+Giving:
+\[\int_a^xf(t)\,dt = g(a)H(x-a) + \int_a^xh(t)\,dt = \frac{1}{x}-1\]
+Which unfortunately requires:
+\[h(x) = -\frac{1}{x^2}-g(a)\delta(x-a)\]
+Meaning the assumed form of $f$ is wrong.
+While nowhere near extensive or rigorous this ends my desire to look for general solutions.
+Solutions may still exit for on $a=\pm\infty$,
+depending on the on values for $\lim_{x\rightarrow\pm\infty}f(x)$.
+I hope the poster is aware of these problems and may possibly has more context that would help solve it.
+
+\subsection{Miscellaneous Notes}
+\subsubsection{What is a Distribution?}
+A distribution is like a generalization of a function where a function acts on points a distribution acts on test functions.
+They are a generalization of functions since a well behaved function can be multiplied by a test function and then integrated.
+In particular,
+while the delta function is properly thought of as a distribution,
+we recover the action on a point through:
+\[f(x) = \int_\mathbb{R}f(t)\delta(t)\,dt\]
+
+\subsubsection{Function Inside the Delta Function:}
+While thinking about the posters problem I came across the well known result that for a function $g$ with a finite number of real roots $x_i$ we have:
+\[\delta(g(x)) = \sum_i\frac{\delta(x-x_i)}{|g'(x_i)|}\]
+A sketch of the proof is really cool so I'm including it here.
+\\
+
+Let all roots be separated by greater than $2\varepsilon$ then we can write
+\[\int_\mathbb{R}f(x)\delta(g(x))\,dx = \sum_i\int_{x_i-\varepsilon}^{x_i+\varepsilon}f(x)\delta(g(x))\,dx\]
+As all the in-between intervals vanish,
+continuing to take $\varepsilon\rightarrow 0$ we get
+\[\begin{aligned}
+	\sum_i\int_{x_i-\varepsilon}^{x_i+\varepsilon}f(x)\delta(g(x))\,dx =& \sum_i\int_{x_i-\varepsilon}^{x_i+\varepsilon}f(x)\delta(g'(x_i)(x-x_i))\,dx\\
+	=&\sum_i\frac{f(x_i)}{|g'(x_i)|}\\
+\end{aligned}\]
+As expected.
