@@ -1,0 +1,207 @@
+% Copyright 2024 Kieran W Harvie. All rights reserved.
+
+\section{Group Action}
+Let $G$ be a group and $S$ an arbitrary set,
+the function $\cdot:G\times S\rightarrow S$ is called a "group action" if for all $s\in S$, $g,h\in G$, and $1$ being the unit of $G$, we have:
+\[\begin{aligned}
+	1\cdot s =& s\\
+	gh\cdot s =& g\cdot h\cdot s\\
+\end{aligned}\]
+Given an element $s$ there are two natural sets to consider,
+first is the subset of $G$ that leaves $s$ unchanged:
+\[H_s=\{g\in G:g\cdot s = s\}\]
+This subset is called the stabilizer of $s$,
+second is a subset of $S$ consisting all elements accessible from $s$:
+\[O_s =\{g\cdot s:g\in G\}\]
+This subset is called the orbit of $s$.
+
+\subsection{Structure}
+Despite $S$ only being a set,
+both of these subsets have a lot of structure.
+Proofs of this structure is largely just expanding definitions while using our ability to invert arbitrary elements,
+but I guess most introductory group theory proofs are like this.
+
+\subsubsection{The Set of Sets $\{O_s:s\in S\}$ Partitions $S$:}
+It's trivial that every element of $S$ is in at least of set as $s\in O_s$.
+If $O_s$ and $O_{s'}$ share an element we have $g,g'\in G$ such that:
+\[g\cdot s = g'\cdot s'\]
+We can use this to bridge between the two orbits for any element $h$:
+\[h\cdot s = hg^{-1}g\cdot s = hg^{-1}g'\cdot s'\]
+Meaning if $O_s$ and $O_{s'}$ share a single element they share all elements.
+
+
+\subsubsection{$H_s$ is a Subgroup of $G$:}
+Similarly we just need to prove that if $h\in H_s$ then so is $h^{-1}$:
+\[H_s\Rightarrow  h^{-1}s = h^{-1}\cdot (h\cdot s) = (h^{-1}h)\cdot s=s\]
+And that if $h,h'\in H_s$ so is $hh'$:
+\[(hh')\cdot s = h\cdot h'\cdot s = h\cdot s = s\]
+
+\subsection{Theorems}
+These two bits of structure give us two important theorems.
+
+\subsubsection{The Orbit-Stabilizer Theorem:}
+Consider the following chain of equivalences:
+\[\begin{aligned}
+	g\cdot s = h\cdot s \Leftrightarrow& s=g^{-1}h\cdot s\\
+	\Leftrightarrow& g^{-1}h\in H_s\\
+	\Leftrightarrow& gH_s = g(g^{-1}h)H_s = hH_s\\
+\end{aligned}\]
+This chain allows us to define a bijection between $O_s$ and  cosets of $H_s$ mapping the coset $X$ to $x\cdot s$ where $x\in X$:
+\[X\mapsto x\cdot s\]
+Reading the chain backwards shows this map is well-defined,
+$x\cdot s$ doesn't depend on choice of $x$,
+reading the chain forward shows the function in injective.
+The mapping is surjective since any $g$ is in the coset $gH_s$:
+\[gH_s\mapsto g\cdot s\]
+This bijection means the index $|G:H_s|$,
+the number of cosets of $H_s$ in $G$,
+is equal to the order of $O_s$.
+When $G$ is finite the Lagrange's theorem gives:
+\[|G| = |H_s||O_s|\]
+
+\subsubsection{The Counting Theorem:}
+Let $I\subseteq S$ index the set of set $\{O_s:s\in S\}$ such that for all $i,j\in I$:
+\[ O_i \neq O_j\]
+Then partitioning means:
+\[\begin{aligned}
+	\sum_{s\in S}f(|O_s|) =& \sum_{i\in I}\sum_{s\in O_i}f(|O_s|)\\
+	=&\sum_{i\in I}|O_i|f(|O_i|)\\
+\end{aligned}\]
+In particular when $S$ is finite and $f(x)=1$ we have:
+\[|S| = \sum_{i\in I}|O_i|\]
+This result is called the counting theorem.
+\\
+
+Note that when $G$ is finite we can turn a function $g(|O_s|$,$|H_s|)$ into just $f(|O_s|)$ by use of the Orbit-Stabilizer Theorem:
+\[f(x) = g(x,|G|x^{-1})\]
+
+\subsection{Finite Subgroups of $SO(3)$}
+The three dimensional special orthogonal group,
+denoted $SO(3)$,
+is the systematic name of the group of rotation in three dimensional rotations where the group operations is composition,
+more extensive descriptions are readily available elsewhere.
+\\
+
+We wish to classify the finite subgroups of $SO(3)$ and will do so by considering it's action on a sphere $S^2$ where the action will be the natural interpretation of rotations on the sphere.
+Instead of the whole of $S^2$ we will considering the set of `poles' $P$ of $G$ which are the elements of $S^2$ with a stabilizer order greater than or equal to $2$.
+\\
+
+We'll start with a pure group theoretic result proving that $G$ acts on $P$,
+then apply application specific knowledge to get an expression of $|G|$ in terms of stabilizers,
+and finally applying group theory to simplify and apply this expression to the classification of finite subgroups.
+
+\subsubsection{$G$ Acts on $P$:}
+To prove $G$ acts on $P$ we only need to prove closure, 
+the rest is inherited from from $G$ as a subgroup of $SO(3)$ acting on $S^2$.
+A pole's, $\rho$, stabilizer's order being greater than or equal to $2$ is equivalent to saying there exits a no-unit element $g\in H_s$.
+Let $g$ be the non-unit element such that:
+\[q\cdot \rho = \rho\]
+Now let $h$ be an arbitrary element in $G$ and consider the following chain of equalities:
+\[(hgh^{-1})\cdot (h\cdot \rho) = h\cdot g\cdot (h^{-1}h)\cdot \rho = h\cdot g\cdot \rho = h\cdot \rho \]
+By contradiction,
+when $g$ in non-unit so is $hgh^{-1}$ as:
+\[hgh^{-1}=1\Rightarrow hg=h \Rightarrow g=1\]
+So the chain shows that for arbitrary $h$ the element $h\cdot\rho$'s stabilizer contains the non-unit element $hgh^{-1}$.
+Hence we have closure and hence $G$ acts on $P$.
+
+\subsubsection{Double Counting Rotations:}
+Let the identity rotation be the rotation around any pole by a multiple of $2\pi$,
+essentially no rotation,
+and let a proper rotation be any rotation that isn't the identity rotation.
+Every proper rotation fixes {\em exactly} two points of the sphere,
+the points where the pole of rotation intersects the sphere.
+The stabilizer of a pole $\rho$ includes the identity rotation,
+hence $|H_\rho|-1$ is the number of proper rotations that fix $\rho$ and the sum:
+\[\sum_{\rho\in P}(|H_\rho|-1)\]
+Double counts the number of proper rotations in $G$.
+Since $G$ includes the identity rotation,
+the full expression becomes:
+\[|G| = 1+\frac{1}{2}\sum_{\rho\in P}(|H_\rho|-1)\]
+If you need help visualizing the double counting you can pair up a pole with it's antipodal point.
+\\
+
+By applying the generalization in Counting Theorem then the Orbit-Stabilizer Theorem to this sum we get:
+\[\begin{aligned}
+|G| =& 1+\frac{1}{2}\sum_{i\in I}|O_i|(|H_i|-1)\\
+=& 1+\frac{|G|}{2}\sum_{i\in I}(1-|H_i|^{-1})\\
+\end{aligned}\]
+
+\subsubsection{Bound on $|I|$:}
+Dividing through the previous sum by $|G|$ we get:
+\[1 = |G|^{-1}+\frac{1}{2}\sum_{i\in I}(1-|H_i|^{-1})\]
+Both the terms are greater than zero and sum to $1$ hence each term must be less than $1$:
+\[1>\frac{1}{2}\sum_{i\in I}(1-|H_i|^{-1})\]
+By definition,
+each $|H_i|\geq 2$ meaning: 
+\[1>\frac{1}{2}\sum_{i\in I}(1-|H_i|^{-1}) \geq \frac{1}{2}\sum_{i\in I}\frac{1}{2} = \frac{|I|}{4}\]
+Hence we get the following bound on $|I|$:
+\[|I|\leq 3\] 
+
+\subsubsection{Potential Subgroups}
+When $|I|=1$ then the whole of $G$ is in the same orbit hence $|O_1|=|G|$ and by the Orbit-Stabilizer Theorem $|H_1|=1$ meaning there are no proper rotations and $G$ is the trivial subgroup.
+
+When $|I|=2$ we get:
+\[\begin{aligned}
+1 =& \frac{1}{|G|} + \frac{1}{2}\bigg(\left(1-\frac{1}{|H_1|}\right)+\left(1-\frac{1}{|H_2|}\right)\bigg)\\
+=& \frac{1}{|G|} + \frac{1}{2}\bigg(2-\frac{1}{|H_1|}-\frac{1}{|H_2|}\bigg)\\
+0=& \frac{1}{|G|} - \frac{1}{2}\bigg(\frac{1}{|H_1|}+\frac{1}{|H_2|}\bigg)\\
+0=& 1- \frac{1}{2}\bigg(|O_1|+|O_2|\bigg)\\
+2=& |O_1|+|O_2|\\
+\end{aligned}\]
+Since $|O_i|$ are integers the only solution is $|O_i|=1$ and by the Orbit-Stabilizer Theorem $|G| = |H_1| = |H_2|$,
+hence:
+\[|H_1| = |H_2| =|G|=n\]
+Are potential subgroups.
+\\
+
+Similar algebra applied to $|I|=3$ gives
+\[\frac{1}{|H_1|}+\frac{1}{|H_2|}+\frac{1}{|H_3|}=1+\frac{2}{|G|}  > 1\]
+Meaning there's only so large $|H_i|$ can ge before being larger than $1$ can't be meet,
+hence we can work though potential subgroups out through cases.
+For example at least one of $|H_i|$ must be $2$ otherwise:
+\[\frac{1}{3}+\frac{1}{3}+\frac{1}{3} =1\]
+
+When $|H_1|=|H_2| = 2$ we have:
+\[\frac{1}{|H_3|} = \frac{2}{|G|}\]
+Hence:
+\[|H_1| = |H_2| = 1,\,|H_3| = n,\, |G|=2n\]
+Are potential subgroups.
+\\
+
+When $|H_1|=2,\,|H_2|=3$ we have:
+\[\frac{1}{2}+\frac{1}{3}+\frac{1}{6} =1\]
+Hence only:
+\[\begin{matrix}
+	|H_1| = 2,\,&|H_2|=3,\,&|H_3|=3,\,&|G|=12\\
+	|H_1| = 2,\,&|H_2|=3,\,&|H_3|=4,\,&|G|=24\\
+	|H_1| = 2,\,&|H_2|=3,\,&|H_3|=5,\,&|G|=60\\
+\end{matrix}\]
+Are possible subgroups.
+\\
+
+When $|H_1|=2,\,|H_2|=4$ we have:
+\[\frac{1}{2}+\frac{1}{4}+\frac{1}{4} =1\]
+Hence there are no more possible subgroups.
+
+\subsubsection{Actual Classification:}
+So far these are only potential subgroups,
+to finish classification we still need to find a finite subgroup of $SO(3)$ matching these conditions and show that they are the only ones to do so.
+This second part is out of the scope,
+but rest assure that the theory around classification of finite groups of such a low order is mature and can easily be searched.
+\\
+
+For the $|I|=1$ case we got the trivial subgroup which corresponds to just the identity rotation.
+For the $|I|=2$ case we got the family of subgroups corresponding to rotation around a singular pole of $n$ points spread out along the equator of the pole.
+For the $|I|=3$ family of subgroups we got the same points as before but an extra rotation of flipping the two poles.
+For the other $|I|=3$ cases we got the rotation groups of the regular polyhedra,
+which must be a subgroup by their regularity.
+The corresponds polyhedra for each group can be found by comparing elements and is presented in the table bellow:
+\[\begin{matrix}
+	|I|&|H_1|&|H_2|&|H_3|&|G|\\
+	1&1& & &0  &\text{Trivial}\\
+	2&n&n& &n  &\text{Equator Family}\\
+	3&2&n&n&2n&\text{Equator and Flip Family}\\
+	3&2&3&3&12&\text{Tetrahedron}\\
+	3&2&3&4&24&\text{Octahedron and Cube}\\
+	3&2&3&5&60&\text{Icosahedron and Dodecahedron}\\
+\end{matrix}\]
