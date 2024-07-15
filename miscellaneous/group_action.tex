@@ -205,3 +205,23 @@ The corresponds polyhedra for each group can be found by comparing elements and 
 	3&2&3&4&24&\text{Octahedron and Cube}\\
 	3&2&3&5&60&\text{Icosahedron and Dodecahedron}\\
 \end{matrix}\]
+
+\subsection{Properties}
+There's some common and useful named properties a group action can have so memorizing them can be useful.
+
+\subsubsection{($n$)-Transitive:}
+An action is transitive if for all $s,t\in S$ there exists $g$ such that:
+\[g\cdot s = t\]
+Observe that this means the entire set is in the same orbit.
+This can directly generalized to being $n$-transitive if for any two $n$-tuples   $(s_k)_n$ and $(t_k)_n$ without duplicated entries we can find $g$ such that:
+\[g\cdot s_n = t_n\]
+
+\subsubsection{Free:}
+Short for `fixed-point {\em free}' a group action is free if $g\cdot s=s$ for some $s$ implies $g=1$. 
+
+\subsubsection{Faithful:}
+A weaker property than being free is being faithful,
+being faithful means that $g\cdot s$ needs to equal $s$ for all $g$ to imply $g=1$.
+
+\subsubsection{Regular:}
+A group action is regular if it is both free and transitive in these contexts a free group action is also called a semiregular one.
