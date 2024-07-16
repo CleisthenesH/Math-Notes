@@ -1,0 +1,74 @@
+% Copyright 2024 Kieran W Harvie. All rights reserved.
+
+\section{Cyclotomic Polynomials}
+The $n$th cyclotomic polynomial, $\Phi_n(x)$, is the largest divisor of $x^n-1$ with integer coefficient that is not a divisor of $x^k-1$ for $k<n$.
+For my money the most interesting property of cyclotomic polynomials is:
+\[\prod_{d\mid n} \Phi_d(x) = x^n-1\]
+You'd would expect this to work by dipping into complex analysis and getting:
+\[\Phi_n(x) = \prod_{\overset{k=1}{\gcd(k,n)=1}}^n\left(x-\exp\left(\frac{2\pi ik}{n}\right)\right)\]
+The reason I was thinking about about cyclotomic polynomials was the following problem:
+\begin{quote}
+Given there are exactly three factors of $3^{24}-1$ between $200$ and $250$ find the sum of those factors.
+\end{quote}
+The idea was to easily get a factorization of $3^{24}-1$ by using:
+\[3^{24}-1 = \prod_{d|24}\Phi_d(3)\]
+But how to calculate $\Phi_d(3)$? 
+Well consider the following Möbius inversion:
+\[\Phi_n(x) = \prod_{d|n} = (x^d-1)^{\mu\left(\frac{n}{d}\right)} = \prod_{d|n} (x^\frac{n}{d}-1)^{\mu(d)}\]
+This is already quite tractable when $n$ has a small number of factors,
+but it can be better!
+\\
+
+Let $m$ have the same prime factors of $n$ but not necessarily same multiplicities.
+For example if $n=12=2^2\cdot 3$ then $m=2\cdot 3$ or $m=2\cdot 3^2$ are example valid choices for $m$.
+Since $\mu(d)=0$ when $d$ isn't square-free we have:
+\[\begin{aligned}
+	\Phi_n(x) =& \prod_{d|n} (x^\frac{n}{d}-1)^{\mu(d)}\\
+	=& \prod_{d|m} (x^\frac{n}{d}-1)^{\mu(d)}\\
+	=& \prod_{d|m} \left(\left(x^\frac{n}{m}\right)^\frac{m}{d}-1\right)^{\mu(d)}\\
+	=& \Phi_m\left(x^\frac{n}{m}\right)\\
+\end{aligned}\]
+Hence for our problem we only need to calculate the polynomials for $\Phi_d(x)$ when $d\in\{1,2,3,6\}$:
+\[\begin{aligned}
+	\Phi_1(x) &= (x-1)^{\mu(1)}&& = x-1\\
+	\Phi_2(x) &= (x^2-1)^{\mu(1)}(x-1)^{\mu(2)} &&= x+1\\
+	\Phi_3(x) &= (x^3-1)^{\mu(1)}(x-1)^{\mu(3)} &&= x^2+x+1\\
+	\Phi_6(x) &= (x^6-1)^{\mu(1)}(x^2-1)^{\mu(3)}(x^3-1)^{\mu(2)}(x-1)^{\mu(6)} &&= x^2-x+1\\
+\end{aligned}\]
+Giving:
+\[\begin{aligned}
+	\Phi_1(3) &= 2\\
+	\Phi_2(3) &= 4 = 2^2\\
+	\Phi_3(3) &= 13\\
+	\Phi_4(3) &=\Phi_2(3^2)= 10 = 2\cdot 5\\
+	\Phi_6(3) &= 7\\
+	\Phi_8(3) &=\Phi_2(3^4)= 82 = 2\cdot 41\\
+	\Phi_{12}(3) &=\Phi_6(3^2)= 73\\
+	\Phi_{24}(3) &=\Phi_6(3^4)= 6481\\
+\end{aligned}\]
+And the following factorization:
+\[3^{24}-1 = 2^5\cdot5\cdot7\cdot13\cdot41\cdot73\cdot6481\]
+Trial and error gives:
+\[\begin{aligned}
+	41\cdot 5 &= 205\\
+	2^5\cdot 7 &= 224\\
+	2^4\cdot 13 &= 637\\
+	205+224+637&=637\\
+\end{aligned}\]
+As required.
+\\
+
+But to step back for a moment,
+this problem looks like an high school Olympiad problem meant to be done on pen and paper where calculating and verifying that $\Phi_{12}(3)$ and $\Phi_{24}(3)$ are prime isn't feasible.
+Knowledge of cyclotomic polynomials also probably isn't intended.
+Under these conditions observe that we don't actually need to calculate $\Phi_{12}(3)$ and $\Phi_{24}(3)$ as their factors aren't used in the factors between $200$ and $250$, 
+we don't even need to calculate $\Phi_8(3)$ beyond it being even!
+Because $24$ is quite small we can also can skip the use of cyclotomic polynomials and instead iteratively apply:
+\[x^2-1=(x-1)(x+1)\text{ and }x^3+1 = (x+1)(x^2-x+1)\]
+Till we get what we need:
+\[\begin{aligned}
+	3^{24}-1 &= (3^{12}-1)(3^{12}+1)\\
+	&=(3^6-1)(3^6+1)(3^4+1)(3^8-3^4+1)\\
+	&=(3^3-1)(3^3+1)(3^2+1)(3^4-3^2+1)(3^4+1)(3^8-3^4+1)\\
+\end{aligned}\]
+
