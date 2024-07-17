@@ -1,13 +1,15 @@
-% Copyright 2023 Kieran W Harvie. All rights reserved.
+% Copyright 2023-2024 Kieran W Harvie. All rights reserved.
 
 \section{Rational Residue}
-I saw a cool result.
-That if $P$ and $Q$ are polynomials and $Q$ has a first order root at $a$ then the then:
+\label{showcase:rational_residue}
+I saw a cool result,
+that if $P$ and $Q$ are polynomials and $Q$ has a first order root at $a$ then the then:
 \[\Res\left(\frac{P}{Q},a\right) = \frac{P(a)}{Q'(a)} \]
 Which can save a lot of time over factorizing, 
 which is what I would have done in the past.
+\\
 
-This follows directly from:
+This trick follows directly from:
 \[Q'(a)=\frac{d}{dz}(z-a)q(z)\bigg|_a = q(a)\]
 and
 \[\oint_\gamma\frac{P(z)}{Q(z)}\,dz = \oint_\gamma \frac{P(z)}{(z-a)q(z)}\,dz = 2\pi i\frac{P(a)}{q(a)}\]
@@ -16,10 +18,6 @@ and
 I thought this might be generalizable since the general Leibniz rule on $Q(z)=(z-a)^2q(z)$ gives:
 \[Q''(a)=2q(a),\quad Q'''(a)=6q'(a)\]
 Hence for a second order root:
-\begin{equation*}
-\begin{aligned}
-\end{aligned}
-\end{equation*}
 \begin{equation*}
 \begin{aligned}
 	\oint_\gamma\frac{P(z)}{Q(z)}\,dz =& \oint_\gamma \frac{P(z)}{(z-a)^2q(z)}\,dz \\
@@ -32,7 +30,6 @@ Giving:
 
 Which isn't as cool as the first order case,
 and I don't feel like dealing with higher derivatives.
-
 Still cool though.
 
 \subsection{Actual closed form}
@@ -57,13 +54,14 @@ Resulting in the clean:
 You can use use the standard extended Euclid algorithm to calculate $s$ from $q$, or $q$ from $s$.
 But the relation:
 \[r(z)(z-a)^n+s(z)q(z)=1\]
-Can be derived $n-1$ and set $z=a$ to get a linear system between derivatives of $s$ and $q$.
+Can be derived $n-1$ times and set $z=a$ to get a linear system between derivatives of $s$ and $q$.
 So why bother with Bézout at all?
 Well you would need to prove that the coefficients from the system converge to an analytic function,
 Bézout side steps this.
 \\
 
-I'm also wondering when $s^{(n)}(a)=0$, because we loose information about $F$ in the sum when this happens.
+I'm also wondering about $s^{(n)}(a)=0$,
+because we loose information about $F$ in the sum when this happens.
 Also working backwards, can we have any $s$.
 Not $s(z) = z-a$ obviously, but we can add another power to keep it? 
 $s(z) = z^2+z-a$?

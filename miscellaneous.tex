@@ -3,8 +3,13 @@
 
 \input{common_preamble.tex}
 
-% For quicker rendering, comment out for release
-%\includeonly{sections/}
+\hypersetup{
+	pdftitle = {Math Notes},
+	pdfpagemode = {UseOutlines},
+	pdfauthor = {Kieran Harvie},
+	pdfsubject = {Mathematics},
+	pdfborder =  {2 2 1},
+}
 
 \title{Math Notes}
 \date{Copyright \textcopyright\, \today. All Rights Reserved.}
@@ -12,73 +17,102 @@
 
 \begin{document}
 \maketitle
-\tableofcontents
 
-\chapter{Pre 2023}
-\include{miscellaneous/variance.tex}
-\include{miscellaneous/non-decreasing.tex}
-\include{miscellaneous/integral_symmetry.tex}
-\include{miscellaneous/causal_metric.tex}
-\include{miscellaneous/wave_equation.tex}
-\include{miscellaneous/unit_fraction.tex}
-\include{miscellaneous/winquist.tex}
-\include{miscellaneous/rational_tangent.tex}
-\include{miscellaneous/old-geometry.tex}
-\include{miscellaneous/cosine_transform.tex}
-\include{miscellaneous/chebyshev_gen_funct.tex}
-\include{miscellaneous/special_relativity.tex}
-\include{miscellaneous/hermite.tex}
+\section{Introduction}
+This document is the main place I collect notes on mathematic and mathematic adjacent topics I felt the desire to write down.
+Either because I want to come back to the notes later,
+felt I needed some revision on the covered topic,
+or was interested in writing the notes for their own sakes.
+\\
 
-\chapter{2023}
-\include{miscellaneous/interest.tex}
-\include{miscellaneous/lagrange_multiplier.tex}
-\include{miscellaneous/isosets.tex}
-\include{miscellaneous/pade.tex}
-\include{miscellaneous/p-adic_numbers.tex}
-\include{miscellaneous/spaces.tex}
-\include{miscellaneous/XOR_hash.tex}
-\include{miscellaneous/jensen.tex}
-\include{miscellaneous/convex-geometry.tex}
-\include{miscellaneous/integer_quotient_ring.tex}
-\include{miscellaneous/finite_subfields.tex}
-\include{miscellaneous/dominated_convergence_theorem.tex}
-\include{miscellaneous/p+1_p-1.tex}
-\include{miscellaneous/matrix_function_cayley-hamilton.tex}
-\include{miscellaneous/simplicial_homology.tex}
-\include{miscellaneous/three_series_bounds.tex}
-\include{miscellaneous/summation_by_parts.tex}
-\include{miscellaneous/rational_residue.tex}
-\include{miscellaneous/weierstrass-erdmann.tex}
-\include{miscellaneous/legendre_transform.tex}
-\include{miscellaneous/information_entropy.tex}
-\include{miscellaneous/hadamard.tex}
-\include{miscellaneous/hermitian.tex}
-\include{miscellaneous/two_level_time.tex}
-\include{miscellaneous/parabola.tex}
-\include{miscellaneous/sqrt_limit.tex}
-\include{miscellaneous/orthogonal_group.tex}
-\include{miscellaneous/iverson_mobius.tex}
-\include{miscellaneous/harmonic_mean_probability.tex}
-\include{miscellaneous/vieta_prime.tex}
-\include{miscellaneous/finite_field_endomorphism.tex}
-\include{miscellaneous/laplace_expansion.tex}
+Because of the disparate topics and reasons for writing the notes there is little structure shared across the whole document.
+The only real structure is that sections are grouped into years and organized by most recent to oldest,
+based on when they are first written,
+however older sections may still be modified without updating this order.
+\\
+
+I've removed the table of contents from within the document itself because it the unstructured nature of the document made it difficult to navigate.
+But the structure is still present in the file and you are able to use the `Table of Contents` or `Document Outline' feature of your PDF viewer. 
+
+\subsection{Showcase}
+I'm particularly fond of and wish to showcase the following section to onlookers:
+\begin{itemize}
+	\item \hyperref[showcase:magnetism]{\bf Magnetism} 
+		Particularly nice mix of text, diagrams, and equations.
+	\item \hyperref[showcase:rational_residue]{\bf Rational Residue} 
+		Made over three commits each separated by multiple days. 
+		Each subsequent commit shows a growth in understanding over the previous,
+		going from `neat trick' to `proper method' to 'generalization'.
+	\item \hyperref[showcase:sqrt_limit]{\bf Square Root Limit} 
+		An interesting result that shows three solutions to the problem with different ratios of algebra to analysis.
+		%orthogonal group
+\end{itemize}
 
 \chapter{2024}
-\include{miscellaneous/p-adic_acceleration.tex}
-\include{miscellaneous/eulers_criterion.tex}
-\include{miscellaneous/partial_fraction.tex}
-\include{miscellaneous/barycentric.tex}
-\include{miscellaneous/sedrakyan_ellipse.tex}
-\include{miscellaneous/direct_sum_tensor_product.tex}
-\include{miscellaneous/harmonic_series.tex}
-\include{miscellaneous/curried_function.tex}
-\include{miscellaneous/geometric_gcd.tex}
-\include{miscellaneous/incidence_algebra.tex}
-\include{miscellaneous/quadratic_form_hadamard_matrix.tex}
-\include{miscellaneous/clebsh-gordan.tex}
-\include{miscellaneous/magnetism.tex}
-\include{miscellaneous/leibniz_distribution.tex}
-\include{miscellaneous/group_action.tex}
 \include{miscellaneous/cyclotomic_polynomials.tex}
+\include{miscellaneous/group_action.tex}
+\include{miscellaneous/leibniz_distribution.tex}
+\include{miscellaneous/magnetism.tex}
+\include{miscellaneous/clebsh-gordan.tex}
+\include{miscellaneous/quadratic_form_hadamard_matrix.tex}
+\include{miscellaneous/incidence_algebra.tex}
+\include{miscellaneous/geometric_gcd.tex}
+\include{miscellaneous/curried_function.tex}
+\include{miscellaneous/harmonic_series.tex}
+\include{miscellaneous/direct_sum_tensor_product.tex}
+\include{miscellaneous/sedrakyan_ellipse.tex}
+\include{miscellaneous/barycentric.tex}
+\include{miscellaneous/partial_fraction.tex}
+\include{miscellaneous/eulers_criterion.tex}
+\include{miscellaneous/p-adic_acceleration.tex}
+
+\chapter{2023}
+\include{miscellaneous/laplace_expansion.tex}
+\include{miscellaneous/finite_field_endomorphism.tex}
+\include{miscellaneous/vieta_prime.tex}
+\include{miscellaneous/harmonic_mean_probability.tex}
+\include{miscellaneous/iverson_mobius.tex}
+\include{miscellaneous/orthogonal_group.tex}
+\include{miscellaneous/sqrt_limit.tex}
+\include{miscellaneous/parabola.tex}
+\include{miscellaneous/two_level_time.tex}
+\include{miscellaneous/hermitian.tex}
+\include{miscellaneous/hadamard.tex}
+\include{miscellaneous/information_entropy.tex}
+\include{miscellaneous/legendre_transform.tex}
+\include{miscellaneous/weierstrass-erdmann.tex}
+\include{miscellaneous/rational_residue.tex}
+\include{miscellaneous/summation_by_parts.tex}
+\include{miscellaneous/three_series_bounds.tex}
+\include{miscellaneous/simplicial_homology.tex}
+\include{miscellaneous/matrix_function_cayley-hamilton.tex}
+\include{miscellaneous/p+1_p-1.tex}
+\include{miscellaneous/dominated_convergence_theorem.tex}
+\include{miscellaneous/finite_subfields.tex}
+\include{miscellaneous/integer_quotient_ring.tex}
+\include{miscellaneous/convex-geometry.tex}
+\include{miscellaneous/jensen.tex}
+\include{miscellaneous/XOR_hash.tex}
+\include{miscellaneous/spaces.tex}
+\include{miscellaneous/p-adic_numbers.tex}
+\include{miscellaneous/pade.tex}
+\include{miscellaneous/isosets.tex}
+\include{miscellaneous/lagrange_multiplier.tex}
+\include{miscellaneous/interest.tex}
+
+\chapter{Pre 2023}
+\include{miscellaneous/hermite.tex}
+\include{miscellaneous/special_relativity.tex}
+\include{miscellaneous/chebyshev_gen_funct.tex}
+\include{miscellaneous/cosine_transform.tex}
+\include{miscellaneous/old-geometry.tex}
+\include{miscellaneous/rational_tangent.tex}
+\include{miscellaneous/winquist.tex}
+\include{miscellaneous/unit_fraction.tex}
+\include{miscellaneous/wave_equation.tex}
+\include{miscellaneous/causal_metric.tex}
+\include{miscellaneous/integral_symmetry.tex}
+\include{miscellaneous/non-decreasing.tex}
+\include{miscellaneous/variance.tex}
 
 \end{document}
