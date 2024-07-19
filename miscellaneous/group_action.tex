@@ -225,3 +225,61 @@ being faithful means that $g\cdot s$ needs to equal $s$ for all $g$ to imply $g=
 
 \subsubsection{Regular:}
 A group action is regular if it is both free and transitive in these contexts a free group action is also called a semiregular one.
+
+\subsection{Example Actions}
+\subsubsection{Trivial:}
+For any given group $G$ and set $S$ we can define an action such that:
+\[g\cdot s = s\]
+For all $g$ and $s$,
+this is called the  trivial action.
+
+\subsubsection{Subsets of $S$:}
+Let $T$ be a subset of $S$ and define the new set $g\cdot T$ to be:
+\[g\cdot T = \{g\cdot t: t\in T\}\]
+With $g\cdot\varnothing=\varnothing$, 
+observe that both:
+\[1\cdot T = \{1\cdot t: t\in T\} = T\]
+And:
+\[\begin{aligned}
+g\cdot h \cdot T &= g\cdot \{h\cdot t:t\in T\}\\
+&= \{g\cdot \tau:\tau\in \{h\cdot t:t\in T\}\}\\
+&= \{g\cdot h\cdot t:t\in T\}\\
+&= \{gh\cdot t:t\in T\}\\
+&= gh\cdot T\\
+\end{aligned}\]
+Meaning we can say $G$ acts on the subsets of $S$,
+but we can do better!
+Consider the natural function, $\epsilon_g$, between the set $T$ and $gT$ by the action of $g$:
+\[\epsilon_g(t) = g\cdot t\]
+By definition $gT$ is the image of $\epsilon_g$ so the function is surjective,
+and if we have $\epsilon_g(t)=\epsilon_g(t')$ then:
+\[g\cdot t = g\cdot t' \Rightarrow t=g^{-1}g\cdot t' = t'\]
+Meaning $\epsilon_g$ is bijective and hence $T$ and $gT$ have the same order.
+This means we can say that $G$ acts on the subsets of $S$ of some fixed order.
+\\
+
+There's a two more way we can define new group actions.
+First is to consider the stabilizer $H_T$ of $T$ from either of the previous constructions.
+If restrict the original group action to $H_T$ acting on $T$ closure is guarantied through $H_T$ being a stabilizer.
+All other group actions requirements are inherited from the original group action and hence this is a proper group action too.
+Second is to similarly consider the orbit $O_T$,
+the action of $G$ on $O_T$ similarly has closure.
+\\
+
+To summarize,
+given a group action $G$ and $S$ we can construct four additional actions:
+\begin{enumerate}
+\item $G$ acting on the subsets of $S$.
+\item $G$ action on the subsets of $S$ of a given order.
+\item $H_T$ acting on $T$.
+\item $G$ acting on $O_T$.
+\end{enumerate}
+
+\subsubsection{Groups Acting on Themselves}
+Another general way to define an action is to use the operation defining a group to define an action on itself.
+Two ways achieve this is through multiplication:
+\[g\cdot h = gh \text{ (Or equivalently $hg$)}\]
+And conjugation:
+\[g\cdot h = ghg^{-1} \text{ (Or equivalently $g^{-1}hg$)}\]
+These ways of a group acting on itself can be combined with the previous subset constructions to interesting results.
+For example a `group acting on subsets of itself of order two through conjugation' is valid and we can the use the previous theorems, Counting and Orbit-Stabilizer, to analyse this structure.
