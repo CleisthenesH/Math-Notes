@@ -1,0 +1,190 @@
+% Copyright 2024 Kieran W Harvie. All rights reserved.
+
+\section{Sylow}
+This section follows up my group action revision with Sylow theorems revision.
+I've made tweaks to definitions and proof structure to make the generalization to infinite cases smoother.
+And because multiple sources have made similar non-material tweaks.
+
+\subsection{Terminology:} 
+\subsubsection{$p$-group:}
+For now,
+a $p$-group is a finite group whose order is a power of the prime $p$ and a $p$-subgroup of $G$ is a subgroup $G$ that is a $p$-group.
+\\
+
+I plan on adding a final section that will generalize this definition to be a group of any order so long as all elements' orders are a power of the prime $p$.
+It will turn out that all such $p$-groups that are finite satisfy the original statement.
+
+\subsubsection{Sylow $p$-subgroup:}
+Similar to the first term,
+we will start by defining the Sylow $p$-subgroup of a finite group $G$ as a $p$-subgroup of $G$ such that the index of the subgroup isn't divisible by $p$.
+\\
+
+Similarly we will be generalizing this to the infinite case where a Sylow $p$-subgroup of $G$ is a $p$-subgroup that isn't a proper subgroup of any $p$-subgroup of $G$.
+
+\subsection{Lemmas:}
+The lemma names given here aren't standardized,
+they're just descriptions I've given them.
+
+\subsubsection{Divisibility Lemma:}
+Let $G$ act on subsets of itself by multiplication in the natural way and let the finite subset $U$ have the stabilizer $H_U$ then $|H_U|$ divides $|U|$.
+\\
+
+The main idea of this lemma is to consider the consider the natural restricted action of $H_U$ on $U$.
+By definition orbits of $U$ are the right cosets of $H_U$:
+\[O_u = \{h\cdot u: h\in H_U\} = H_Uu\]
+Although they are the right cosets instead of the more common left cosets their property of having order of $|H_U|$ remain.
+Plugging this expression into the counting theorem gives:
+\[|U| = \sum_{i\in I}|H_i| = |I||H_U|\]
+There lemma follows.
+
+\subsubsection{Fixed Point Lemma:}
+Let the finite $p$-group of $P$ act on the finite set $S$ and let $S_0$ be the number of elements that have an orbit of order $1$,
+they are fixed by the action,
+then:
+\[|S_0|\equiv|S|\mod p\]
+
+Start the proof by saying writing the order of $P$ as $p^n$ for some $n$ and use the Orbit-Stabilizer Theorem on any $s\in S$ to give:
+\[|H_s||O_s|=|P|=p^n\]
+For some $n$.
+Use this this observation to separate terms in the Counting Theorem:
+\[\begin{aligned}
+	|S| &= \sum_{i\in I}|O_i|\\
+	&=\sum_{\underset{|O_i|=1}{i\in I}}|O_i|+\sum_{\underset{|O_i|\neq1}{i\in I}}|O_i|\\
+	&=|S_0|+\sum_{\underset{|O_i|\neq1}{i\in I}}|O_i|\\
+\end{aligned}\]
+Since every term in the left sum is an integer the form $p^k$ where $k\geq 1$ it is divisible by $p$,
+as required.
+
+\subsubsection{Combinatorial Lemma:}
+Given a set of size $p^em$,
+where $p$ doesn't divide $m$,
+the number of subsets of size $p^e$ also isn't divisible by $p$.
+\\
+
+Consider the following product:
+\[\binom{p^em}{p^e} = \prod_{k=0}^{p^e-1}\frac{p^em-k}{p^e-k}\]
+The product can only gain a factor of $p$ when a factors' numerator has a factor of $p$,
+and this can only happen when:
+\[0\equiv p^em-k\equiv k\mod p \]
+However, 
+when this happens the denominator removes a corresponding number of factors of $p$.
+To see this write relevant $k$s in the products range as $k=p^ln$,
+where $p$ doesn't divide $n$ and $l<e$:
+\[\frac{p^em-k}{p^e-k} = \frac{p^em-p^ln}{p^e-p^ln}=\frac{p^{e-l}m-n}{p^{e-l}-n}\]
+But now the numerator has isn't divisible by $p$:
+\[p^{e-l}m-n\equiv n \not\equiv 0\mod p\]
+Meaning no factor can contribute a factor of $p$ to the overall product,
+meaning the overall product isn't divisible by $p$.
+\\
+
+More elegant proofs using $p$-adic valuation is also possible.
+
+\subsubsection{Subgroup Lemma}
+Let $G$ be a finite group and consider a chain of subgroups $P\subseteq H\subseteq G$.
+If $P$ is a Sylow $p$-subgroup of $G$ then it is a Sylow $p$-subgroup of $H$.
+\\
+
+$P$ is still a $p$-subgroup of $H$,
+it has the same element,
+so what's left is to show its new order $[H:P]$ isn't divisible by $p$.
+Consider the Lagrange theorem:
+\[[G:P] = [G:H][H:P]\]
+Since if $p$ where to divide $[H_G:P]$ then it would divide $[G:P]$,
+which contradicts $P$ being a Sylow $p$-subgroup of $G$.
+
+\subsection{Theorems:}
+There are three Sylow theorems and they all get results by having a finite group,
+or its subgroups,
+act on subsets of itself in some way.
+To summarise the results:
+\begin{enumerate}
+	\item The first Sylow theorem shows that a Sylow $p$-subgroup exists for each prime factor.
+	\item The seconds Sylow theorem shows that for any given Sylow $p$-subgroup $P$ all other $p$-subgroup have a conjugation that is a subgroup of $P$.
+	\item The third Sylow theorem is three results that characterize the number of Sylow $p$-subgroups as equal to $[G:N_G(P)]$, a divider of $[G:P]$, and has a remainder of $1$ when divided by $p$.
+\end{enumerate}
+
+\subsubsection{First Theorem:}
+Let the finite group $G$ have the order:
+\[|G| = p^em\]
+Where $p\nmid m$.
+Let $S$ be the set of subsets of $G$ of order $p^e$ and let $G$ act on $S$ by multiplication in the natural way.
+From the counting theorem there is $I\subseteq S$ such that:
+\[|S| = \sum_{i\in I}|O_i|\]
+From the combinatoric lemma we know $p$ doesn't divide $|S|$,
+meaning it must not divide the sum,
+meaning it must not divide at least one term $|O_i|$,
+let this orbit be $O_j$.
+Through the orbit-stabilizer theorem we have:
+\[|O_j||H_j| = |G| = p^em\]
+Now,
+since $p$ doesn't divide $|O_j|$ all the $p$ factors must come from $|H_j|$,
+meaning $p^e$ divides $|H_j|$.
+By definition $H_j$ is the stabilizer of the element $j\in S$,
+so by the divisibility lemma we know that $|H_j|$ divides $|j|=p^e$.
+\\
+
+Since $|H_j|$ divides and is divisible by $p^e$ we have $|H_j|=p^e$,
+hence $H_j$ is a $p$-subgroup of $G$ and its index is:
+\[[G:H_j] = \frac{|G|}{|H_j|} = \frac{p^em}{p^e} = m\]
+By construction $p\nmid m$ hence $H_j$ is a Sylow $p$-subgroup.
+
+\subsubsection{Second Theorem:}
+Let $G$ be a finite group, 
+$P$ be a Sylow $p$-subgroup of $G$,
+and $S$ the cosets of $P$.
+By definition $|S| = [G:P]$ and since $P$ is a Sylow $p$-subgroup $p\nmid |S|$.
+\\
+
+Now let $H$ be an arbitrary $p$-subgroup of $G$ and consider the action of $H$ on $S$ by multiplication in the natural way.
+By the fixed point lemma we have: 
+\[|S_0| \equiv |S| = [G:P]\not\equiv 0\mod p\]
+Hence $|S_0|$ is non-zero,
+meaning there is at least one coset $gP$ such that:
+\[HgP = gP\]
+This implies $g^{-1}Hg\subseteq P$ to see why expand the expression in its fully qualified glory: 
+\[\begin{aligned}
+	\exists g\in G,\,\forall h\in H,\,\forall p_0\in P,\, \exists p_1\in P:&& g^{-1}hgp_0=&p_1\\
+	\Rightarrow\exists g\in G,\,\forall h\in H,\,\forall p_0\in P,\, \exists p_1\in P:&& g^{-1}hg=&p_1p_0^{-1}\\
+	\Rightarrow\exists g\in G,\,\forall h\in H,\, \exists p_2\in P:&& g^{-1}hg=&p_2\\
+\end{aligned}\]
+Hence $g^{-1}Hg\subseteq P$ for all $p$-subgroups $H$.
+\\
+
+In particular if $H$ is a Sylow $p$-subgroup we would have $|H| = |P|$.
+Combining with the fact the conjugation map $h\mapsto g^{-1}hg$ is injective gives:
+\[g^{-1}Hg=P\]
+Hence Sylow $p$-subgroups are conjugates of each other.
+
+\subsubsection{Third Theorem:}
+Let $G$ be a group, 
+$S$ be the set of Sylow $p$-subgroups of $G$,
+and $G$ act on $S$ by conjugation in the natural way.
+This action is closed since the conjugation of a subgroup is an isomorphic subgroup,
+meaning also a Sylow $p$-subgroup.
+Consider some arbitrary Sylow $p$-subgroup $P\in S$,
+from the second theorem the orbit of $P$ is $S$ and the stabilizer of $P$ is:
+\[N_G(P) = \{g\in G\,|\,gPg^{-1} = P\}\]
+This construction is already well know and is called the normalizer of $P$.
+Applying the orbit-stabilizer theorem we get:
+\[|S||N_G(P)|=|G|\]
+The first result directly follows:
+\[|S| = [G:N_G(P)]\]
+For the second result we consider the Lagrange theorem:
+\[[G:P] = [G:N_G(P)][N_G(P):P] = |S|[N_G(P):P]\]
+Hence $|S|$ divides $[G:P]$.
+\\
+
+For the third result restrict that the action to just $P$ acting on $S$ by conjugation in the natural way.
+Let $H\in S$ have an orbit size of $1$,
+meaning for all $p\in P$ we have:
+\[pHp^{-1}=H\]
+Hence $P$ is a subgroup of $N_G(H)$.
+Applying the subgroup lemma both $H$ and $P$ are Sylow $p$-subgroups of $N_G(H)$ meaning they are conjugates of each other by some elements of $N_G(H)$.
+Let $n\in N_G(H)$ be an element such that:
+\[nHn^{-1}=P\]
+Since $n$ is in the normalizer of $H$ we have:
+\[nHn^{-1}=H\]
+Hence $H=P$ meaning the only element of $S$ with orbit $1$ is $P$.
+Applying the fixed point theorem we get:
+\[|S|\equiv |S_0| = |\{P\}| = 1 \mod p\]
+The third result.
