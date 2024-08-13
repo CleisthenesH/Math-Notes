@@ -209,6 +209,71 @@ Hence the center is the maximum and it decreases with radial symmetry.
 This radial symmetry is squished by the transform to 2D space,
 but can still be used as a displacement to make a triangle wax/wane while keeping the corner the same.
 
+\subsection{Affine Transformations}
+While working on something else I was reminded of the formula for the barycentric coordinates in $3$ dimensions,
+easily generalized to other dimensions,
+is:
+\[
+\begin{bmatrix}
+	x_0&x_1&x_2&x_3\\
+	y_0&y_1&y_2&y_3\\
+	z_0&z_1&z_2&z_3\\
+	1&1&1&1\\
+\end{bmatrix}
+\begin{bmatrix}
+	\lambda_0\\\lambda_1\\\lambda_2\\\lambda_3\\
+\end{bmatrix}
+=
+\begin{bmatrix}
+	x\\y\\z\\1\\
+\end{bmatrix}
+\]
+And I noticed the right hand side is a homogeneous vector,
+has a final element of $1$.
+It is a standard tick to combine a $n\times n$ matrix $M$ an $n$ dimensional vectors $v$ and $u$ into:
+\[\begin{bmatrix}
+	M&v\\
+	0&1\\
+\end{bmatrix}
+\begin{bmatrix}
+	u\\1\\
+\end{bmatrix}
+=
+\begin{bmatrix}
+	Mu+v\\1\\
+\end{bmatrix}
+\]
+Such matrices are called homogeneous matrices and they take homogeneous vector to homogeneous vectors,
+they also the same this as affine transformations!
+Meaning it directly and cleanly follows from multiplying both sides by some homogeneous matrix that barycentric coordinates are invariant under affine transformations:
+\[\begin{aligned}
+\begin{bmatrix}
+	P_0&P_1&P_2&P_3\\
+	1&1&1&1\\
+\end{bmatrix}
+\begin{bmatrix}
+	\lambda_0\\\lambda_1\\\lambda_2\\\lambda_3\\
+\end{bmatrix}
+	=&
+\begin{bmatrix}
+	P\\1\\
+\end{bmatrix}
+\\
+\Rightarrow
+\begin{bmatrix}
+	MP_0+T&MP_1+T&MP_2+T&MP_3+T\\
+	1&1&1&1\\
+\end{bmatrix}
+\begin{bmatrix}
+	\lambda_0\\\lambda_1\\\lambda_2\\\lambda_3\\
+\end{bmatrix}
+	=&
+\begin{bmatrix}
+	MP+T\\1\\
+\end{bmatrix}
+\end{aligned}\]
+
+
 % Trilinear conversion?
 
 %The altitude of $P_1$ is perpendicular to $\overline{P_2P_3}$ giving it a gradient of:
