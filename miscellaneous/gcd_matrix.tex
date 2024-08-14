@@ -1,0 +1,149 @@
+% Copyright 2024 Kieran W Harvie. All rights reserved.
+
+\section{gcd Matrix}
+Let $A$, $B$, and $C$ be pairwise coprime.
+Bézout's identity guaranties that there exists $m_{n,m}$ such that:
+\[\begin{aligned}
+	m_{2,1}A+m_{2,3}C&=1\\
+	m_{1,1}B+m_{1,2}C&=1\\
+	m_{3,2}A+m_{3,3}B&=1\\
+\end{aligned}\]
+They are written with matrix like indices because they can be used as one:
+\[
+	\begin{bmatrix}
+		m_{1,1}&m_{1,2}&0\\
+		m_{2,1}&0&m_{2,3}\\
+		0&m_{3,2}&m_{3,3}\\
+	\end{bmatrix}
+	\begin{bmatrix}
+		AB\\AC\\BC
+	\end{bmatrix}
+	=
+	\begin{bmatrix}
+		A\\B\\C
+	\end{bmatrix}
+\]
+As well as:
+\[
+	\begin{bmatrix}
+		m_{1,1}&m_{1,2}&0\\
+		m_{2,1}&0&m_{2,3}\\
+		0&m_{3,2}&m_{3,3}\\
+	\end{bmatrix}
+	\begin{bmatrix}
+		B&A&0\\
+		C&0&A\\
+		0&C&B\\
+	\end{bmatrix}
+	=
+	\begin{bmatrix}
+		1&m_{1,1}A&m_{1,2}A\\
+		m_{2,1}B&1&m_{2,3}B\\
+		m_{3,2}C&m_{3,3}C&1\\
+	\end{bmatrix}
+\]
+The right hand side has a cool affine diagonal form:
+\[
+	\begin{bmatrix}
+		1&m_{1,1}A&m_{1,2}A\\
+		m_{2,1}B&1&m_{2,3}B\\
+		m_{3,2}C&m_{3,3}C&1\\
+	\end{bmatrix}
+	=
+	\begin{bmatrix}
+		A&0&0\\
+		0&B&0\\
+		0&0&C\\
+	\end{bmatrix}
+	\begin{bmatrix}
+		0&m_{1,1}&m_{1,2}\\
+		m_{2,1}&0&m_{2,3}\\
+		m_{3,2}&m_{3,3}&0\\
+	\end{bmatrix}
+	+
+	\begin{bmatrix}
+		1&0&0\\
+		0&1&0\\
+		0&0&1\\
+	\end{bmatrix}
+\]
+And the missing diagonal of the second factor also has a cool form:
+\[
+	\begin{bmatrix}
+		m_{1,1}&m_{1,2}&0\\
+		m_{2,1}&0&m_{2,3}\\
+		0&m_{3,2}&m_{3,3}\\
+	\end{bmatrix}
+	\begin{bmatrix}
+		0&0&x\\
+		0&y&0\\
+		z&0&0\\
+	\end{bmatrix}
+	=
+	\begin{bmatrix}
+		0&m_{1,2}&m_{1,1}\\
+		m_{2,3}&0&m_{2,1}\\
+		m_{3,3}&m_{3,2}&0\\
+	\end{bmatrix}
+	\begin{bmatrix}
+		z&0&0\\
+		0&y&0\\
+		0&0&x\\
+	\end{bmatrix}
+\]
+Substituting and combining it all gives this cool pseudo commutator identity:
+\[\begin{aligned}
+	&\begin{bmatrix}
+		m_{1,1}&m_{1,2}&0\\
+		m_{2,1}&0&m_{2,3}\\
+		0&m_{3,2}&m_{3,3}\\
+	\end{bmatrix}
+	\begin{bmatrix}
+		B&A&C\\
+		C&B&A\\
+		A&C&B\\
+	\end{bmatrix}\\
+	&=
+	\begin{bmatrix}
+		0&m_{1,2}&m_{1,1}\\
+		m_{2,3}&0&m_{2,1}\\
+		m_{3,3}&m_{3,2}&0\\
+	\end{bmatrix}
+	\begin{bmatrix}
+		A&0&0\\
+		0&B&0\\
+		0&0&C\\
+	\end{bmatrix}
+	+\begin{bmatrix}
+		A&0&0\\
+		0&B&0\\
+		0&0&C\\
+	\end{bmatrix}
+	\begin{bmatrix}
+		0&m_{1,1}&m_{1,2}\\
+		m_{2,1}&0&m_{2,3}\\
+		m_{3,2}&m_{3,3}&0\\
+	\end{bmatrix}
+	+
+	\begin{bmatrix}
+		1&0&0\\
+		0&1&0\\
+		0&0&1\\
+	\end{bmatrix}
+\end{aligned}\]
+And finally note that the original two matrix identities are related by:
+\[
+	\frac{1}{2}
+	\begin{bmatrix}
+	B&A&0\\
+	C&0&A\\
+	0&C&B\\
+	\end{bmatrix}
+	\begin{bmatrix}
+	A\\B\\C
+	\end{bmatrix}
+	=
+	\begin{bmatrix}
+	AB\\AC\\BC
+	\end{bmatrix}
+\]
