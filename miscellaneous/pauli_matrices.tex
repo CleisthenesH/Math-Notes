@@ -1,0 +1,203 @@
+% Copyright 2024 Kieran W Harvie. All rights reserved.
+
+\section{Pauli Matrices}
+The Pauli matrices are a collection of three traceless, unitary, Hermitian, and involutory $2\times2$ complex matrices:
+\[
+	\sigma_x = \begin{bmatrix}0&1\\1&0\\\end{bmatrix}\,
+	\sigma_y = \begin{bmatrix}0&-i\\i&0\\\end{bmatrix}\,
+	\sigma_z = \begin{bmatrix}1&0\\0&-1\\\end{bmatrix}
+\]
+Why these properties are important and why we chose these specific matrices,
+they are not the only set that satisfy these properties,
+are physically motivated but the matrices have an interesting mathematical structure by themselves.
+They are useful for analysis of quaternions and $SU(2)$ for example.
+
+\subsection{Basic Properties:}
+\subsubsection{Products:}
+There's only three Paul matrices so directly constructing a multiplication table is easy:
+\[\begin{array}{|c|c|c|c|}
+	\hline
+	\rightarrow\times\downarrow&\sigma_x&\sigma_y&\sigma_z\\
+	\hline
+	\sigma_x&I&i\sigma_z&-i\sigma_y\\
+	\sigma_y&-i\sigma_z&I&i\sigma_x\\
+	\sigma_z&i\sigma_y&-i\sigma_x&I\\
+	\hline
+\end{array}\]
+If we impose the standard order on $(x,y,z)$ we can compress this table to:
+\[\sigma_j\sigma_k = \delta_{j,k}I+i\varepsilon_{j,k,l}\sigma_l\]
+
+\subsubsection{Pauli Vectors:}
+The most useful tool for Pauli matrices is a bundling called a Pauli vector:
+\[
+	(a_x,a_y,a_z)\cdot\sigma = 
+	a_x\begin{bmatrix}0&1\\1&0\\\end{bmatrix}+
+	a_y\begin{bmatrix}0&-i\\i&0\\\end{bmatrix}+
+	a_z\begin{bmatrix}1&0\\0&-1\\\end{bmatrix}
+	=\begin{bmatrix}a_z&a_x-ia_y\\a_x+ia_y&-a_z\end{bmatrix}
+\]
+By inspection all Pauli vectors are still traceless and their determinant is given by:
+\[\begin{aligned}
+	\det(a\cdot\sigma) &= \det\begin{bmatrix}a_z&a_x-ia_y\\a_x+ia_y&-a_z\end{bmatrix}\\
+	&= -a_z^2-(a_x-ia_y)(a_x+ia_y)\\
+	&= -(a_z^2+a_x^2+a_y^2)\\
+\end{aligned}\]
+Hence $a\cdot\sigma$ has the eigenvalues of:
+\[\lambda_\pm = \pm\sqrt{a_z^2+a_x^2+a_y^2}\]
+Perhaps the most useful property of Pauli vectors is their product,
+which follows naturally from the product of Pauli matrices:
+\[\begin{aligned}
+(a\cdot \sigma)(b\cdot \sigma) &= a^j\sigma_jb^k\sigma_k\\
+&= a^jb^k\delta_{j,k}I+ia^jb^k\varepsilon_{j,k,l}\sigma_l\\
+&= (a\cdot b)I+i(a\times b)\cdot \sigma\\
+\end{aligned}\]
+
+\subsubsection{Bases and Convention:}
+When $a$ has solely real element the Pauli vector $a\cdot\sigma$ his Hermitian.
+This can be verified by inspection as the main diagonal elements are real and the minor diagonal elements are conjugates of each other.
+It follows that the Pauli matrices form the basis for the real vector space of traceless $2\times2$ Hermitian matrices and that the Pauli matrices combined with $I$ form a basis for the real vector space of general $2\times2$ Hermitian matrices.
+\\
+
+It for these reasons that $a$ is often defined to have only real elements and that $I$ is sometimes called the $0^\text{th}$ Pauli matrix.
+Since the abuse of notation by allowing complex numbers in Pauli vectors is somewhat common, 
+and there is no universal convention on whether or not $I$ is a Pauli matrix,
+I've decided to be general in previous results.
+
+\subsubsection{Functions on Pauli vectors:}
+A unit Pauli vector is one whose determinant equals $-1$ and we can construct a unit Pauli vector from a general one through: 
+\[\hat{a}\cdot\sigma = \frac{a\cdot\sigma}{\sqrt{a_z^2+a_x^2+a_y^2}}\]
+Observe that when $a$ is a real vector that this matches the normal usage of the word unit.
+The use of unit Pauli vectors lets us write Sylvester's formula as:
+\[f(t\hat{a}\cdot\sigma)=I\frac{f(t)+f(-t)}{2}+\hat{a}\cdot\sigma\frac{f(t)-f(-t)}{2}\]
+We can see that $t$ correlates to length and $\hat{a}$ to direction.
+A particularly interesting result is:
+\[\exp(it(\hat{a}\cdot\sigma))=I\cos(t)+i(\hat{a}\cdot\sigma)\sin(t)\]
+A clear generalization of Euler's formula.
+
+\subsection{Physical Motivation:}
+To understand why Hermitian matrices are important in physics understand that systems are commonly represented as vectors, $v$ and $u$, and operations as matrices $M$.
+When these operations are observables their observed values are calculated as the sum of the terms like:
+\[u^*Mv\quad \tr(vu^*M)\]
+For pure and mixed states respectfully.
+Such calculations can be difficult,
+so how best to chose a basis $b_i$,
+and co-basis $b^i = b_i^*$,
+for calculation?
+Well if all vectors are valid system states and the observed values are real numbers,
+normal assumptions,
+then we require:
+\[b^iMb_j\quad \tr(b_ib^jM)\]
+Be real as well.
+It would also be convenient if the basis vectors where orthonormal:
+\[b^iMb_j = b^im^k_jb_k=m^k_j\delta_{k,i}=m^i_j\]
+\[\tr(b_ib^jM) = \tr(Mb_ib^j) = \tr(b_im^k_jb^k) = m^k_j\delta_{i,j}=m^i_j\]
+And eigenvectors:
+\[b^iMb_j=\lambda^jb^ib_j\]
+\[\tr(b_ib^jM) = \tr(Mb_ib^j) = \lambda^i\tr(b_ib^j)\]
+Fortunately there's and important result called the spectral theorem that means we can have both:
+\begin{quote}
+If $H$ is finite square Hermitian matrix on vector space $V$ there exits an orthonormal basis of $V$ consisting of eigenvectors of $H$ and each eigenvalue is real.
+\end{quote}
+And further more that a matrix $H$ having real eigenvalue and being diagonalizable $D$ by a pair of unitary matrices $U$:
+\[ U^*HU = D \text{ where } U^*U=I\]
+It the same as $H$ being Hermitian!
+Meaning it's both convenient and required that observables have Hermitian matrices.
+\\
+
+For completeness sake the combined use of orthonormal eigenvectors is included below:
+\[b^iMb_j = b^i\lambda^j b_j = \lambda^j\delta^i_j\]
+\[\tr(b_ib^jM) = \tr(Mb_ib^j) = \lambda^i\tr(b_ib^j) = \lambda^i\delta_i^j\]
+
+\subsubsection{Operator:}
+If we consider $2$D systems and choose the base of that state vector space such that:
+\[\begin{bmatrix}x\\y\end{bmatrix} = x\begin{bmatrix}1\\0\end{bmatrix}+y\begin{bmatrix}0\\1\end{bmatrix}\]
+Corresponds to $x$ amount and phase of the `up' state and $y$ the `down' state.
+In this case the Pauli matrices are the observables of the projection of angular momentum on the axes.
+For intuition as to why calculate the inner products:
+\[\begin{aligned}
+	\begin{bmatrix}\bar{x}&\bar{y}\end{bmatrix}\begin{bmatrix}0&1\\1&0\end{bmatrix}\begin{bmatrix}x\\y\end{bmatrix}=&[2\re(\bar{x}y)]\\
+	\begin{bmatrix}\bar{x}&\bar{y}\end{bmatrix}\begin{bmatrix}0&-i\\i&0\end{bmatrix}\begin{bmatrix}x\\y\end{bmatrix}=&[2\im(\bar{x}y)]\\
+	\begin{bmatrix}\bar{x}&\bar{y}\end{bmatrix}\begin{bmatrix}1&0\\0&-1\end{bmatrix}\begin{bmatrix}x\\y\end{bmatrix}=&[|x|^2-|y|^2]\\
+\end{aligned}\]
+The third result is the most initiative,
+norm of up minus norm of down,
+but even if you can't currently see why angular momentum would be related like this you can at lest see that such simple forms would be useful.
+\\
+
+This result naturally extends to Pauli Vectors:
+\[\begin{aligned}
+	\begin{bmatrix}\bar{x}&\bar{y}\end{bmatrix}a\cdot\sigma\begin{bmatrix}x\\y\end{bmatrix}
+	=a\cdot(2\re(\bar{x}y),2\im(\bar{x}y),|x|^2-|y|^2)\\
+\end{aligned}\]
+Hence when $a$ is a real vector then $\hat{a}\cdot\sigma$ is the observable for angular momentum on the $a$ axis.
+
+\subsubsection{State:}
+Let $a$ be a real vector and consider matrices of the following form:
+\[\rho = \frac{1}{2}(I+a\cdot\sigma)\]
+We want to show that it's a density matrix.
+By inspection it has trace of $1$ so consider the following quadratic form:
+\[\begin{aligned}
+	\begin{bmatrix}\bar{x}&\bar{y}\end{bmatrix}\rho\begin{bmatrix}x\\y\end{bmatrix}
+	=&\frac{1}{2}\left(\begin{bmatrix}\bar{x}&\bar{y}\end{bmatrix}I\begin{bmatrix}x\\y\end{bmatrix}+\begin{bmatrix}\bar{x}&\bar{y}\end{bmatrix}a\cdot\sigma\begin{bmatrix}x\\y\end{bmatrix}\right)\\
+	=&\frac{1}{2}\left(|x|^2+|y|^2+a\cdot(2\re(\bar{x}y),2\im(\bar{x}y),|x|^2-|y|^2)\right)\\
+\end{aligned}\]
+Through standard inequalities this expression is positive when $|a|^2\leq 1$.
+Hence $\rho$ is positive semi-definite a well traceless and hence is a density matrix under this condition.
+But what state does it represent?
+Applying the Pauli vectors as a operators gives:
+\[\begin{aligned}
+	\langle \hat{b}\cdot\sigma\rangle =& \tr(\rho \hat{b}\cdot\sigma)\\
+	=&\tr\left(\frac{1}{2}(I+a\cdot\sigma)\hat{b}\cdot\sigma\right)\\
+	=&\tr\left(\frac{1}{2}(\hat{b}\cdot\sigma+(a\cdot \hat{b})I+i(a\times \hat{b})\cdot\sigma)\right)\\
+	=&\frac{1}{2}\left(\tr(\hat{b}\cdot\sigma)+\tr((a\cdot \hat{b})I)+\tr(i(a\times \hat{b})\cdot\sigma)\right)\\
+	=&a\cdot \hat{b}\\
+\end{aligned}\]
+Hence $\rho$ is the state with angular momentum on the $a$ axis and $|a|$ relates to the purity of that state.
+\\
+
+To see this clearly we will evaluate $\det(\rho)$ and $\rho^2$.
+To get the determinant we will make use of this cool,
+and easy to directly algebraically verify, 
+identity for $2\times2$ matrices:
+\[\det(A+B) = \det(A)+\det(B) +\tr(A)\tr(B)-\tr(AB)\]
+Giving:
+\[\begin{aligned}
+	\det(\rho)&=\det\left(\frac{1}{2}(I+a\cdot\sigma)\right) \\
+	&=\frac{1}{4}\det\left(I+a\cdot\sigma\right) \\
+	&=\frac{1}{4}\left(\det\left(I\right)+\det\left(a\cdot\sigma\right) +\tr\left(I\right)\tr\left(a\cdot\sigma\right)-\tr\left(a\cdot\sigma\right)\right)\\
+	&=\frac{1}{4}(1-|a|^2)\\\\
+	\rho^2 &= \frac{1}{4}(I+2a\cdot\sigma+(a\cdot\sigma)^2)\\
+	&= \frac{1}{4}(I+2a\cdot\sigma+a^2I))\\
+	&= \rho +\frac{1-a^2}{4}I\\
+	&= \rho +\det(\rho)I\\
+\end{aligned}\]
+Hence the state is pure when $|a|^2=1$,
+or equivalently the determinant is $0$,
+and is a mixed state otherwise.
+All these results give rise to an influential representation of $2$D states\ldots
+
+\subsubsection{The Bloch Sphere:}
+Since every $2$D state must have angular momentum along some axis there is a bijection between states and real $3$D vectors $a$ such that $|a|\leq1$.
+The set of real $3$D vectors such that $|a|\leq1$ is easily interpreted as a unit ball where the sphere around this ball has $|a|=1$.
+We have previously shown that states with $|a|=1$ are pure states meaning every state on this sphere is a pure state and all the states inside are mixed.
+Because this sphere is so important it's named the Bloch sphere,
+and similarly the general states $\rho$ with $|a|\leq 1$:
+\[\rho = \frac{1}{2}(I+a\cdot\sigma)\]
+Are called Bloch vectors.
+Finally,
+notice that we can recover the original Pauli matrices when $a$ has one $1$ element and the rest zero.
+Such states are trivially on the Bloch sphere.
+In particular the Pauli operator corresponding to the original `up' and `down' axis can be recovered by $(0,0,\pm1)$ making them antipodal points on the sphere and giving it a natural orientation where these points are on the vertical axis,
+like the north and south poles of earth:
+
+\begin{center}
+\begin{tikzpicture}
+	\draw(0,0) circle (4cm);
+	\draw (-4,0) arc (180:360:4 and 1.2);
+	\draw[dashed] (4,0) arc (0:180:4 and 1.2);
+	\fill[fill=black] (0,4) circle (1pt) node[above] {$\begin{bmatrix}1\\0\end{bmatrix}$};
+		\fill[fill=black] (0,-4) circle (1pt)node[below]{$\begin{bmatrix}0\\1\end{bmatrix}$};;
+	\draw[->,red,thick] (0,0) -- (4,0) node[right] {Pure State};
+	\draw[->,red,thick] (0,0) -- (0,2) node[above]{Mixed State};
+\end{tikzpicture}
+\end{center}
