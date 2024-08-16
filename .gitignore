@@ -1,7 +1,13 @@
+# pdflatex
 *.log
 *.out
 *.aux
 *.toc
 
-# My collection of WIP stashes was getting high and making me nervous
-stash_backup/
+# bibtex
+*.bbl
+*.bcf
+*.blg
+*-blx.aux
+*-blx.bib
+*.run.xml
