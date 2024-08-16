@@ -1,4 +1,4 @@
-% Copyright 2023 Kieran W Harvie. All rights reserved.
+% Copyright 2023-2024 Kieran W Harvie. All rights reserved.
 
 \section{Simplicial Homology}
 I need to revise Simplicial Homology so I'm going to give some definitions and then work some examples.
@@ -15,7 +15,7 @@ A simplex is a generalization of a triangle to higher/lower dimensions:
 	\item 3-simplex is a tetrahedron
 \end{itemize}
 
-For our purposes we specify a simplex by with an ordered word written from the set of points.
+For our purposes we specify a simplex with an ordered word written from the set of points.
 For example $a$ is a point, $bc$ is a segment, and $abc$ is a triangle:
 \begin{center}
 \begin{tikzpicture}
@@ -29,7 +29,7 @@ For example $a$ is a point, $bc$ is a segment, and $abc$ is a triangle:
 Two important remarks.
 Firstly, $abc\neq acb$ the former one goes around counter-clockwise and the later clockwise.
 Secondly, the set $\{ab,bc,bc\}$ is not a triangle and is not the same as $abc$ or $\{abc\}$.
-It's all the edges of a triangle but not it's interior.
+It's all the edges of a triangle but not its interior.
 
 \subsubsection{Face:}
 $n$ 0-simplexes defines a $n$-simplex and is called the face of the points.
@@ -212,7 +212,7 @@ Gives the homologies:
 \end{aligned}
 \end{equation*}
 
-\subsubsection{Triangle without Interior}
+\subsubsection{Triangle with Interior}
 \begin{center}
 \begin{tikzpicture}
 	\filldraw[lightgray] (-2,0)--(2,0)--(0,3.26210161512);
@@ -247,6 +247,87 @@ Gives the homologies:
 \end{aligned}
 \end{equation*}
 
+\subsection{More Worked Examples}
+\subsubsection{Tetrahedron without interior:}
+\begin{center}
+\begin{tikzpicture}
+	\filldraw[gray] (-3,0)--(0,3.26210161512)--(0,-3.26210161512);
+	\filldraw[lightgray] (0,3.26210161512)--(3,0)--(0,-3.26210161512);
+	\draw (-3,0)--(0,3.26210161512)--(0,-3.26210161512)--(-3,0);
+	\draw (3,0)--(0,3.26210161512)--(0,-3.26210161512)--(3,0);
+	\draw[dashed] (-3,0)--(3,0);
+	\filldraw (-3,0) node[below left] {a} circle (2pt);
+	\filldraw (0,3.26210161512) node[above] {b} circle (2pt);
+	\filldraw (0,-3.26210161512) node[below] {d} circle (2pt);
+	\filldraw (3,0) node[below right] {c} circle (2pt);
+\end{tikzpicture}
+\end{center}
+\[\mathcal{K}=\{a,b,c,d,ab,ac,ad,bc,cd,db,abc,abd,acd,cdb\}\]
+
+We have:
+\[0 \stackrel{\partial_3}{\longrightarrow} C_2 \stackrel{\partial_2}{\longrightarrow} C_1 \stackrel{\partial_1}{\longrightarrow} C_0 \stackrel{\partial_0}{\longrightarrow} 0\]
+Where:
+\[C_2 = \langle abc,abd,acd,cbd \rangle,\quad C_1 = \langle ab,ac,ad,bc,bd,dc, \rangle,\quad C_0 = \langle a,b,c \rangle\]
+The $\ker$ and $\img$ are larger than previous examples,
+despite being simplified,
+and are given bellow:
+\begin{equation*}
+\begin{aligned}
+	\img \partial_3 &= 0 \\
+	\img \partial_2 &= \langle ab+bc+ca,ab+bd+da,ac+cd+da\rangle\\ 
+	\img \partial_1 &= \langle a-b,a-c,a-d\rangle\\
+	\ker \partial_2 &= \langle abc+adb+adc+dcb\rangle\\
+	\ker \partial_1 &= \langle ab+bc+ca,ab+bd+da,ac+cd+da\rangle\\
+	\ker \partial_0 &= \langle a,b,c,d\rangle\\
+\end{aligned}
+\end{equation*}
+
+Gives the homologies:
+\begin{equation*}
+\begin{aligned}
+	H_0(\mathcal{K}) =& \frac{\ker\partial_0}{\img\partial_1} = \frac{\langle a,b,c,d\rangle}{\langle a-b,a-c,a-d\rangle} = \mathbb{Z}\\
+	H_1(\mathcal{K}) =& \frac{\ker\partial_1}{\img\partial_2} = \frac{\langle ab+bc+ca,ab+bd+da,ac+cd+da\rangle}{\langle ab+bc+ca,ab+bd+da,ac+cd+da\rangle} = 0\\
+	H_2(\mathcal{K}) =& \frac{\ker\partial_2}{\img\partial_3} = \frac{\langle abc+adb+adc+dcb\rangle}{0} = \mathbb{Z}\\
+\end{aligned}
+\end{equation*}
+
+\subsubsection{Mixed}
+\begin{center}
+\begin{tikzpicture}
+	\filldraw[lightgray] (3,0)--(0,3.26210161512)--(0,-3.26210161512);
+	\draw (-6,0)--(-3,0)--(0,3.26210161512)--(0,-3.26210161512)--(-3,0);
+	\draw (3,0)--(0,3.26210161512)--(0,-3.26210161512)--(3,0);
+	\filldraw (-6,0) node[left] {a} circle (2pt);
+	\filldraw (-3,0) node[below left] {b} circle (2pt);
+	\filldraw (0,3.26210161512) node[above] {c} circle (2pt);
+	\filldraw (0,-3.26210161512) node[below] {d} circle (2pt);
+	\filldraw (3,0) node[below right] {e} circle (2pt);
+\end{tikzpicture}
+\end{center}
+\[\mathcal{K}=\{a,b,c,d,e,ab,bc,bd,cd,ec,de,cde\}\]
+
+We have:
+\[0 \stackrel{\partial_3}{\longrightarrow} C_2 \stackrel{\partial_2}{\longrightarrow} C_1 \stackrel{\partial_1}{\longrightarrow} C_0 \stackrel{\partial_0}{\longrightarrow} 0\]
+Where:
+\[C_2 = \langle cde \rangle,\quad C_1 = \langle ab,bc,bd,cd,ec,de \rangle,\quad C_0 = \langle a,b,c,d,e \rangle\]
+The $\ker$ and $\img$ are given bellow:
+\begin{equation*}
+\begin{aligned}
+	&\img \partial_3 = 0 && \ker \partial_2 = 0\\
+	&\img \partial_2 = \langle ce+ed+dc\rangle && \ker \partial_1 = \langle bc+cd+db, ce+ed+dc\rangle\\
+	&\img \partial_1 = \langle a-b,b-c,b-d,c-d,e-c,d-e \rangle && \ker \partial_0 = \langle a,b,c,d,e\rangle\\
+\end{aligned}
+\end{equation*}
+
+Gives the homologies:
+\begin{equation*}
+\begin{aligned}
+	H_0(\mathcal{K}) =& \frac{\ker\partial_0}{\img\partial_1} = \frac{\langle a,b,c,d,e\rangle}{\langle a-b,b-c,b-d,c-d,e-c,d-e\rangle} = \langle a\rangle = \mathbb{Z}\\
+	H_1(\mathcal{K}) =& \frac{\ker\partial_1}{\img\partial_2} = \frac{\langle bc+cd+db,ce+ed+dc\rangle}{\langle ce+ed+dc\rangle} = \langle bc+cd+db\rangle = \mathbb{Z}\\
+	H_2(\mathcal{K}) =& \frac{\ker\partial_2}{\img\partial_3} = \frac{0}{0} = 0\\
+\end{aligned}
+\end{equation*}
+
 \subsection{Interpretation of Simplicial Homology}
 Let us summarise the worked example results:
 \begin{center}
@@ -255,8 +336,12 @@ Let us summarise the worked example results:
 	Complex & $H_0$ & $H_1$ & $H_2$ & $H_{n\geq 3}$ \\ 
 	\hline
 	Disconnected& $\mathbb{Z}^2$ &0&0&0 \\
-	Triangle, without interior& $\mathbb{Z}$ & $\mathbb{Z}$ & 0 & 0 \\
-	Triangle, with interior& $\mathbb{Z}$ & $0$ & 0 & 0 \\
+	Triangle without interior& $\mathbb{Z}$ & $\mathbb{Z}$ & 0 & 0 \\
+	Triangle with interior& $\mathbb{Z}$ & $0$ & 0 & 0 \\
+	\hline
+	\hline
+	Tetrahedron without interior&$\mathbb{Z}$&0&$\mathbb{Z}$&0\\
+	Mixed&$\mathbb{Z}$&$\mathbb{Z}$&0&0\\
 	\hline
 \end{tabular}
 \end{center}
@@ -313,3 +398,14 @@ These steps combined give:
 \end{enumerate}
 \mbox 
 Again, this explanation can be made more rigorous by studying homotopy.
+
+\subsection{Boundaries and Cycles}
+This is actually obvious,
+but applying fundamental isomorphism theorem to $\partial_n:C_n\rightarrow C_{n-1}$ gives:
+\[ B_{n-1} = \img\partial_n\cong \frac{C_n}{\ker\partial_n} = \frac{C_n}{Z_n} \]
+This gives a new way to interpret $B_n$ based on $Z_n$,
+and for $Z_n$ we only need to interpret $\sum_i (-1)^i\sigma_i =0$.
+\\
+
+It also makes me aware of how messy boundaries can be\footnote{And in math as well!}.
+For example $\{ab,bc\}\subseteq C_1$ means $2a-b-c$ is and element of $B_0$ since you can take a chain of the edge from $b$ to $a$ and $c$ to $a$.
