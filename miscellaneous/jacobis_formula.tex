@@ -1,0 +1,33 @@
+% Copyright 2024 Kieran W Harvie. All rights reserved.
+
+\section{Jacobi's Formula}
+Here's a little secret,
+I've never actually proved Jacobi's formula before.
+It looked like the type of linear algebra proof that would be grindy and boring.
+But while reading about classical lie groups I realized it's actually quite easy to prove for invertible matrices,
+and the proof is so close to generalizing to singular matrices.
+\\
+
+The adjugate matrix $\adj(A)$ is the transpose of the cofactor matrix and satisfies the following property:
+\[A\adj(A) = \det(A)I\]
+Jacobi's formula states that:
+\[\frac{d}{d\,t}\det(A(t)) = \tr\left(\adj(A(t))\frac{d\,A(t)}{d\,t}\right)\]
+Without loss of generality I will only prove the $t=0$,
+to that end define:
+\[B(t)=\adj(A(0))A(t)\]
+Let $S_n$ be the $n$th permutation group and expand $\det(B(t))$:
+\[\begin{aligned}
+	\frac{d}{d\,t}\det(B(t)) &= \frac{d}{d\,t}\sum_{\sigma\in S_n}\sgn(\sigma)\sum_{k=1}^nB_{k,\sigma_k}(t)\\ 
+	&= \sum_{\sigma\in S_n}\sgn(\sigma)\sum_{k=1}^nB'_{k,\sigma_k}(t)\prod_{\substack{l=1\\l\neq k}}^nB_{l,\sigma_l}(t)\\ 
+\end{aligned}\]
+By construction $B(0)=\det(A(0))I$ hence $B_{l,\sigma_l}(0)=\det(A(0))\delta_{l,\sigma_l}$ meaning:
+\[\prod_{\substack{l=1\\l\neq k}}^nB_{l,\sigma_l}(0) = \begin{cases} \det(A(0))^{n-1} & l=\sigma_l \text{ for all $l\neq k$.}\\ 0 & \text{otherwise.}\end{cases}\]
+The only such permutation is the identity permutation, meaning the sum reduces to:
+\[\begin{aligned}
+	\sum_{\sigma\in S_n}\sgn(\sigma)\sum_{k=1}^nB'_{k,\sigma_k}(0)\prod_{\substack{l=1\\l\neq k}}^nB_{l,\sigma_l}(0)&= \det(A(0))^{n-1}\sum_{k=1}^nB'_{k,k}(t) \\
+	&=\det(A(0))^{n-1}\tr(B'(0))\\
+	&=\det(\adj(A(0)))\tr(B'(0))\\
+\end{aligned}\]
+When we expand $B(t)$ back to $\adj(A(0))A(t)$ we get:
+\[ \det(\adj(A(0)))\frac{d}{d\,t}\det(A(t))\bigg|_{t=0} = \det(\adj(A(0)))\tr(\adj(A(0))A'(0)) \]
+When $A$ is invertible Jacobi's identity follows by cancelling $\det(\adj(A(0)))$.
