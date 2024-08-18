@@ -31,3 +31,42 @@ The only such permutation is the identity permutation, meaning the sum reduces t
 When we expand $B(t)$ back to $\adj(A(0))A(t)$ we get:
 \[ \det(\adj(A(0)))\frac{d}{d\,t}\det(A(t))\bigg|_{t=0} = \det(\adj(A(0)))\tr(\adj(A(0))A'(0)) \]
 When $A$ is invertible Jacobi's identity follows by cancelling $\det(\adj(A(0)))$.
+
+\subsection{Laplace Expansion}
+The previous proof was as close as it seemed,
+we just needed to choose a different expansion,
+the Laplace expansion:
+\[\det(A(t)) = \sum_{k=1}^nA(t)_{i,k}\adj(A(t))_{k,i}\]
+This is sometimes used as the definitions of determinant,
+I've half done this previously in these notes and this makes me want to go back to it,
+but it can also be read from the adjugate product identity.
+\\
+
+Now we wish to evaluate $\frac{\partial\det(A(t))}{\partial A(t)_{i,j}}$.
+Since the choice of $i$ is arbitrary in the Laplace expansion choose it such that the $A(t)$ rows match:
+\[\begin{aligned}
+	\frac{\partial}{\partial A(t)_{i,j}}\det(A(t)) &= \frac{\partial}{\partial A(t)_{i,j}}\sum_{k=1}^nA(t)_{i,k}\adj(A(t))_{k,i}\\
+	&= \sum_{k=1}^n\left[A(t)_{i,k}\frac{\partial\adj(A(t))_{k,i}}{\partial A(t)_{i,j}}+\adj(A(t))_{k,i}\frac{\partial A(t)_{i,k}}{\partial A(t)_{i,j}}\right]\\
+\end{aligned}\]
+With this choice the partials are easily to evaluate as:
+\[\frac{\partial A(t)_{i,k}}{\partial A(t)_{i,j}}=\delta_{j,k},\quad\frac{\partial\adj(A(t))_{k,i}}{\partial A(t)_{i,j}}=0\]
+The first partial follows directly from the elements of $A(t)$ being independent.
+The second partial follows from the definition of cofactor matrix.
+The $(i,j)$th element of the cofactor matrix is the determinant of $A(t)$ with the $i$th row and $j$th column removed,
+and hence is independent of them.
+Just remember that the adjugate matrix is the transpose of the cofactor matrix meaning we need to swap the indices.
+So $\adj(A(t))_{j,i}$ is independent of $A(t)_{k,j}$ and $A(t)_{i,k}$ and hence the second partial is $0$.
+\\
+
+Substituting these partials back into the sum gives:
+\[\frac{\partial}{\partial A(t)_{i,j}}\det(A(t)) = \sum_{k=1}^n\left[0A(t)_{i,k}+\adj(A(t))_{k,i}\delta_{j,k}\right]=\adj(A(t))_{j,i}\]
+Which is a cool identity by itself but we can also apply the chain rule to give:
+\[\begin{aligned}
+	\frac{d}{d\,t}\det(A(t)) &= \sum_{j=1}^n\sum_{i=1}^n\frac{\partial\det(A(t))}{\partial A(t)_{i,j}}\frac{d A(t)_{i,j}}{dt}\\
+	&= \sum_{j=1}^n\sum_{i=1}^n\adj(A(t))_{j,i}\frac{d A(t)_{i,j}}{dt}\\
+	&= \sum_{j=1}^n\left(\adj(A(t))\frac{d A(t)}{dt}\right)_{j,j}\\
+	&= \tr\left(\adj(A(t))\frac{d A(t)}{dt}\right)\\
+\end{aligned}\]
+As required.
+
+
