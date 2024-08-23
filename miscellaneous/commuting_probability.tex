@@ -1,0 +1,56 @@
+% Copyright 2024 Kieran W Harvie. All rights reserved.
+
+\section{Commuting Probability}
+Possibly my favourite result in elementary group theory.
+Has cool lemmas,
+uses many fundamental results,
+and has a cool main result.
+
+\subsubsection{Lemma: If $\Inn(G)$ is cyclic then $G$ is Abelian.}
+Let $\phi_g$ represent the standard inner automorphism obtained from $g$:
+\[\phi_g(x) =g^{-1}xg\]
+By hypothesis there is a fixed element $g$ such that for all $h$ there exits $n$ such that:
+\[\phi_h = \phi_g^n = \phi_{g^n}\]
+Observe that this implies $\phi_{hg^{-n}}=\phi_1$ meaning $gh^{-n}$ is in the center of $G$,
+which can be written as:
+\[h=g^nz\]
+The fact that two elements $h$ and $h'$ commute follow directly from powers of $g$ commuting with the center and each other:
+\[\begin{aligned}
+	hh'&=g^nzg^{n'}z'\\
+	&=g^{n'}g^{n-n'}zg^{n'}z'\\
+	&=g^{n'}zg^{n-n'}g^{n'}z'\\
+	&=g^{n'}zg^{n}z'\\
+	&=g^{n'}z'g^{n}z\\
+	&=h'h\\
+\end{aligned}\]
+
+\subsubsection{Lemma: If $\Inn(G)$ is cyclic then $\Inn(G)$ is the trivial group.}
+From the previous lemma if $\Inn(G)$ is cyclic then $G$ is Abelian but if $G$ is Abelian then $\Inn(G)$ is the trivial group.
+
+\subsubsection{Lemma: The smallest non trivial inner automorphism group is the Klein-four Group.}
+The Klein-four Group is the smallest group that isn't trivial or cyclic and by the previous lemma is the smallest possible non trivial inner automorphism group.
+The dihedral group of order $8$ can also be shown to have the inner automorphism group of the Klein-four group by direct calculation.
+
+\subsubsection{Main Result:}
+The chance that two elements $g,h\in G$ commute is given by:
+\[\frac{1}{|G|^2}|\{(g,h)\in G^2 | gh=hg\}|\]
+This sum can be taken to a more standard form as:
+\[\begin{aligned}
+	|\{(g,h)\in G^2 | gh=hg\}| &= \sum_{g\in G}|{h\in G| gh=gh}|\\
+	&= \sum_{g\in G}|C_G(g)|\\
+\end{aligned}\]
+Plugging and grinding definitions gives:
+\[\begin{aligned}
+	&\frac{1}{|G|^2}|\{(g,h)\in G^2 | gh=hg\}|\\
+	=& \frac{1}{|G|^2}\sum_{g\in G}|C_G(g)| \\
+	=& \frac{1}{|G|}\sum_{g\in G}\frac{1}{[G:C_G(g)]} \\
+	=& \frac{1}{|G|}\left(\sum_{g\in Z(G)}\frac{1}{[G:C_G(g)]}+\sum_{g\in G/Z(G)}\frac{1}{[G:C_G(g)]}\right) \\
+	\leq& \frac{1}{|G|}\left(\sum_{g\in Z(G)}\frac{1}{1}+\sum_{g\in G/Z(G)}\frac{1}{2}\right) \\
+	=& \frac{1}{|G|}\left(|Z(G)|+\frac{1}{2}(|G|-|Z(G)|)\right) \\
+	=& \frac{1}{2}\left(1+\frac{|Z(G)|}{|G|}\right) \\
+	=& \frac{1}{2}\left(1+\frac{1}{|\Inn(G)|}\right) \\
+\end{aligned}\]
+If $\Inn(G)$ is trivial we have $|\Inn(G)|=1$ and the commuting probability is less than or equal to $1$,
+as expected.
+Otherwise $\Inn(G)$ isn't trivial we have $|\Inn(G)|\geq 4$ meaning the commuting probability is less than or equal to $\frac{5}{8}$,
+quite a big jump!
