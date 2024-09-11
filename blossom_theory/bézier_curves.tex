@@ -1,0 +1,104 @@
+% Copyright 2024 Kieran W Harvie. All rights reserved.
+
+\section{Bézier Curves}
+Given $n+1$ control points $\mathbf{P}_k$ the $n$th order Bézier curve is given by:
+\[
+	f(t) = \sum_{k=0}^nb_{k,n}(t)\mathbf{P}_k,\quad t\in [0,1]
+\]
+Note that sometimes the function itself,
+without the domain,
+is also called a Bézier curve.
+\\
+
+The lower order Bézier curves have their expected special names,
+for example a Linear Bézier curve is:
+\[f(t)=(1-t)\mathbf{P}_0+t\mathbf{P}_1\]
+A Quadratic Bézier curve is:
+\[f(t)=(1-t)^2\mathbf{P}_0+2t(1-t)\mathbf{P}_1+t^2\mathbf{P}_2\]
+And a Cubic Bézier curve is:
+\[f(t)=(1-t)^3\mathbf{P}_0+3t(1-t)^2\mathbf{P}_1+3t^2(1-t)\mathbf{P}_2+t^3\mathbf{P}_3\]
+These curves are the most common ones you will see in practice,
+Cubic Bézier curves in particular,
+as it has wide support across many programs.
+
+\begin{center}
+\begin{tikzpicture}
+	\draw[red] (0,0) .. controls (1,3) and (4,0) .. (5,3);
+	\filldraw (0,0) node[above]{} circle(2pt);
+	\filldraw (1,3) node[above]{} circle(2pt);
+	\filldraw (4,0) node[above]{} circle(2pt);
+	\filldraw (5,3) node[above]{} circle(2pt);
+\end{tikzpicture}
+
+An example Cubic Bézier curve with control points shown.
+\end{center}
+
+\subsubsection{Interpreting the control points}
+There's two interpretations on the control points of a Bézier curve.
+\\
+
+First is that the points determine the location and derivatives of the start and end points.
+The curve starts at $\mathbf{P}_0$ and ends at $\mathbf{P}_n$.
+Its derivative at the start lies on $\mathbf{P}_1-\mathbf{P}_0$ and at the end on $\mathbf{P}_{n-1}-\mathbf{P}_n$.
+Its second derivative at the start is controlled by $\mathbf{P}_2$ and end by $\mathbf{P}_{n-2}$, etc.
+A corollary of this is that two curves who share all their control points less than $k$ have the same $k$ or less derivatives at the start of the curves,
+likewise for $k$ and above and $n-k$ and the curves end.
+\\
+
+Second is that the points pull the curve towards them and with a strength and variability determined by $b_{k,n}$.
+To see this let $f$ and $\hat{f}$ be $n$ Bézier Curves that differ only with control point $\mathbf{P}_k$ and $\hat{\mathbf{P}_k}$, then we have.
+\[
+	\hat{f}(t) = b_{k,n}(t)(\hat{\mathbf{P}}_k-\mathbf{P}_k)+f(t)
+\]
+Since $b_{k,n}$ is positive the point $\hat{f}(t)$ is always the point $f(t)$ displaced in the direction of $\hat{\mathbf{P}_k}-\mathbf{P}_k$ with the maximum displacement happening at $\frac{k}{n}$.
+
+\subsubsection{Convex Hull}
+
+\subsubsection{Affine Transform}
+Let $T$ be some affine transform then $b_{k,n}$ being a partition of unity mean:
+\[\begin{aligned}
+	T(f(t)) =& T\left(\sum_{k=0}^nb_{k,n}(t)\mathbf{P}_k\right)\\
+	=& \sum_{k=0}^nb_{k,n}(t)T(\mathbf{P}_k)\\
+\end{aligned}\]
+In other words,
+given some control points the affine transform a Bézier curve is the Bézier curves of the transformed control points.
+
+\subsubsection{Subdivision and Extension:}
+By applying the inner product property of Bernstein basis polynomials we obtain:
+\[\begin{aligned}
+	f(\tau t) =& \sum_{k=0}^n\mathbf{P}_kb_{k,n}(\tau t)\\
+	=&\sum_{k=0}^n\mathbf{P}_k\sum_{l=k}^nb_{l,n}(t)b_{k,l}(\tau)\\
+	=&\sum_{l=0}^nb_{l,n}(t)\sum_{k=0}^l\mathbf{P}_kb_{k,l}(\tau)\\
+\end{aligned}\]
+And similarly for the reflected inner product property:
+\[\begin{aligned}
+	f(\tau +(1-\tau)t)=& \sum_{k=0}^n\mathbf{P}_kb_{k,n}(\tau+(1-\tau)t)\\
+	=&\sum_{k=0}^l\mathbf{P}_k\sum_{l=0}^kb_{k-l,n-l}(\tau)b_{l,n}(t)\\
+	=&\sum_{l=0}^nb_{l,n}(t)\sum_{k=l}^n\mathbf{P}_kb_{k-l,n-l}(\tau)\\
+\end{aligned}\]
+When $\tau\in[0,1]$ the functions $f(\tau t)$ and $f(\tau + (1-\tau)t)$ can be interpreted as subdividing $f(t)$ into two function.
+Once which matches the values of $f$ from $0$ to $\tau$ and one which matches from $\tau$ to $1$.
+We can use the inner sum to extract the control points for each subdivision,
+explicitly in the cubic case:
+\[\begin{array}{|c|c|}
+	\hline
+	f(t)&f(\tau t)\\
+	\hline
+	\mathbf{P}_3&(1-\tau)^3\mathbf{P}_3+3\tau(1-\tau)^2\mathbf{P}_2+3\tau^2(1-\tau)\mathbf{P}_1+\tau^3\mathbf{P}_0\\
+	\mathbf{P}_2&(1-\tau)^2\mathbf{P}_2+2\tau(1-\tau)\mathbf{P}_1+\tau^2\mathbf{P}_0\\
+	\mathbf{P}_1&(1-\tau)\mathbf{P}_1+\tau \mathbf{P}_0\\
+	\mathbf{P}_0&\mathbf{P}_0\\
+	\hline
+\end{array}\]
+\[\begin{array}{|c|c|}
+	\hline
+	f(t)&f(\tau+(1-\tau)t)\\
+	\hline
+	\mathbf{P}_3&\mathbf{P}_3\\
+	\mathbf{P}_2&\tau \mathbf{P}_3+(1-\tau)\mathbf{P}_2\\
+	\mathbf{P}_1&\tau^2\mathbf{P}_3+2\tau(1-\tau)\mathbf{P}_2+(1-\tau)^2\mathbf{P}_1\\
+	\mathbf{P}_0&\tau^3\mathbf{P}_3+3\tau^2(1-\tau)\mathbf{P}_2+3\tau(1-\tau)^2\mathbf{P}_1+(1-\tau)^3\mathbf{P}_0\\
+	\hline
+\end{array}\]
+When $\tau$ is outside $[0,1]$ the functions can be interpreted extending $f(t)$ to between $0$ and $\tau$.
+Note that care must be taken to the sign of $\tau$ as $[-2,0]$ and $[0,2]$ are different as the former extends from the $0$ end and the later from the $1$ end.

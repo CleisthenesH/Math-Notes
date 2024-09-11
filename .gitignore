@@ -3,6 +3,7 @@
 *.out
 *.aux
 *.toc
+*.pdf
 
 # bibtex
 *.bbl
@@ -11,3 +12,7 @@
 *-blx.aux
 *-blx.bib
 *.run.xml
+
+# Work in progress
+WIP/
+WIP.*
