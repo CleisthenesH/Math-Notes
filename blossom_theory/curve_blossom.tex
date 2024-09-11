@@ -1,0 +1,26 @@
+% Copyright 2024 Kieran W Harvie. All rights reserved.
+
+\section{Blossom of a Quadratic Bézier Curve}
+Consider the function $f:\mathbb{R}\rightarrow\mathbb{R}^m$ used to define the  Quadratic Bézier curve with control points $\{P_0,P_1,P_2\}$:
+\[f(t)=(1-t)^2P_0+2t(1-t)P_1+t^2P_2\]
+It has the following bivariate blossom:
+\[\mathcal{B}[f](t_1,t_2) = (1-t_1)(1-t_2)P_0+((1-t_1)t_2+(1-t_2)t_1)P_1+t_1t_2P_2\]
+$\mathcal{B}[f]$ is the archetypal blossom,
+Bézier Curves are the context blossoms where made to tackle,
+and it having argument symmetry and diagonality can be verified by inspection.
+And affinity follows by coefficient-wise substitution, for example:
+\[\begin{aligned}
+	w_0(1-s_0)+w_1(1-s_1)=& w_0+w_1-(w_0s_0+w_1s_1)\\
+	=&1-(w_0s_0+w_1s_1)\\
+\end{aligned}\]
+Observe that we reclaim the original control points when $(t_1,t_2)\in\{0,1\}^2$:
+\[
+	f(0,0) = P_1\quad
+	f(0,1) = P_2\quad
+	f(1,1) = P_3
+\]
+Also observe that the sum of all the coefficients is $1$:
+\[(1-s)(1-t)+((1-s)t+(1-t)s)+st = 1\]
+This means the tuple can be interpreted as \hyperref[appx:bary]{barycentric coordinates} of the curve:
+\[\big((1-s)(1-t),(1-s)t+(1-t)s,st\big)\]
+

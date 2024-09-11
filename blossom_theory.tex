@@ -1,0 +1,63 @@
+% Copyright 2024 Kieran W Harvie. All rights reserved.
+\documentclass[12pt]{report}
+
+\input{common_preamble.tex}
+
+\hypersetup{
+	pdftitle = {Blossom Theory},
+	pdfpagemode = {UseOutlines},
+	pdfauthor = {Kieran Harvie},
+	pdfsubject = {Blossom Theory, Bézier Curves and Surfaces, CAD},
+	pdfkeywords = {TODO},
+	pdfborder =  {2 2 1},
+}
+
+\usepackage{biblatex}
+\addbibresource{blossom_theory.bib}
+
+\title{Blossom Theory\\ \large An Intuitive and Practical Foundation for Bézier Curves and Surfaces}
+\date{Copyright \textcopyright\,  \today. All Rights Reserved.}
+\author{Kieran Harvie}
+
+\renewcommand\thechapter{}
+\renewcommand\thesection{\arabic{section}}
+
+\begin{document}
+\maketitle
+
+\input{blossom_theory/splash.tex}
+\input{blossom_theory/introduction.tex}
+
+\chapter{Bézier Geometry}
+\input{blossom_theory/bernstein.tex}
+\input{blossom_theory/bézier_curves.tex}
+\input{blossom_theory/bézier_rectangle.tex}
+\input{blossom_theory/bézier_triangle.tex}
+\input{blossom_theory/comparison.tex}
+
+\chapter{Blossom Theory}
+\input{blossom_theory/blossom_theory.tex}
+\input{blossom_theory/curve_blossom.tex}
+\input{blossom_theory/structure_of_N.tex}
+\input{blossom_theory/triangle_blossom.tex}
+
+\chapter{The Blossoming}
+\input{blossom_theory/the_blossoming.tex}
+\input{blossom_theory/curve_blossoming.tex}
+\input{blossom_theory/triangle_blossoming.tex}
+
+\chapter{Rendering}
+\input{blossom_theory/rendering.tex}
+\input{blossom_theory/rendering_direct.tex}
+\input{blossom_theory/rendering_subdivision.tex}
+\input{blossom_theory/rendering_PNT.tex}
+
+\renewcommand\thesection{A\arabic{section}}
+
+\chapter{Appendix}
+\input{blossom_theory/barycentric_coordinates.tex}
+\input{blossom_theory/notation_variants.tex}
+
+\printbibliography[heading=bibnumbered]
+
+\end{document}

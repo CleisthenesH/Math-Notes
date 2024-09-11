@@ -1,0 +1,20 @@
+% Copyright 2024 Kieran W Harvie. All rights reserved.
+
+Consider a function $f:N\rightarrow M$ where $N$ and $M$ are $R$-modules over a commutative ring $R$\footnote{
+We will also use the common convention that,
+when it would be useful and wouldn't cause confusion (such as when $N=R$),
+Gibbs notation will be dropped.
+}.
+A blossom $\mathcal{B}[f]$ is a $n$-variate function with the following properties:
+\begin{itemize}
+	\item {\bf Symmetric in Arguments:} For all $i\leq j\leq n$ we have:
+		\[\mathcal{B}[f](\mathbf{t}_1,\cdots, \mathbf{t}_i, \cdots, \mathbf{t}_j, \cdots, \mathbf{t}_n) 
+		= \mathcal{B}[f](\mathbf{t}_1,\cdots, \mathbf{t}_j, \cdots, \mathbf{t}_i, \cdots, \mathbf{t}_n) \]
+	\item {\bf Affine:} For all $\sum_kw_k=1$ we have:
+		\[\mathcal{B}[f]\left(\sum_kw_k\mathbf{s}_k,\mathbf{t}_2,\cdots,\mathbf{t}_n\right) = \sum_kw_k\mathcal{B}[f](\mathbf{s}_k,\mathbf{t}_2,\cdots,\mathbf{t}_n)\]
+		Note that affinity combined with symmetry means $\mathcal{B}[f]$ would be affine in all arguments,
+		this property is called multi-affine.
+	\item {\bf Diagonal:} For all $\mathbf{t}$ we recover:
+		\[\mathcal{B}[f](\mathbf{t},\mathbf{t},\cdots,\mathbf{t}) = f(\mathbf{t})\]
+\end{itemize}
+It will turn out that in practice the strucuture of $M$ isn't that important to blossom theory is overshadowed by the $n$-variance of $f$ and $N$, in particular the dimension of $N$ if appropriate.

@@ -1,0 +1,57 @@
+% Copyright 2024 Kieran W Harvie. All rights reserved.
+
+\section{Structure of $N$}
+There are a lot of important results about how the structure of $N$ effects blossoms.
+
+\subsubsection{$N$ has a basis:}
+Let $N$ have the basis $\{\mathbf{b}_k\}_k$ and consider and following expansion of an argument $\mathbf{t}_1$:
+\[\mathbf{t}_1 = \sum_kr_k\mathbf{b}_k = \sum_kr_k\mathbf{b}_k + \left(1-\sum_rr_k\right)\mathbf{0}\]
+Applying affinity we get:
+\[\mathcal{B}[f](\mathbf{t}_1,\cdots,\mathbf{t}_n) = \sum_kr_k\mathcal{B}[f](\mathbf{b}_k,\cdots,\mathbf{t}_n)+\left(1-\sum_kr_k\right)\mathcal{B}[f](\mathbf{0},\cdots,\mathbf{t}_n) \]
+Iteratively applying this to all arguments we can see that a blossom is fully defined by its values when all the arguments are basis element or $\mathbf{0}$.
+Because of this convenient to talk of the control points of a blossom instead of a function, that is we define the function on this set and then get the blossom and function from working backwards.
+\\
+
+Consider the case $\dim(N)=1$,
+alongside making $N=R$ it lets use the standard indicator function trick to write the previous result as:
+\[\begin{aligned}
+	\mathcal{B}[f](t_1,t_2,\cdots,t_n) 
+	= t_1\mathcal{B}[f](1,t_2,\cdots,t_n)+(1-t_1)\mathcal{B}[f](0,t_2,\cdots,t_n)\\
+	= \sum_{\tau_1 \in \{0,1\}}\mathcal{B}[f](\tau_11,t_2,\cdots,t_n)((1-t_1)(1-\tau_1)+t_1\tau_1)\\
+\end{aligned}\]
+Iteratively do this for all arguments to obtain:
+\[\mathcal{B}[f](t_1,t_2,\cdots, t_n) = \sum_{(\tau_k)_{k=0}^n\in\{0,1\}^n}\mathcal{B}[f](\tau_1,\tau_2,\cdots, \tau_n)\prod_{k=1}^n\big((1-t_k)(1-\tau_k)+t_k\tau_k\big)\]
+If we $\mathcal{B}[f]_k$
+Now consider diagonally to get:
+\[f(t) = \mathcal{B}[f](t,t,\cdots,t) = \sum_{k=0}^n\binom{n}{k}t^{n-k}(1-t)^k\mathcal{B}[f]_k\]
+
+% Kept in case I wish to restore the use of boldface.
+% 
+% Consider the case $\dim(N)=1$;,kj
+% In this case there is a single basis element $\mathbf{1}$ and all elements $\mathbf{t}_n$ can be written as:
+% \[\mathbf{t}_n = t_n\mathbf{1} \text{ for some } t_n\in R\]
+% Applying affinity we get:
+% \[\begin{aligned}
+% 	\mathcal{B}[f](\mathbf{t}_1,\mathbf{t}_2,\cdots,\mathbf{t}_n) 
+% 	= t_1\mathcal{B}[f](\mathbf{1},\mathbf{t}_2,\cdots,\mathbf{t}_n)+(1-t_1)\mathcal{B}[f](\mathbf{0},\mathbf{t}_2,\cdots,\mathbf{t}_n)\\
+% 	= \sum_{\tau_1 \in \{0,1\}}\mathcal{B}[f](\tau_1\mathbf{1},\mathbf{t}_2,\cdots,\mathbf{t}_n)((1-t_1)(1-\tau_1)+t_1\tau_1)\\
+% \end{aligned}\]
+% We can iteratively do this for all arguments to obtain:
+% \[\mathcal{B}[f](\mathbf{t}_1,\mathbf{t}_2,\cdots, \mathbf{t}_n) = \sum_{(\tau_k)_{k=0}^n\in\{0,1\}^n}\mathcal{B}[f](\tau_1\mathbf{1},\tau_2\mathbf{1},\cdots, \tau_n\mathbf{1})\prod_{k=1}^n\big((1-t_k)(1-\tau_k)+t_k\tau_k\big)\]
+
+\subsubsection{Field and coordinates, bases, and the matrix}
+
+\subsubsection{Example: $N=\mathbb{R}^n,M=\mathbb{R}^m,$ and $R=\mathbb{R}$}
+While there are a lot of interesting properties of general blossoms\footnote{For example, the Bernstein polynomials are useful for uniformly approximating any continuous function and this property carries to blossoms.},
+for the rest of this document we will be considering blossoms where the values $\mathcal{B}[f]_k$ are fixed points in $\mathbb{R}^m$ and then defining $f$ through the previous formula.
+From the previous result this approach is valid when we make $f$ have a number of arguments greater than or equal to the number of points minus one.
+
+Explicitly,we define $b$ to be the blossom over the points $P_k$
+Because the function $f$ has been so heavily demoted 
+\[b(t_1,t_2,\cdots,t_n) = \mathcal{B}[f](t_1,t_2,\cdots,t_n)\]
+
+\subsubsection{Example: $f$ is a polynomial}
+Observe that the coefficients are Bernstein polynomials of degree $n$.
+These polynomials are known to form a basis of polynomials of degree $n$ or less.
+Hence when $f$ is a polynomial of degree $n$ the blossom $\mathcal{B}[f]$ is uniquely defined when it is $n$-variate or greater and we can calculate $\mathcal{B}[f]$ by setting $\mathcal{B}[f]_k$ to the coefficients of $f$ in the Bernstein basis.
+

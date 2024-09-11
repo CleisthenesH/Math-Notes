@@ -1,0 +1,44 @@
+% Copyright 2024 Kieran W Harvie. All rights reserved.
+
+\section{Notation Variants}
+There's two other common notation for the control points of a Bézier Triangle the reader is likely to encounter.
+
+\subsubsection{(Symmetrized) Tensor Product:}
+\[(\alpha s + \beta r)^2 = \alpha^2+2\alpha\beta + \beta^2\]
+Quadratic Bézier curve:
+\[(\lambda_0\mathbf{e}_0+\lambda_1\mathbf{e}_1)^2 = \lambda_0^2\mathbf{e}_0^2+2\lambda_0\lambda_1\mathbf{e}_0\mathbf{e}_1+\lambda_1^2\mathbf{e}_2^2\]
+Quadratic Bézier curve blossom:
+\[(\lambda_{0,0}\mathbf{e}_0+\lambda_{0,1}\mathbf{e}_1)(\lambda_{1,0}\mathbf{e}_0+\lambda_{1,1}\mathbf{e}_1)\]
+
+Works because of the universal property of the tensor product.
+This is probalby the best but like most math it requires a larger upfront cost.
+It simplifies and unifies curves and triangles of different orders.
+
+\subsubsection{Weighted}
+I think ours links to theory (blossoms) better and this one reflects application better
+$P_{i,j,k}$ since they add to $n$ we can see them as weighted 
+Particularly when working with Point-Normal triangles.
+
+\subsubsection{Example conversion:}
+Still needs to identify corners.
+Bloosom 
+
+% I was originally going to include a comparison of the blossoming to the interpolation of a polynomial using the finite difference.
+% 
+% \section{Finite Difference}
+% The finite difference operator $\Delta_h$ is defined as:
+% \[\Delta_h[f](x) = f(x+h)-f(x)\]
+% We similarly define 
+% \begin{equation*}
+% \begin{aligned}
+% 	\Delta^n_h[f](x) =& \Delta_h[\Delta^{n-1}_h[f]](x)\\
+% 	=& \Delta^{n-1}_h[f](x+h)- \Delta^{n-1}_h[f](x)\\
+% \end{aligned}
+% \end{equation*}
+% Let $p_n(x) = x^n$ then:
+% \begin{equation*}
+% \begin{aligned}
+% 	\Delta[p_n](x) =& (x+h)^n-x^n\\
+% 	=&\sum_{k=0}^{n-1}\binom{n}{k}h^{n-k}x^k\\
+% \end{aligned}
+% \end{equation*}

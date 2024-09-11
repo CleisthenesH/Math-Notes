@@ -1,0 +1,13 @@
+% Copyright 2024 Kieran W Harvie. All rights reserved.
+
+\section{The Blossoming of a Cubic Bézier Curve}
+Let $b$ 
+\[\begin{matrix}
+	&t_1&t_2&t_3\\
+	\hline
+	\mathcal{B}[f](a,a,a)&\mathcal{B}[f](a,a,t_1)&\mathcal{B}[f](a,t_2,t_1)&\mathcal{B}[f](t_3,t_2,t_1)\\
+	\mathcal{B}[f](a,a,b)&\mathcal{B}[f](a,b,t_1)&\mathcal{B}[f](b,t_2,t_1)&\\
+	\mathcal{B}[f](a,b,b)&\mathcal{B}[f](b,b,t_1)&&\\
+	\mathcal{B}[f](b,b,b)&&&\\
+\end{matrix}\]
+\[\mathcal{B}[f](a,a,t_k) = \frac{b-t_k}{b-a}\mathcal{B}[f](a,a,a)+\frac{t_k-a}{b-a}\mathcal{B}[f](a,a,b)\]
