@@ -102,3 +102,17 @@ explicitly in the cubic case:
 \end{array}\]
 When $\tau$ is outside $[0,1]$ the functions can be interpreted extending $f(t)$ to between $0$ and $\tau$.
 Note that care must be taken to the sign of $\tau$ as $[-2,0]$ and $[0,2]$ are different as the former extends from the $0$ end and the later from the $1$ end.
+
+\subsubsection{Useful Curves:}
+In the Bernstein basis polynomials section we calculated some sums that are useful starting points and sanity checks when writing algorithms.
+These sums are similarly useful for calculating Bézier curves.
+For example,
+consider control a collection of regularly spaced control points:
+\[\mathbf{P}_k = \mathbf{A}+k\mathbf{B}\]
+Then Bézier curve is given by:
+\[\begin{aligned}
+	f(t) &= \sum_{k=0}^nb_{k,n}(t)\mathbf{P}_k\\
+	&= \sum_{k=0}^nb_{k,n}(t)(\mathbf{A}+t\mathbf{B})\\
+	&= \mathbf{A}\sum_{k=0}^nb_{k,n}(t)+\mathbf{B}\sum_{k=0}^nkb_{k,n}(t)\\
+	&= \mathbf{A}+nt\mathbf{B}\\
+\end{aligned}\]
