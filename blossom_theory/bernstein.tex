@@ -104,3 +104,25 @@ If we instead factor common terms we get:
 When $t\in[0,1]$ the first three factors are non-negative,
 hence there can only be an extrema where the fourth factor is zero at $t=\frac{k}{n+1}$.
 By considering the endpoints this extrema must be a maximum and is the only extrema on $t\in[0,1]$.
+
+\subsubsection{Useful Sums:}
+We have already used binomial expansion when calculating the inner product.
+However, if we consider the general expression:
+\[(x+y)^n = \sum_{k=0}^n\binom{n}{k}x^{n-k}y^k\]	
+When derived by $y$:
+\[n(x+y)^{n-1} = \sum_{k=0}^nk\binom{n}{k}x^{n-k}y^{k-1}\]
+Multiplied by $y(x+y)$:
+\[ny(x+y)^n = (x+y)\sum_{k=0}^nk\binom{n}{k}x^{n-k}y^k\]
+And having set $x=1-t$ and $y=t$:
+\[nt = \sum_{k=0}^nk\binom{n}{k}(1-t)^{n-k}t^k\ = \sum_{k=0}^nkb_{k,n}(t)\]
+We get this sum with simple terms.
+The simplicity makes it a useful starting point and sanity check when writing algorithms involving the Bernstein basis polynomials.
+For example,
+if we are writing an algorithm for calculating the value of a Bernstein basis expansion at $t$ we know that if we choose linearly increasing coefficients we should get a linear function of $t$.
+If we conversely want the Bernstein basis expansion of a linear function we know to use linearly increasing coefficients.	
+\\
+
+Through similar methods we get similar sums for higher powers, for example:
+\[n(n-1)t^2 = \sum_{k=0}^nk(k-1)b_{k,n}(t)\]
+They are useful for similar starting points and sanity checks for derivatives.
+For example if we choose quadratically increasing coefficients in a Bernstein basis expansion we should get a linear derivative.
