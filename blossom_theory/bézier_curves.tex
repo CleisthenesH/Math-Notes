@@ -112,7 +112,7 @@ consider control a collection of regularly spaced control points:
 Then Bézier curve is given by:
 \[\begin{aligned}
 	f(t) &= \sum_{k=0}^nb_{k,n}(t)\mathbf{P}_k\\
-	&= \sum_{k=0}^nb_{k,n}(t)(\mathbf{A}+t\mathbf{B})\\
+	&= \sum_{k=0}^nb_{k,n}(t)(\mathbf{A}+k\mathbf{B})\\
 	&= \mathbf{A}\sum_{k=0}^nb_{k,n}(t)+\mathbf{B}\sum_{k=0}^nkb_{k,n}(t)\\
 	&= \mathbf{A}+nt\mathbf{B}\\
 \end{aligned}\]
