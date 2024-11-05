@@ -1,3 +1,65 @@
-% Copyright 2023 Kieran W Harvie. All rights reserved.
+% Copyright 2023-2024 Kieran W Harvie. All rights reserved.
 
-\section{Field Theory}
+\section{Modular Arithmetic}
+Modular arithmetic is just the regular addition, subtraction, and multiplication of integers but whenever we complete an operation we only consider the remainder of the result by a called the `modulus'.
+For example,
+the addition of $3$ and $4$ with a modulus of $6$ would be $1$ instead of $7$ as $1$ is the remainder when $7$ is divided by $6$.
+\\
+
+There are two conventions when it comes writing this down:
+First is to treat taking the remainder as an extra step at the end of each operation:  
+\[(3+4)\mod 6 = 1\]
+This should be familiar to programmers where the word `mod' is replacing the common `\%' operator.
+Second is to add an extra line to the equals sign and move the modulus all the way to the right, 
+treating it only as a reminder:
+\[3+4\equiv 1 \mod 6\]
+
+The reason we care about modular arithmetic is because it serves as a simply yet excellent base for discussing asymmetric cryptography.
+For those in the know we will be using the fact that $\mathbb{Z}/p\mathbb{Z}$ is a field and $(\mathbb{Z}/p\mathbb{Z})^\times$ is a cyclic group when $p$ is prime and most of our results will generalize accordingly.
+For those not in the know,
+or those that was a refresher,
+we will be introducing and explaining these properties in this section and the appendix.
+
+\subsubsection{$\mathbb{Z}/n\mathbb{Z}$ and $(\mathbb{Z}/n\mathbb{Z})^\times$:}
+The modular arithmetic with a modulus of $n$ restricted to just the set of integers $\{0,1,2,\dots,n-1\}$ is called `integers modulo $n$' and is written:
+\[\mathbb{Z}/n\mathbb{Z}\]
+An interesting property of $\mathbb{Z}/n\mathbb{Z}$ is that depending on our choice of $n$ the product of two non-zero elements may be zero,
+for example $2$ and $3$ are both elements of $\mathbb{Z}/6\mathbb{Z}$ but their product is zero:
+\[ 2\times 3 \equiv 0 \mod 6\]
+Another is that the product of two elements larger than $1$ may be $1$:
+\[ 5\times 5 \equiv 1 \mod 6\]
+This possibility is so important so when it occurs that:
+\[x\times y\equiv 1 \mod n\]
+We call $x$ and $y$ the multiplicative inverses of each other and write:
+\[x^{-1} = y \text{  and  } y^{-1}=x\]
+The notation is similar to a reciprocal because in $\mathbb{Z}/n\mathbb{Z}$ they \textit{are} each others reciprocal.
+Algebraically, 
+what is $\frac{1}{2}$ other than a number whose product with $2$ is $1$?
+Restricting $\mathbb{Z}/n\mathbb{Z}$ to just multiplication between elements that that have multiplicative inverses is called `multiplicative group of the integers modulo $n$' and is written:
+\[(\mathbb{Z}/n\mathbb{Z})^\times\]
+Loose ends, 
+like multiplicative inverses being unique or the product of two elements with multiplicative inverses having a multiplicative inverses,
+is left as an exercise for the reader.
+
+\subsubsection{Order:}
+Given an element $x\in(\mathbb{Z}/n\mathbb{Z})^\times$ its order $\ord(x)$ of  is the smallest positive integer such that:
+\[x^{\ord(x)}\equiv 1 \mod n\]
+
+\subsubsection{Bézout’s Identity:}
+
+
+\subsubsection{Totients:}
+A totient of an integer $n$ is a number less than $n$ that is relatively prime to $n$.
+The function giving the number of totients of $n$ is called Euler's totient function and is written $\phi(n)$.
+A corollary of Bézout’s identity is that the totient are exactly the elements of $(\mathbb{Z}/n\mathbb{Z})^\times$ meaning we can write:
+\[\phi(n) = |(\mathbb{Z}/n\mathbb{Z})^\times|\]
+But this function is often unnecessarily large so we also define the Carmichael function\footnote{I have not idea why Euler gets to own his function but Carmichael does not.} as:
+\[\lambda(n) = \lcm\bigg\{\ord(k)\,|\, k\in(\mathbb{Z}/n\mathbb{Z})^\times\bigg\}\]
+These functions are often studied in their own right
+\[x^{\lambda(n)}\equiv 1 \mod n\]
+Note that $\phi(n)$ also has this property but $\lambda(n)$ is less than or equal to $\phi(n)$
+
+\[\begin{aligned}	
+	\phi(n) &= \prod_{p_k}p_k^{n_k-1}(p_k-1)\\
+	&= n\prod_{p_k}(1-p_k^{-1})\\
+\end{aligned}\]

@@ -1,91 +1,81 @@
-% Copyright 2023 Kieran W Harvie. All rights reserved.
+% Copyright 2023-2024 Kieran W Harvie. All rights reserved.
 
 \section{Algebra Revision}
-\subsection{Lagrange's Theorem}
-\subsection{Cyclic Group}
-\subsection{Bézout's Identity}
+\subsection{Extended Euclidean Algorithm}
 I've send multiple time "Calculate $x$ such that $yx \mod z = 1$
 
-\subsection{Chinese Remainder Theorem}
+\subsection{Structure of Integers Modulo $n$}
 The Chinese Remainder Theorem is an interesting bring between regular and abstract algebra and I'll be using both forms in this document.
 
 \subsubsection{Regular:}
 Let $n_1$ and $n_2$ be coprime integers,
 from Bézout's identity there exists $q_1$ and $q_2$ such that:
-\[q_1n_1+q_2n_2 \mod n_1n_2 = 1\]
+\[q_1n_1+q_2n_2 \equiv 1\mod n_1n_2\]
 Now consider another integer $x$ such that:
-\[x\mod n_1 = a_1\, \text{ and }\, x\mod n_2 = a_2\]
+\[x\equiv a_1 \mod n_1\, \text{ and }\, x\equiv a_2\mod n_2 \]
 Then the only $0\leq x < n_1n_2$ is given by
-\[x = a_1n_2q_2+a_2n_1q_1\mod n_1n_2\]
+\[x \equiv a_1n_2q_2+a_2n_1q_1\mod n_1n_2\]
 Proof follows by substitution.
-\\
-
-Consider the corollary when $a=a_1=a_2$ then we have:
-\begin{equation*}
-\begin{aligned}
-x =& a_1n_2q_2+a_2n_1q_1\mod n_1n_2\\
-=& a(n_2q_2+n_1q_1)\mod n_1n_2\\
-=& a\\
-\end{aligned}
-\end{equation*}
 
 \subsubsection{Abstract:}
-
 We can use the prior construction to define a function 
-\begin{equation*}
-\begin{aligned}
-f:\mathbb{Z}/n_1\mathbb{Z}\times\mathbb{Z}/n_2\mathbb{Z} &\rightarrow \mathbb{Z}/n_1n_2\mathbb{Z}\\
-(a_1,a_2)&\mapsto a_1n_2q_2+a_2n_1q_1\\
-\end{aligned}
-\end{equation*}
-It's left as an excise that $f$ is an isomorphism, meaning:
+\[\begin{matrix}
+\phi:\mathbb{Z}/n_1\mathbb{Z}\times\mathbb{Z}/n_2\mathbb{Z} \rightarrow \mathbb{Z}/n_1n_2\mathbb{Z}\\
+(a_1,a_2)\mapsto a_1n_2q_2+a_2n_1q_1\\
+\end{matrix}\]
+Proof that $\phi$ is an isomorphism when $n_1$ and $n_2$ are coprime follows directly from the previous results, meaning:
 \[\mathbb{Z}/n_1\mathbb{Z}\times\mathbb{Z}/n_2\mathbb{Z} \cong \mathbb{Z}/n_1n_2\mathbb{Z}\]
-
 You can use induction to generalize this to:
-\[\mathbb{Z}/N\mathbb{Z} \cong \prod_k\mathbb{Z}/n_k\mathbb{Z}\]
-Where $n_k$ are pairwise relatively prime positive integers and:
-\[N =\prod_k n_k \]
-Of particular importance is the case where $n_k = p_k^{m_k}$ for distinct primes $p_k$ and integers $m_k$.
+\[\mathbb{Z}/n\mathbb{Z} \cong \prod_k\mathbb{Z}/n_k\mathbb{Z}\]
+Where $n_k$ are pairwise relatively prime positive integers such that:
+\[n =\prod_k n_k \]
+Of particular importance is the case where $n_k = p_k^{m_k}$ for integers $m_k$ and distinct primes $p_k$ as this gives the structure of $\mathbb{Z}/N\mathbb{Z}$ in terms of of its prime factorization:
+\[\mathbb{Z}/n\mathbb{Z} \cong \prod_k\mathbb{Z}/p_k^{m_k}\mathbb{Z}\]
 
-\subsection{Multiplicative group of integers modulo $n$}
-The "multiplicative group of integer module $n$" is is the multiplicative group of the ring $\mathbb{Z}/n\mathbb{Z}$ and is denoted $(\mathbb{Z}/n\mathbb{Z})^\times$.
-
-\subsubsection{Structure:}
+\subsection{Structure of the Multiplicative Group of Integers Modulo $n$}
 For general rings $R$ and $S$ we have:
 \[(R\times S)^\times \cong R^\times \times S^\times\]
-This follows from the, some what awkward looking, function:
+This follows from the following, some what awkward looking, function being an isomorphism:
 \begin{equation*}
 \begin{aligned}
-	f:(R\times S)^\times&\rightarrow R^\times \times S^\times\\
+	\phi:(R\times S)^\times&\rightarrow R^\times \times S^\times\\
 	(r,s)&\mapsto (r,s)\\
 \end{aligned}
 \end{equation*}
-Applying this to the Chinese remainder theorem gives:
+Proof of which follows directly from the isomorphism theorem and is left as an exercise for the reader.
+\\
+
+Applying this to the structure of $\mathbb{Z}/n\mathbb{Z}$ previously shown gives:
 \[(\mathbb{Z}/n\mathbb{Z})^\times \cong \prod_k (\mathbb{Z}/p_k^{m_k}\mathbb{Z})^\times\]
-Where $n$ is given by the distinct primes $p_k$ as:
+Where $n$ is given by the integers $m_k$ and distinct primes $p_k$ as:
 \[n =\prod_k p_k^{m_k} \]
-When $p\neq 2$ we have: 
-\[(\mathbb{Z}/p^{m}\mathbb{Z})^\times = C_{p^{m}-p^{m-1}}\]
-And when $p=2$ we have:
-\[(\mathbb{Z}/2^{m}\mathbb{Z})^\times =\begin{cases} 
-	C_2\times C_{2^{m-2}} & m\geq 2\\
-	C_1 & m = 1\\
+The factors can be further simplified too:
+\[(\mathbb{Z}/p_k^{m_k}\mathbb{Z})^\times =\begin{cases} 
+	C_{\phi\left(p_k^{m_k}\right)} & p_k \neq 2\\
+	C_2\times C_{2^{m_k-2}} & m_k\geq 2\\
+	C_1 & m_k = 1\\
 \end{cases}\]
+Proof of which are outside the scope of this document but can be found in most undergrad algebra textbooks.
+\\
 
+A corollary of the structure of $(\mathbb{Z}/n\mathbb{Z})^\times$ is that it cyclic if and only if:
+\[n = 1,2,4,p^k,2p^k\]
+For some odd prime $p$ as the product of cyclic groups is cyclic if and only if all but one are of size $1$.
+\\
 
-The general $m$ case is outside the scope of this document,
-but can be found in most undergrad algebra textbooks.
-The $m = 1$ case is pretty tractable:
+However,
+proving just the subcase that $(\mathbb{Z}/p\mathbb{Z})^\times$ is that it cyclic when $p$ is prime is useful and tractable and is presented bellow. 
 
-\subsubsection{Sketch of the $m = 1$ case:}
+\subsection{The Multiplicative Group of Integers Modulo a Prime is Cyclic}
+\label{appx:cycle-multiplicative-group}
 The goal is to prove that:
 \[(\mathbb{Z}/p\mathbb{Z})^\times\]
 Is cyclic, the structure of this proof is the following:
 \begin{enumerate}
 	\item Prove there is some $d\in(\mathbb{Z}/p\mathbb{Z})^\times$ such that $g\in(\mathbb{Z}/p\mathbb{Z})^\times \Rightarrow g^{\ord(d)}=1$.
-	\item Hence, the polynomial $f(x)=x^{\ord(d)}-1$ has $|(\mathbb{Z}/p\mathbb{Z})^\times)|$ distinct roots.
+	\item Hence, the polynomial $f(x)=x^{\ord(d)}-1$ has $|(\mathbb{Z}/p\mathbb{Z})^\times|$ distinct roots.
 	\item Hence, $\ord(d)=|(\mathbb{Z}/p\mathbb{Z})^\times|$.\footnote{This only works because $\mathbb{Z}/p\mathbb{Z}$ is a field.}
-	\item Hence, $(\mathbb{Z}/p\mathbb{Z})^\times$ is cyclic with generator $g$.
+	\item Hence, $(\mathbb{Z}/p\mathbb{Z})^\times$ is cyclic with generator $d$.
 \end{enumerate}
 It takes a few steps to prove such a $d$ exists,
 an important result to help us is that:
@@ -155,16 +145,6 @@ Since we can take two elements $x$ and $y$ and calculate $z=x^{\gcd(\ord(x),\ord
 then we take another element $w$ and calculate $z^{\gcd(\ord(z),\ord(x))}x^{\gcd(\ord(x),\ord(y))}y$.
 We continue until all elements of $(\mathbb{Z}/p\mathbb{Z})^\times$ are included,
 the end result of this process is $d$.
-
-\subsubsection{Cyclic Corollary:}
-\label{appx:cycle-multiplicative-group}
-A corollary of the structure of $(\mathbb{Z}/n\mathbb{Z})^\times$ is that it cyclic if and only if:
-\[n = 1,2,4,p^k,2p^k\]
-For some odd prime $p$.
-\\
-
-This is because the product of cyclic groups is cyclic if and only if all but one are of size $1$.
-
 \subsubsection{Example $(\mathbb{Z}/9\mathbb{Z})^\times$ table:}
 Let $g\in(\mathbb{Z}/9\mathbb{Z})^\times$,
 bellow is a table of important properties that is useful as an example:
@@ -204,23 +184,3 @@ bellow is a table of important properties that is useful as an example:
 	\hline
 \end{tabular}
 \end{center}
-
-
-\subsection{Totient Functions}
-\label{appx:torient}
-A totient of an integer $n$ is a number less than $n$ that is relatively prime to $n$.
-Totient are important to cryptography because they are, by definition, the elements of $(\mathbb{Z}/n\mathbb{Z})^\times$.
-\\
-
-From this group we define two functions,
-Euler's totient function:
-\[\phi(n) = |(\mathbb{Z}/n\mathbb{Z})^\times|\]
-and the Carmichael function\footnote{I have not idea why Euler gets to own his function but Carmichael does not.}:
-\[\lambda(n) = \lcm\bigg\{\ord(k)\,|\, k\in(\mathbb{Z}/n\mathbb{Z})^\times\bigg\}\]
-
-These functions are often studied in their own right
-
-\subsubsection{Euler's Product Formula:}
-\subsubsection{Carmichael's Theorem:}
-\subsubsection{Carmichael's Theorem:}
-\subsubsection{Remark:}
