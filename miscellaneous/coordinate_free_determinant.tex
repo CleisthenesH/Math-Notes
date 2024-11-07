@@ -1,0 +1,103 @@
+% Copyright 2024 Kieran W Harvie. All rights reserved.
+
+\section{Coordinate Free Determinant}
+I've spent some time try to find a deeper definition of the determinant and was shown its coordinate free definition using the exterior product.
+\\
+
+Let $\phi:V\rightarrow V$ be a linear transform of the vector space $V$ over the field $F$ with dimension $n$.
+$\phi$ induces a linear transform on $\bigwedge^k(V)$ given by:
+\[\begin{aligned}
+	\Lambda(\phi):\bigwedge\nolimits^k(V)\rightarrow\bigwedge\nolimits^k(V)\\
+	\bigwedge^k_{l=1}v_l \mapsto \bigwedge^k_{l=1}\phi(v_l)
+\end{aligned}\]
+The key observation is that the dimension of $\bigwedge^k(V)$ is given by:
+\[\dim\left(\bigwedge\nolimits^k(V)\right) = \binom{n}{k}\]
+Hence the dimension is $1$ when $n=k$ and the only linear functions are characterized by a single scalar $\lambda \in F$ such that:
+\[\Lambda(\phi)\left(\bigwedge^n_{l=1}v_l\right) = \lambda\left(\bigwedge^n_{l=1}v_l\right)\]
+And this scalar is the determinant.
+
+\subsection{Sum and Products}
+I'm going to take a detour from showing that the this scalar is the determinant because I wish to jot down some useful formulae while they're fresh in my mind.
+\\
+
+Let $A_{i,j}$ be an array of vectors indexed by $I\times J$,
+since the exterior product distributes over addition we get the regular combinatoric result for the (exterior) product of multinomials\footnote{Writing this is when using $J^I$ to mean the set of functions from $I$ to $J$ finally clicked.}:
+\[\bigwedge_{i\in I}\sum_{j\in J} A_{i,j} = \sum_{\sigma\in J^I}\bigwedge_{i\in I}A_{i,\sigma(i)}\]
+If $A_{i,j}$ can we written in terms of vectors $u_j$ and scalars $a_i^j$ as: 
+\[A_{i,j} = a_i^ju_j\]
+We get:
+\[ \sum_{\sigma\in J^I}\bigwedge_{i\in I}A_{i,\sigma(i)} = \sum_{\sigma\in J^I}\left(\prod_{i\in I}a_i^{\sigma(i)}\right)\bigwedge_{i\in I}u_{\sigma(i)}\]
+Note that exterior product factor is zero if $\sigma$ isn't injective so the sum can be restricted to just the injective elements of $J^I$.
+It's cumbersome to write down this injective restriction in general,
+but easy when $I$ and $J$ are equal and finite!
+As it is simply $S_I$,
+the in symmetric group on $I$.
+\[\begin{aligned} 
+	\sum_{\sigma\in I^I}\left(\prod_{i\in I}a_i^{\sigma(i)}\right)\bigwedge_{i\in I}u_{\sigma(i)}
+	&= \sum_{\sigma\in S_I}\left(\prod_{i\in I}a_i^{\sigma(i)}\right)\bigwedge_{i\in I}u_{\sigma(i)}\\
+	&= \sum_{\sigma\in S_I}\sgn(\sigma)\left(\prod_{i\in I}a_i^{\sigma(i)}\right)\bigwedge_{i\in I}u_{i}\\
+\end{aligned}\]
+Combining everything gives:
+\[\bigwedge_{i\in I}\sum_{j\in I} a_i^ju_j= \sum_{\sigma\in S_I}\sgn(\sigma)\left(\prod_{i\in I}a_i^{\sigma(i)}\right)\bigwedge_{i\in I}u_{i}\]
+
+\subsection{Leibniz's Formula}
+Given a base $e_i$ indexed by $I$ our normal formula for the determinant is written in term of scalars $\phi_i^j$ such that:
+\[\phi(e_i) = \sum_{j\in I}\phi_i^je_j\]
+Substitution into our definition of $\Lambda(\phi)$ gives:
+\[\Lambda(\phi)\left(\bigwedge_{i\in I}e_i\right) = \bigwedge_{i\in I}\phi(e_i) = \bigwedge_{i\in I}\sum_{j\in J}\phi_i^je_j\]
+Applying the final result of the sum section gives:
+\[\Lambda(\phi)\left(\bigwedge_{i\in I}e_i\right) = \sum_{\sigma\in S_I}\sgn(\sigma)\left(\prod_{i\in I}\phi_i^{\sigma(i)}\right)\bigwedge_{i\in I}e_{i} \]
+As required.
+
+\subsection{Two important Properties}
+There's two more important properties of determinants that are intuitive to prove with the exterior product.
+I say intuitive instead of easy because my understanding of the exterior product is somewhat lacking,
+but these proofs really motivate me to improve!
+
+\subsubsection{The determinant of a product is the product of the determinants:}
+This proof comes from simply applying the outer transform first and using multilinearity to move that determinant out:
+\[\begin{aligned}
+	\Lambda(\phi\circ\psi)\left(\bigwedge_{i\in I}v_i\right) =&\bigwedge_{i\in I}(\phi\circ\psi)(v_i) \\
+	=&\det(\phi)\bigwedge_{i\in I}\psi(v_i) \\
+	=&\det(\phi)\det(\psi)\bigwedge_{i\in I}v_i \\
+\end{aligned}\]
+Note that this includes $\det(I) = 1$ as a corollary,
+but that this can be result can easily be proved directly:
+\[\Lambda(I)\left(\bigwedge_{i\in I}e_i\right) = \bigwedge_{i\in I}I(e_i) = \bigwedge_{i\in I}e_i\]
+	
+\subsubsection{Invariant subspaces:}
+Let $V_i$ be the $\phi$ invariant subspaces of $V$ indexed by $I$ and let $\phi_i$ be $\phi$ restricted to $V_i$.
+From this we get well known isomorphism:
+\[V \cong \bigoplus_{i\in I} V_i\]
+Another well know isomorphism is:
+\[\bigwedge\nolimits^k(W_0\oplus W_1) \cong \bigoplus_{k_0+k_1=k}\bigwedge\nolimits^{k_0}(W_0)\otimes\bigwedge\nolimits^{k_1}(W_1)\]
+When $n_k$ is a dimension of $W_k$ this simplifies too:
+\[\bigwedge\nolimits^{n_0+n_1}(W_0\oplus W_1) \cong \bigwedge\nolimits^{n_0}(W_0)\otimes\bigwedge\nolimits^{n_1}(W_1)\]
+As all other terms in the direct sum include a factor with an exterior power larger than its dimension and hence are zero.
+Combining this with the first isomorphism gives:
+\[\bigwedge\nolimits^n(V) \cong \bigotimes_{i\in I}\bigwedge\nolimits^{n_i}(V_i)\]
+As $\phi$ induced $\Lambda(\phi)$ on $\bigwedge\nolimits^n(V)$ so does $\phi_i$ induce $\Lambda(\phi_i)$ on $\bigwedge\nolimits^{n_i}(V_i)$.
+Furthermore,
+$\Lambda(\phi)$ induces an endomorphism on $\bigotimes_{i\in I}\bigwedge\nolimits^{n_i}(V_i)$ through the above isomorphism with $\bigwedge\nolimits^{n}(V)$.
+By the considering the application of this endomorphism where the only non-zero vectors are in the same subspace we obtain the following form\footnote{This phrasing sucks but I can't think of a better one right now.
+All the more reason to revise}:
+\[\bigotimes_{i\in I}\Lambda(\phi_i)\]
+Applying this to some some vector $v\in \bigwedge\nolimits^{n_i}(V_i)$ and define $v_i$ such that:
+\[v \cong \bigotimes_{i\in I}v_i\]
+We obtain:
+\[\begin{aligned} 
+	\Lambda(\phi)(v) \cong& \left[\bigotimes_{i\in I}\Lambda(\phi_i)\right]\left(\bigotimes_{i\in I}v_i\right)\\
+	\cong& \bigotimes_{i\in I}\Lambda(\phi_i)(v_i)\\
+	\cong& \bigotimes_{i\in I}\det(\phi_i)v_i\\
+	\cong& \prod_{i\in I}\det(\phi_i)\bigotimes_{i\in I}v_i\\
+\end{aligned}\]
+Hence the determinant of $\phi$ is equal to the product of the determinants of $\phi_i$.
+As a matrix this means that the determinants of a block diagonal matrix is equal to the product of the determinants of those block matrices.
+
+\subsection{Remarks}
+I just wanted to remark that I think I may have found my deeper definition of the determinant as this definition has motivation, intuition, and provides a good framework for further proofs.
+I don't think I could ask for much more,
+but it still doesn't feel complete to me.
+Maybe I'm just a little bitter about not seeing this sooner and maybe that feeling will go away if I study exterior products some more.
+I hope so, 
+as exterior products have been on my to-do list for a while too!
