@@ -1,0 +1,100 @@
+% Copyright 2024 Kieran W Harvie. All rights reserved.
+
+\section{Conics as Determinants}
+I've `known' for a long time that a conic is determined by five points.
+I put known in commas because I had seen Pascal's theorem\footnote{Its old school Latin name `hexagrammum mysticum theorem' rivals `witch of Agnesi' for old math names we need to bring back.},
+thought it looked legit,
+and never proved or thought about it again.
+But I saw the following identity that makes it so clear and almost makes me feel stupid for not seeing it before.
+Given five points $(x_n,y_n)$ define the following function:
+\[
+f(x,y) = \begin{vmatrix}
+	x^2&xy&y^2&x&y&1\\
+	x_1^2&x_1y_1&y_1^2&x_1&y_1&1\\
+	x_2^2&x_2y_2&y_2^2&x_2&y_2&1\\
+	x_3^2&x_3y_3&y_3^2&x_3&y_3&1\\
+	x_4^2&x_4y_4&y_4^2&x_4&y_4&1\\
+	x_5^2&x_5y_5&y_5^2&x_5&y_5&1\\
+	\end{vmatrix}
+\]
+Then the quadratic equation though all five given points is given by:
+\[f(x,y)=0\]
+The proof is straight forward as all points trivially satisfy:
+\[f(x_n,y_n)=0\]
+Since two rows in the determinant would be identical and hence $0$,
+and the coefficients of the quadratic equation can be read of through Laplace expansion.
+For example the $x^2$ coefficient is:
+\[
+\begin{vmatrix}
+	x_1y_1&y_1^2&x_1&y_1&1\\
+	x_2y_2&y_2^2&x_2&y_2&1\\
+	x_3y_3&y_3^2&x_3&y_3&1\\
+	x_4y_4&y_4^2&x_4&y_4&1\\
+	x_5y_5&y_5^2&x_5&y_5&1\\
+\end{vmatrix}
+\]
+
+\subsubsection{Computation}
+Two features stuck out to me.
+First is that geometry is analytic,
+as opposed to synthetic,
+meaning it's very easy to translate the geometry into an algorithm that acts on just the given points' coordinates. 
+Second is that division isn't used which means we don't have to be concerned about zero values,
+or near-zero values,
+in our calculations.
+\\
+
+Sure there might be a risk of overflow by repeatably multiplying and adding values together that could be shrunk by division.
+But not being forced to divide by unknown values is still preferable as near-zero values still cause overflows and we might still be able to opportunistically divide.
+
+\subsubsection{The Constant Term}
+The determinants for the coefficient of the non constant term includes a column of all $1$s and hence can be simplified further,
+for example the $x^2$ could be written as:
+\[\begin{vmatrix}
+	x_2y_2-x_1y_1&y_2^2-y_1^2&x_2-x_1&y_2-y_1\\
+	x_3y_3-x_1y_1&y_3^2-y_1^2&x_3-x_1&y_3-y_1\\
+	x_4y_4-x_1y_1&y_4^2-y_1^2&x_4-x_1&y_4-y_1\\
+	x_5y_5-x_1y_1&y_5^2-y_1^2&x_5-x_1&y_5-y_1\\
+\end{vmatrix}\]
+The constant term can be expressed without `directly' using Laplace through the following expression:
+\[
+f(0,0) = \begin{vmatrix}
+	0&0&0&0&0&1\\
+	x_1^2&x_1y_1&y_1^2&x_1&y_1&1\\
+	x_2^2&x_2y_2&y_2^2&x_2&y_2&1\\
+	x_3^2&x_3y_3&y_3^2&x_3&y_3&1\\
+	x_4^2&x_4y_4&y_4^2&x_4&y_4&1\\
+	x_5^2&x_5y_5&y_5^2&x_5&y_5&1\\
+	\end{vmatrix}
+= \begin{vmatrix}
+	x_1^2&x_1y_1&y_1^2&x_1&y_1\\
+	x_2^2&x_2y_2&y_2^2&x_2&y_2\\
+	x_3^2&x_3y_3&y_3^2&x_3&y_3\\
+	x_4^2&x_4y_4&y_4^2&x_4&y_4\\
+	x_5^2&x_5y_5&y_5^2&x_5&y_5\\
+	\end{vmatrix}
+\]
+Which I can't see any easy way to simplify without dividing or making another assumption about the coordinates.
+So maybe a better normalization is possible but I can't see it.
+And it looks like any such normalization would go against the strength of not needing to divide by arbitrary values.
+
+\subsubsection{Level Sets}
+Since we don't have to worry about division we can easily calculate $f(x,y)$ for arbitrary points and then do something with that value.
+The most direct application would be to select some region of $\mathbb{R}^2$ and calculate $f(x,y)$ for each point and then colour the point based on that value,
+i.e. level sets.
+Such an operation maps well to shaders.
+Just send $(x_n,y_n)$ to the graphics card and let it worry about invocations and visual effects based on the points.
+\\
+
+Such shading could be enhanced by considering partials to give a `flow' to the render,
+animated or otherwise.
+
+\subsection{A Tangent on Tangents}
+While working on this section I was trying to calculate the tangents of:
+\[Ax^2+2Bxy+Cy^2+2Dx+2Ey+F=0\]
+Just directly using implicit differentiation gives:
+\[Ax+By+D+(Bx+Cy+E)\frac{dy}{dx}=0\]
+This equation has serious problems if $\frac{dy}{dx}$ is zero or infinity but it was good enough to give the following ansatz for the tangent at $(x_0,y_0)$:
+\[(Ax_0+By_0+2)x+(Bx_0+Cy_0+E)y+Dx_0+Ey_0+F=0\]
+Substitution shows that if $(x_0,y_0)$ satisfies the original quadratic then it satisfies this.
+Comparison of the coefficients with the implicit derivatives shows that when they exist at $(x_0,y_0)$ they agree.
