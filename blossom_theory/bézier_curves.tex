@@ -103,6 +103,23 @@ explicitly in the cubic case:
 When $\tau$ is outside $[0,1]$ the functions can be interpreted extending $f(t)$ to between $0$ and $\tau$.
 Note that care must be taken to the sign of $\tau$ as $[-2,0]$ and $[0,2]$ are different as the former extends from the $0$ end and the later from the $1$ end.
 
+\subsubsection{Degree Elevation:}
+\[\begin{aligned}
+	&(1-t)^2\mathbf{P}_0+2t(1-t)\mathbf{P}_1+t^2\mathbf{P}_2\\
+	=&\big((1-t)^2\mathbf{P}_0+2t(1-t)\mathbf{P}_1+t^2\mathbf{P}_2\big)((1-t)+t)\\
+	=&(1-t)^3\mathbf{P}_0+3t(1-t)^2\frac{2\mathbf{P}_1+\mathbf{P}_0}{3}+3t^2(1-t)\frac{\mathbf{P}_2+2\mathbf{P}_1}{3} + t^3\mathbf{P}_2\\
+\end{aligned}\]
+\[
+	\left(\sum_{k=0}^nb_{k,n}(t)\mathbf{P}_k\right)\left(\sum_{l=0}^mb_{l,m}(t)\right) = 
+	\sum_{s=0}^{n+m}b_{s,n+m}(t)\sum_{k+l=s}\binom{n+m}{m}^{-1}\binom{s}{k}\binom{n+m-s}{m-l}\mathbf{P}_l
+\]
+
+\[\begin{array}{|c|cccc|}
+	\mathbf{P}_0&\mathbf{P}_0&\mathbf{P}_0&\mathbf{P}_0&\mathbf{P}_0\\
+	\mathbf{P}_0\,\mathbf{P}_1&\mathbf{P}_0&\frac{2}{3}\mathbf{P}_0+\frac{1}{3}\mathbf{P}_1&\frac{1}{3}\mathbf{P}_0+\frac{2}{3}\mathbf{P}_1&\mathbf{P}_1\\
+	\mathbf{P}_0\,\mathbf{P}_1\,\mathbf{P}_2&\mathbf{P}_0&\frac{1}{3}\mathbf{P}_0+\frac{2}{3}\mathbf{P}_1&\frac{2}{3}\mathbf{P}_1+\frac{1}{3}\mathbf{P}_2&\mathbf{P}_2\\
+\end{array}\]
+
 \subsubsection{Useful Curves:}
 In the Bernstein basis polynomials section we calculated some sums that are useful starting points and sanity checks when writing algorithms.
 These sums are similarly useful for calculating Bézier curves.
@@ -116,3 +133,5 @@ Then Bézier curve is given by:
 	&= \mathbf{A}\sum_{k=0}^nb_{k,n}(t)+\mathbf{B}\sum_{k=0}^nkb_{k,n}(t)\\
 	&= \mathbf{A}+nt\mathbf{B}\\
 \end{aligned}\]
+
+

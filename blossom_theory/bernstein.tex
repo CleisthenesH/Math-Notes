@@ -52,6 +52,13 @@ In most application we will be considering $t\in[0,1]$.
 So it makes sense to consider $b_{k,n}(0)$ and $b_{k,n}(1)$ as the `endpoints' and note  their values as:
 \[b_{k,n}(0) = \begin{cases}1& k=0\\0&k\neq0\\\end{cases}\quad\text{and}\quad b_{k,n}(1) = \begin{cases}1& k= n\\0&k\neq n\\\end{cases}\]
 
+\subsubsection{Product:}
+The product of two Bernstein basis polynomials is another one:
+\[\begin{aligned}
+	b_{k,n}(t)b_{l,m}(t) =& \binom{n+m}{k+l}^{-1}\binom{n}{k}\binom{m}{l}b_{k+l,n+m}(t)\\
+	=&\binom{n+m}{m}^{-1}\binom{k+l}{l}\binom{n+m-(k+l)}{m-l}b_{k+l,n+m}(t)\\
+\end{aligned}\]
+
 \subsubsection{Inner Product and Partition of Unity:}
 The following combinatorial identity can be verified by expansion:
 \[\binom{n}{l}\binom{l}{k} = \binom{n}{k}\binom{n-k}{l-k}\]
@@ -101,7 +108,7 @@ Simpling the coefficients containing $k$ into the binomial coefficients we obtai
 \[b_{k,n+1}'(t) = (n+1)(b_{k-1,n}(t)-b_{k,n}(t))\]
 If we instead factor common terms we get:
 \[b_{k,n+1}'(t) = (1-t)^{n-k}t^{k-1}\binom{n+1}{k}\bigg(k(1-t)-(n+1-k)t\bigg)\]
-When $t\in[0,1]$ the first three factors are non-negative,
+When $t\in(0,1)$ the first three factors are non-negative,
 hence there can only be an extrema where the fourth factor is zero at $t=\frac{k}{n+1}$.
 By considering the endpoints this extrema must be a maximum and is the only extrema on $t\in[0,1]$.
 
