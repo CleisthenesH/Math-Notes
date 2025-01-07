@@ -1,0 +1,52 @@
+% Copyright 2025 Kieran W Harvie. All rights reserved.
+
+\section{Lipschitz and Partitions}
+Consider a sequence of intervals $([a_n,b_n])_{n\in \mathbb{N}}$,
+a function $f$ that is Lipschitz continuous on $\cup_{n\in\mathbb{N}}[a_n,b_n]$,
+and sequence of sets $(\{x_{n,k}\}^{N_n}_{k=1})_{n\in\mathbb{N}}$ such that $\{x_{n,k}\}_{k=1}^{N_n}$ partitions $[a_n,b_m]$.
+Then for all functions $w$ such that:
+\[\lim_{n\rightarrow\infty}|w(n)|\sum_{k=1}^{N_n}(x_{n,k}-x_{n,k-1})^2 = 0\]
+We have:
+\[\lim_{n\rightarrow\infty}w(n)\sum_{k=1}^{N_n}(x_{n,k}-x_{n,k-1})f(x_{n,k}) = \lim_{n\rightarrow\infty}w(n)\int_{a_n}^{b_n}f(t)\,dt\]
+
+\subsubsection{Proof:}
+Let the Lipschitz constant be $K$,
+then we can easily expand the difference between our original terms as:
+\[\begin{aligned}
+&\left|w(n)\sum_{k=1}^{N_n}(x_{n,k}-x_{n,k-1})f(x_{n,k}) - w(n)\int_{a_n}^{b_n}f(t)\,dt\right|\\
+=& |w(n)|\left|\sum_{k=1}^{N_n}\int_{x_{n,k-1}}^{x_{n,k}}(f(x_{n,k}) - f(t))\,dt\right|\\
+\leq& |w(n)|\sum_{k=1}^{N_n}\int_{x_{n,k-1}}^{x_{n,k}}|f(x_{n,k}) - f(t)|\,dt\\
+\leq& K|w(n)|\sum_{k=1}^{N_n}\int_{x_{n,k-1}}^{x_{n,k}}|x_{n,k} - t|\,dt\\
+=& \frac{K}{2}|w(n)|\sum_{k=1}^{N_n}(x_{n,k} - x_{n,k-1})^2\\
+\end{aligned}\]
+Which proves the equality in the limit.
+
+\subsubsection{Motivating problem:}
+The problem I was trying to solve was to find the limit of:
+\[\lim_{n\rightarrow\infty}\sum_{k=1}^n\sin\left(\frac{k}{n^2}\right)\]
+This problem is a special case of the previous result with:
+\[a_n=0,b_n=\frac{1}{n},f(t)=\sin(t),w(n) = n^2,x_{n,k} = \frac{k}{n^2}\]
+Once we transform the sum into an integral evaluating the limit is easy and intuitive:
+\[\lim_{n\rightarrow\infty}\sum_{k=1}^n\sin\left(\frac{k}{n^2}\right) = \lim_{n\rightarrow\infty}n^2\int_{0}^{\frac{1}{n}}\sin(t)\,dt = \lim_{n\rightarrow\infty}n^2\left(1-\cos\left(\frac{1}{n}\right)\right) = \frac{1}{2}\]
+
+\subsubsection{Corollary:}
+For any partition $\{x_{n,k}\}_{k=0}^{N_n}$ of $[a_n,b_n]$ we have:
+\[x_{n,k}-x_{n,k-1}\geq 0 \quad\text{and}\quad b_n-a_n =\sum_{k=1}^{N_n}(x_{n,k}-x_{n,k-1})\]
+Hence we get:
+\[\begin{aligned}
+(b_n-a_n)^2 =& \left(\sum_{k=1}^{N_n}(x_{n,k}-x_{n,k-1})\right)^2\\
+=& \sum_{k=1}^{N_n}(x_{n,k}-x_{n,k-1})^2 + 2\sum_{k=1}^{N_n}\sum_{j=k+1}^{N_n}(x_{n,k}-x_{n,k-1})(x_{n,j}-x_{n,j-1})\\
+\geq& \sum_{k=1}^{N_n}(x_{n,k}-x_{n,k-1})^2 \\
+\end{aligned}\]
+Meaning as long as $w$ satisfies:
+\[\lim_{n\rightarrow\infty}|w(n)|(a_{n}-b_{n})^2 = 0\]
+Our choice of partition doesn't matter!
+Quite a cool result but,
+since Lipschitz continuity is pretty strong,
+not a surprising one.
+\\
+
+Observe that this inequality is sharp as there is equality if,
+and only if,
+the partition is evenly spaced.
+Furthermore our motivating problem just fails this corollary $w$ was quadratic and $(a_n-b_n)^2$ was a reciprocal quadratic.
