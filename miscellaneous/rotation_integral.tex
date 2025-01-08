@@ -1,0 +1,23 @@
+% Copyright 2025 Kieran W Harvie. All rights reserved.
+
+\section{Rotation Integral}
+Consider the following integral:
+\[\int\frac{a\sin(t)+b\cos(t)}{\alpha\sin(t)-\beta\cos(t)}\,dt = a't+b'\ln(\alpha\sin(t)-\beta\cos(t))\]
+Where:
+\[\begin{bmatrix}a'\\b'\end{bmatrix} = \frac{1}{\alpha^2+\beta^2}\begin{bmatrix} \alpha & -\beta\\\beta &\alpha\end{bmatrix}\begin{bmatrix}a\\b\end{bmatrix}\]
+This is trivially proven with the following expansion: 
+\[\frac{a\sin(t)+b\cos(t)}{\alpha\sin(t)-\beta\cos(t)} = a'\frac{\alpha\sin(t)-\beta\cos(t)}{\alpha\sin(t)-\beta\cos(t)} +b'\frac{\beta\sin(t)+\alpha\cos(t)}{\alpha\sin(t)-\beta\cos(t)}\] 
+Note the cool similarity with a rotation matrix.
+\\
+
+Massage the form a bit more by setting:
+\[\begin{matrix}
+	\alpha = \sin(\theta) & a = \sin(\phi)\\
+	\beta = \cos(\theta) & b = -\cos(\phi)\\
+\end{matrix}\]
+To get:
+\[\int\frac{\cos(t+\phi)}{\cos(t+\theta)}\,dt=\cos(\phi-\theta)t+\sin(\phi-\theta)\ln|\cos(t+\theta)|\]
+This gives us an insight to the accumulative error of ratio of the two out of phase sinusoids:
+That since $\ln$ is super linear on the range of $\cos$ the accumulative error is quite bad.
+But also periodic,
+provided you ignore the singularities.
