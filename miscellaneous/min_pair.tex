@@ -1,0 +1,42 @@
+% Copyright 2025 Kieran W Harvie. All rights reserved.
+
+\section{Minimal Chance of a Matching Pair}
+As I was going to bed I had a thought:
+"A uniform distribution minimizes the chance of getting a matching pair as any sample less likely to form a pair is less likely to be sampled at all".  
+And it turns out this this intuition can easily be proven in the discrete and finite case through Cauchy-Schwartz inequality:
+\[\sum_{k=1}^np_k^2\geq\frac{\left(\sum_{k=1}^np_k\cdot1\right)^2}{\sum_{k=1}^n1^2}=\frac{1}{n}\]
+As there is equality if and only if $(p_k)_n$ is a linearly dependent to $(1)_n$,
+meaning a uniform distribution.
+This can be generalized to positive weights $w_k$ through Sedrakyan's lemma as:
+\[\sum_{k=1}^np_k^2w_k \geq \frac{\left(\sum_{k=1}^np_k\right)^2}{\sum_{k=1}^nw_k^{-1}}=\frac{1}{n}\frac{n}{\sum_{k=1}^nw_k^{-1}}\]
+Where the final right factor is the harmonic mean of the weights.
+\\
+
+Generalizing this result to the infinite case doesn't interest me as there are no uniform distributions and you can take the pair chance arbitrarily low.
+\\
+
+The continuous case is also bit awkward,
+as the set of matching pairs most likely has a measure of zero,
+but it's still interesting.
+So let $f:X\rightarrow\mathbb{R}_{\geq0}$ be a probability density function, 
+$S\subseteq X$,
+and $\chi_S$ the indicator function of $S$.
+From Cauchy-Schwartz we have:
+\[\langle f,f\rangle \geq \frac{|\langle\chi_S,f\rangle|^2}{\langle\chi_S,\chi_S\rangle}\]
+$\langle f,f\rangle$ is the autocorrelation\footnote{
+Since $f$ is real the autocorrelation is just the convolution of $f(\tau)$ and $f(-\tau)$.}
+at $0$ and hence a measure of the chance of getting a matching pair,
+$\langle \chi_S,f\rangle$ is the probability of the sample being in $S$ and $\langle \chi_S,\chi_S\rangle$ is the size of $S$,
+\\
+
+Assume the set $S$ that is more favoured then it would be under the uniform distribution:
+\[\langle f,\chi_S\rangle > \frac{|S|}{|X|}\]
+Then:
+\[\langle f,f\rangle > \left(\frac{|S|}{|X|}\right)^2\frac{1}{|S|} \geq \frac{1}{|X|}\]
+As required.
+
+If I wanted to do the continuous case better\footnote{
+Such as considering samples that are within $\epsilon$ of $0$ to better quantify the chance of a pair} 
+I'd consider characteristic functions instead of density functions because if $\phi_X(t)$ is the characteristic function of $X$ then the characteristic function of the difference of two samples would be:
+\[|\phi_X(t)|^2\]
+Which looks promising.
