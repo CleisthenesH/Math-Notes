@@ -1,4 +1,4 @@
-% Copyright 2024 Kieran W Harvie. All rights reserved.
+% Copyright 2024-2025 Kieran W Harvie. All rights reserved.
 
 \section{Conics as Determinants}
 I've `known' for a long time that a conic is determined by five points.
@@ -95,6 +95,187 @@ While working on this section I was trying to calculate the tangents of:
 Just directly using implicit differentiation gives:
 \[Ax+By+D+(Bx+Cy+E)\frac{dy}{dx}=0\]
 This equation has serious problems if $\frac{dy}{dx}$ is zero or infinity but it was good enough to give the following ansatz for the tangent at $(x_0,y_0)$:
-\[(Ax_0+By_0+2)x+(Bx_0+Cy_0+E)y+Dx_0+Ey_0+F=0\]
+\[(Ax_0+By_0+D)x+(Bx_0+Cy_0+E)y+Dx_0+Ey_0+F=0\]
 Substitution shows that if $(x_0,y_0)$ satisfies the original quadratic then it satisfies this.
 Comparison of the coefficients with the implicit derivatives shows that when they exist at $(x_0,y_0)$ they agree.
+
+\subsection{Free Form Exploration}
+Here's some other conic defining determinants that I've messing around with.
+First is parabolas with a horizontal directrix: 
+\[\begin{vmatrix}
+	y&x^2&x&1\\
+	y_1&x_1^2&x_1&1\\
+	y_2&x_2^2&x_2&1\\
+	y_3&x_3^3&x_3&1\\
+\end{vmatrix}\]
+We can use Schur's decomposition to implant this into a determinant with a similar form to our more general one, down to swapping columns:
+\[\begin{vmatrix}
+	y&x^2&x&1&y^2&yx\\
+	y_1&x_1^2&x_1&1&y_1^2&y_1x_1\\
+	y_2&x_2^2&x_2&1&y_2^2&y_2x_2\\
+	y_3&x_3^2&x_3&1&y_3^2&y_3x_3\\
+	0&0&0&0&a&b\\
+	0&0&0&0&c&d\\
+\end{vmatrix}
+	=
+\begin{vmatrix}
+	y&x^2&x&1\\
+	y_1&x_1^2&x_1&1\\
+	y_2&x_2^2&x_2&1\\
+	y_3&x_3^3&x_3&1\\
+\end{vmatrix}
+\begin{vmatrix}
+	a&b\\
+	c&d\\
+\end{vmatrix}\]
+The lower two rows look possible through some type of limit.
+Talking about limits,
+consider a case where $x^{-1}\rightarrow 0$ while $yx^{-1}\rightarrow m$ to get some hyperbolas:
+\[\begin{vmatrix}
+	yx^{-1}&x^{-2}&x^{-1}&1\\
+	m&0&0&1\\
+	y_1x_1^{-1}&x_1^{-2}&x_1^{-1}&1\\
+	y_2x_2^{-1}&x_2^{-2}&x_2^{-1}&1\\
+\end{vmatrix}
+\text{ and }
+\begin{vmatrix}
+	y^2x^{-2}&yx^{-1}&x^{-2}&x^{-1}&1\\
+	m^2&m&0&0&1\\
+	y_1^2x_1^{-2}&y_1x_1^{-1}&x_1^{-2}&x_1^{-1}&1\\
+	y_2^2x_2^{-2}&y_2x_2^{-1}&x_2^{-2}&x_2^{-1}&1\\
+	y_3^2x_3^{-2}&y_3x_3^{-1}&x_3^{-2}&x_3^{-1}&1\\
+\end{vmatrix}\]
+Another options is to spread the non-constant terms across two rows:
+\[\begin{vmatrix}
+	x&y&0&0&1\\
+	x_1&y_1&0&0&1\\
+	0&0&x&y&1\\
+	0&0&x_2&y_2&1\\
+	a&b&c&d&1\\
+\end{vmatrix}\]
+With some manipulation,
+and without caution or double checking,
+I got to:
+\[\begin{vmatrix}
+	x&y\\
+	x_1&y_1\\
+\end{vmatrix}
+\begin{vmatrix}
+	x&y&1\\
+	x_2&y_2&1\\
+	c&d&\gamma(x,y)\\
+\end{vmatrix}\]
+Where:
+\[\gamma(x,y) = 1 -\frac{a(y_1-y)-b(x_1-x)}{xy_1-yx_1}\]
+When $a=b=0$ we can use Schur to bypass $\gamma$,
+although it is consistent with $\gamma$,
+to give: 
+\[\begin{vmatrix}
+	x&y&0&0&1\\
+	x_1&y_1&0&0&1\\
+	0&0&x&y&1\\
+	0&0&x_2&y_2&1\\
+	0&0&c&d&1\\
+\end{vmatrix}
+=
+\begin{vmatrix}
+	x&y\\
+	x_1&y_1\\
+\end{vmatrix}
+\begin{vmatrix}
+	x&y&1\\
+	x_2&y_2&1\\
+	c&d&1\\
+\end{vmatrix}\]
+Meaning a set of two lines where one is through the origin.
+
+\subsection{Linear Sums of the Coefficients}
+Notice that all of the coefficients are cofactors from the same row.
+This lets us write linear sums of these coefficients as:
+\[
+	aA+bB+cC+dD+eE+fF =
+	\begin{vmatrix}
+	a&b&c&d&e&f\\
+	x_1^2&x_1y_1&y_1^2&x_1&y_1&1\\
+	x_2^2&x_2y_2&y_2^2&x_2&y_2&1\\
+	x_3^2&x_3y_3&y_3^2&x_3&y_3&1\\
+	x_4^2&x_4y_4&y_4^2&x_4&y_4&1\\
+	x_5^2&x_5y_5&y_5^2&x_5&y_5&1\\
+	\end{vmatrix}
+\]
+
+\subsection{A Better Tangent on Tangents}
+Define $A$,$B$,$C$, etc. as before and use Jacobi's formula to give:
+\[\dot{f}(x,y)=2\dot{x}xA+(\dot{x}y+x\dot{y})B+2\dot{y}yC+\dot{x}D+\dot{y}E\]
+This gives us a more motivated way to get the coefficients for the tangent equation by collecting derivative terms:\footnote{
+Some of the coefficients are different by a factor of $2$ from my original definition, sorry.}
+\[\dot{f}(x,y)=(2Ax+By+D)\dot{x}+(Bx+2Cy+E)\dot{y}\]
+We can use the linear sum result to give:
+\[\begin{aligned}
+	\dot{f}(x,y)
+	=&\begin{vmatrix}
+	2\dot{x}x&\dot{x}y+x\dot{y}&2\dot{y}y&\dot{x}&\dot{y}&0\\
+	x_1^2&x_1y_1&y_1^2&x_1&y_1&1\\
+	x_2^2&x_2y_2&y_2^2&x_2&y_2&1\\
+	x_3^2&x_3y_3&y_3^2&x_3&y_3&1\\
+	x_4^2&x_4y_4&y_4^2&x_4&y_4&1\\
+	x_5^2&x_5y_5&y_5^2&x_5&y_5&1\\
+	\end{vmatrix}
+\end{aligned}\]
+This lets us specify conic sections by their tangents as well as their points.
+For example,
+the conic going through $(x_n,y_n)$ with a tangent of $(\dot{x}_1,\dot{y}_1)$ at $(x_1,y_1)$ is given by:
+\[
+	\begin{vmatrix}
+	x^2&xy&y^2&x&y&1\\
+	x_1^2&x_1y_1&y_1^2&x_1&y_1&1\\
+	x_2^2&x_2y_2&y_2^2&x_2&y_2&1\\
+	x_3^2&x_3y_3&y_3^2&x_3&y_3&1\\
+	x_4^2&x_4y_4&y_4^2&x_4&y_4&1\\
+	2\dot{x}_1x_1&\dot{x}_1y_1+\dot{y}_1x_1&2\dot{y}_1y_1&\dot{x}_1&\dot{y}_1&0\\
+	\end{vmatrix}=0
+\]
+Similar results apply for higher derivatives and any other condition that's the linear sum of the coefficients.
+
+\subsubsection{Limit:}
+Consider the following family of conics defined by:
+\[
+	\begin{vmatrix}
+	x^2&xy&y^2&x&y&1\\
+	x_1^2&x_1y_1&y_1^2&x_1&y_1&1\\
+	x_2^2&x_2y_2&y_2^2&x_2&y_2&1\\
+	x_3^2&x_3y_3&y_3^2&x_3&y_3&1\\
+	x_4^2&x_4y_4&y_4^2&x_4&y_4&1\\
+	(x_1+at)^2&(x_1+at)(y_1+bt)&(y_1+bt)^2&x_1+at&y_1+bt&1\\
+	\end{vmatrix}=0
+\]
+If we subtract the $(x_1,y_1)$ row from the final row we can factor out a $t$: 
+\[
+	t\begin{vmatrix}
+	x^2&xy&y^2&x&y&1\\
+	x_1^2&x_1y_1&y_1^2&x_1&y_1&1\\
+	x_2^2&x_2y_2&y_2^2&x_2&y_2&1\\
+	x_3^2&x_3y_3&y_3^2&x_3&y_3&1\\
+	x_4^2&x_4y_4&y_4^2&x_4&y_4&1\\
+	2ax_1+a^2t&ay_1+bx_1+abt&2by_1+b^2t&a&b&0\\
+	\end{vmatrix}=0
+\]
+While $t\neq 0$ the left hand side is $0$ only when the determinant is zero.
+So if we assume everything is continuous and take the limit of $t$ to $0$ we get a familiar form:
+\[
+	\begin{vmatrix}
+	x^2&xy&y^2&x&y&1\\
+	x_1^2&x_1y_1&y_1^2&x_1&y_1&1\\
+	x_2^2&x_2y_2&y_2^2&x_2&y_2&1\\
+	x_3^2&x_3y_3&y_3^2&x_3&y_3&1\\
+	x_4^2&x_4y_4&y_4^2&x_4&y_4&1\\
+	2ax_1&ay_1+bx_1&2by_1&a&b&0\\
+	\end{vmatrix}=0
+\]
+
+\subsection{Exterior Product}
+If we define:
+\[f(x,y) = (x^2,xy,y^2,x,y,1)\]
+Then we can rewrite the determinant condition as:
+\[ 0 = f(x,y)\wedge\bigwedge_{n=1}^5f(x_n,y_n)\]
+Which fuels my interest in geometric algebra further to experiment with different types and numbers of constraints. 
