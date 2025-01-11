@@ -1,4 +1,4 @@
-% Copyright 2024 Kieran W Harvie. All rights reserved.
+% Copyright 2024-2025 Kieran W Harvie. All rights reserved.
 
 \section{Coordinate Free Determinant}
 I've spent some time try to find a deeper definition of the determinant and was shown its coordinate free definition using the exterior product.
@@ -12,7 +12,7 @@ $\phi$ induces a linear transform on $\bigwedge^k(V)$ given by:
 \end{aligned}\]
 The key observation is that the dimension of $\bigwedge^k(V)$ is given by:
 \[\dim\left(\bigwedge\nolimits^k(V)\right) = \binom{n}{k}\]
-Hence the dimension is $1$ when $n=k$ and the only linear functions are characterized by a single scalar $\lambda \in F$ such that:
+Hence when $n=k$ the dimension is $1$ and the only linear functions are characterized by a single scalar $\lambda \in F$ such that:
 \[\Lambda(\phi)\left(\bigwedge^n_{l=1}v_l\right) = \lambda\left(\bigwedge^n_{l=1}v_l\right)\]
 And this scalar is the determinant.
 
@@ -38,7 +38,7 @@ the in symmetric group on $I$.
 	&= \sum_{\sigma\in S_I}\sgn(\sigma)\left(\prod_{i\in I}a_i^{\sigma(i)}\right)\bigwedge_{i\in I}u_{i}\\
 \end{aligned}\]
 Combining everything gives:
-\[\bigwedge_{i\in I}\sum_{j\in I} a_i^ju_j= \sum_{\sigma\in S_I}\sgn(\sigma)\left(\prod_{i\in I}a_i^{\sigma(i)}\right)\bigwedge_{i\in I}u_{i}\]
+\[\bigwedge_{i\in I}\sum_{j\in J} a_i^ju_j= \sum_{\sigma\in S_I}\sgn(\sigma)\left(\prod_{i\in I}a_i^{\sigma(i)}\right)\bigwedge_{i\in I}u_{i}\]
 
 \subsection{Leibniz's Formula}
 Given a base $e_i$ indexed by $I$ our normal formula for the determinant is written in term of scalars $\phi_i^j$ such that:
@@ -61,8 +61,8 @@ This proof comes from simply applying the outer transform first and using multil
 	=&\det(\phi)\bigwedge_{i\in I}\psi(v_i) \\
 	=&\det(\phi)\det(\psi)\bigwedge_{i\in I}v_i \\
 \end{aligned}\]
-Note that this includes $\det(I) = 1$ as a corollary,
-but that this can be result can easily be proved directly:
+Note that this result includes $\det(I) = 1$ as a corollary,
+but that this could have easily be proved directly by:
 \[\Lambda(I)\left(\bigwedge_{i\in I}e_i\right) = \bigwedge_{i\in I}I(e_i) = \bigwedge_{i\in I}e_i\]
 	
 \subsubsection{Invariant subspaces:}
@@ -101,3 +101,52 @@ but it still doesn't feel complete to me.
 Maybe I'm just a little bitter about not seeing this sooner and maybe that feeling will go away if I study exterior products some more.
 I hope so, 
 as exterior products have been on my to-do list for a while too!
+
+\subsection{Group Action}
+After previously deciding that simplifying:
+\[\bigwedge_{i\in I}\sum_{j\in J} A_{i,j} = \sum_{\sigma\in J^I}\bigwedge_{i\in I}A_{i,\sigma(i)}\]
+Would be too annoying for general $J$ and $I$ it sat in the back of my mind until I realized that $S_I$ acts on $J^I$ by permuting their inputs.
+So the sum isn't actually that annoying if we consider the $S_I$ orbits of $J^I$.
+\\
+
+Consider $S\subseteq J^I$ such that $S$ has exactly one element in each orbit of $J^I$,
+then through the orbits $O_s$ partitioning $J^I$ we obtain:
+\[\sum_{\sigma\in J^I}\bigwedge_{i\in I}A_{i,\sigma(i)}=\sum_{s\in S}\sum_{\sigma\in O_s}\bigwedge_{i\in I}A_{i,\sigma(i)}\]
+When $S_I$ is finite we can use the Orbit-Stabilizer theorem to see that all elements in the same orbit have the same number of stabilizer and hence are over counted the same about by:
+\[\sum_{\sigma \in S_I}A_{i,(\sigma\cdot s)(i)}\]
+Hence if we write the stabilizers of $s$ as $H_s$ we get:
+\[\bigwedge_{i\in I}\sum_{j\in J} A_{i,j} = \sum_{s\in S} |H_s|^{-1}\sum_{\sigma \in S_I}\bigwedge_{i\in I}A_{i,(\sigma\cdot s)(i)}\]
+Expanding $A_{i,j} = a^j_iu_j$ as before we get:
+\[\begin{aligned}
+\bigwedge_{i\in I}\sum_{j\in J} a^j_iu^j =& \sum_{s\in S} |H_s|^{-1}\sum_{\sigma \in S_I}\left(\prod_{i\in I}a_i^{(\sigma\cdot s)(i)}\right)\bigwedge_{i\in I}u_{(\sigma\cdot s)(i)}\\
+=& \sum_{s\in S}|H_s|^{-1}\left[\bigwedge_{i\in I}u_{s(i)}\right]\left[ \sum_{\sigma \in S_I}\sgn(\sigma)\left(\prod_{i\in I}a_i^{(\sigma\cdot s)(i)}\right)\right]\\
+\end{aligned}\]
+Observe that:
+\begin{itemize}
+\item The wedge product factor vanishes unless $s$ is injective.
+\item All injective functions only have the identity permutation as a stabilizer.
+\item All injective functions with the same range are in the same orbit.
+\item Only injective functions with the same range are in the same orbit.
+\end{itemize}
+The first result is trivial.
+The middle two come from considering two injective functions $f:I\rightarrow J$ and $g:I\rightarrow J$ and a permutation $\sigma \in S_I$ such that:
+\[g(\sigma(i)) = f(i)\]
+The final result follows from combining the middle two with the Orbit-Stabilizer theorem and lets us restrict the previous sum to:
+\[\bigwedge_{i\in I}\sum_{j\in J} a^j_iu^j =\sum_{s\in S'}\left[\bigwedge_{i\in I}u_{s(i)}\right]\left[ \sum_{\sigma \in S_I}\sgn(\sigma)\left(\prod_{i\in I}a_i^{(\sigma\cdot s)(i)}\right)\right]\]
+Where $S'$ is a set of injective functions of $J^I$ such that all ranges are present and each function has a unique range,
+which can also be thought of as a sum over subsets of $J$ of size $|I|$.
+
+\subsection{What about $S_J$?}
+What about $S_J$?
+It also acts on $J^I$ but by changing output instead of input\footnote{
+And hence $S_J\times S_I$ acts of $J^I$ by permuting inputs and changing outputs}?
+This was actually the first group action I tried,
+but the problem was that $S_J$ doesn't simply permute the outputs.
+Consider $\phi: C_2\rightarrow C_3$ and $\sigma\in S_{C_3}$ such that:
+\[\phi(1) = 1,\quad \phi(2) = 2,\quad \sigma = (1)(23)\]
+This gives:
+\[(\sigma\cdot\phi)(1) =1,\quad(\sigma\cdot\phi)(2)=3\]
+Since the changes are more extreme than permutations this group action is unable to simply:
+\[\bigwedge_{i\in I}A_{i,(\sigma\cdot s)(i)}\]
+So isn't particularly useful for our problem.
+Do however observe that that all injective functions are in the same orbit and this result can be proved similarly to the results from the $S_I$ section.
