@@ -1,0 +1,85 @@
+% Copyright 2025 Kieran W Harvie. All rights reserved.
+
+\section{Total Derivative of a Bivariate Function}
+For another project I needed to calculate the total derivatives of $B(u(t),v(t))$ by $t$ in terms of the partials of $B$ and total derivatives of $u$ and $v$.
+This is actually quite straight forward and boils down to evaluating terms like:
+\[\frac{d}{dt}\left(\dot{v}\ddot{u}\frac{\partial^2 B}{\partial v\partial u}\right)\]
+Which is easy if we remember to apply the product rule first:
+\[\dot{v}\ddot{u}\frac{d}{dt}\frac{\partial^2 B}{\partial v\partial u}+\frac{\partial^2 B}{\partial v\partial u}\frac{d}{dt}\dot{v}\ddot{u}\]
+And then,
+and only then,
+apply the chain rule on the partial $B$ terms,
+and only those terms:
+\[\dot{v}\ddot{u}\left(\dot{u}\frac{\partial}{\partial u}+\dot{v}\frac{\partial}{\partial v}\right)\frac{\partial^2 B}{\partial v\partial u}+\frac{\partial^2 B}{\partial v\partial u}\frac{d}{dt}\dot{v}\ddot{u}\]
+The other order and applications will have you scratching your head at terms like:
+\[\frac{\partial\ddot{v}}{\partial u}\]
+And for completeness sake the example expression simplifies to:
+\[\dot{u}\dot{v}\ddot{u}\frac{\partial^3B}{\partial u^2\partial v}+\dot{v}^2\ddot{u}\frac{\partial^3 B}{\partial v^2\partial u}+\ddot{v}\ddot{u}\frac{\partial^2 B}{\partial v\partial u}+\dot{v}\dddot{u}\frac{\partial^2 B}{\partial v\partial u}\]
+With this method you can calculate the lower order total derivatives directly:
+\[\begin{aligned}
+	\dot{B} &= \dot{u}\frac{\partial B}{\partial u}+\dot{v}\frac{\partial B}{\partial v}\\
+	\ddot{B} &= \ddot{u}\frac{\partial B}{\partial u}+\dot{u}^2\frac{\partial^2 B}{\partial^2 u}+2\dot{u}\dot{v}\frac{\partial^2 B}{\partial u\partial v}+\dot{v}^2\frac{\partial^2 B}{\partial v^2}+\ddot{v}\frac{\partial B}{\partial v}\\
+\end{aligned}\]
+But I want a better method for the higher orders,
+and a more algorithmic approach that would be useful for the application,
+so write an array such that the $(i,j)$th element is coefficient of the $\frac{\partial^{i+j} B}{\partial^i u\partial^j v}$th partial.
+The $0^\text{th}$ to $2^\text{th}$ total derivatives would be given by:
+\[
+\begin{matrix}
+1
+\end{matrix}
+\quad\quad
+\begin{matrix}
+	0&\dot{u}\\\dot{v}
+\end{matrix}
+\quad\quad
+\begin{matrix}
+	0&\ddot{u}&\dot{u}^2\\
+	\ddot{v}&2\dot{u}\dot{v}\\
+	\dot{v}^2
+\end{matrix}
+\]
+The rule for getting the table for the $n^\text{th}$ total derivative from the $(n-1)^\text{th}$ is pretty simple.
+If $c$ is bellow $a$ and right of $b$ then replace $c$ with $\dot{c}+\dot{u}b+\dot{v}a$:
+\[
+	\begin{matrix}
+		&a\\
+		b&c\\
+	\end{matrix}
+	\quad\quad
+	\mapsto
+	\quad\quad
+	\dot{c}+\dot{u}b+\dot{v}a
+\]
+Applying this rule gives the following table for the $3^\text{rd}$ total derivative:
+\[\begin{matrix}
+	0&\dddot{u}&3\ddot{u}\dot{u}&\dot{u}^3\\
+	\dddot{v}&3(\ddot{u}\dot{v}+\dot{u}\ddot{v})&3\dot{u}^2\dot{v}\\
+	3\ddot{v}\dot{v}&3\dot{u}\dot{v}^2\\
+	\dot{v}^3\\
+\end{matrix}\]
+Which can be verified to be equal to:
+\[\begin{aligned}
+	\dddot{B} =& \dddot{u}\frac{\partial B}{\partial u} + 3\ddot{u}\dot{u}\frac{\partial^2 B}{\partial u^2} + \dot{u}^3\frac{\partial^3 B}{\partial u^3}
+	+\dddot{v}\frac{\partial B}{\partial v} + 3\ddot{v}\dot{v}\frac{\partial^2 B}{\partial v^2} + \dot{v}^3\frac{\partial^3 B}{\partial v^3}\\
+	&+3(\dot{u}\ddot{v}+\ddot{u}\dot{v})\frac{\partial^2 B}{\partial u\,\partial v}
+	+3\dot{v}\dot{u}^2\frac{\partial^3 B}{\partial^2u\,\partial v} +3\dot{v}^2\dot{u}\frac{\partial^3 B}{\partial u\,\partial v^2}\\
+\end{aligned}\]
+Another benefit of this approach is that if partials of $B$ are known in advance then we can contract the table to only keep track of the relevant coefficients.
+For example,
+let $B$ be quadratic in $u$ and linear in $v$.
+Then we only need to keep track of elements $(i,j)$ such that $i\leq2$ and $j\leq1$ and get following arrays for the $2^\text{nd}$ and $3^\text{rd}$ total derivatives:
+\[
+\begin{matrix}
+	0&\ddot{u}&\dot{u}^2\\
+	\ddot{v}&2\dot{u}\dot{v}&0\\
+\end{matrix}
+\quad\quad\quad\quad
+\begin{matrix}
+	0&\dddot{u}&3\ddot{u}\dot{u}\\
+	\dddot{v}&3(\ddot{u}\dot{v}+\dot{u}\ddot{v})&3\dot{u}^2\dot{v}\\
+\end{matrix}
+\]
+In general we only need to keep track of elements $(i,j)$ such that there exists $i\leq I$ and $j\leq J$ where $\frac{\partial^{I+J} B}{\partial^I u\partial^J v}$ is non-zero.
+It might be interesting to investigate this partial ordering,
+but I suspect that most the interesting results would already be intuitively known.
