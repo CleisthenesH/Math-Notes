@@ -34,9 +34,74 @@ Assume the set $S$ that is more favoured then it would be under the uniform dist
 Then:
 \[\langle f,f\rangle > \left(\frac{|S|}{|X|}\right)^2\frac{1}{|S|} \geq \frac{1}{|X|}\]
 As required.
+\\
 
 If I wanted to do the continuous case better\footnote{
 Such as considering samples that are within $\epsilon$ of $0$ to better quantify the chance of a pair} 
 I'd consider characteristic functions instead of density functions because if $\phi_X(t)$ is the characteristic function of $X$ then the characteristic function of the difference of two samples would be:
 \[|\phi_X(t)|^2\]
 Which looks promising.
+
+\subsection{Doing the Continuous Cases Better}
+Looking into this problem has been a fun return to $L^2$ as the main result is combining these three classic results:
+\[\begin{aligned}
+	\widehat{f*g} &= \hat{f}\hat{g} &&\text{Convolution}\\
+	\widehat{f\star g} &= \hat{f}\overline{\hat{g}}&&\text{Cross-Correlation}\\
+	\langle f,g\rangle &= \frac{1}{2\pi}\langle\hat{f},\hat{g}\rangle&&\text{Parseval}\\
+\end{aligned}\]	
+Into the aesthetically pleasing:
+\[\begin{aligned}
+	\langle f\star f,g\star g\rangle &=\frac{1}{2\pi}\langle \hat{f}\overline{\hat{f}},\hat{g}\overline{\hat{g}}\rangle\\
+	&=\frac{1}{2\pi}\langle \hat{f}\hat{g},\hat{f}\hat{g}\rangle\\
+	&=\langle f*g,f*g\rangle\\
+\end{aligned}\]	
+When $f$ is real $f\star f$ is the autocorrelation from earlier and when $g$ is conjugate symmetric $g\star g$ is equal to $g*g$as:
+\[ \widehat{g*g} = \hat{g}\hat{g} = \hat{g}\overline{\hat{g}} = \widehat{g\star g} \]
+So by considering $\langle f*g,f*g\rangle$ where we previously considered $\langle f,f\rangle$ we better quantify what a matching pair means for a continuous function as the autocorrelation $f\star f$ is weighted by $g\star g$.
+This is best shown through some examples:
+
+\subsubsection{Example 1:}
+Let $g$ be the `standard' rectangular function:
+\[g(x) = \chi_{\left[-\frac{1}{2},\frac{1}{2}\right]}(x)\]
+This makes $g\star g$ the `standard' triangular function:
+\[(g\star g)(x) = (g*g)(x) = (1-|x|)\chi_{\left[-1,1\right]}(x)\]
+We can interpret $f*g$ as the sliding average of $f$ over a unit interval and $\langle f\star f,g\star g\rangle$ as the expected value of the difference of $f$ weighted and gated by the triangular function.
+\\
+
+Similar to before,
+let $X$ be the domain of $f*g$ where the function is non-zero and suppose that $X$ has a finite non-zero measure.
+Let there be a number $\alpha>0$ such that for all sets $S$ we have:
+\[\langle \chi_S,f* g\rangle \geq \alpha\frac{|S|}{|X|}\]
+How large we can make $\alpha$ is a measure of how `non-uniform' $f*g$ is.
+When squared $\alpha$ gives a lower bound on the weighted chance of a matching pair:
+\[\begin{aligned}
+	\langle f\star f,g\star g\rangle &= \langle f*g,f*g\rangle\\
+	&\geq \frac{|\langle \chi_S,f* g\rangle|^2}{\langle \chi_S,\chi_S\rangle}\\
+	&\geq \alpha^2\\
+\end{aligned}\]	
+
+\subsubsection{Example 2:}
+We can recover our previous analysis by letting $g=\delta$ as:
+\[\langle f\star f,g\star g\rangle = \langle f\star f,\delta\rangle = (f\star f)(0)\]
+And:
+\[\langle f*g,f*g\rangle = \langle f*\delta,f*\delta\rangle = \langle f,f \rangle\]
+Reduces our main result to:
+\[(f\star f)(0) = \langle f\star f,g\star g\rangle = \langle f*g,f*g\rangle = \langle f,f\rangle\]
+This is expected,
+since "weighting by $\delta$" was what we were doing when using $\langle f,f\rangle$ as a measure of the chance of a matching pair.
+
+\subsubsection{Other Results:}
+While retuning to $L^2$ I was reminded of two other fun results which are easily proved with the tools we have here.
+The first result is that:
+\[\hat{f}(0) = \int_{\mathbb{R}}f(t)\,dt\]
+Which follows from:
+\[\langle f,1\rangle = \frac{1}{2\pi}\langle\hat{f},2\pi\delta\rangle = \hat{f}(0) \]
+And the second is that:
+\[ \int_{\mathbb{R}}(f*g)(t)\,dt = \int_{\mathbb{R}}f(t)\,dt\int_{\mathbb{R}}g(t)\,dt\]
+Which follows from our previous result:
+\[\begin{aligned}
+	\int_{\mathbb{R}}(f*g)(t)\,dt &= \widehat{f*g}(0) \\
+	&= \hat{f}(0)\hat{g}(0)\\
+	&= \int_{\mathbb{R}}f(t)\,dt\int_{\mathbb{R}}g(t)\,dt\\
+\end{aligned}\]
+The second result is useful for proving that when $f$ and $g$ are probability density functions then so is $f*g$ as it shows that $f*g$ is normalized too.
