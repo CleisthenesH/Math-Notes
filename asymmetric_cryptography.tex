@@ -1,32 +1,34 @@
-% Copyright 2023 Kieran W Harvie. All rights reserved.
+% Copyright 2023,2025 Kieran W Harvie. All rights reserved.
 \documentclass[12pt]{report}
 
 \input{common_preamble.tex}
 
-\usepackage{pgfplots}
-\pgfplotsset{compat=newest}
+\hypersetup{
+	pdftitle = {Asymetric Cryptography},
+	pdfpagemode = {UseOutlines},
+	pdfauthor = {Kieran Harvie},
+	pdfsubject = {Asymetric Cryptography, Modular Arithmetic},
+	pdfkeywords = {TODO},
+	pdfborder =  {2 2 1},
+}
 
-\title{Asymmetric Cryptography \\ \large Applied Field Theory 101}
+\title{Asymmetric Cryptography \\ \large Applied Modular Arithmetic 101}
 \date{Copyright \textcopyright \, \today. All Rights Reserved.}
 \author{Kieran Harvie}
 
 \begin{document}
 \maketitle
-\tableofcontents
 
 \chapter{Introduction}
 \input{asymmetric_cryptography/terminology.tex}
 \input{asymmetric_cryptography/trap_door.tex}
-\input{asymmetric_cryptography/field_theory.tex}
+
+\chapter{Modular Arithmetic}
+\input{asymmetric_cryptography/modular_arithmetic.tex}
 
 \chapter{Rivest–Shamir–Adleman}
 \input{asymmetric_cryptography/RSA_keygen.tex}
 \input{asymmetric_cryptography/RSA_application.tex}
-
-\chapter{Elliptic Curve Cryptography}
-\input{asymmetric_cryptography/elliptic_curves.tex}
-\input{asymmetric_cryptography/ECDSA.tex}
-\input{asymmetric_cryptography/playstation.tex}
 
 \chapter{Diffie–Hellman Key Exchange}
 \input{asymmetric_cryptography/DF_keyexchange.tex}
@@ -35,6 +37,11 @@
 \input{asymmetric_cryptography/knapsack.tex}
 \input{asymmetric_cryptography/knapsack_keygen.tex}
 \input{asymmetric_cryptography/knapsack_remarks.tex}
+
+\chapter{Elliptic Curve Cryptography}
+\input{asymmetric_cryptography/elliptic_curves.tex}
+\input{asymmetric_cryptography/ECDSA.tex}
+\input{asymmetric_cryptography/playstation.tex}
 
 \renewcommand{\thechapter}{A}
 \chapter{Appendix}

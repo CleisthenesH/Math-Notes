@@ -1,37 +1,37 @@
-% Copyright 2023 Kieran W Harvie. All rights reserved.
+% Copyright 2023,2025 Kieran W Harvie. All rights reserved.
 
 \section{Subset Sum Problem}
 \label{appx:SSP}
 The Subset Sum Problem (SSP) is the type of problem with a lot of defined and studied variants.
 So it's worth formalizing our variant is:
 \begin{quote}
-	Given a nonincreasing positive sequence $\{w_k\}_{k=1}^n$ and an integer $c$ there is a sequence $\{m_k\}_{k=1}^n \in \{0,1\}^n$ such that:
+	Given a nonincreasing positive sequence $(w_k)_{k=1}^n$ and an integer $c$ such that there exits a sequence $(m_k)_{k=1}^n$ with $m_k \in \{0,1\}$ and:
 \[c = \sum_{k=1}^nm_kw_k\]
 return such a sequence.
 \end{quote}
 
 We will formalize the greedy SSP algorithm as the recursive function:
-\[gSSP(c,\{w_k\}_{k=1}^n) = \begin{cases}
+\[gSSP(c,(w_k)_{k=1}^n) = \begin{cases}
 	\emptyset & n = 0\\
-	\{1\}^\frown gSSP(c-w_k,\{w_k\}_{k=1}^{n-1})& c \geq w_n \\
-	\{0\}^\frown gSSP(c,\{w_k\}_{k=1}^{n-1})& c < w_n \\
+	(1)^\frown gSSP(c-w_k,(w_k)_{k=1}^{n-1})& c \geq w_n \\
+	(0)^\frown gSSP(c,(w_k)_{k=1}^{n-1})& c < w_n \\
 \end{cases}\]
 
 This algorithm is called greedy because at each call it reduces the first argument,
 if it is able to.
 {\bf This does not work in the general SSP case!}
 
-For example, consider $gSSP(5,\{4,3,2\}) = \{4\}$,
+For example, consider $gSSP(5,(4,3,2)) = (4)$,
 the algorithm greedily takes $4$ but is then unable to make up the $5-4=1$ difference.
 But if it has waited it would have found $2+3=5$.
 \\
 
-But I've claimed it does work then $\{w_k\}$ is superincreasing, 
+But I've claimed it does work then $(w_k)$ is superincreasing, 
 this appendix is meant to back that up.
 
 \subsection{Proof of Correctness}
 Correctness equates to proving:
-\[gSSP\left(\sum_{k=1}^nm_kw_k,\{w_k\}_{k=1}^n\right) =\{m_k\}_{k=1}^n\]
+\[gSSP\left(\sum_{k=1}^nm_kw_k,(w_k)_{k=1}^n\right) =(m_k)_{k=1}^n\]
 This will be done by induction, 
 but first some useful lemmas.
 
@@ -53,34 +53,34 @@ A contradiction.
 
 \begin{equation*}
 \begin{aligned}
-	gSSP\left(\sum_{k=1}^1m_kw_k,\{w_k\}_{k=1}^1\right) 
-	=&gSSP\left(m_1w_1,\{w_1\}\right)\\
+	gSSP\left(\sum_{k=1}^1m_kw_k,(w_k)_{k=1}^1\right) 
+	=&gSSP\left(m_1w_1,(w_1)\right)\\
 	=&\begin{cases} 
-		\{1\}^\frown gSSP((m_1-1)w_1,\emptyset) & m_1w_1 \geq w_1\\
-		\{0\}^\frown gSSP(m_1w_1,\emptyset) & m_1w_1 < 1_1\\
+		(1)^\frown gSSP((m_1-1)w_1,\emptyset) & m_1w_1 \geq w_1\\
+		(0)^\frown gSSP(m_1w_1,\emptyset) & m_1w_1 < 1_1\\
 	\end{cases}\\
 	=&\begin{cases} 
-		\{1\}^\frown \emptyset & m_1w_1 \geq w_1\\
-		\{0\}^\frown \emptyset & m_1w_1 < 1_1\\
+		(1)^\frown \emptyset & m_1w_1 \geq w_1\\
+		(0)^\frown \emptyset & m_1w_1 < 1_1\\
 	\end{cases}\\
 	=&\begin{cases} 
-		\{1\} & m_1w_1 \geq w_1\\
-		\{0\} & m_1w_1 < 1_1\\
+	(1) & m_1w_1 \geq w_1\\
+		(0) & m_1w_1 < 1_1\\
 	\end{cases}\\
 \end{aligned}
 \end{equation*}
 If $m_1=1$ we have:
-\[m_1w_1\geq w_1 \Rightarrow gSSP(m_1w_1,\{w_1\}) = \{1\} = \{m_1\}\]
+\[m_1w_1\geq w_1 \Rightarrow gSSP(m_1w_1,(w_1)) = (1) = (m_1)\]
 else if $m_1=0$ and we have:
-\[m_1w_1 < w_1 \Rightarrow gSSP(m_1w_1,\{w_1\}) = \{0\} = \{m_1\}\]
+\[m_1w_1 < w_1 \Rightarrow gSSP(m_1w_1,(w_1)) = (0) = (m_1)\]
 As required 
 
 \subsubsection{Induction:}
 The $n$ case is given by the verbose:
-\[gSSP\left(\sum_{k=1}^nm_kw_k,\{w_k\}_{k=1}^n\right) = 
+\[gSSP\left(\sum_{k=1}^nm_kw_k,(w_k)_{k=1}^n\right) = 
 	\begin{cases}
-	\{1\}^\frown gSSP\left(\sum_{k=1}^nm_kw_k-w_k,\{w_k\}_{k=1}^{n-1}\right)& \sum_{k=1}^nm_kw_k \geq w_n \\
-	\{0\}^\frown gSSP\left(\sum_{k=1}^nm_kw_k,\{w_k\}_{k=1}^{n-1}\right)& \sum_{k=1}^nm_kw_k < w_n \\
+	(1)^\frown gSSP\left(\sum_{k=1}^nm_kw_k-w_k,(w_k)_{k=1}^{n-1}\right)& \sum_{k=1}^nm_kw_k \geq w_n \\
+	(0)^\frown gSSP\left(\sum_{k=1}^nm_kw_k,(w_k)_{k=1}^{n-1}\right)& \sum_{k=1}^nm_kw_k < w_n \\
 	\end{cases}
 \]
 It can be simplified using the superincreasing lemmas,
@@ -89,15 +89,15 @@ if $\sum_{k=1}^nm_kw_k \geq w_n $ we have $m_n = 1$ and:
 and if $\sum_{k=1}^nm_kw_k < w_n $ we have $m_n = 0$ and:
 \[\sum_{k=1}^nm_kw_k = \sum_{k=1}^{n-1}m_kw_k\]
 Combining these results gives:
-\[gSSP\left(\sum_{k=1}^nm_kw_k,\{w_k\}_{k=1}^n\right) = 
-\{m_n\}^\frown gSSP\left(\sum_{k=1}^{n-1}m_kw_k,\{w_k\}_{k=1}^{n-1}\right)
+\[gSSP\left(\sum_{k=1}^nm_kw_k,(w_k)_{k=1}^n\right) = 
+(m_n)^\frown gSSP\left(\sum_{k=1}^{n-1}m_kw_k,(w_k)_{k=1}^{n-1}\right)
 \]
 Which by the induction assumption:
-\[gSSP\left(\sum_{k=1}^nm_kw_k,\{w_k\}_{k=1}^n\right) = \{m_n\}^\frown \{m_k\}_{k=1}^{n-1} = \{m_k\}_{k=1}^n\]
+\[gSSP\left(\sum_{k=1}^nm_kw_k,(w_k)_{k=1}^n\right) = (m_n)^\frown (m_k)_{k=1}^{n-1} = (m_k)_{k=1}^n\]
 As required.
 
 \subsection{Proof of Uniqueness}
-For a given superincreasing sequence $\{w_k\}_{k=1}^n$ assume there are two distinct sequences $\{n_k\}_{k=1}^n$ and $\{m_k\}_{k=1}^n$ in $\{0,1\}^n$ such that:
+For a given superincreasing sequence $(w_k)_{k=1}^n$ assume there are two distinct sequences $(n_k)_{k=1}^n$ and $(m_k)_{k=1}^n$ such that $m_k$ and $n_m$ are in $(0,1)$:
 \[\sum_{k=1}^nm_kw_k = 	\sum_{k=1}^nn_kw_k\]
 Without loss of generality assume that:
 \[n_k \neq m_k\]
@@ -108,7 +108,7 @@ and have:
 However:
 \[\sum_{k=1}^Km_kw_k \geq w_K > \sum_{k=1}^{K-1}w_k \geq \sum_{k=1}^{K-1}n_kw_k\]
 A contradiction,
-hence $\{n_k\}_{k=1}^n$ and $\{m_k\}_{k=1}^n$ are not distinct.
+hence $(n_k)_{k=1}^n$ and $(m_k)_{k=1}^n$ are not distinct.
 \\
 
 Uniqueness is an important property for our application since it ensures decryption always gives the original message.
@@ -119,7 +119,7 @@ Consider the formula for geometric progression:
 If $r>1$ this formula proves $w_k = r^{k-1}$ is a superincreasing function,
 in fact we get the stronger:
 \[r^{n+1} > (r-1)\sum_{k=0}^nr^n\]
-With simple modifications the results for the superincreasing lemmas and uniqueness sections can be generalized to allow $\{m_k\}^n_{k=1} \in \{0,1,2,...,r-1\}^n$.
+With simple modifications the results for the superincreasing lemmas and uniqueness sections can be generalized to allow $m_k\in \{0,1,2,...,r-1\}$.
 \\
 
 It should have now hit you that under this generalized an expression $\sum_{k=1}^nm_kr^{k-1}$ is just the digit expansion.
