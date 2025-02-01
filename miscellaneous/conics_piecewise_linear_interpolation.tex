@@ -1,0 +1,124 @@
+% Copyright 2025 Kieran W Harvie. All rights reserved.
+
+\section{Conic Sections through Piecewise Linear Interpolation}
+Combining my current interest in both conics and Bézier curves there's a cool result,
+or more accurately a cool corollary of two standard results,
+that lets us consider most\footnote{More on what `most' means in the discussions.} conics sections as the convergence of repeated piecewise linear interpolation of three points:
+\\
+
+Given a sequence of $n$ points $(\mathbf{P}_{n,k})_{k=0}^n$ and corresponding weights $(w_{n,k})_{k=0}^n$ we can define a new sequence of $n+1$ points and weights by:
+\[\begin{aligned}
+	w_{n+1,k} &= \frac{k}{n+1}w_{n,k-1}+\left(1-\frac{k}{n+1}\right)w_{n,k}\\
+	\mathbf{P}_{n+1,k} &= \dfrac{\dfrac{k}{n+1}w_{n,k-1}\mathbf{P}_{n,k-1}+\left(1-\dfrac{k}{n+1}\right)w_{n,k}\mathbf{P}_{n,k}}{\dfrac{k}{n+1}w_{n,k-1}+\left(1-\dfrac{k}{n+1}\right)w_{n,k}}\\
+\end{aligned}\]
+Observe that the chain $(\mathbf{P}_{n+1,k})_{k=0}^{n+1}$ is a piecewise linear interpolation of the chain $(\mathbf{P}_{n,k})_{k=0}^{n}$.
+Furthermore note that if we have $\frac{n}{k}\rightarrow t$ as $n\rightarrow \infty$ then:
+\[
+	\mathbf{P}_{n,k}\rightarrow\dfrac{\displaystyle\sum_{k=0}^{m}w_{m,k}\binom{k}{m}(1-t)^{m-k}t^k\mathbf{P}_{m,k}}{\displaystyle\sum_{k=0}^{m}w_{m,k}\binom{k}{m}(1-t)^{m-k}t^k}\\
+\]
+This is the standard results of the degree elevation and convergence of rational Bézier curves and follows directly from the more familiar degree elevation and convergence of regular Bézier curves through:
+\[
+	\binom{w_{n+1,k}\mathbf{P}_{n+1,k}}{w_{n+1,k}}=\frac{k}{n+1}\binom{w_{n,k-1}\mathbf{P}_{n,k-1}}{w_{n,k-1}} + \left(1-\frac{k}{n+1}\right)\binom{w_{n,k}\mathbf{P}_{n,k}}{w_{n,k}}
+\]
+Since most conic sections can be written as rational quadratic Bézier curves it follows as a corollary that most conic sections can be viewed as the convergence of repeated piecewise linear interpolation on three points. $\square$
+\\
+
+This main result is pretty simple,
+it's the combination of two standard results,
+but I want to discuss the utility and geometry of this result:
+
+\subsubsection{The Utility of Piecewise Linear Interpolation:}
+There's a lot of standard results about piecewise linear interpolation that we can now apply to most conic sections.
+The two most important are diminishing variation and affinity.
+\\
+
+Let $(\mathbf{P}_{n,k})_{k=0}^{n}$ be one of the sequences of points defined above,
+both the initial sequence and intermediaries work, then:
+\begin{itemize}
+\item The number of times a line intersects the conic section is less than or equal to the times that line intersects the chain $(\mathbf{P}_{n,k})_{k=0}^{n}$.
+\item Let $A$ be an affine transform. Then the result of applying previous sequence of repeated piecewise linear interpolation to $(A\mathbf{P}_{n,k})_{k=0}^{n}$ gives $A$ applied to the original conic section.
+\end{itemize}
+The utility of any result depends on the problem at hand,
+but some do more than others,
+and these results more than most.
+\\
+
+I can only see them being useful if we already know the sequence of points and weights for a given conic.
+Since if we didn't then first result could easily be achieved through finding any polygon containing the conic section.
+And the second result is only useful for finding the sequence of points and weights for a new conic from an old one's.
+\\
+
+There are reason why we might already know the sequence of points and weights though.
+Three points and three weights to describe most conic sections is pretty flexible and good value,
+so I can see it being useful.
+
+\subsubsection{Most Conic Sections are Rational Quadratic Bézier Curves}
+The argument for why rational quadratic Bézier curves are conics both provides intuition for,
+and is less fraught with edge cases then, the reverse.
+\\
+
+So consider a parabola in three dimensional space.
+This parabola is the locus of points at the intersection of a cone with a plane parallel to a side of that cone.
+With a simple translation,
+and possibly a reflection,
+we can consider the apex of the cone to be at the origin and for the surface of the cone to intersect with the plane at $z=1$:
+\begin{center}
+\begin{tikzpicture}
+	\begin{scope}
+		\clip (-1,0) rectangle (5,5);
+
+		\draw[rotate=-5] (0,0)--(0,10);
+		\draw[rotate=-22.5,dashed] (0,0)--(0,7) node[midway,fill=white] {Cone};
+		\draw[rotate=-40,name path = cone] (0,0) --(0,10);
+		\draw[name path = conic,color= blue] (-1,2)--(6,2);
+		\draw[rotate=-5,xshift = 3.1cm, name path = para,color = red] (0,0) -- (0,10);
+
+		\fill[name intersections={of= cone and conic}, blue]
+			(intersection-1) circle (2pt) node[below right] {$(\frac{x}{z},\frac{y}{z},1)$};
+		\fill[name intersections={of= cone and para}, red]
+			(intersection-1) circle (2pt) node[right] {$(x,y,z)$};
+	\end{scope}
+
+	\fill (0,0) circle (2pt) node[below] {$(0,0,0)$};
+	\draw[blue] (5,2)  node [right] {$z=1$ Plane};
+	\draw[red] (3.1cm,0) node[below] {Parabola Plane};
+\end{tikzpicture}
+
+The cross section that goes through the origin and is\\
+perpendicular to both the parabola plane and $z=1$ plane.
+\end{center}
+By construction the locus of points at the intersection of cone with the $z=1$ plane are both the points on the parabola scaled down by their $z$ values and a conic section.
+Writing the process of of this scaling then dropping the constant $z$ value gives:
+\[\begin{pmatrix}x_0\\y_0\\z_0\end{pmatrix}+\begin{pmatrix}x_1\\y_1\\z_1\end{pmatrix}t +\begin{pmatrix}x_2\\y_2\\z_2\end{pmatrix}t^2\rightarrow
+	\frac{\begin{pmatrix}x_0\\y_0\end{pmatrix}+\begin{pmatrix}x_1\\y_1\end{pmatrix}t +\begin{pmatrix}x_2\\y_2\end{pmatrix}t^2}{z_0+z_1t+z_2t^2}\]
+Which is what the curve looks like in the $z=1$ plane and a rational quadratic Bézier curve,
+down to a basis transform. $\square$
+\\
+
+There are two limits on reversing this argument to show that a conic section is a rational quadratic Bézier curve.
+First is that in order to get the apex at the origin and the plane at $z=1$ the underlying conic must be non-degenerate.
+I.e. that it is the non-empty intersection of a plane and a cone (not a cylinder,
+which can be thought of as a cone with the apex at infinity) where the apex isn't included in the intersection.
+Second is that the conic section can't be a complete ellipse.
+As the parabola plane is parallel to a side of the cone it will never intersect that side and can never be scaled down to the $z=1$ plane.
+\\
+
+If we are given a non-degenerate conic section that isn't a complete ellipse then we can reverse this argument by choosing a parabola plane parallel to the side of the conic the section doesn't go through. 
+Also note that two of the degenerate cases, 
+a single point and a single line, 
+are also trivially rational quadratic Bézier curves where the control points are all collinear.
+
+\subsubsection{The Projection of a Line:}
+Consider the previous scaling applied to a line:
+\[(1-t)\begin{pmatrix} x_0\\ y_0\\ z_0\end{pmatrix}+t\begin{pmatrix} x_1\\ y_1\\ z_1\end{pmatrix}
+	\rightarrow\frac{(1-t)\begin{pmatrix} x_0\\ y_0\end{pmatrix} + t\begin{pmatrix}x_1\\ y_1\end{pmatrix}}{(1-t)z_0+tz_1}\]
+The result is a point if $z_1\binom{x_0}{y_0} = z_0\binom{x_1}{y_1}$ and a line otherwise,
+albeit one parameterized with a more complex velocity:
+\[\frac{\begin{pmatrix}x_1\\ y_1\end{pmatrix}-\begin{pmatrix} x_0\\ y_0\end{pmatrix}}{(1-t)z_0+tz_1}-(z_1-z_0)\frac{(1-t)\begin{pmatrix} x_0\\ y_0\end{pmatrix} + t\begin{pmatrix}x_1\\ y_1\end{pmatrix}}{((1-t)z_0+tz_1)^2}\]
+It follows that the piecewise linear interpolation of a curve in the three dimensional space corresponds to a piecewise linear interpolation in the $z=1$ plane.
+\\
+
+I hope it's evident that this projection is how the rational Bézier curve piecewise linear interpolation formula was derived from the regular three dimensional one.
+And that it let us view the convergence of the conic section as `epiphenomenal' to the convergence of the higher dimensional parabola.
+Like how the shadow of a pot is thrown as the pot itself is thrown.
+This image is pleasing to me and probably why I spent time writing this section.
