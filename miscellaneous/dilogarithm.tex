@@ -1,0 +1,96 @@
+% Copyright 2025 Kieran W Harvie. All rights reserved.
+
+\section{Dilogarithm}
+I saw the following integral:
+\[\int\frac{\ln(ax)}{x-1}\,dx=\Li_2(x)+\ln(ax)\ln(1-x)\]
+And noticed that the final term can be expressed as an integral very similar to the left hand side:
+\[\int\frac{\ln(ax)}{x-1}\,dx=\Li_2(x)+\ln(ax)\int\frac{1}{x-1}\,dx\]
+So the dilogarithm function is like the difference between $\frac{\ln(at)}{1-t}$ varying continuously or discretely.
+But to analyse it further it makes sense to move from indefinite to definite integrals,
+which requires me to do some revision.
+
+\subsubsection{The Polylogarithm Function:}
+The polylogarithm function is defined as the series:
+\[\Li_n(x) = \sum_{k=1}^\infty\frac{x^k}{k^n}\]
+For $n\leq 1$ the function should be familiar to anyone that has studied generating functions:
+\[\begin{aligned}
+	\Li_1(x) &= \sum_{k=1}^\infty\frac{x^k}{k} = -\ln(1-x) \\ 
+	\Li_0(x) &=\sum_{k=1}^\infty x^k =\frac{x}{1-x} \\
+	\Li_{-1}(x) &=\sum_{k=1}^\infty kx^k = \frac{x}{(1-x)^2} \\
+\end{aligned}\]
+And the method for incrementing $n$ should be equally familiar:
+\[\begin{aligned}
+	\Li_{n+1}(x) &= \sum_{k=1}^\infty\frac{x^k}{k^{n+1}}\\
+	&= \sum_{k=1}^\infty\int_0^x\frac{t^{k-1}}{k^{n}}\,dt\\
+	&= \int_0^x\frac{1}{t}\sum_{k=1}^\infty\frac{t^k}{k^{n}}\,dt\\
+	&= \int_0^x\frac{\Li_n(t)}{t}\,dt\\
+\end{aligned}\]
+We'd intuitively expect the singularity at $t=0$ to be fine as the series for $\Li_n(t)$ has no constant term and can easily `absorb' the $t^{-1}$:
+\[\frac{\Li_n(t)}{t} = \sum_{k=0}^\infty\frac{t^k}{(k+1)^n}\]
+Meaning we can use this integral to expand the domain of $\Li_n(x)$ beyond $|x|<1$ by analytic continuation.
+For example consider the $n=2$ integral,
+which is naturally called the dilogarithm function:
+\[\Li_2(x)=-\int_0^x\frac{\ln(1-t)}{t}\,dt\]
+%= \int^1_{1-z}\frac{\ln(t)}{1-t}\,dt\]
+The absorption from before looks like:
+\[-\frac{\ln(1-t)}{t} = \frac{1}{t}\sum_{k=1}^\infty\frac{t^k}{k}= \sum_{k=0}^\infty\frac{t^k}{k+1}\]
+And can easily be made rigorous through L'Hôpital's rule.
+
+\subsubsection{Reflection Formula:}
+%\[\begin{matrix}
+%\int_a^bu(t)v'(t)\,dt+\int_a^bu'(t)v(t)\,dt=\left[u(t)v(t)\right]_a^b\\
+%v(t)=\ln(t)\quad\quad u(t)=\ln(1-t)
+%\end{matrix}\]
+An important and useful result of the dilogarithm function is the reflection formula.
+To derive it start with the following change of variables:
+\[\begin{aligned}
+	\left[\ln(t)\ln(1-t)\right]_a^b &= \int_a^b\frac{\ln(1-t)}{t}\,dt-\int_a^b\frac{\ln(t)}{1-t}\,dt\\
+	&=-\int_b^a\frac{\ln(1-t)}{t}\,dt-\int_{1-b}^{1-a}\frac{\ln(1-t)}{t}\,dt\\
+	&=\Li_2(a)-\Li_2(b)+\Li_2(1-a)-\Li_2(1-b)\\
+\end{aligned}\]
+Which shows that:
+\[\Li_2(x)+\Li_2(1-x)+\ln(x)\ln(1-x)\]
+Is constant for all $x$.
+To get this constant consider the limit $\lim_{x\rightarrow 0^+}$ as the values of the dilogarithm terms directly follow from the series definition:
+\[\Li_2(0) = 0\quad\quad\Li_2(1) = \frac{\pi^2}{6}\]
+And the logarithmic product is given by applying L'Hôpital's rule twice:
+\[\begin{aligned}
+	\lim_{x\rightarrow 0^+}\ln(x)\ln(1-x) &=\lim_{x\rightarrow 0^+}\frac{\ln(x)}{\ln^{-1}(1-x)}\\
+	&=\lim_{x\rightarrow 0^+}\frac{\ln^2(1-x)(1-x)}{x}\\
+	&=\lim_{x\rightarrow 0^+}-2\ln(1-x)-\ln^2(1-x)\\
+	&=0\\
+\end{aligned}\]
+Hence:
+\[\Li_2(x)+\Li_2(1-x)+\ln(x)\ln(1-x) = \frac{\pi^2}{6}\]
+
+\subsubsection{Original Integral:}
+With the reflection formula it's easy to calculate the original integral:
+\[\begin{aligned}
+	\int_a^b\frac{\ln(ct)}{1-t}\,dt &=\int_a^b\frac{\ln(t)+\ln(c)}{1-t}\,dt \\
+	&= \Li_2(1-b)-\Li_2(1-a)-\ln(c)\ln(1-b)+\ln(c)\ln(1-a)\\
+	&= \Li_2(a)-\Li_2(b)+\ln(ca)\ln(1-a)- \ln(cb)\ln(1-b)\\
+\end{aligned}\]
+This is already a continuous versus discrete integral with $ln$ over $t\in[a,b]$ versus $c$,
+but if we consider the following identity:
+\[\ln(\lambda_0)\ln(\lambda_1)+\ln(\lambda_2)\ln(\lambda_3) = \frac{1}{2}\left(\ln(\lambda_0\lambda_2)\ln(\lambda_1\lambda_3)+\ln\left(\frac{\lambda_0}{\lambda_2}\right)\ln\left(\frac{\lambda_1}{\lambda_3}\right)\right)\]
+We can set $c$ to the reciprocal of the geometric average of $a$ and $b$:
+\[
+\int_a^b\frac{\ln(t)-\ln(\sqrt{ab})}{1-t}\,dt =\Li_2(a)-\Li_2(b)+\ln\left(\sqrt{\frac{a}{b}}\right)\ln\left(\frac{1-a}{1-b}\right) \]
+Which feels nice and clean.
+And,
+since there's a lot of identities for the sum of two dilogarithm functions,
+I suspect there's even cleaner identities with specific choices of $a$ and $b$. 
+
+\subsubsection{Rogers L-Function:}
+The Rogers L-Function is defined\footnote{There's an alternative definition without the $\frac{6}{\pi^2}$ factor.} as:
+\[L(x) = \frac{6}{\pi^2}\left(\Li_2(x)+\frac{1}{2}\ln(x)\ln(1-x)\right)\]
+This form is can be motivated the reflection formula for the dilogarithm function and gives Rogers L-Function a particularly pleasing analog:
+\[L(x)+L(1-x) = 1\]
+
+\subsubsection{Another Integral:}
+Another interesting integral follows from our original by a simple change of variables and cancellation:
+\[\begin{aligned}
+\int\frac{\ln(x)}{x-a}\,dx&=\int\frac{\ln(at)}{t-1}\,dt\\
+&= \Li_2(t)+\ln(at)\ln\left(1-t\right)\\
+&= \Li_2\left(\frac{x}{a}\right)+\ln(x)\ln\left(1-\frac{x}{a}\right)\\
+\end{aligned}\]
