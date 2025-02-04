@@ -1,0 +1,36 @@
+% Copyright 2025 Kieran W Harvie. All rights reserved.
+
+\section{Property Escalation}
+I found a simple olympiad problem that really demonstrated `property escalation'.
+And by `property escalation' I mean how a simple property can prove another property,
+which then proves a more complex property,
+and eventually the solution.
+
+\subsubsection{Problem statement:}
+Find all functions that satisfy:
+\[f(f(n)+m) = f(m)+n\]
+For all integers $n$ and $m$.
+
+\subsubsection{$f$ takes arbitrary values:}
+Fix $m$ and set $n=k-f(m)$:
+\[f(f(k-f(m))+m) = f(m)+k-f(m) = k\]
+
+\subsubsection{$0$ is a fixed point of $f$:}
+Set $n=0$:
+\[f(f(0)+m)=f(m)\]
+If $f(0)\neq0$ then $f$ is periodic with a period of $f(0)$,
+this contradicts $f$ taking arbitrary values.
+
+\subsubsection{$f$ is idempotent:}
+Set $m=0$:
+\[f(f(n)+0) = f(0) = n\]
+
+\subsubsection{$f$ is additive:}
+Set $n=f(k)$:
+\[f(f(f(k))+m) = f(k)+f(m)\]
+
+\subsubsection{$f$ is the identity function:}
+Since we know $f$ is additive we can expand the original equation:
+\[f(n)+m=f(m)+n\]
+Setting $m=0$ gives:
+\[f(n)=n\]
