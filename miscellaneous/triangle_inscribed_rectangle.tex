@@ -1,0 +1,76 @@
+% Copyright 2025 Kieran W Harvie. All rights reserved.
+
+\section{Triangle Inscribed Rectangle}
+Consider a triangle $OAB$ with points $A'$ on $OA$, $B'$ on $OB$, and $P$ on $AB$ such that $OA'PB'$ is a rectangle:
+\begin{center}
+\begin{tikzpicture}
+	\draw (0,0) node[below left] {$O$} -- (8,0) node[below right]{$A$} -- (0,6)  node[above left] {$B$}-- cycle;
+	\draw (5.3333333,0) node[below]{$A'$} -- (5.3333333,2) node[above right]{$P$} -- (0,2) node[left] {$B'$};
+\end{tikzpicture}
+\end{center}
+Given $|AB|$, $|A'P|$, and $|B'P|$ find the length of the other segments.
+
+\subsubsection{Algebraic Reduction:}
+Through the shared angles the triangles $OAB$, $A'AP$, and $B'PB$ are similar.
+Let the ratio of $A'AP$ to $OAB$ be $S_A$ and likewise for $S_B$.
+From the Pythagorean theorem we have:
+\[ (|PA'|S_A)^2+(|PB'|S_B)^2=|AB|^2\]
+And by $P$ lying on $AB$ we get:
+\[\begin{aligned}
+	|AB| &= |AP|+|PB|\\
+	&=\frac{|AB|}{S_A}+\frac{|AB|}{S_B}\\
+\end{aligned}\]
+These equations reduce to solving:
+\[\begin{matrix}
+	(ax)^2+(by)^2=c^2\\
+	x+y=xy\\
+\end{matrix}\]
+For $x$ and $y$ given $a$, $b$, and $c$.
+
+\subsubsection{Substitution:}
+The elliptical condition suggest the following substitution:
+\[x = \frac{c}{a}\cos(\phi),\quad y = \frac{c}{b}\sin(\phi)\]
+Which, 
+after cleaning up,
+gives:
+\[\frac{b}{\sqrt{a^2+b^2}}\cos(\phi)+\frac{a}{\sqrt{a^2+b^2}}\sin(\phi)=\frac{c}{2\sqrt{a^2+b^2}}\sin(2\phi)\]
+This suggests a second substitution of:
+\[\cos(\theta_0) = \frac{a}{\sqrt{a^2+b^2}},\quad \sin(\theta_0) = \frac{b}{\sqrt{a^2+b^2}}\]
+In order to combine the terms with the angle sum formula:
+\[\sin(\phi+\theta_0) = \frac{c}{2\sqrt{a^2+b^2}}\sin(2\phi)\]
+Which is where my ability to simplify ends.
+Inputing into a computer algebra system didn't turn up anything up either.
+
+\subsubsection{Square Case:}
+When $a=b$ we can divide it out and use the hyperbolic condition to get a quadratic in $x+y$:
+\[\begin{aligned}
+	x^2+y^2&=\left(\frac{c}{a}\right)^2\\
+	(x+y)^2&=\left(\frac{c}{a}\right)^2+2(x+y)\\
+\end{aligned}\]
+For which the positive solution is:
+\[x+y = 1+\sqrt{1+\left(\frac{c}{a}\right)^2}\]
+Using a similar substitution and double angle technique as before gives:
+\[x=\cos(\phi),\quad y=\sin(\phi)\]
+\[\sin\left(\phi+\frac{\pi}{4}\right)=\frac{\sqrt{2}}{2}\left(1+\sqrt{1+\left(\frac{c}{a}\right)^2}\right)\]
+
+\subsubsection{Loose Ends:}
+Here's some loose ends that I found trying to solve this problem:
+\begin{itemize}
+	\item Prosthaphaeresis: Was an algorithm used in the 16$^{th}$ century that approximated multiplication and division using trigonometric identities similar to how logarithms are used with slide rules. 
+	It's very similar to how substitutions where used here.
+	\item Phasor Addition: There's an formula used in the addition of phasors that I thought might be useful:
+	\[\sum_kA_k\cos(\omega t+\delta_k) = A\cos(\omega t+\delta)\]
+	Where:
+	\[A^2 = \sum_k\sum_jA_kA_j\cos(\delta_k-\delta_j)\quad\text{ and }\quad\tan(\delta) = \frac{\sum_k A_k\sin(\delta_k)}{\sum_k A_k\cos(\delta_k)}\]
+	\item Symmetric Matrix Conics: There's a method to intersect conics using symmetric $3\times3$ matrices which seems useful, but I'd need to learn it and comeback to this problem.
+	\item Factoring the Hyperbolic Condition: 
+	\[x+y=xy\Leftrightarrow (1-x)(1-y)=1\]
+	And:
+	\[x+y=xy\Leftrightarrow(x+y)^2-(x-y)^2=4xy=4(x+y)\]
+	\item Sum-to-Product Diagram: If you look up the diagram for how the sum-to-product diagram is proven you'll see some geometry similar to the square case.
+	\item Integrator: We have the ability to solve the square case and the equations defining a solution look pretty smooth.
+	So the investigation of numeric solutions might be interesting.
+	In particular there are integrators that preserve `symplectic' forms which I'm pretty sure one or both of the conditions are.
+	Although it may only be useful to preserve the hyperbolic condition as the elliptical one should change,
+	another point for further study.
+\end{itemize}
