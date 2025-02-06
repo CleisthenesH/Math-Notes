@@ -1,81 +1,15 @@
-**:warning:Living Document: All Parts are Subject to Change:warning:**
-# :wave: Introduction
-This repository is a collection of notes on math I have found interesting and have decided to write down for both future reference and to solidify thought.
+<!-- Copyright 2025 Kieran W Harvie. All rights reserved. --> 
 
-Please feel free to ask for clarification for anything that interests you.
-Since they are notes first they may assume the reader is familiar with what I'm familiar with and aren't actively edited. 
+Hi :wave: this repository a backup of my math notes.
+It is split into projects and  structured such that each project has its own tex files in the home directory and possibly an accompanying bib file or subdirectory.
 
-# :notebook: PDFs
-1. :game_die: Miscellaneous
+| tex File | Description |
+| --- | --- |
+| miscellaneous | The main and most active project where miscellaneous sections are simply added as they are finished. |
+| fourier | The first project on the Fourier transform. Largely sunsetted. |
+| asymmetric_cryptography | Describing some asymmetric cryptosystems using modular arithmetic. |
+| neural-network | Exploring some results and structure fundamental to neural networks. |
+| blossom_theory | Meant to be the application of blossoms to B�zier geometry, currently suffering from some scope creep. |
+| common_preamble | A file containing a bunch utility declarations shared between the other tex files |
 
-The "main" pdf in the repository.
-Lack any kind of inter-sections structure and is collection of notes in the rawest sense.
-In the fullness of time sections may make there way from here to other pdfs.
-
-2. :ocean: Fourier
-
-An ordered collection of notes to do with the Fourier Transform.
-Made with some amount of readability in mind.
-In the sense that earlier parts of the document inform later parts.
-
-3. :lock: Asymmetric Cryptography
-
-Similar to Fourier but Asymmetric Cryptography instead of the Fourier Transform.
-
-# :ballot_box_with_check: To-do
-The ongoing construction of this repository will consist of two steps:
-
-## :deciduous_tree: Incorporation of the Old
-The editing, incorporation, or deletion or the following lose .tex files into this repository:
-- ~~Airy~~ (In Fourier)
-- ~~Chinese~~ (Not Math)
-- ~~ComplexPhase~~ (Renamed to Cosine Transform)
-- ~~CoolChebyshev~~ (Added Generating Function to name)
-- Dice
-- DTFT
-- Elementary Symmetric Polynomial
-- Euler
-- ~~Fourier~~ (Own PDF)
-- ~~Geometry~~
-- Goldenratio
-- GreatSword
-- ~~GroupTheoryIntegral~~
-- ~~Harmonic~~ (Insubstantial)
-- ~~Hermite~~
-- Lattice
-- ~~Logistic~~ (Insubstantial)
-- ~~MTG~~ (Not Math)
-- NewtonGenerator
-- NewtonSqrt
-- ~~Non-decreasing~~ (Duplicate)
-- Pentagonal
-- Quintic
-- ~~Rational_Tangent~~
-- ~~SpecialRelativity~~ (Added the geometry component, ~~the rest is kind of cringe~~) (Let the cringe flow)
-- ~~Unit Fraction~~
-- ~~Variance~~
-- ~~WaveEq~~
-- ~~Winquist~~
-
-## :seedling: Creating the New
-And add new notes directly too this repository, subject to change:
-
-(This list is no longer being actively added too, now just a wish list of things to look into)
-- ~~Convex Cords~~
-- ~~Jensen's Inequality~~
-- ~~Isosets~~
-- ~~Padé~~
-- Uniqueness of finite fields.
-- ~~GF(2^8) in encryption and hashing~~ (Evolved into its own separate Repo)
-- ~~Discontinuities of a monotonic function.~~
-- ~~Interest~~
-- ~~Lagragian Multiplier~~
-- ~~Two cool p-adic number proofs~~
-- ~~Quick Summary of Spaces~~
-- ~~XOR hash~~
-- Helmholtz decomposition (Incl. Fourier)
-- Fourier Series from Nyquist style argument. (Maybe include the last two in Fourier)
-- Commuting Probability
-- Laplace's Rule of Succession
-- Mordell-Tornheim Sums
-- Bézier triangle
+:warning: These notes haven't gone through any real peer-review. Only a fool would apply any result found here without conducting additional research :warning: 
