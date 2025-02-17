@@ -1,0 +1,87 @@
+% Copyright 2023,2025 Kieran W Harvie. All rights reserved.
+
+\section{Dual Numbers}
+This sections is adapted from a cut section of the neural-network project originally written in 2023.
+\\
+
+Like how we get complex numbers from real numbers by adjoining a new number $i$ such that $i^2=-1$ we get the dual numbers by adjoining a new number $\epsilon$, 
+called the infinitesimal, 
+such that $\epsilon^2 = 0$.
+The basic properties of dual numbers are straight forward.
+Consider addition:
+\[(x+x'\epsilon) + (y+y'\epsilon) = (x+y)+(x'+y')\epsilon\]
+Multiplication:
+\[\begin{aligned}
+(x+x'\epsilon)(y+y'\epsilon) &= xy+(x'y+xy')\epsilon+x'y'\epsilon^2 \\
+&= xy+(x'y+xy')\epsilon \\
+\end{aligned}\]
+And division:
+\[\begin{aligned}
+\frac{x+x'\epsilon}{y+y'\epsilon} &= \frac{(x+x'\epsilon)(y-y'\epsilon)}{(y+y'\epsilon)(y-y'\epsilon)} \\
+ &= \frac{xy+(x'y-xy')\epsilon-x'y'\epsilon^2}{y^2-y'^2\epsilon^2} \\
+ &= \frac{x}{y}+\frac{x'y-xy'}{y^2}\epsilon \\
+\end{aligned}\]
+Writing $x+y\epsilon$ as $\dual{x}{y}$ we can generalize the above properties to:
+\[f\left(\dual{x}{x'},\dual{y}{y'}\right) = \dual{f(x,y)}{\nabla f(x,y) \cdot (x',y')}\]
+Applying the chain rule to this generalization we get:
+\[\begin{aligned}
+	f\left(\dual{x}{\frac{\partial x}{\partial t}},\dual{y}{\frac{\partial y}{\partial t}}\right) &=
+	\dual{f(x,y)}{\nabla f(x,y) \cdot \left(\frac{\partial x}{\partial t},\frac{\partial y}{\partial t}\right)} \\
+	&= \dual{f(x,y)}{\frac{\partial }{\partial \,t}f(x,y)} \\
+\end{aligned}\]
+Setting $t=x$ we gives:
+\[f(\dual{x}{1},\dual{y}{0}) = \dual{f(x,y)}{\frac{\partial}{\partial x}f(x,y)}\]
+This suggests a method of automatic differentiation.
+Since dual numbers are easy for computers to represent and manipulate we can calculate $\frac{\partial f}{\partial x}$ by setting its arguments to $\dual{x}{1}$ and $\dual{y}{0}$ then reading off the final infinitesimal.
+
+\subsubsection{Example:}
+Let:
+\[f(x,y) = \cos(xy)+y\]
+Then we can easily verify:
+\[\cos\left(\dual{x}{x'}\right) = \dual{\cos(x)}{-x'\sin(x)}\]
+Hence we can calculate that $\frac{\partial f}{\partial x}=0$ at $x=0$ and $y=1$:
+\[\begin{aligned}
+	f(\dual{0}{1},\dual{1}{0}) &= \cos(\dual{0}{1}\times\dual{1}{0})+\dual{1}{0} \\
+	&= \cos(\dual{0}{1})+\dual{1}{0} \\
+	&= \dual{1}{0}+\dual{1}{0} \\
+	&= \dual{2}{0} \\
+\end{aligned}\]
+Likewise for $\frac{\partial f}{\partial y}=1$:
+\[\begin{aligned}
+	f(\dual{0}{0},\dual{1}{1}) &= \cos(\dual{0}{0}\times\dual{1}{1})+\dual{1}{1} \\
+	&= \cos(\dual{0}{0})+\dual{1}{1} \\
+	&= \dual{1}{0}+\dual{1}{1} \\
+	&= \dual{2}{1} \\
+\end{aligned}\]
+
+\subsubsection{Historical Note:}
+As observed with the multiplication and divisions examples,
+a result of $\epsilon^2 = 0$ means discarding any powers of $\epsilon$ larger than $1$.
+This actually mirrors how calculus was developed,
+as in 1710 Leibniz codified the "Transcendental Law of Homogeneity" which states that when equating sums involving infinitesimals to only include the lowest order infinitesimal terms.
+\\
+
+For example,
+if we have infinitesimals $du$ and $dv$ the Transcendental Law of Homogeneity would mean that:
+\[dv^2+dudv+2dv = 2dv\]
+This can be used to calculate derivatives of functions by subtracting a version with only finite variables from ones containing infinitesimals: 
+\[(v+dv)(u+du)-uv = vdu+udv+dudv= vdu+udv\]
+Which clearly mimics the multiplication example.
+\\
+
+A historical note on a historical note,
+this specific application of the rule is similar to "Adequality" which can be traced back to 1636 treatise by Pierre de Fermat.
+His method to find the extrema of a function $f$ at a value $x$ was "adequating" $f(x)$ to $f(x+e)$, 
+then dividing by $e$ and discarding any remaining terms involving $e$.
+\\
+
+For a worked example consider $f(x)=x^2+x+1$ and represent "adequality" with $\sim$:
+\[\begin{aligned}
+	f(x)&\sim f(x+e)&&\\
+	x^2+x+1&\sim (x+e)^2+(x+e)+1&&\\
+	&\sim x^2+2xe+e^2+x+e+1&&\\
+	0&\sim 2xe+e^2+e &&\text{\quad (Cancellation)}\\
+	0&\sim 2x+e+1 &&\text{\quad (Division by $e$)}\\
+	0&\sim 2x+1 &&\text{\quad (Discarding $e$)}\\
+\end{aligned}\]
+Observe the similarity with the previous arguments and how it boils down to $\frac{df}{dx}=0$.
