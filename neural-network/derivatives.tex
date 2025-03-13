@@ -50,25 +50,15 @@ If you observe that each node is the sum of the nodes that point to it weighted 
 \[\frac{\partial f}{\partial x} = \frac{\partial f}{\partial b}\frac{\partial b}{\partial x}+\frac{\partial f}{\partial a}\frac{\partial a}{\partial x}\]
 
 \section{Incident Algebra Formulation}
-Assume we have $\{f,F,R\}\in \Int(N,K)$ such that:
+Assume we have $\{f,F,R\}\in I(N,K)$ such that:
 \[fF = F+R\]
 Then we can expand this to get:
 \[\sum_{z\in[x,y]}f[x,z]F[z,y] = F[x,y]+R[x,y]\]
 If $R$ and $f[x,x]F[x,y]$ are efficient to calculate then we can use this as the basis for a method to calculate $F[x,y]$ from $\{F[z,y]\}_{z\prec x}$.
 \\
 
-This actually isn't that unlikely as if we have:
-\[f[x,x] = 0 \text{ and } F = \sum_{k=0}^nf^k\]
-Then
-\[R=f^{n+1}-\delta\]
-From double sum:
-\[\begin{aligned}
-	\sum_{z\in[x,y]}f[x,z]\sum_{k=0}^nf^k[z,y] =& \sum_{k=0}^n\sum_{z\in[x,y]}f[x,z]f^k[z,y]\\
-	=& \sum_{k=0}^nf^{k+1}[z,y]\\
-	=& \sum_{k=0}^nf^k[z,y]+f^{n+1}[x,y]-\delta[x,y]\\
-\end{aligned}\]
-$f$ be nilpotent:
-\[f^{n+1}=0\]
+This actually isn't an unlikely situation as our previous work showed that:
+\[pP=P-\delta\]
 
 \section{Example Traces}
 \subsection{Forward Accumulation}

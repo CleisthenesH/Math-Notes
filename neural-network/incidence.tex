@@ -1,6 +1,49 @@
 % Copyright 2025 Kieran W Harvie. All rights reserved.
 
 \chapter{Incidence Algebra}
+Prove the existence and uniqueness of two elements in the incidence algebra of a differentiable neural network.
+Then ending in a tangent to a relation theorem that may be useful for calculation, as a treat.
+
+\section{Nilpotent}
+An element of an incidence algebra is nilpotent if repeated convolution is eventually zero.
+This terminology follows from considering the incidence algebra as a ring with convolution as the product.
+associative and unit
+
+\subsection{(finite) Geometric Series}
+Let $R$ be a ring with nilpotent element $r$:
+\[r^n=0\]
+%This lets us continue consider the incidence algebra $I(P,K)$ as a ring with convolution as the product also the nilpotent element $f\in I(P,K)$ such that:
+%\[f^n=0\]
+Now define the sum $s$ as:
+\[s = \sum_{k=0}^{n-1}r^k\]
+There's some useful properties of $s$:
+\begin{itemize}
+\item $s$ and $r$ commute.
+\item $s$ is the multiplicative inverse of $1-r$.
+\item $s$ is the unique solution to $s=sr+1$.
+\end{itemize}
+The commutation is result follows from associativity and linearity.
+Multiplicative inverse follows from a telescopic sum.
+\[1-r^n = (1-r)\sum_{k=0}^{n-1}r^k\]
+Unique solution comes from inverse.
+
+\subsection{Ideals}
+% Keeping the exponention notation but still product?
+Let $J$ be an ideal of $K$,
+the length of all chains in the interval $[x,y]$ be bound by $l$,
+and there exits $k\in \mathbb{N}$ such that:
+\[f^k[z,z]\in J\]
+For all $z\in[x,y]$, then:
+\[f^{k(l+1)}[x,y]\in J\]
+Proof follows from induction on $l$ of the following identity:
+\[f^{k(l+1)}[x,y] = \sum_{z\in[x,y]}f^{kl}[x,z]f^k[z,y]\]
+Let 
+\[f[z,z]\in\mathfrak{N}_K\]
+Since there are a finite number of $z\in[x,y]$ there exits $k$ such that:
+\[f^k[z,z] = (f[z,z])^k = 0\]
+Hence:
+\[f^{k(l+1)}[x,y] = 0\]
+
 
 \section{The Partial Derivative}
 
@@ -18,8 +61,35 @@ My best recommendation is to acknowledge that the notation around differential g
 \[\left(\frac{\partial z}{\partial x}\right)_y\]
 \[z=f(x,g(x))\]
 \[
-	\left(\frac{\partial n}{\partial m'}\right)_{(x_m)_{m\in M_n}} =
-	\lim_{h\rightarrow 0}\frac{n((x_m+h\delta_{m,m'})_{m\in M_n})-n((x_m)_{m\in M_n})}{h}
+	\left(\frac{\partial n}{\partial m}\right)_x =
+	\lim_{h\rightarrow 0}\frac{n(x+h\chi_m)-n(x)}{h}
 \]
+
+\subsection{$p$ and $P$}
+Consider a function $d:M_n\rightarrow K$
+\[\begin{aligned}
+	\lim_{h\rightarrow 0}\frac{n(x+hd)-n(x)}{h}
+	&=\sum_{m\prec n}d(m)\lim_{h\rightarrow 0}\frac{n(x+h\chi_m)-n(x)}{h}\\
+	&=\sum_{m\prec n}d(m)\left(\frac{\partial n}{\partial m}\right)_x\\
+\end{aligned}\]
+\\
+
+Let 
+\[\begin{aligned}
+	d(k) = \begin{cases} f[m,k]&k\in[m,n]\\0&\text{otherwise}\end{cases}
+\end{aligned}\]
+\[\begin{aligned}
+	\lim_{h\rightarrow 0}\frac{n(x+hd)-n(x)}{h}&=\sum_{k\in[m,n]}f[m,k]p[k,n]\\
+	&=fp[m,n]\\
+\end{aligned}\]
+
+%\[\begin{aligned}
+%	P[m,n] &= Pp[m,n]+\delta[m,n]\\
+%	&=\sum_{k\in[m,n]}P[m,k]p[k,n]+\delta[m,n]\\
+%\end{aligned}\]
+This provides a map from $N,K$ to $GL(K^M)$ and is related to the normal group action from an incidence algebra.
+
+$P$ is unique solution to:
+\[P=Pp+\delta\]
 
 \section{Triangular Matrix}

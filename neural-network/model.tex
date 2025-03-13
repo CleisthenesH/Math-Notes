@@ -4,14 +4,6 @@
 This project is the exploration of my third toy model of a neural network.
 The first two models were lacking in features and notation,
 but third times the charm and I'm pretty happy with this attempt:
-
-%\begin{quote}
-%A neuron is the ordered pair of a real number and a differentiable real-valued function where the function can have any number of real variables.  
-%
-%A neural network is a finite partially ordered set of neurons such that:
-%There is a bijection between every neuron strictly less than a given neuron and a variable of the given neuron's function.
-%And the neuron's real number is equal to to the neuron's function when the corresponding lesser neuron's values are substituted in.
-%\end{quote}
 \begin{quote}
 A neural network $N$ over a commutative ring with unity $K$ is a partial ordering of functions $n:K^{M_n}\rightarrow K$ such that $M_n$ is the set of all functions strictly less than $n$.
 
@@ -23,6 +15,8 @@ and ensures that there's an element of the algebra which encapsulated the connec
 More on the incident algebra in the next section because I first want to go over the features and limitations of this model.
 
 \subsubsection{Terminology:}
+There exits some $x$ $h$ such that:
+\[n(x)\neq n(x+h\chi_m)\]
 neuron and connection
 
 \subsubsection{Functions and Graphs:}
