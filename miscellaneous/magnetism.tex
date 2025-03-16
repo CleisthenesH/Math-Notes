@@ -1,4 +1,4 @@
-% Copyright 2024 Kieran W Harvie. All rights reserved.
+% Copyright 2024-2025 Kieran W Harvie. All rights reserved.
 
 \section{Magnetism}
 \label{showcase:magnetism}
@@ -13,19 +13,20 @@ So we'll start with the easiest and most common and work up to the exotic.
 
 \begin{center}
 \begin{tikzpicture}
-	\node at (0,1) {Paramagnetism};
-	\node at (0,0) {Diamagnetism};
-	\node at (4,0.5) {Ferromagnetism};
-	\node at (8,1) {Ferrimagnetism};
-	\node at (8,0) {Antiferrimagnetism};
-
-	\draw[red] (-2,-0.5) rectangle ++ (3.8,2); 
-	\draw[green] (2,-0.5) rectangle ++ (3.8,2); 
-	\draw[blue] (6,-0.5) rectangle ++ (3.8,2); 
-
-	\draw[red] (-2,-0.5)  -- +(3.8,0) node[midway, below]{Common};
-	\draw[green] (2,-0.5)  -- +(3.8,0) node[midway, below]{Useful};
-	\draw[blue] (6,-0.5)  -- +(3.8,0) node[midway, below]{Exotic};
+	\matrix[draw=red,label={[red]Common}] (common)
+	{
+		\node {Paramagnetism}; \\
+		\node {Diamagnetism}; \\
+	};
+	\matrix[draw=green,label={[green]Useful},right=of common] (useful)
+	{
+		\node {Ferromagnetism}; \\
+	};
+	\matrix[draw=blue,label={[blue]Exotic},right=of useful]
+	{
+		\node {Ferrimagnetism}; \\
+		\node {Antiferrimagnetism}; \\
+	};
 \end{tikzpicture}
 \end{center}
 
@@ -147,10 +148,12 @@ While this Hamiltonian easily explains dia and para magnetism,
 both of which lose their field when the external field is is removed,
 if interpreted naïvely it can have trouble explaining how any material can maintain an internal field when the external field is removed.
 The interpretations goes like this:
-{\em "Consider the energy levels determined by $H_\text{Strong}$.
+\begin{quote}
+\em Consider the energy levels determined by $H_\text{Strong}$.
 When the external field is removed these energy levels would split based largely on the coupling term.
-When the magnetic moments are misaligned the coupling term would be minimized and hence be the ground state.
-Hence the material would not keep an internal field."}
+When the magnetic moments are misaligned the coupling term would be minimized and hence would be the ground state.
+Meaning the material would not keep an internal field.
+\end{quote}
 
 \subsection{Exchange Interaction}
 What this naïve interoperation ignores is spin statistics and their effects on indistinguishable particles.
