@@ -1,0 +1,139 @@
+% Copyright 2025 Kieran W Harvie. All rights reserved.
+
+\section{Loose Monitor Stand}
+My monitor stand at work is loose.
+By this I mean the monitor rotates freely on its stand such that when I pick up the by the stand moving it to changes the monitors angle to me:
+\begin{center}
+\begin{tikzpicture}
+	\foreach \angle in {0,-35,-70}
+	{\begin{scope}[rotate=\angle]
+		\draw[->] (0,0)--(0,4) node[midway,above left] {$\mathbf{R}$};
+		\draw[dashed,->] (0,4)--(0,5) node[midway,above left] {$\mathbf{d}$};
+		\draw[blue,thick,|-|] (0,4)+(180-0.4*\angle:1)--+(-0.4*\angle:1) coordinate (C);
+
+		\draw[blue,dashed] (1,4) coordinate(A) -- (0,4) coordinate (B)
+			pic[fill=blue!50,draw=blue] {angle};
+	\end{scope}}
+\end{tikzpicture}
+
+The blue bar is the monitor.
+
+$\mathbf{R}$ is the vector from my seat to the center of mass of the monitor.
+
+$\mathbf{d}$ is the vector from the center of mass of the monitor to the monitor's stand where the stand in collinear with $\mathbf{R}$ and slightly behind.
+\end{center}
+I wanted to quantify how the monitor's angle to me is effected by moving the stand.
+And I instantly thought of the following equation from the conservation of the orbit and spin angular momentum: 
+% Better brace positioning but unable to use mathclap in underbrace
+%\[\overbrace{\omega_OM|R|^2
+%	+\rlap{$\underbrace{\phantom{\omega_OM|d|^2+\omega_SM|d|}}_\text{Center of Mass Correction}$}
+% \omega_OM|d|^2}^\text{Orbit}+\overbrace{\omega_SM|d|^2+\omega_SI}^\text{Spin}=0\]
+\[
+\rlap{$\overbrace{\phantom{\omega_OM|R|^2+\omega_OM|d|^2}}^\text{Orbit}$}
+\omega_OM|\mathbf{R}|^2+\underbrace{
+ \omega_OM|\mathbf{d}|^2+\omega_SM|\mathbf{d}|^2
+ }_{\mathclap{\text{Correction for the offset from the Center of Mass}}}+\omega_SI
+\llap{$\overbrace{\phantom{\omega_SM|d|^2+\omega_SI}}^\text{Spin}$}
+=0
+\]
+And was struck by how far removed this is from the first principles.
+That for a closed system of point masses $m_n$ located at $\mathbf{x}_n$ the angular momentum\footnote{Using discrete sums because I don't want to deal with Jacobians and the physics is largely the same between discrete sums and integrals.} given by:
+\[\mathbf{L} = \sum_nm_n\mathbf{x}_n\times\dot{\mathbf{x}}_n\]
+Is conserved.
+To get the former from the latter start let $M$ be the total mass and $\mathbf{R}$ be the center of mass as defined by:
+\[M=\sum_nm_n,\quad M\mathbf{R}=\sum_nm_n\mathbf{x}_n\]
+We can now consider $\mathbf{x}_n$ as offset from $\mathbf{R}$ by defining $\mathbf{r}_n$ as:
+\[\mathbf{r}_n = \mathbf{x}_n-\mathbf{R}\]
+And with simple algebra we get:
+\[\begin{aligned}
+	\sum_nm_n\mathbf{r}_n &= \sum_nm_n(\mathbf{x}_n-\mathbf{R})\\
+	&= M\mathbf{R}-M\mathbf{R} = 0\\
+\end{aligned}\]
+Which lets us use the bilinearity of the cross product to simplify $\mathbf{L}$:
+\[\begin{aligned}
+	\mathbf{L}&=\sum_nm_n\mathbf{x}_n\times\dot{\mathbf{x}}_n\\
+	&=\sum_nm_n(\mathbf{R}+\mathbf{\mathbf{r}}_n)\times(\dot{\mathbf{R}}+\dot{\mathbf{r}}_n)\\
+	&=\sum_nm_n\mathbf{R}\times\dot{\mathbf{R}}+\sum_nm_n\mathbf{R}\times\dot{\mathbf{r}}_n+\sum_nm_n\mathbf{\mathbf{r}}_n\times\dot{\mathbf{R}}+\sum_nm_n\mathbf{\mathbf{r}}_n\times\dot{\mathbf{r}}_n\\
+	&=M\mathbf{R}\times\dot{\mathbf{R}}+\mathbf{R}\times\left(\sum_nm_n\dot{\mathbf{r}}_n\right)+\left(\sum_nm_n\mathbf{\mathbf{r}}_n\right)\times\dot{\mathbf{R}}+\sum_nm_n\mathbf{\mathbf{r}}_n\times\dot{\mathbf{r}}_n\\
+	&=M\mathbf{R}\times\dot{\mathbf{R}}+\sum_nm_n\mathbf{\mathbf{r}}_n\times\dot{\mathbf{r}}_n\\
+\end{aligned}\]
+And through similar arguments we also obtain:
+\[\sum_nm_n(\mathbf{\mathbf{r}}_n-\mathbf{d})\times(\dot{\mathbf{r}}_n-\dot{\mathbf{d}})=M\mathbf{d}\times\dot{\mathbf{d}}+\sum_nm_n\mathbf{\mathbf{r}}_n\times\dot{\mathbf{r}}_n\]
+Which when combined gives:
+\[\mathbf{L}=M(\mathbf{R}\times\dot{\mathbf{R}}-\mathbf{d}\times\dot{\mathbf{d}})+\sum_n m_n(\mathbf{\mathbf{r}}_n-\mathbf{d})\times(\dot{\mathbf{r}}_n-\dot{\mathbf{d}})\]
+The two orbit terms have successfully been serrated from the spin term.
+The next step is to show that the orbit terms have the same angular velocity magnitude $|\omega_O|$.
+This equality follows from $\mathbf{R}$ and $\mathbf{R+d}$ having the same angular velocity,
+as $\mathbf{R+d}$ is my arm and $\mathbf{R}$ is the center of mass above my wrist,
+meaning they form similar triangles with their velocity vectors:
+
+\begin{center}
+\begin{tikzpicture}
+	\draw[->] (0,0)--(4,0) node[midway,below] {$\mathbf{R}$};
+	\draw[->] (4,0)--(6,0) node[midway,below] {$\mathbf{d}$};
+	\draw[->] (4,0)--(4,2) node[midway,right] {$\dot{\mathbf{R}}$};
+	\draw[->] (6,0)--(6,2) node[midway,right] {$\dot{\mathbf{R}}$};
+	\draw[->] (6,2)--(6,3) node[midway,right] {$\dot{\mathbf{d}}$};
+
+	\draw[gray,dashed] (0,0)--(6,3);
+	\draw[gray,dashed] (4,2)--(6,2);
+\end{tikzpicture}
+\end{center}
+Hence $\mathbf{d}$ and $\dot{\mathbf{d}}$ is also similar triangle.
+For a more algebraic argument consider that $\mathbf{R}$ and $\mathbf{R+d}$ having the same angular velocities means:
+\[\begin{aligned}
+	|\omega_O||\mathbf{R}|&=|\dot{\mathbf{R}}| \\
+	|\omega_O||\mathbf{R}+\mathbf{d}|&=|\dot{\mathbf{R}}+\dot{\mathbf{d}}| \\
+\end{aligned}\]
+But since $\mathbf{R}$ and $\mathbf{R+d}$ are collinear with each other,
+and so are their derivatives,
+we can use the reverse triangle inequality to give:
+\[\begin{aligned}
+	|\mathbf{d}| = |\mathbf{R+d-R}| = ||\mathbf{R+d}|-|\mathbf{R}||\\
+	|\dot{\mathbf{d}}| = |\dot{\mathbf{R}}+\dot{\mathbf{d}}-\dot{\mathbf{R}}| = ||\dot{\mathbf{R}}+\dot{\mathbf{d}}|-|\dot{\mathbf{R}}||\\
+\end{aligned}\]
+Hence:
+\[\begin{aligned}
+	|\dot{\mathbf{d}}| 
+	&=||\dot{\mathbf{R}}+\dot{\mathbf{d}}|-|\dot{\mathbf{R}}||\\
+	&=||\omega_O||\mathbf{R+d}|-|\omega_O||\mathbf{R}||\\
+	&=|\omega_O|||\mathbf{R+d}|-|\mathbf{R}||\\
+	&=|\omega_O||\mathbf{d}|\\
+\end{aligned}\]
+%\[d=\alpha R\]
+%Since
+%\[d+R=(1+\alpha)R\]
+%From circular 
+%\[\dot{d}+\dot{R}=(1+\alpha)\dot{R}\]
+%Hence:
+%\[\dot{d} =\alpha\dot{R}\]
+%result:
+%\[|d\times\dot{d}| = |\alpha^2R\times R| = |\alpha^2|R\times R| = \alpha|w_O| = w_1|d|^2\hat{z}\]
+%\[d\times\dot{d} = \alpha^2R\times R = w_1(\alpha|R|)^2\hat{z} = w_1|d|^2\hat{z}\]
+Using either method to establish equality we can now introduce the spin angular velocity $\omega_S$ and reduce our previous expression of $\mathbf{L}$ to:
+\[\omega_OM|\mathbf{R}|^2+\omega_OM|\mathbf{d}|^2+\omega_S\sum_n m_n|\mathbf{\mathbf{r}}_n-\mathbf{d}|^2\]
+Where we took advantage of the motions being both circular and planar to only consider the component out of the plane.
+\\
+
+The final simplification is to use the parallel axis theorem to change the right most term into a more standard form.
+Let $I$ be the monitor's moment of inertia around its own center of mass and express $\mathbf{r}_n$ in terms of coordinates parallel $x_n$ and perpendicular $y_n$ to $\mathbf{d}$:
+\[\begin{aligned}
+	\sum_n m_n|\mathbf{\mathbf{r}}_n-\mathbf{d}|^2 =&\sum_nm_n((x_n-|\mathbf{d}|)^2+y_n^2)\\
+	=&\sum_nm_n(x_n^2+y_n^2)-2|\mathbf{d}|\sum_nm_nx_n+|\mathbf{d}|^2\sum_nm_n\\
+	=&I+M|\mathbf{d}|^2\\
+\end{aligned}\]
+Substitution completes the derivation.
+
+\subsubsection{Bonus: Calculation of $I$:}
+Assume the monitor was was a flat rectangle with with the axis of rotation going through its center and lying in its plane.
+Then the monitor would have the same moment of inertia as a mental rod of the same mass perpendicular and centered to the axis:
+\[I = \frac{1}{12}mL^2\]
+This is because moving mass along the axis of rotation doesn't effect the moment of inertia.
+\\
+
+To calculate the moment of inertia for a rod of mass $M$ perpendicular to the axis of rotation at signed distances $a$ and $b$ away from the axis define the linear density as:
+\[\rho = \frac{M}{b-a}\]
+Then simply calculate the integral as normal:
+\[\int_a^b\rho x^2\,dx = \rho\frac{b^3-a^3}{3} = M\frac{b^2+ba+a^2}{3}\]
+Where $a=\frac{1}{2}L,\,b=-\frac{1}{2}L$ is the monitor subcase.
+
