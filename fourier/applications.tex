@@ -1,4 +1,4 @@
-% Copyright 2023 Kieran W Harvie. All rights reserved.
+% Copyright 2023,2025 Kieran W Harvie. All rights reserved.
 \chapter{Applications}
 
 \section{Function Spaces}
@@ -588,4 +588,53 @@ Hence:
 	=&\frac{1}{1-x^n}\sum_{l=0}^{n-1}x^l\widehat{A_l} \\
 \end{aligned}
 \end{equation*}
+
+\section{Helmholtz Decomposition}
+There's a vector algebra identity called the vector triple product:
+\[a\times(b\times c) = b(a\cdot c)-c(a\cdot b)\]
+The identity is proven by considering the contraction of two Levi-Civita symbols:
+\[\varepsilon_{i,j,k}\varepsilon_{k,p,q} = \delta_{i,p}\delta_{j,q}-\delta_{i,q}\delta_{j,p}\]
+Since the it would be $0$ if either $(i,j,k)$ or $(k,p,q)$ weren't permutations of $(0,1,2)$,
+$1$ if they were permutations with the same parity, and $-1$ if opposite parities.
+\\
+
+The vector triple product gives an expression for $c$ in terms of a component parallel to $b$ and one perpendicular to $a$:
+\[c = \frac{1}{a\cdot b}\bigg(b\,(a\cdot c) -a \times(b\times c)\bigg)\]
+Using this insight we can write $\hat{F}(k)$ in terms of components parallel and perpendicular to $k$:
+\[\begin{aligned}
+	\hat{F}(k) &= k\frac{k\cdot\hat{F}(k)}{|k|^2}-k\times\frac{k\times\hat{F}(k)}{|k|^2}\\
+	&= -ik\hat{G}(k)+ik\times\hat{H}(k)\\
+\end{aligned}\]
+Which we can then invert the Fourier transform to get:
+\[F(x) = -\nabla G(x)+\nabla\times H(x)\]
+This is called the Helmholtz Decomposition and is important enough in physics to give each of the terms involved their own,
+not exclusive, names:
+\begin{center}
+\begin{tabular}{|c|c|}
+	\hline
+	Field & Name(s)\\
+	\hline
+	\hline
+	$-\nabla G(x)$& gradient or irrotational  \\
+	\hline
+	$\nabla\times H(x)$& solenoidal or rotational\\
+	\hline
+	$-ik\hat{G}(k)$& transverse\\
+	\hline
+	$ik\times\hat{H}(k)$& longitudinal\\
+	\hline
+\end{tabular}
+\end{center}
+%\[c = b\,\frac{a\cdot c}{a\cdot b} -a \times\frac{b\times c}{a\cdot b}\]
+%\[c = \frac{1}{|a|^2}\bigg(a(a\cdot c) -a \times(a\times c)\bigg)\]
+%\[\varepsilon^i_{j,k}\varepsilon^k_{p,q} = \delta^i_p\delta_{j,q}-\delta^i_q\delta_{j,p}\]
+%elements of $a\times(b\times c)$
+%\[\begin{aligned}
+%	\varepsilon^i_{j,k}\varepsilon^k_{p,q}a^jb^pc^q &= (\delta^i_p\delta_{j,q}-\delta^i_q\delta_{j,p})a^jb^pc^q\\
+%	&=a^jc_jb^i-a^jb_jc^i\\
+%\end{aligned}\]
+%In particular:
+%\[\hat{k}\times(\hat{k}\times v) = \hat{k}(\hat{k}\cdot v)-v(\hat{k}\cdot\hat{k}) = \hat{k}(\hat{k}\cdot v)-v\]
+%Giving:
+%\[v =  \hat{k}(\hat{k}\cdot v)-\hat{k}\times(\hat{k}\times v)\]
 

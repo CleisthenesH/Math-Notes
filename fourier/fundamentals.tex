@@ -1,4 +1,4 @@
-% Copyright 2023 Kieran W Harvie. All rights reserved.
+% Copyright 2023,2025 Kieran W Harvie. All rights reserved.
 \chapter{Fundamentals}
 
 Before moving towards applications of the Fourier transform it will be useful to collect some basic properties, theorems and symmetries.
@@ -143,6 +143,58 @@ Combining this table with the unique \hyperref[appx:real-img-odd-even]{represent
 
 Basically splitting the Fourier transforms from one complex function on $\mathbb{R}$ to four real functions on $\mathbb{R}_+$.
 
+\section{Multidimensional}
+The Fourier transform is extended to multidimensional functions in a rather natural way.
+For functions with multiple outputs we simply define a function for each output\footnote{Our to do this ability is intuitive but not completely trivial and the proof is outside the scope of this document.} and transform those functions.
+For example let $F:\mathbb{R}\rightarrow\mathbb{R}^2$ and define:
+\[F(x) = (f(x),g(x))\]
+Then the Fourier transform is given by:
+\[\hat{F}(k) = (\hat{f}(k),\hat{g}(k))\]
+For functions that take multiple arguments a both term in the exponential and an integral is included for each argument.
+For example the Fourier transform of $F:\mathbb{R}^2\rightarrow \mathbb{R}$ is given by:
+\[F(k_x,k_y) = \int_{-\infty}^{\infty}\int_{-\infty}^{\infty}f(x,y)\exp(-i(k_x x + k_y y))\,dx\,dy\]
+When the function is sufficiently well behaved this can be viewed a iteratively performing a 1-D transform on each argument: 
+\[\begin{aligned}
+ &\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}f(x,y)\exp(-i(k_x x + k_y y))\,dx\,dy\\
+=&\int_{-\infty}^{\infty}\left(\int_{-\infty}^{\infty}f(x,y)\exp(-ik_x x)\right) \exp(-ik_y y)\,dx\,dy\\
+\end{aligned}\]
+When viewed this way many properties of the multidimensional transforms naturally follow from their 1-D counterparts,
+for example define:
+\[g(x,y) = f(x+x_0,y)\]
+Then we get:
+\[\begin{aligned}
+	G(k_x,k_y)=&\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}g(x,y)\exp(-i(k_x x + k_y y))\,dx\,dy\\
+	=&\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}f(x+x_0,y)\exp(-i(k_x x + k_y y))\,dx\,dy\\
+	=&\int_{-\infty}^{\infty}\exp(ik_xx_0)\int_{-\infty}^{\infty}f(x,y)\exp(-i(k_x x + k_y y))\,dx\,dy\\
+	=&\exp(-ik_xx_0)F(k_x,k_y)\\
+\end{aligned}\]
+A particularly important example of this is the transforms of the derivative:
+\[\widehat{\frac{\partial f}{\partial x}} = ik_x\hat{f}(k_x,k_y)\]
+This lets us calculate the transform gradient, divergence and curl by expressing them as the sum of partial derivatives and then simplifying using the linearity.
+While the notation is convoluted the arguments are simple:
+\[\begin{aligned}
+	\widehat{\nabla F} &= \sum_n\widehat{\frac{\partial F}{\partial x_n}}e_n\\
+	&= \sum_nik_n\hat{F}e_n\\
+	&= ik\hat{F}\\
+\end{aligned}\quad\quad
+\begin{aligned}
+	\widehat{\nabla\cdot F} &= \sum_n\widehat{\frac{\partial F_n}{\partial x_n}}\\
+	&= \sum_nik_n\hat{F}_n\\
+	&= ik\cdot\hat{F}\\
+\end{aligned}\quad\quad
+\begin{aligned}
+	\widehat{\nabla\times F}&=\sum_{n,m,l}\varepsilon_{n,m,l}\widehat{\frac{\partial F_l}{\partial x_m}}e_n\\
+	&=\sum_{n,m,l}\varepsilon_{n,m,l}ik_m\hat{F_l}e_n\\
+	&=ik\times \hat{F}
+\end{aligned}\]
+In all cases the indices run over $\{0,1,2\}$, 
+the three arguments $x_n$ and correspond to transformed argument $k_n$,
+and $e_n$ are the basis vectors.
+For the both divergence and curl $F:\mathbb{R}^3\rightarrow\mathbb{R}^3$,
+for the gradient $F:\mathbb{R}^3\rightarrow\mathbb{R}$,
+and for the curl $\varepsilon_{n,m,l}$ is the standard Levi-Civita symbol for cross products.
+% If I was making this document from scratch I'd be more mindful about notation from the start and have the multidimensional use case in mind when doing so.
+% I do not wish to change it now.
 \section{Symmetries}
 \subsection{Parity Symmetry}
 \label{sec:parity-sym}
