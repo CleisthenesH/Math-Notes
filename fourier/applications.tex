@@ -512,7 +512,8 @@ The RHS is a combination of operations and functions we know the inverse Fourier
 \[f(x) = \int_{-\infty}^{\infty}\left(2\frac{\sin(D(x-t))}{x-t}\right)\left(f(t)\frac{2\pi}{|B|}\Sha_{\frac{2\pi}{B}}(t)\right)\,dt \]
 Letting $T = \frac{2\pi}{|B|}$ we get:
 \[ f(x) = 2T\sum_{n=-\infty}^{\infty}f(Tn)\frac{\sin(D(x-nT))}{x-nT} \]
-(TODO: check that all the coefficients are correct).
+(TODO: \st{check that all the coefficients are correct.} They are incorrect,
+only shifting the interval $[-B,B]$ by $B$ will still still overlap.)
 \\
 
 We have reconstructed a continuous function $f$ as an discrete sum of it's samples $f$.
@@ -527,6 +528,33 @@ Their transform's are all deltas at $\pm B$ but when sampled all $f(nT) = 0$ hen
 
 This is a particular pathological examples because $\hat{f}$ aren't just non-zero, but infinite. 
 But it demonstrates the principles of the strictness of $B$.
+
+\subsection{Fourier Series}
+Convolution with a Dirac comb can also be useful in understanding Fourier Series.
+If $f$ has a period of $2P$ we can define:
+\[g(x) = f(x)\chi_{(-P,P)}(x)\]
+To cut out a period of $f$ around $0$ such that the convolution:
+\[f(x) = (g*\Sha_{2P})(x)\]
+Recovers $f$ since the convolution shifts and copies that cut out along the real line.
+Taking the Fourier transform gives:
+\[\hat{f}(k) = \hat{g}(k)\frac{2\pi}{2|P|}\Sha_{\frac{2\pi}{2|P|}}(k)\]
+Manually inverting the transform gives:
+\[\begin{aligned}
+	f(x) &= \frac{1}{2\pi}\frac{2\pi}{2|P|}\int_{-\infty}^{\infty}\hat{g}(k)\Sha_{\frac{2\pi}{2|P|}}(k)\exp(ikx)\,dk\\
+	&= \frac{1}{2|P|}\sum_{n=-\infty}^{\infty}\hat{g}\left(\frac{n\pi}{|P|}\right)\exp\left(\frac{in\pi x}{|P|}\right)\\
+\end{aligned}\]
+Although additional work is needed to derive the standard form of the coefficients the benefit of this method is the ability to tweak it! 
+We can add a small break $\delta>0$ or overlap $\delta<0$ to the copies:
+\[f(x) = (g*\Sha_{2P+\delta})(x)\]
+Vertically scale the copies by convolution with:
+\[\Sha_P(x)v(x)\]
+And in general horizontally scale $h_n$,
+vertically scale $v_n$,
+and transition $t_n$,
+the copies by convolution with:
+\[\sum_nv_n\delta(h_n(x-t_n))\]
+But this general form is likely to be difficult to take the transform of.
+%\Sha_2P\chi_{(-P,P)} = 1 interesting transfrom?
 
 \section{Generating Function}
 The standard generating function for a sequence $f_n$ is given by:
