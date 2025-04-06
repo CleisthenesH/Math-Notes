@@ -1,0 +1,26 @@
+% Copyright 2025 Kieran W Harvie. All rights reserved.
+
+\section{Probability Generating Function for 1dm+1dn}
+The probability generating function for a uniform distribution on the first $n$ integers is given by:
+\[P_n(x) = \sum_{k=1}^{n}\frac{1}{k}x^k = \frac{x}{n}\frac{x^n-1}{x-1}\]
+Hence the probability generating function of the 1dm +1dn is given by 
+\[f(x) = P_n(x)P_m(x)\]
+For practice I found the average of 1dm+1dn to be:
+\begin{equation*}
+\begin{aligned}
+	(x-1)^2f(x) =& \frac{x^2}{nm}(x^n-1)(x^m-1) \\
+	\binom{3}{1}2!f(1) =& \frac{d^3}{d x^3} \frac{x^2}{nm}(x^n-1)(x^m-1) \bigg|_{x=1} \\
+	6f(1) =& \frac{1}{nm}\bigg((m+n+2)(m+n+1)(m+n)-(m+2)(m+1)m-(n+2)(n+1)n\bigg) \\
+	=& 3(n+m+2) \\
+	f(1) =& \frac{n+1}{2}+\frac{m+1}{2} \\
+\end{aligned}
+\end{equation*}
+Where the following identities where used to simplify the left hand side:
+\[\frac{d^m}{d x^m}(x-1)^n\bigg|_{x=1} = m!\delta(n-m)\]
+\begin{equation*}
+\begin{aligned}
+	\frac{d^m}{d x^m}(x-1)^nf(x)\bigg|_{x=1} =& \sum_{k=0}^{m}\binom{m}{k}(m-k)!\delta(m-k-n)f^{(k)}(1)\\
+	=&\binom{m}{m-n}n!f^{(m-n)}(1)\\
+\end{aligned}
+\end{equation*}
+
