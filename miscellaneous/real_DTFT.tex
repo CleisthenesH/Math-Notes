@@ -1,0 +1,27 @@
+% Copyright 2025 Kieran W Harvie. All rights reserved.
+
+\section{Real Signal DTFT}
+Define the standard DFTF variables:
+\begin{equation*}
+\begin{aligned}
+	\omega =& \exp\left(\frac{2\pi i}{N}\right)\\
+	X_k =& \sum_{n=0}^{N-1}\omega^{-kn}x_n\\
+	x_n =& \frac{1}{N} \sum_{k=0}^{N-1}\omega^{kn}X_k\\
+\end{aligned}
+\end{equation*}
+If we assume $x_n$ is real:
+\begin{equation*}
+\begin{aligned}
+	x_n =& \frac{1}{N} \sum_{k=0}^{N-1}\omega^{kn}X_k\\
+	=& \frac{1}{N} \sum_{k=0}^{N-1}\left(\cos\left(kn\frac{2\pi}{N}\right)+i\sin\left(kn\frac{2\pi}{N}\right)\right)\left(\Re(X_k)+i\Im(X_k)\right)\\
+	=& \frac{1}{N} \sum_{k=0}^{N-1}\left(\Re(X_k)\cos\left(kn\frac{2\pi}{N}\right)-\Im(X_k)\sin\left(kn\frac{2\pi}{N}\right)\right)\\
+\end{aligned}
+\end{equation*}
+Another expression:
+\begin{equation*}
+\begin{aligned}
+	x_n =& \frac{1}{N} \sum_{k=0}^{N-1}\omega^{kn}X_k\\
+	=& \frac{1}{N} \sum_{k=0}^{N-1}\exp\left(kn\frac{2\pi i}{N}\right)|X_k|\exp(i\arg(X_k))\\
+	=& \frac{1}{N} \sum_{k=0}^{N-1}|X_k|\cos\left(kn\frac{2\pi i}{N}+\arg(X_k)\right)\\
+\end{aligned}
+\end{equation*}
