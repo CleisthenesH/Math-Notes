@@ -1,0 +1,32 @@
+% Copyright 2025 Kieran W Harvie. All rights reserved.
+
+\section{Elementary Symmetric Polynomial Limit}
+Consider a set of variables $\{X_k\}$.
+We commonly define two families of symmetric functions on this set.
+The first is the simple power sums:
+\[p_n = \sum_{k}X_k^n\]
+The next is the elementary symmetric polynomials.
+Which are best defined as the solutions to:
+\[\prod_{n=1}^{N}(\lambda -X_n) = \sum_{n=0}^{N}\lambda^{N-n}(-1)^ne_n\]
+And whose general form can be understood by inspection of a few examples.
+If we have set of variables $\{X_0,X_1,X_2\}$ then:
+\begin{equation*}
+\begin{aligned}
+	e_0 =& 1\\
+	e_1 =& X_1 +X_2 +X_3\\
+	e_2 =& X_1X_2 +X_2X_3 +X_2X_3 \\
+	e_3 =& X_1X_2X_3 \\
+\end{aligned}
+\end{equation*}
+We can use Newton's identities to write a recursion for the elementary symmetric polynomial in terms of the power sums:
+\[ne_n = \sum_{k=1}^n(-1)^{k+1}e_{n-k}p_k\]
+This recursion can be used to prove an interesting limit.
+If we assume the variables $\{X_k\}$ are functions of $N$ such that:
+\[\frac{e_1}{N} \rightarrow 0\]
+Then:
+\[\frac{e_n}{N^n} \rightarrow 0\]
+The proof is simple induction.
+First observe that:
+\[\frac{p_n}{N^n} = \sum_k\left(\frac{X_k}{N}\right)^n\rightarrow 0\,\quad\text{and}\quad\frac{e_1}{N}=\frac{1}{N}\rightarrow0\]
+Then by the inductive assumption we have:
+\[\frac{e_n}{N^n} = \frac{1}{n}\sum_{k=1}^n(-1)^{k+1}\frac{e_{n-k}}{N^{n-k}}\frac{p_k}{N^k}\rightarrow0\]
