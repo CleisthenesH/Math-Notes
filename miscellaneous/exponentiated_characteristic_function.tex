@@ -1,0 +1,22 @@
+% Copyright 2025 Kieran W Harvie. All rights reserved.
+
+\section{Exponentiated Characteristic Function}
+Let the distribution of a random variable have a characteristic function of the form:
+\[1-i\mu t-\frac{t^2}{2}(\sigma^2+\mu^2)+\mathcal{O}(t^3) \]
+Where $\mu$ is the mean and $\sigma$ is the standard deviation.
+Then if we add $n$ independent variables with that distribution together we get a characteristic function of the form:
+\begin{equation*}
+\begin{aligned}
+	&\left(1-i\mu t-\frac{t^2}{2}(\sigma^2+\mu^2)+\mathcal{O}(t^3)\right)^n \\
+	=& \sum_{k=0}^n\binom{n}{k}(1-i\mu t)^{n-k} \left(-\frac{t^2}{2}(\sigma^2+\mu^2)\right)^k +\mathcal{O}(t^3)\\
+	=& \sum_{k=0}^1\binom{n}{k}(1-i\mu t)^{n-k} \left(-\frac{t^2}{2}(\sigma^2+\mu^2)\right)^k + \mathcal{O}(t^3)\\
+	=&(1-i\mu t)^n-n(1-i\mu t)^{n-1}\frac{t^2}{2}(\sigma^2+\mu^2)+ \mathcal{O}(t^3)\\\\
+	=&1-in\mu t - \frac{(n-1)n}{2}\mu^2 t^2 -n\frac{t^2}{2}(\sigma^2+\mu^2)+ \mathcal{O}(t^3)\\\\
+	=&1-in\mu t  -\frac{t^2}{2}(n\sigma^2+(n\mu)^2)+ \mathcal{O}(t^3)\\\\
+\end{aligned}
+\end{equation*}
+Hence this sum has a mean of $n\mu$ and a standard deviation of $\sqrt{n}\sigma$.
+\\
+
+2025 Addendum: As a loose tex file this was originally called "GreatSword".
+Presumably because of how great swords work in DnD.
