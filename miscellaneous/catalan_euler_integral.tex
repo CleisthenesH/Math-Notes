@@ -1,0 +1,35 @@
+% Copyright 2025 Kieran W Harvie. All rights reserved.
+
+\section{Catalan's Euler's Constant Integral}
+Catalan proved the following integral representation of the Euler's constant:
+\[\gamma = \int_{0}^{1}\frac{1}{1+x}\sum_{n=1}^{\infty}x^{2^n-1}\,dx\]
+I don't remember where I found it,
+how Catalan proved,
+nor am I particularly interested in proving it myself.
+But it is a fun integral to play with.
+
+\subsection{Logarithmic Ceiling}
+Notice that the integrand is very similar to:
+\[\frac{1}{1-x}\sum_{n=0}^{\infty}x^{2^n}=\sum_{n=1}^{\infty}(\lfloor\log_2(n)\rfloor+1)x^n\]
+Where there's equality since there's is an equal  number of ways to write $n$ as the sum of a number greater than $0$ and a power of $2$ as there are the digits of $n$ in binary.
+Simple manipulation gives:
+\[\frac{1}{1+x}\sum_{n=1}^{\infty}x^{2^n}=\sum_{n=1}^{\infty}\lfloor\log_2(n)\rfloor(-x)^n\]
+Which means the integral can be evaluated as:
+\[\gamma = \int_{0}^{1}\frac{1}{1+x}\sum_{n=1}^{\infty}x^{2^n-1}\,dx = \sum_{n=1}^\infty\frac{\lfloor\log_2(n)\rfloor}{n}(-1)^n\]
+
+\subsection{Alternating Sums of Powers}
+Define the following series:
+\[f_k(x) = \sum_{n=1}^{\infty}\frac{x^{2^n}}{2^{kn}},\quad g_k(x) = \sum_{n=0}^{\infty}n^k(-x)^n\]
+Firstly notice that we have:
+\[\gamma = \int_{0}^{1}\frac{1}{1+x}\sum_{n=1}^{\infty}x^{2^n-1}\,dx = \int_{0}^{1}g_0(x)x^{-1}f_0(x)\,dx\]
+Then notice that we also have:
+\[\int_{0}^{1}g_k(x)x^{-1}f_k(x)\,dx =\left[g_k(x)f_{k+1}(x)\right]_{0}^{1}-\int_0^1g_{k+1}(x)x^{-1}f_{k+1}(x)\,dx\]
+Since:
+\[f'_{k+1}(x) = f_k(x)x^{-1},\quad g'_k(x) = x^{-1}g_{k+1}(x)\]
+Pretty cool how $x^{-1}$ stays in the integral!
+Let us define:
+\[A_k = \lim_{\epsilon\rightarrow 1^-}g_k(\epsilon)\]
+\[\lim_{\epsilon\rightarrow 1^-}\left[g_k(x)f_{k+1}(x)\right]_{0}^{\epsilon} = A_k\frac{2^{k+1}}{2^{k+1}-1}\]
+Which leads me to conjecture:
+\[\gamma = \sum_{k=0}^{\infty}(-1)^kA_k\frac{2^{k+1}}{2^{k+1}-1}\]
+I say conjecture because showing that the limits exist and integral vanishes are missing steps I don't feel like doing.
