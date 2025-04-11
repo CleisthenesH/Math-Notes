@@ -1,0 +1,57 @@
+% Copyright 2025 Kieran W Harvie. All rights reserved.
+
+\section{Exponentiated Generating Function}
+Let the functions $f$ and $g$ be related by:
+\[g(t) =\exp(f(t))\]
+Then we have the following equation:
+\[\frac{g^{(n)}(t)}{n!} = \frac{1}{n}\sum_{k=0}^{n-1}(n-k)\frac{f^{(n-k)}(t)}{(n-k)!}\frac{g^{(k)}(t)}{k!}\]
+The proof is pretty direct,
+for $n=1$ simply calculate the derivative as normal:
+\[g^{(1)}(t) = f^{(1)}(t)\exp(f(t))= f^{(1)}(t)g(t)\]
+And for $n>1$ use the general Leibniz rule to differentiate the $n=1$ result $n-1$ times:
+\[g^{(n)}(t) = \sum_{k=0}^{n-1}\binom{n-1}{k}f^{(n-k)}(t)g^{(k)}(t)\]
+Where simple algebra gets the original equation.
+\\
+
+These results can be used get a recursion for the generating function we get from exponentiating another generating function.
+Let $f$ and $g$ be the ordinary generating functions for $f_n$ and $g_n$ then:
+\[g_n = \frac{1}{n}\sum_{k=0}^{n-1}(n-k)f_{n-k}g_k\]
+And for exponential generating functions:
+\[g_n = \sum_{k=0}^{n-1}\binom{n-1}{k}f_{n-k}g_k\]
+
+\subsubsection{Logarithmic Series:}
+Looking at the recursion the simplest choice for $f_n$ is:
+\[f_n = \frac{1}{n}\]
+Where a solution is given by $g_n = 1$:
+\[\begin{aligned}
+	g_n &= \frac{1}{n}\sum_{k=0}^{n-1}(n-k)f_{n-k}g_k\\
+	&= \frac{1}{n}\sum_{k=0}^{n-1}\frac{n-k}{n-k}\cdot 1\\
+	&= 1\\
+\end{aligned}\]
+If we assume the solutions are unique we get:
+\[\exp\left(\sum_{n=1}^\infty\frac{t^n}{n}\right) = \frac{1}{1-t}\]
+Or equivalently:
+\[\ln\left(\frac{1}{1-t}\right) = \sum_{n=1}^\infty\frac{t^n}{n}\]
+
+\subsubsection{Newton's Identities:}
+If we rearrange the previous results:
+\[\ln(1+a_kt) = \sum_{n=1}^\infty(-1)^{n-1}\frac{t^n}{n}a_k^n\]
+Summing over $k$ gives:
+\[\ln\left(\prod_k(1+a_kt)\right) = \sum_{n=1}^\infty(-1)^{n-1}\frac{t^n}{n}\sum_ka_k^n\]
+Letting $p_n$ and $e_n$ be the symmetrical power sums and elementary symmetric polynomials\footnote{To convert \hyperref[misc:elementary_symmetric_polynomial_limit]{our previous definition} of the elementary symmetric polynomials to something closer to the given product first substitute $\lambda\mapsto -\lambda^{-1}$ then times by $\lambda^N$.} of $\{a_k\}_k$ we get:
+\[\exp\left(\sum_{n=1}^\infty(-1)^{n-1}p_n\frac{t^n}{n}\right) = \sum_{n=0}^\infty e_nt^n\]
+Which is a pretty cool result by itself!
+But also gives us Newton's identities as a subcase of the recursion formula.
+
+\subsubsection{Generalization:}
+If we generalize our previous relationship between $g$ and $f$ to:
+\[g^{(n+1)}(t) = \sum_{k=0}^nw_k(t)g^{(k)}(t)\]
+Then we get:
+\[\begin{aligned}
+	g^{(n+m+1)}(t)=&\sum_{k=0}^n\sum_{l=0}^m\binom{m}{l}w_k^{(m-l)}(t)g^{(k+l)}(t)\\
+	=&\sum_{s=0}^{n+m}g^{(s)}(t)\sum_{l=\max(0,s-n)}^{\min(s,m)}\binom{m}{l}w_{s-l}^{(m-l)}(t)\\
+\end{aligned}\]
+Note that we can `clean-up' the limits by writing:
+\[g^{(n+m+1)}(t)=\sum_{s=0}^{\infty}g^{(s)}(t)\sum_{l=0}^{\infty}\binom{m}{l}w_{s-l}^{(m-l)}(t)\]
+If we assume the final term is zero when $l>m$ or $s>n+m$.
+
