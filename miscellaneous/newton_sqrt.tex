@@ -1,0 +1,59 @@
+% Copyright 2025 Kieran W Harvie. All rights reserved.
+
+\section{Newton's Square Root Error}
+Using Newton's method on $f(x) = x^2-a$ we get the following sequence for approximating $\sqrt{a}$:
+\[x_{n+1} = \frac{a+x_n^2}{2x_n}\]
+If we define the error of a term as:
+\[\epsilon_n = x_n^2 - a\]
+We obtain:
+\[\epsilon_{n+1} = \left(\frac{\epsilon_n}{2}\right)^2\frac{1}{a+\epsilon_n}= \frac{\epsilon_n^2}{4a}+\mathcal{O}(\epsilon_n^3)\]
+We see that when $a > |\epsilon_n|$, 
+which should be the case for a small error, 
+the terms in the sequences are always overestimating the square root and motivates the form for the error as it is equivalent to:
+\[\epsilon_n = |x_n^2 - a|\]
+It also shows that when $\epsilon_n$ is small:
+\[\epsilon_{n+1} \approx \frac{\epsilon_n^2}{4a}\]
+So each estimate is quadratically better than the previous.
+
+\subsubsection{Second Order Canceling:}
+%\[\sqrt{a+\epsilon} = \sqrt{a}\left(1+\frac{\epsilon}{2a}-\frac{\epsilon^2}{8a^2}+ \mathcal{O}(\epsilon^3)\right)\]
+Lets take our second order expansion with quadratic convergence and try to cancel those terms for faster convergence:
+\begin{equation*}
+\begin{aligned}
+	x_{n} +x_{n+1}= & \sqrt{a+\epsilon_n} +\sqrt{a+\epsilon_{n+1}}\\
+	=& \sqrt{a+\epsilon_n}+\sqrt{a+\frac{\epsilon_n^2}{4a}+\mathcal{O}(\epsilon_n^3)}\\
+	=& \sqrt{a}\left(1+\frac{\epsilon_n}{2a}-\frac{\epsilon_n^2}{8a^2}\right) +\sqrt{a}\left(1+\frac{\epsilon_n^2}{8a^2}\right) +\mathcal{O}(\epsilon_n^3)\\
+	=& \sqrt{a}\left(2a + \frac{\epsilon_n}{2a}\right) +\mathcal{O}(\epsilon_n^3)\\
+\end{aligned}
+\end{equation*}
+Which gives us the following third order equality:
+\[\left(\frac{x_{n+1}+x_n}{2a + \dfrac{\epsilon_n}{2a}}\right)^2=a+\mathcal{O}(\epsilon_n^3) \]
+The left hand side can be expressed in terms of just $a$ and $x_n$:
+\begin{equation*}
+\begin{aligned}
+%	x_{n+1}+x_n =& \sqrt{a}\left(2a + \frac{\epsilon_n}{2a}\right) \\
+	\frac{x_{n+1}+x_n}{2a + \dfrac{\epsilon_n}{2a}}= & \frac{\dfrac{a+x_n^2}{2x_n}+x_n}{2a + \dfrac{x_n^2-a}{2a}} \\
+	= &\frac{a}{x_n} \frac{a+3x^2_n}{3a + x_n^2} \\
+\end{aligned}
+\end{equation*}
+Giving the following accelerated sequence $x'_n$ for approximating $\sqrt{a}$:
+\[x'_{n+1} = \frac{a}{x'_n} \frac{a+3x'^2_n}{3a + x'^2_n} \]
+Another sequence found, by arithmetic error, that seems to work:
+\[x'_{n+1} = x'_n\frac{3a+x'^2_n}{a+3x'^2_n}\]
+Which is actually the previous accelerated sequence where $x'_n\mapsto \frac{a}{x'_{n}}$.
+Why this arithmetic error might work is a corollary of the next result.
+
+\subsubsection{First Order Over-Under:}
+Let $x_n$ be an approximation for $\sqrt{a}$ with the error defined as before:
+\[x_n^2 = a + \epsilon_n\]
+Then we should expect $\frac{a}{x_n}$ to also be an approximation for $\sqrt{a}$:
+\begin{equation*}
+\begin{aligned}
+	\left(\frac{a}{x_n}\right)^2 =& \frac{a^2-\epsilon_n^2+\epsilon_n^2}{a+\epsilon_n} \\
+	=& a - \epsilon_n + \frac{\epsilon_n^2}{a+\epsilon_n}\\
+\end{aligned}
+\end{equation*}
+Hence if $x_n$ is an overestimation of $\sqrt{a}$ then $\frac{a}{x_n}$ is a closer underestimation and if $x_n$ is an under estimation then $\frac{a}{x_n}$ is a worst overestimation. 
+But either way the change in sign of the first order means averaging them cancels them and gives a second order approximation:
+\[\frac{1}{2}\left(x_n+\frac{a}{x_n}\right) = \frac{a+x_n^2}{2x_n}\]
+Which is the original result from using Newton's method.
