@@ -1,4 +1,4 @@
-% Copyright 2024 Kieran W Harvie. All rights reserved.
+% Copyright 2024-2025 Kieran W Harvie. All rights reserved.
 
 \section{Pauli Matrices}
 The Pauli matrices are a collection of three traceless, unitary, Hermitian, and involutory $2\times2$ complex matrices:
@@ -201,3 +201,95 @@ like the north and south poles of earth:
 	\draw[->,red,thick] (0,0) -- (0,2) node[above]{Mixed State};
 \end{tikzpicture}
 \end{center}
+
+\subsection{$SU(2)$:}
+$SU(2)$ is the topological group of $2\times2$ unitary complex matrices with determinant $1$ under multiplication and whose elements are described by:
+\[\begin{bmatrix} \alpha& \beta\\-\bar{\beta}&\bar{\alpha}\end{bmatrix}\quad\text{where}\quad|\alpha|^2+|\beta|^2=1\]
+Proof that this is a complete description of $SU(2)$ is trivial and left as an exercise to the reader.
+If we expand this description by considering the real and imaginary components of $\alpha$ and $\beta$:
+\[
+	\begin{bmatrix} \alpha& -\bar{\beta}\\\beta&\bar{\alpha}\end{bmatrix} = 
+	\Re(\alpha)I+i\left(
+	\Im(\alpha)\begin{bmatrix} 1&0\\0&-1\end{bmatrix}
+	+\Re(\beta)\begin{bmatrix}0&-i\\ i&0\end{bmatrix}
+	+\Im(\alpha)\begin{bmatrix} 0&1\\1&0\end{bmatrix}
+	\right)
+\]
+\[\Re(\alpha)^2+\Im(\alpha)^2+\Re(\beta)^2+\Im(\alpha)^2=1\]
+We see how the Pauli matrices are relevant to $SU(2)$ and can even use the Pauli vector to write the more compact:
+\[\begin{bmatrix} \alpha& \beta\\-\bar{\beta}&\bar{\alpha}\end{bmatrix}=I\cos(t)+i(\hat{a}\cdot\sigma)\sin(t)\]
+This form will be important later.
+
+\subsubsection{Geometry of $SU(2)$:}
+The previous description can be used to define a smooth map from $SU(2)$ to the $3$-sphere in $\mathbb{R}^4$ by:
+\[\begin{bmatrix} \alpha& \beta\\-\bar{\beta}&\bar{\alpha}\end{bmatrix}\mapsto (\Re(\alpha),\Im(\alpha),\Re(\beta),\Im(\alpha))\]
+The language we use to describe $n$-spheres is analogous to familiar $2$-spheres.
+\\
+
+We start by defining antipodal points analogous to the north an south poles,
+traditionally the ones corresponding to $\pm I$ in $SU(2)$:
+\[(\pm1,0,0,0)\]
+Longitudes are defined as the intersection of the  $2$D-subspaces including the antipodal points and the $n$-sphere.
+Latitudes are easiest to define when the antipodal points are zero in all but one coordinate,
+as we have done,
+since the latitudes are then simply all the elements with a constant value for that coordinate.
+Hence the $SU(2)$ longitudes are the elements of fixed $\hat{a}$ and variable $t$ while latitudes have fixed $t$ and variable $\hat{a}$:
+\[I\cos(t)+i(\hat{a}\cdot\sigma)\sin(t)\]
+More detailed explorations of the geometry of of $SU(2)$ and $3$-spheres are easy to find,
+I'm partial to the one found in Artin's myself,
+but I want to end by pointing out that the Bloch sphere is a latitude in $SU(2)$ where:
+\[\cos(t)=\sin(t)= \frac{1}{2}\]
+
+\subsubsection{Lie and Pauli:}
+Let $\hat{a}$ be a real $3$D unit vector.
+If we apply Sylvester's formula for exponentiation we previously derived to $\hat{a}\cdot\sigma$ we get:
+\[U = \exp(it(\hat{a}\cdot\sigma))=I\cos(t)+i(\hat{a}\cdot\sigma)\sin(t)\]
+Which is the description for elements in $SU(2)$ and really helps with understanding the properties for $SU(2)$.
+For example,
+since the Pauli vector is unitary we have:
+\[\begin{aligned}
+	U^* =& (I\cos(t))^*+(i(\hat{a}\cdot\sigma)\sin(t))^*\\
+	=& I\cos(t)-i(\hat{a}\cdot\sigma)^{-1}\sin(t))\\
+\end{aligned}\]
+Hence the matrix $U$ is itself unitary:
+\[\begin{aligned}
+	UU^*=&\big(I\cos(t)+i(\hat{a}\cdot\sigma)\sin(t))\big)\big(I\cos(t)-i(\hat{a}\cdot\sigma)^{-1}\sin(t))\big)\\
+	=&I\cos(t)^2-i^2(\hat{a}\cdot\sigma)(\hat{a}\cdot\sigma)^{-1}\sin(t)^2\\
+	=&I(\cos(t)^2+\sin(t)^2)\\
+	=&I\\
+\end{aligned}\]
+And, through similar algebra, $U$ has a determinate of $1$:
+\[\begin{aligned}
+	\det(U)&=\det(I\cos(t)+i(\hat{a}\cdot\sigma)\sin(t))\\
+	&=\det(I\cos(t))+\det(i(\hat{a}\cdot\sigma)\sin(t))\\
+	&\quad+\tr(I\cos(t))\tr(i(\hat{a}\cdot\sigma)\sin(t))-\tr(i(\hat{a}\cdot\sigma)\sin(t)\cos(t))\\
+	&=\cos(t)^2-i^2\sin(t)^2\\
+	&=1\\
+\end{aligned}\]
+This relationship between the complex exponentials of Pauli vectors and $SU(2)$ is best captured by saying:
+\begin{quote}
+	The Pauli vectors multiplied by $i$ are the generators of the Lie algebra for the Lie group of $SU(2)$.
+\end{quote}
+Where,
+roughly speaking,
+the Lie algebra of a Lie group is like the tangent space of the group at identity.
+And,
+like other tangent spaces,
+is a local property of the identity.
+Meaning two different Lie Groups can have the same Lie algebras, 
+even if the spaces are connected!\footnote{Meaning all elements can be accessed through exponentiation from the identity. So we aren't just hiding the difference by disconnecting it.}
+This is because of something called double coving of which $SU(2)$ double covering $SO(3)$,
+standard rotations in $3$-D space,
+is a classic example of and motivates why to get back to where we started in $SU(2)$ we need to do rotations twice.
+\\
+
+I want to end by pointing out that $SU(2)$,
+along with other `matrix groups',
+is a homogeneous space and to think of 
+homogeneity like this:
+Every tangent space of a sphere is a plane,
+planes orientated differently but all planes none the less.
+So elements of the Block sphere as directions, longitudes, we can move from $I$, an antipodal point, where the Block sphere itself is recovered from moving a fixed distance, latitude.
+And that this is true at each point of $SU(2)$ and informs the intuition of how Pauli matrices are used in many applications,
+such as quantum computation,
+where the Pauli matrices are treated like compass direction to orientate movement. 
