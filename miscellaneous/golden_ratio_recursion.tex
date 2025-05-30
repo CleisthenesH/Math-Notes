@@ -1,0 +1,159 @@
+% Copyright 2023,2025 Kieran W Harvie. All rights reserved.
+
+\section{Golden Ratio Recursion}
+
+\subsection{Pre-2023 Original}
+The golden ratio and its negated reciprocal are given by:
+\[\varphi = \frac{1+\sqrt{5}}{2},\,-\varphi^{-1} = \frac{1-\sqrt{5}}{2}\]
+Notice that that we can use them in the following factorization: 
+\begin{equation*}
+\begin{aligned}
+	x^5+1 =& (x+1)(x^4-x^3+x^2-x+1)\\
+	=& (x+1)(x^2-\varphi x+1)(x^2+\varphi^{-1} x+1)\\
+\end{aligned}
+\end{equation*}
+Using partial fractions, 
+it's easier to do in two steps,
+we get:
+\begin{equation*}
+\begin{aligned}
+	\frac{1}{1+x^5}=& \frac{1}{5}\left(\frac{1}{1+x} +\frac{-x^3+2x^2-3x+4}{x^4-x^3+x^2-x+1}\right)\\
+	=& \frac{1}{5}\left(\frac{1}{1+x}+\frac{\varphi^{-1}x+2}{x^2+\varphi^{-1} x+1}+\frac{-\varphi x+2}{x^2-\varphi x + 1}\right) \\
+\end{aligned}
+\end{equation*}
+Which gives a cool recursion in the normal way.
+
+\subsection{Pre-2023 Criticisms}
+There's some criticism of the Pre-2023 section that I want to note before moving on to two new approaches.
+\\
+
+First is that I didn't actually bother to calculate the fractions in the right hand side.
+Second is that there's no need to actually gives values for the golden ratio or its negated reciprocal as the factorization cleanly follows from:
+\[\varphi^2=\varphi+1\]
+Third is that multiplying by just $x+1$ kind of muddies the waters.
+Instead directly identify the product with the $10^\text{th}$ cyclotomic polynomial:
+\[x^4-x^3+x^2-x+1 = \Phi_{10}(x)\]
+Where the roots can directly be identified with the primitive roots of order $10$.
+\\
+
+If you aren't comfortable with cyclotomic polynomial you should times by both $x+1$ and $x^5-1$ to get:
+\[(x^5-1)(x+1)(x^4-x^3+x^2-x+1) = x^{10}-1\]
+As the alternating sign means $\frac{1}{x^5+1}$ actually has a period of $x^{10}$ and not $x^5$,
+as it might look at first:
+\[\frac{1}{x^5+1} = 1-x^5+x^{10}-x^{15}+x^{20}-\dots\]
+
+\subsection{Cyclotomic}
+Let $\omega$ be the $10^\text{th}$ root of unity with the smallest positive argument\footnote{Is there a name for this?},
+from the factorization:
+\[(x^2-\varphi x +1)(x^2+\varphi^{-1}x+1)=\Phi_{10}(x)\]
+There's only two pairs of conjugate primate roots of unity of order $10$,
+one pair with a real component less than $0$ the other greater:
+\begin{center}
+\begin{tikzpicture}
+	\pgfdeclarelayer{foreground}
+	\pgfsetlayers{main,foreground}
+
+	\begin{pgfonlayer}{foreground}
+	\foreach \o [count=\n] in {10,5,10,5,2,5,10,5,10,1}
+	{\begin{scope}[rotate=36*\n,pin distance = 5]
+		\node[fill,shape=circle,scale=0.5,pin=36*\n:{$(\omega^{\n},\o)$}] (\n) at (3,0) {};
+	\end{scope}}
+	\end{pgfonlayer}
+
+	\draw[red,dashed] (1) -- (9) node[midway,left] {$\varphi$};
+	\draw[blue,dashed] (3) -- (7) node[midway,left] {$-\varphi^{-1}$};
+	\draw[gray,dashed] (0,0) circle (3);
+\end{tikzpicture}
+\end{center}
+Meaning we have:
+\[ \varphi = \omega+\omega^9,\,-\varphi^{-1} = \omega^3+\omega^7\]
+So can write the fractions as:
+\[\frac{-\varphi x+2}{x^2-\varphi x + 1} = \frac{1}{1-\omega x}+\frac{1}{1-\omega^9 x}\]
+And:
+\[\frac{\varphi^{-1} x+2}{x^2+\varphi^{-1} x + 1} = \frac{1}{1-\omega^3 x}+\frac{1}{1-\omega^7 x}\]
+
+\subsection{Recursive}
+Let $a_n$ and $b_n$ be integers and consider the following ansatz:
+\[\frac{-\varphi x+2}{x^2-\varphi x+1} = \sum_{n=0}^\infty x^n(\varphi a_n+b_n)\]
+Where the idea is that the $\varphi^2=\varphi+1$ can be used to remove higher powers from the standard recursion:
+\[\begin{aligned}
+	&(\varphi a_n+b_n)-\varphi(\varphi a_{n-1}+b_{n-1})+(\varphi a_{n-2} + b_{n-2}) = 0\\
+	\Rightarrow&\varphi(a_n-a_{n-1}-b_{n-1}+a_{n-2})+(b_n+b_{n-2}-a_{n-1})=0\\
+\end{aligned}\]
+And the first two values can be directly be calculated as:
+\[\begin{aligned}
+	\frac{-\varphi x+2}{x^2-\varphi x+1}\bigg|_{x=0}& = 2\\
+	\frac{\D}{\D x}\frac{-\varphi x+2}{x^2-\varphi x+1}\bigg|_{x=0}& = \frac{-\varphi(x^2-\varphi x+1)-(-\varphi x+2)(2x-\varphi)}{(x^2-\varphi x+1)^2}\bigg|_{x=0} = \varphi\\
+\end{aligned}\]
+Giving the following table:
+\begin{center}
+\begin{tikzpicture}
+	\matrix(m) [matrix of math nodes]
+	{
+		n&0&1&2&3&4&5&6\\
+		a_n&0&1&1&-1&-1&0&-1\\
+		b_n&2&0&-1&1&0&-2&0\\
+	};
+
+	\draw[dashed,rounded corners,red] (m-2-2.north west) rectangle (m-3-6.south east);
+	\draw[dashed,rounded corners,blue] (m-2-7.north west) rectangle (m-3-8.south east);
+\end{tikzpicture}
+\end{center}
+The second block is the first two rows of the first block with the signs flipped.
+Since the recursion is only two deep and linear this shows that the generating function is periodic with a period of $x^{10}$ where the second half is the first with the sign flipped.
+\\
+
+Note that since $-\varphi^{-1}$ also satisfies $(-\varphi^{-1})^2 = -\varphi^{-1}+1$ the coefficients are the same for:
+\[\frac{\varphi^{-1} x+2}{x^2+\varphi^{-1} x+1} = \sum_{n=0}^\infty x^n(-\varphi^{-1} a_n+b_n)\]
+If you want it to be symmetric between $\varphi$ and $-\varphi^{-1}$ you can use $\varphi-\varphi^{-1}=1$ to give:
+\[\begin{aligned}
+	\frac{\varphi^{-1} x+2}{x^2+\varphi^{-1} x+1} &= \sum_{n=0}^\infty x^n(-\varphi^{-1} a_n+(\varphi-\varphi^{-1})b_n\\
+	&= \sum_{n=0}^\infty x^n(-\varphi^{-1} (a_n-b_n)+\varphi b_n)\\
+\end{aligned}\]
+But it might worth symmetrizing later to cleanly get:
+\[\begin{aligned}
+	\frac{-\varphi x+2}{x^2-\varphi x+1} + \frac{\varphi^{-1} x+2}{x^2+\varphi^{-1} x+1} &=\sum_{n=0}^\infty x^n((\varphi-\varphi^{-1}) a_n+2b_n) \\
+	&=\sum_{n=0}^\infty x^n( a_n+2b_n) \\
+\end{aligned}\]
+Which gives the following table.
+\begin{center}
+\begin{tikzpicture}
+	\matrix(m) [matrix of math nodes]
+	{
+		n&0&1&2&3&4\\
+		a_n&0&1&1&-1&-1\\
+		b_n&2&0&-1&1&0\\
+		a_n+2b_n&4&1&-1&1&-1\\
+	};
+\end{tikzpicture}
+\end{center}
+As expected.
+\\
+
+Also note that we have this cute matrix equation:
+\[\begin{bmatrix}
+	1&1&-1&0\\
+	1&0&0&-1\\
+	1&0&0&0\\
+	0&1&0&0\\
+\end{bmatrix}
+\begin{bmatrix}
+	a_{n-1}\\b_{n-1}\\a_{n-2}\\b_{n-2}\\
+\end{bmatrix}
+=
+\begin{bmatrix}
+	a_n\\b_n\\a_{n-1}\\b_{n-1}\\
+\end{bmatrix}\]
+The top left corner is the matrix used in the classic Fibonacci sequence $F_n$ equation:
+\[\begin{bmatrix}
+	1&1\\
+	1&0\\
+\end{bmatrix}
+\begin{bmatrix}
+	F_{n-1}\\F_{n-2}\\
+\end{bmatrix}
+=
+\begin{bmatrix}
+	F_n\\F_{n-1}\\
+\end{bmatrix}\]
+The bottom left corner is identity, the top right flip signs, and the bottom right is $0$.
