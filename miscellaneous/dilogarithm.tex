@@ -70,10 +70,10 @@ With the reflection formula it's easy to calculate the original integral:
 	&= \Li_2(1-b)-\Li_2(1-a)-\ln(c)\ln(1-b)+\ln(c)\ln(1-a)\\
 	&= \Li_2(a)-\Li_2(b)+\ln(ca)\ln(1-a)- \ln(cb)\ln(1-b)\\
 \end{aligned}\]
-This is already a continuous versus discrete integral with $ln$ over $t\in[a,b]$ versus $c$,
-but if we consider the following identity:
+A $c\mapsto c^{-1}$ substitution show the difference between continuously versus discretely varying $\ln$ over $t\in[a,b]$.
+But if we consider the following identity:
 \[\ln(\lambda_0)\ln(\lambda_1)+\ln(\lambda_2)\ln(\lambda_3) = \frac{1}{2}\left(\ln(\lambda_0\lambda_2)\ln(\lambda_1\lambda_3)+\ln\left(\frac{\lambda_0}{\lambda_2}\right)\ln\left(\frac{\lambda_1}{\lambda_3}\right)\right)\]
-We can set $c$ to the reciprocal of the geometric average of $a$ and $b$:
+We can set $c$ to specifically the reciprocal of the geometric average of $a$ and $b$:
 \[
 \int_a^b\frac{\ln(t)-\ln(\sqrt{ab})}{1-t}\,dt =\Li_2(a)-\Li_2(b)+\ln\left(\sqrt{\frac{a}{b}}\right)\ln\left(\frac{1-a}{1-b}\right) \]
 Which feels nice and clean.
