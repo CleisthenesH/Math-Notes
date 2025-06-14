@@ -15,7 +15,8 @@ So we'll start with the easiest and most common and work up to the exotic.
 \begin{tikzpicture}
 	\matrix[draw=red,label={[red]Common}] (common)
 	{
-		\node {Paramagnetism}; \\
+		% An empty node needed to be added after upgrading to matrix.skeleton for misellaneous.tex to render.
+		\node {Paramagnetism}; & \\
 		\node {Diamagnetism}; \\
 	};
 	\matrix[draw=green,label={[green]Useful},right=of common] (useful)

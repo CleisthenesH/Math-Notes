@@ -88,15 +88,15 @@ And the first two values can be directly be calculated as:
 Giving the following table:
 \begin{center}
 \begin{tikzpicture}
-	\matrix(m) [matrix of math nodes]
+	\matrix(m) [matrix of math nodes, label skeleton]
 	{
 		n&0&1&2&3&4&5&6\\
 		a_n&0&1&1&-1&-1&0&-1\\
 		b_n&2&0&-1&1&0&-2&0\\
 	};
 
-	\draw[dashed,rounded corners,red] (m-2-2.north west) rectangle (m-3-6.south east);
-	\draw[dashed,rounded corners,blue] (m-2-7.north west) rectangle (m-3-8.south east);
+	\draw[dashed,rounded corners,red] (m-cell-2-2.north west) rectangle (m-cell-3-6.south east);
+	\draw[dashed,rounded corners,blue] (m-cell-2-7.north west) rectangle (m-cell-3-8.south east);
 \end{tikzpicture}
 \end{center}
 The second block is the first two rows of the first block with the signs flipped.
