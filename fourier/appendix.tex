@@ -1,4 +1,4 @@
-% Copyright 2023 Kieran W Harvie. All rights reserved.
+% Copyright 2023,2025 Kieran W Harvie. All rights reserved.
 \chapter{Appendix}
 
 \section{Convention}
@@ -38,24 +38,53 @@ As ending remarks it is worth noting that in probability theory the characterist
 And that the Pontryagin Duality makes all the arbitrariness disappear by focusing on the more abstract isomorphism between locally compact abelian groups (But even Pontryagin Duality isn't the undisputed "best" viewpoint since it introduces topology but ignores ring operations, which may be more important in certain applications).
 
 \section{Table of Transforms}
-
 \begin{center}
-\begin{tabular}{c|c}
-	Time domain & Frequency domain \\ \hline
-	$\delta(x)$  & $1$ \\
-	$1$ & $2\pi\delta(k)$ \\
-	$\chi_{(\mu-\delta,\mu+\delta)}(x)$ & $2k^{-1}\sin\left(k\delta\right)\exp(-i\mu k)$ \\
-	$f(x) = \begin{cases} 1-2|x|& |x| <\frac{1}{2}\\ 0& \text{else}\end{cases}$ & $2\sinc\left(\frac{k}{4}\right)^2$ \\
-	$\sum_{n=-N}^N\delta(x-na)$ & $\frac{\sin\left(\left(N+\frac{1}{2}\right)ka\right)}{\sin\left(\frac{ka}{2}\right)}$\\
-	$\sum_{n=-\infty}^\infty\delta(x-na) $ & $\frac{2\pi}{|a|}\sum_{n=-\infty}^\infty\delta\left(k-\frac{2\pi n}{a}\right)$  \\
-	$\exp(ixk_0)$ & $ 2\pi\delta(k-k_0)$ \\
-	$\sin(k_0x)$ & $\pi i (\delta(k+k_0)-\delta(k-k_0))$\\
-	$\cos(k_0x)$ & $\pi  (\delta(k+k_0)+\delta(k-k_0))$\\
-	$\exp(-ax^2)$&$ \sqrt{\frac{\pi}{a}}\exp\left(-\frac{-k^2}{4a}\right)$ \\
-\end{tabular}
-\end{center}
+\begin{tikzpicture}
+	\matrix (mat) [
+		matrix of math nodes,
+		draw,
+		nodes={minimum width = 5cm},
+		row 1/.style={minimum height = 1.2cm},
+		style odd rows = {fill=lightgray}
+	]{
+		f(x) 									& \hat{f}(x)\\
+		\delta(x)								& 1 \\
+		1									& 2\pi\delta(k) \\
+		\exp(ixk_0)								& 2\pi\delta(k-k_0) \\
+		\sin(k_0x) 								& \pi i (\delta(k+k_0)-\delta(k-k_0))\\
+		\cos(k_0x) 								& \pi  (\delta(k+k_0)+\delta(k-k_0))\\
+		\exp(-ax^2)								& \sqrt{\frac{\pi}{a}}\exp\left(-\frac{k^2}{4a}\right) \\
+		\exp(-a|x|)								& \dfrac{2a}{a^2+k^2} \\
+		\rect(x) 								& \sinc\left(\frac{k}{2\pi}\right)\\
+		\sinc(x) 								& \rect\left(\frac{k}{2\pi}\right)\\ 
+		\tri(x) 								& \sinc^2\left(\frac{k}{2\pi}\right)\\
+		\sinc^2(x) 								& \tri\left(\frac{k}{2\pi}\right)\\ 
+		\sum\limits_{n=-N}^N\delta(x-na) 					& \frac{\sin\left(\left(N+\frac{1}{2}\right)ka\right)}{\sin\left(\frac{ka}{2}\right)}\\
+		\Sha_P(x) 								& \frac{2\pi}{|a|}\Sha_{\frac{2\pi}{a}}(k) \\
+		\chi_{(\mu-\delta,\mu+\delta)}(x) 					& 2k^{-1}\sin\left(k\delta\right)\exp(-i\mu k) \\
+		\dfrac{1}{\pi}\left[\dfrac{\gamma^2}{(x-x_0)^2+\gamma^2}\right] 	& \exp(-ix_0k-\gamma|k|)\\
+	};
 
-The $\sinc$ function is normalized.
+	\foreach \n in {3,8,12,14}
+		\draw[dashed,gray] (mat-row-\n.south west) -- (mat-row-\n.south east);
+
+	\draw (mat-column-1.north east) -- (mat-column-1.south east);
+	\draw (mat-row-1.south west) -- (mat-row-1.south east) -- (mat-row-1.north east) -- (mat-row-1.north west) -- cycle;
+\end{tikzpicture}
+\end{center}
+The $\rect$ family of functions,
+the third group from the top,
+are defined as:
+\[\begin{aligned}
+	\rect(x) &= \chi_{[-\frac{1}{2},\frac{1}{2}]}(x) \\
+	&= \begin{cases} 1 & |x| < \frac{1}{2}\\ 0 &$ otherwise$\end{cases}\\
+	\tri(x) & = (\rect*\rect)(x) \\
+	&= \begin{cases} 1- |x| & |x| < 1\\ 0 &$ otherwise$\end{cases}\\
+	\sinc(x) &= \frac{\sin(\pi x)}{\pi x}\\
+	\sinc^2(x) &= \sinc(x)^2\\
+\end{aligned}\]
+Note that they are all normalized, even, and $1$ at $0$.
+These properties are useful and directly follow from choosing $\rect$ to be normalized, even, and $1$ at $0$.
 
 \section{Important integrals}
 
